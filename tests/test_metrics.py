@@ -198,3 +198,70 @@ def test_schema_mapping():
         assert col in EXPECTED_COLS, f"Missing required column: {col}"
     
     print("\nSchema mapping test: PASSED")
+
+
+def test_panel_stub_determinism():
+    """
+    Test that synthetic panel stub produces identical results with same seed.
+    
+    This verifies reproducibility requirement from audit (B2).
+    """
+    from twdf.panel.stub import Persona, generate_synthetic_panel, compute_panel_disagreement
+    
+    # Create test personas
+    personas = [
+        Persona(
+            persona_id=f"p{i}",
+            domain_skill=0.5,
+            ai_literacy=0.5,
+            risk_sensitivity=0.5,
+            caution=0.5,
+            temperature=0.7,
+            prior_mix=0.5
+        )
+        for i in range(3)
+    ]
+    
+    tasks = ['t1', 't2', 't3']
+    ui_pair = ('control', 'treatment')
+    base_reliance = {'control': 0.5, 'treatment': 0.6}
+    
+    # Run 1
+    responses_1 = generate_synthetic_panel(
+        personas=personas,
+        tasks=tasks,
+        ui_pair=ui_pair,
+        base_reliance=base_reliance,
+        persona_spread=0.2,
+        seed=42
+    )
+    disagreement_1_control = compute_panel_disagreement(responses_1, 'control')
+    disagreement_1_treatment = compute_panel_disagreement(responses_1, 'treatment')
+    
+    # Run 2 with same seed
+    responses_2 = generate_synthetic_panel(
+        personas=personas,
+        tasks=tasks,
+        ui_pair=ui_pair,
+        base_reliance=base_reliance,
+        persona_spread=0.2,
+        seed=42
+    )
+    disagreement_2_control = compute_panel_disagreement(responses_2, 'control')
+    disagreement_2_treatment = compute_panel_disagreement(responses_2, 'treatment')
+    
+    print(f"\nPanel stub determinism test:")
+    print(f"  Run 1 - Control: {disagreement_1_control:.6f}, Treatment: {disagreement_1_treatment:.6f}")
+    print(f"  Run 2 - Control: {disagreement_2_control:.6f}, Treatment: {disagreement_2_treatment:.6f}")
+    
+    # Should be byte-for-byte identical
+    assert disagreement_1_control == disagreement_2_control, "Control disagreement not deterministic"
+    assert disagreement_1_treatment == disagreement_2_treatment, "Treatment disagreement not deterministic"
+    
+    # Verify individual responses are identical
+    assert len(responses_1) == len(responses_2), "Different number of responses"
+    for r1, r2 in zip(responses_1, responses_2):
+        assert r1 == r2, f"Response mismatch: {r1} != {r2}"
+    
+    print("  ✓ Panel stub is deterministic with fixed seed")
+
