@@ -233,6 +233,26 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-14 — PR #2 `e1-multicond` (+robustness +variance-decomposition)
+  SQUASH-MERGED to main.** 12 commits.
+  - Flow: impl-e1-multicond → audit (FAIL: over-dispersion fragile to task
+    selection; "stratified" misnomer) → fix (robustness table + rename) →
+    reaudit → **statistical adjudication** (power vs artifact) → PI decision: do
+    variance decomposition before merge → impl/redo/finalize decomposition →
+    pre-merge audit (CONDITIONAL PASS; anti-gaming check via auditor's OWN
+    generators: stable 0.894 / interaction 0.199) → fix hash() determinism blocker
+    (e1_multicond.py:117) → Manager independently verified cross-process
+    determinism (spearman 0.771429 identical ×2) → merged.
+  - KEY SCIENTIFIC FINDING (docs/research/2026-07-14-overdispersion-decomposition.md):
+    axis-1 over-dispersion is REAL (Human ρ=0.067, CI [0.052,0.081], excludes 0)
+    and NOT a power artifact (known-signal sim recovers at 4 trials/user). Split-
+    half reliability decomposition: **no-AI Human reliance is a STABLE USER TRAIT
+    (stable_user_share=0.74 [0.69,0.79]); under AI assistance reliance becomes
+    predominantly TASK-DEPENDENT (share 0.32-0.41; Expert ~0).** => axis-1's "safety
+    depends on WHO the user is" is, in AI conditions, more precisely "user × task".
+  - Methods note: single-obs-per-cell (99.7%) makes ANOVA-on-cells non-identified;
+    split-half (20-50 tasks/user) is the correct primary; GLMM honestly non-converged.
+  - **OPEN for PI: whether/how to reframe H1a to incorporate user×task (see below).**
 - **2026-07-14 — PR #1 `vslice-v0` SQUASH-MERGED to main (commit e5a257b).**
   - Flow: impl-vslice-v0 → audit-vslice-v0 (FAIL: B1 degenerate n=2 corr, B2
     non-reproducible panel values, B3 test import) → fix-vslice-v0 → reaudit-
