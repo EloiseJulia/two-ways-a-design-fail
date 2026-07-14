@@ -47,6 +47,29 @@ and timestamp for every change.
     includes the warning in the output JSON.
   - **TODO (post-v0)**: Replace print() statements with proper logging (logging.info/debug)
     for cleaner production console output.
+- 2026-07-14: **E1-MULTICOND AUDIT FIX (BLOCKER-1 & BLOCKER-2)**
+  - **BLOCKER-1 (over-dispersion fragile to task selection):**
+    * Added explicit `task_selection` parameter to configs (default: 'all' = maximum data)
+    * Modified `load_bansal()` to support 3 modes: 'all' (default, maximizes n_trials),
+      'min_per_domain' (backward compat, fragile), 'first_10_shared' (v0 mode, fragile)
+    * Created `e1_robustness.py` to run robustness analysis across all 3 schemes
+    * **ROBUSTNESS RESULTS (Human condition over-dispersion rho):**
+      - 'all' (50 tasks, 11200 trials): rho = 0.0666
+      - 'min_per_domain' (5 tasks, 1220 trials): rho = 0.0000
+      - 'first_10_shared' (10 tasks, 2340 trials): rho = 0.0369
+      - **VERDICT: FRAGILE** - Range (0.0666) > 50% of mean (0.0345)
+      - Signal is SENSITIVE to task selection on small Bansal dataset
+    * Documented in SPEC.md (E1 table) and this PROGRESS.md as **KNOWN LIMITATION**
+    * The 'all' default (maximum data) is the principled choice for methods papers
+  - **BLOCKER-2 (misleading "stratified pooling" terminology):**
+    * Renamed `betabinom_overdispersion_difficulty_controlled()` to 
+      `betabinom_overdispersion_within_domain()` to accurately describe what it does
+    * Fixed docstring: Bansal is BETWEEN-SUBJECTS on domain (each user saw exactly 1 domain).
+      Function aggregates trials within each user's assigned domain. NOT stratified estimation.
+    * Updated all call sites in e1_multicond.py, tests, and methodology descriptions
+    * Difficulty control works via experimental design (balanced domain assignment), not
+      statistical adjustment
+  - Results saved: `results/e1_multicond_robustness.json`
 - 2026-07-14: **E1-MULTICOND IMPLEMENTATION (feature/e1-multicond branch)**
   - **Config:** `configs/e1_multicond.yaml` selecting all 6 Bansal conditions (configurable,
     defaults to all 6). Backward compatible with v0 config.
