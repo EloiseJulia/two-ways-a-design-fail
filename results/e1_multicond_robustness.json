@@ -1,0 +1,139 @@
+{
+  "schemes": {
+    "all": {
+      "n_tasks": 50,
+      "n_trials_total": 66040,
+      "conditions": {
+        "Conf.": {
+          "rho": 0.020583163509343493,
+          "mean_p": 0.812666076173605,
+          "n_users": 286,
+          "n_trials": 11290
+        },
+        "Conf.+Adaptive": {
+          "rho": 0.013900013992197854,
+          "mean_p": 0.8063094209161625,
+          "n_users": 292,
+          "n_trials": 11570
+        },
+        "Conf.+Adaptive (Expert)": {
+          "rho": 1.0184936385059485e-06,
+          "mean_p": 0.8248979591836735,
+          "n_users": 195,
+          "n_trials": 9800
+        },
+        "Conf.+Double": {
+          "rho": 0.02631770361415474,
+          "mean_p": 0.79964317573595,
+          "n_users": 285,
+          "n_trials": 11210
+        },
+        "Conf.+Single": {
+          "rho": 0.010937384512127986,
+          "mean_p": 0.8189608021877849,
+          "n_users": 280,
+          "n_trials": 10970
+        },
+        "Human": {
+          "rho": 0.06658603687576103,
+          "mean_p": 0.6891071428571428,
+          "n_users": 283,
+          "n_trials": 11200
+        }
+      }
+    },
+    "min_per_domain": {
+      "n_tasks": 5,
+      "n_trials_total": 7111,
+      "conditions": {
+        "Conf.": {
+          "rho": 0.0022653175473862663,
+          "mean_p": 0.8415922014622258,
+          "n_users": 286,
+          "n_trials": 1231
+        },
+        "Conf.+Adaptive": {
+          "rho": 0.014587150271253615,
+          "mean_p": 0.8275039745627981,
+          "n_users": 292,
+          "n_trials": 1258
+        },
+        "Conf.+Adaptive (Expert)": {
+          "rho": 1.0037305930631128e-06,
+          "mean_p": 0.8448979591836735,
+          "n_users": 195,
+          "n_trials": 980
+        },
+        "Conf.+Double": {
+          "rho": 1.0037305930631128e-06,
+          "mean_p": 0.8031045751633987,
+          "n_users": 285,
+          "n_trials": 1224
+        },
+        "Conf.+Single": {
+          "rho": 1.053785069676123e-06,
+          "mean_p": 0.8063439065108514,
+          "n_users": 280,
+          "n_trials": 1198
+        },
+        "Human": {
+          "rho": 1.0555427010406064e-06,
+          "mean_p": 0.6819672131147541,
+          "n_users": 283,
+          "n_trials": 1220
+        }
+      }
+    },
+    "first_10_shared": {
+      "n_tasks": 10,
+      "n_trials_total": 13715,
+      "conditions": {
+        "Conf.": {
+          "rho": 1.3253760000644076e-06,
+          "mean_p": 0.8411016949152542,
+          "n_users": 286,
+          "n_trials": 2360
+        },
+        "Conf.+Adaptive": {
+          "rho": 1.0037305930631128e-06,
+          "mean_p": 0.829399585921325,
+          "n_users": 292,
+          "n_trials": 2415
+        },
+        "Conf.+Adaptive (Expert)": {
+          "rho": 1.0037305930631128e-06,
+          "mean_p": 0.8647959183673469,
+          "n_users": 195,
+          "n_trials": 1960
+        },
+        "Conf.+Double": {
+          "rho": 0.0037672237382760723,
+          "mean_p": 0.8226012793176972,
+          "n_users": 285,
+          "n_trials": 2345
+        },
+        "Conf.+Single": {
+          "rho": 1.0184936385059485e-06,
+          "mean_p": 0.8313725490196079,
+          "n_users": 280,
+          "n_trials": 2295
+        },
+        "Human": {
+          "rho": 0.03691344990864764,
+          "mean_p": 0.7115384615384616,
+          "n_users": 283,
+          "n_trials": 2340
+        }
+      }
+    }
+  },
+  "summary": {
+    "human_rho_range": {
+      "min": 1.0555427010406064e-06,
+      "max": 0.06658603687576103,
+      "range": 0.06658498133306,
+      "mean": 0.034500180775703236,
+      "fragile": true
+    }
+  }
+}
