@@ -91,14 +91,19 @@ def generate_synthetic_panel(
         
         for persona in personas:
             # Each persona gets an offset from base, controlled by spread
-            # Use persona's inherent properties to determine offset
-            persona_hash = hash(persona.persona_id) % 1000 / 1000.0
+            # Use deterministic hash of persona_id for reproducibility
+            # Note: Python's hash() is NOT deterministic across runs, so use a stable hash
+            import hashlib
+            persona_hash = int(hashlib.md5(persona.persona_id.encode()).hexdigest()[:8], 16) % 1000 / 1000.0
             offset = (persona_hash - 0.5) * 2 * persona_spread  # range [-spread, +spread]
             persona_p = np.clip(base_p + offset, 0.01, 0.99)
             
             for task_id in tasks:
                 # Deterministic but pseudo-random decision per (persona, task, ui)
-                decision_seed = seed + hash((persona.persona_id, task_id, ui_cond)) % 10000
+                # Use stable hash instead of Python's non-deterministic hash()
+                import hashlib
+                hash_input = f"{persona.persona_id}|{task_id}|{ui_cond}"
+                decision_seed = seed + int(hashlib.md5(hash_input.encode()).hexdigest()[:8], 16) % 10000
                 task_rng = np.random.RandomState(decision_seed)
                 
                 # Simple model: rely on AI with probability persona_p

@@ -132,8 +132,8 @@ def run_e1_vslice(config: dict) -> dict:
         for i in range(n_personas)
     ]
     
-    # Task IDs from loaded data
-    task_ids = df['task_id'].unique().tolist()
+    # Task IDs from loaded data (sort for determinism)
+    task_ids = sorted(df['task_id'].unique())
     
     # Base reliance rates per UI (we'll tune these to create different disagreement levels)
     # For the correlation to work, we want treatment to have higher disagreement
@@ -191,12 +191,30 @@ def run_e1_vslice(config: dict) -> dict:
     panel_disagree = [panel_disagreement[control],
                      panel_disagreement[treatment]]
     
-    # Pearson correlation
-    correlation = np.corrcoef(human_rho, panel_disagree)[0, 1]
+    # Check if we have enough data points for a meaningful correlation
+    n_conditions = len(human_rho)
+    correlation_degenerate = n_conditions < 3
+    
+    if correlation_degenerate:
+        # With n=2, correlation is always ±1.0 (mathematical tautology)
+        correlation = np.corrcoef(human_rho, panel_disagree)[0, 1]
+        correlation_note = (
+            f"DEGENERATE CORRELATION WARNING: n={n_conditions} conditions. "
+            f"Pearson r with n=2 is ALWAYS ±1.0 by mathematical necessity. "
+            f"This is a v0 PLUMBING CHECK ONLY, NOT a scientific result. "
+            f"Meaningful correlation requires n≥3 (ideally n≥5) UI conditions."
+        )
+        print(f"  ⚠️  {correlation_note}")
+    else:
+        # Normal correlation with n>=3
+        correlation = np.corrcoef(human_rho, panel_disagree)[0, 1]
+        correlation_note = None
     
     print(f"  Human over-dispersion (rho): {human_rho}")
     print(f"  Panel disagreement:         {panel_disagree}")
     print(f"  *** CORRELATION: r = {correlation:.4f} ***")
+    if correlation_degenerate:
+        print(f"  ⚠️  This r value is DEGENERATE (n={n_conditions}) and has NO statistical meaning!")
     
     # 6. Mean-predictor baseline comparison
     print(f"\n[6/6] Mean-predictor baseline comparison...")
@@ -235,9 +253,12 @@ def run_e1_vslice(config: dict) -> dict:
         },
         'panel_disagreement': panel_disagreement,
         'correlation': {
-            'r': float(correlation),
+            'r': float(correlation) if not np.isnan(correlation) else None,
             'human_rho': human_rho,
-            'panel_disagreement': panel_disagree
+            'panel_disagreement': panel_disagree,
+            'n_conditions': n_conditions,
+            'degenerate': correlation_degenerate,
+            'note': correlation_note
         },
         'metadata': {
             'n_personas': n_personas,
