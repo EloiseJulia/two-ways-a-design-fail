@@ -1,0 +1,85 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail\.worktrees\moduleB-panel\src\twdf\experiments\e1_panel_v1.py", line 359, in <module>
+    main()
+  File "C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail\.worktrees\moduleB-panel\src\twdf\experiments\e1_panel_v1.py", line 142, in main
+    responses = run_panel(
+                ^^^^^^^^^^
+  File "C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail\.worktrees\moduleB-panel\src\twdf\panel\real_panel.py", line 108, in run_panel
+    final_decision, confidence, trace = _system2_with_ai(
+                                        ^^^^^^^^^^^^^^^^^
+  File "C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail\.worktrees\moduleB-panel\src\twdf\panel\real_panel.py", line 266, in _system2_with_ai
+    response = provider.generate_messages(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail\.worktrees\moduleB-panel\src\twdf\panel\provider.py", line 304, in generate_messages
+    response = self._call_api(messages, temperature, max_tokens, seed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail\.worktrees\moduleB-panel\src\twdf\panel\provider.py", line 243, in _call_api
+    raise RuntimeError(
+RuntimeError: API call failed after 5 retries. Last error: HTTP 429: Too many requests. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
+
+=== E1 Panel V1 Experiment ===
+Config: configs/e1_panel_v1.yaml
+Experiment: e1_panel_v1
+Description: Real LLM panel via GitHub Models - thin vertical slice with counterfactual pairing
+
+Personas: 5
+  - p1-novice-cautious: skill=0.2, ai_lit=0.3, risk=0.2, caution=0.8, temp=0.3
+  - p2-expert-trusting: skill=0.9, ai_lit=0.8, risk=0.7, caution=0.3, temp=0.7
+  - p3-moderate-balanced: skill=0.5, ai_lit=0.5, risk=0.5, caution=0.5, temp=0.5
+  - p4-skilled-skeptical: skill=0.7, ai_lit=0.2, risk=0.4, caution=0.6, temp=0.4
+  - p5-novice-trusting: skill=0.1, ai_lit=0.9, risk=0.8, caution=0.2, temp=0.8
+
+Loading beer tasks (n=20, seed=42)...
+Task file already exists: data\raw\task-sentiment-beer.json
+Loaded 50 beer tasks from data\raw\task-sentiment-beer.json
+
+Verifying testid→questionId join with Bansal decision data...
+Dataset already exists: data\raw\bansal_chi21_decisions.csv
+Loaded 66040 rows from Bansal dataset
+Available conditions: ['Conf.', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)', 'Conf.+Double', 'Conf.+Single', 'Human']
+Available tasks (domains): ['amzbook', 'beer', 'lsat']
+Question IDs range: 0 - 49
+Selected all 6 UI conditions (default)
+After condition filter: 66040 rows
+Task selection: 'all' - using ALL 50 shared tasks (maximum data)
+After task filter: 66040 rows
+
+Canonical schema summary:
+  Total trials: 66040
+  Users: 1621
+  Tasks: 50
+  Conditions: <StringArray>
+[         'Conf.+Adaptive',                   'Conf.',
+            'Conf.+Single',            'Conf.+Double',
+                   'Human', 'Conf.+Adaptive (Expert)']
+Length: 6, dtype: str
+  Reliance rate: 0.791
+  AI accuracy: 0.811
+Task stimuli testids: 50
+Bansal beer questionIds: 50
+Overlap (join): 50
+
+Selected 20 diverse tasks:
+  AI correct: 16/20 (80.0%)
+  AI incorrect: 4/20
+  Confidence range: [0.509, 0.983], mean=0.826
+  Task IDs: ['13', '15', '18', '19', '21', '24', '27', '29', '30', '31', '33', '40', '42', '43', '44', '45', '46', '48', '5', '9']
+Loaded 20 tasks
+
+Initializing GitHub Models provider...
+Provider: openai/gpt-4o-mini
+Call budget: 500
+Cache dir: data/cache/panel
+
+Running panel with UI pair: Conf. vs Conf.+Adaptive (Expert)
+Mode: static
+Expected calls: 5 personas × 20 tasks × 2 UI × 2 systems = 400
+
+API error 429, retrying in 1.0s (attempt 1/5)
+API error 429, retrying in 1.0s (attempt 1/5)
+API error 429, retrying in 2.5s (attempt 2/5)
+API error 429, retrying in 5.0s (attempt 3/5)
+API error 429, retrying in 9.5s (attempt 4/5)
+API error 429, retrying in 18.0s (attempt 5/5)

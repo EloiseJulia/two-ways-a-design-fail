@@ -1,0 +1,79 @@
+# E1 Panel V1 Configuration
+# Real LLM panel with counterfactual pairing (Module B thin vertical slice)
+
+# Experiment metadata
+experiment_name: "e1_panel_v1"
+description: "Real LLM panel via GitHub Models - thin vertical slice with counterfactual pairing"
+
+# UI condition pair (Bansal exact strings)
+ui_pair:
+  - "Conf."  # Control: AI pred + conf, NO explanation
+  - "Conf.+Adaptive (Expert)"  # Treatment: AI pred + conf + expert explanation
+
+# Task selection
+domain: "beer"  # Beer sentiment tasks
+n_tasks: 5  # Reduced for faster testing (was 20)
+task_seed: 42  # Deterministic selection
+
+# Personas (5 diverse personas spanning user×task interaction space)
+personas:
+  - persona_id: "p1-novice-cautious"
+    domain_skill: 0.2  # Low domain knowledge
+    ai_literacy: 0.3  # Cautious about AI
+    risk_sensitivity: 0.2  # Risk-averse
+    caution: 0.8  # Very cautious
+    temperature: 0.3  # Low sampling temp
+    prior_mix: 0.3  # Weak prior beliefs
+  
+  - persona_id: "p2-expert-trusting"
+    domain_skill: 0.9  # Expert knowledge
+    ai_literacy: 0.8  # Trusts AI systems
+    risk_sensitivity: 0.7  # Risk-tolerant
+    caution: 0.3  # Decisive
+    temperature: 0.7  # Higher sampling temp
+    prior_mix: 0.8  # Strong prior beliefs
+  
+  - persona_id: "p3-moderate-balanced"
+    domain_skill: 0.5  # Moderate knowledge
+    ai_literacy: 0.5  # Balanced AI view
+    risk_sensitivity: 0.5  # Moderate risk
+    caution: 0.5  # Balanced caution
+    temperature: 0.5  # Medium sampling temp
+    prior_mix: 0.5  # Moderate priors
+  
+  - persona_id: "p4-skilled-skeptical"
+    domain_skill: 0.7  # Good knowledge
+    ai_literacy: 0.2  # Skeptical of AI
+    risk_sensitivity: 0.4  # Somewhat risk-averse
+    caution: 0.6  # Cautious
+    temperature: 0.4  # Lower temp
+    prior_mix: 0.6  # Moderately strong priors
+  
+  - persona_id: "p5-novice-trusting"
+    domain_skill: 0.1  # Very low knowledge
+    ai_literacy: 0.9  # Highly trusts AI
+    risk_sensitivity: 0.8  # Risk-tolerant
+    caution: 0.2  # Not cautious
+    temperature: 0.8  # High temp
+    prior_mix: 0.2  # Weak priors
+
+# Model provider config
+model:
+  name: "openai/gpt-4o-mini"
+  call_budget: 200  # Hard cap on API calls (5 tasks × 5 personas × 2 conditions × 2 systems = 100 calls)
+  inter_call_sleep: 0.2  # Reduced sleep for faster testing (was 0.5)
+  max_retries: 5  # Exponential backoff retries
+  
+# Generation parameters
+seeds: [42]  # Single seed for determinism (uses first seed per persona×task)
+max_tokens: 600  # Sufficient for decision + reasoning
+temperature_override: null  # Use per-persona temperature
+
+# Panel mode
+mode: "static"  # Counterfactual pairing (not sequential)
+
+# Cache directory
+cache_dir: "data/cache/panel"
+
+# Output
+output_file: "results/e1_panel_v1.json"

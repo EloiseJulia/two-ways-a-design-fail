@@ -294,6 +294,89 @@ def within_task_diff(
     return np.mean(diffs)
 
 
+@dataclass
+class PairedPermutationResult:
+    """Result from paired permutation test."""
+    observed_diff: float  # Observed mean difference
+    pvalue: float  # Two-sided permutation p-value
+    n_permutations: int
+    n_pairs: int
+    
+    def __repr__(self) -> str:
+        return (f"PairedPermutationResult(observed_diff={self.observed_diff:.4f}, "
+                f"p={self.pvalue:.4f}, n_pairs={self.n_pairs})")
+
+
+def paired_permutation_test(
+    control_reliance: dict[str, float],
+    treatment_reliance: dict[str, float],
+    n_permutations: int = 10000,
+    seed: int = 42
+) -> PairedPermutationResult:
+    """
+    Paired permutation test for within-task reliance elasticity.
+    
+    Tests H0: no difference between control and treatment reliance.
+    Permutation scheme: For each task, randomly swap control/treatment labels
+    with probability 0.5 (preserves pairing structure).
+    
+    This is the correct test for paired data (not independent-samples permutation).
+    
+    Args:
+        control_reliance: task_id -> mean reliance rate in control
+        treatment_reliance: task_id -> mean reliance rate in treatment
+        n_permutations: Number of permutation samples (default 10000)
+        seed: Random seed for reproducibility (hashlib-based RNG for determinism)
+    
+    Returns:
+        PairedPermutationResult with observed diff, p-value, n_pairs
+    """
+    # Observed difference
+    observed_diff = within_task_diff(control_reliance, treatment_reliance)
+    
+    # Get paired data
+    shared_tasks = sorted(set(control_reliance.keys()) & set(treatment_reliance.keys()))
+    n_pairs = len(shared_tasks)
+    
+    if n_pairs == 0:
+        raise ValueError("No shared tasks between control and treatment")
+    
+    # Extract paired values
+    control_vals = np.array([control_reliance[task] for task in shared_tasks])
+    treatment_vals = np.array([treatment_reliance[task] for task in shared_tasks])
+    
+    # Use hashlib-seeded RNG for determinism
+    # (builtin hash() is BANNED - non-deterministic across processes)
+    import hashlib
+    seed_bytes = hashlib.sha256(str(seed).encode()).digest()
+    seed_int = int.from_bytes(seed_bytes[:4], 'big') % (2**31)
+    rng = np.random.RandomState(seed_int)
+    
+    # Permutation distribution
+    perm_diffs = []
+    for _ in range(n_permutations):
+        # For each pair, randomly flip control/treatment with p=0.5
+        flips = rng.rand(n_pairs) < 0.5
+        
+        perm_control = np.where(flips, treatment_vals, control_vals)
+        perm_treatment = np.where(flips, control_vals, treatment_vals)
+        
+        perm_diff = np.mean(perm_treatment - perm_control)
+        perm_diffs.append(perm_diff)
+    
+    perm_diffs = np.array(perm_diffs)
+    
+    # Two-sided p-value
+    pvalue = np.mean(np.abs(perm_diffs) >= np.abs(observed_diff))
+    
+    return PairedPermutationResult(
+        observed_diff=observed_diff,
+        pvalue=float(pvalue),
+        n_permutations=n_permutations,
+        n_pairs=n_pairs
+    )
+
+
 def betabinom_overdispersion_within_domain(
     df: 'pd.DataFrame',
     condition: str,

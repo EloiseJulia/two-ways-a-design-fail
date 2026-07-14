@@ -202,8 +202,42 @@ and timestamp for every change.
     tasks they encounter.
 
 ## Doing
-- **2026-07-15 MANAGER HANDOFF** → see `docs/handoff/2026-07-15-manager-handoff.md`
-  and `docs/handoff/RESUME-CHECKLIST.md`. Next work = Module B (real LLM panel).
+- **2026-07-15 MODULE B (REAL LLM PANEL) — IMPLEMENTATION COMPLETE, REAL RUN BLOCKED BY RATE LIMITS**
+  - **Scope:** Thin vertical slice — real LLM panel via GitHub Models with counterfactual pairing
+  - **Implementation Status: ✅ COMPLETE**
+    * `src/twdf/panel/provider.py`: GitHubModelsProvider with hashlib-based deterministic caching, retry logic, call budget
+    * `src/twdf/panel/real_panel.py`: Dual-system flow (System-1 frozen + System-2 counterfactual pairing), implements INTERFACES §3 exactly
+    * `src/twdf/data/bansal_tasks.py`: Beer task stimulus loader with testid→questionId join verification (50/50 overlap confirmed)
+    * `src/twdf/metrics/overdispersion.py`: Added `paired_permutation_test()` for elasticity significance
+    * `src/twdf/experiments/e1_panel_v1.py`: CLI runner with run_manifest, elasticity + bootstrap CI + permutation test
+    * `configs/e1_panel_v1.yaml`: 5 diverse personas, 20 beer tasks, UI pair (Conf. vs Conf.+Adaptive (Expert))
+    * `tests/test_panel_real.py`: 6/6 offline tests PASS (provider contract, counterfactual invariant cross-process, cache determinism cross-process, paired permutation, reliance computation)
+    * `.gitignore`: Added `data/cache/` exclusion
+    * `pyproject.toml`: Added `requests>=2.31.0` dependency
+  - **CRITICAL DESIGN VERIFIED:**
+    * Counterfactual invariant holds (System-1 identical across UI arms for same persona/task/seed) — TESTED cross-process
+    * Deterministic caching uses hashlib (NOT builtin hash()) — TESTED cross-process
+    * testid→questionId join confirmed: 50/50 beer tasks overlap with Bansal questionIds 0-49
+    * Reliance definition aligned with Bansal adoption: `final == ai_advice`
+    * UI conditions use exact Bansal strings: "Conf.", "Conf.+Adaptive (Expert)"
+  - **REAL RUN STATUS: BLOCKED BY GITHUB MODELS RATE LIMITS (HTTP 429)**
+    * Pipeline successfully loads data (join verified), initializes provider, starts panel execution
+    * Hits rate limit after initial API calls despite 0.5s inter-call sleep + exponential backoff retry
+    * Error: "HTTP 429: Too many requests" after 5 retries
+    * Expected calls: 5 personas × 20 tasks × 2 UI × 2 systems = 400 calls
+    * **BLOCKER:** GitHub Models API rate limits appear tighter than expected for this workload
+    * **MITIGATION OPTIONS:**
+      1. Reduce to 2-3 personas + 5-10 tasks for a minimal viable run (~40-120 calls)
+      2. Increase inter-call sleep to 2-5 seconds (runtime: ~13-33 minutes)
+      3. Use Azure AI Foundry as fallback (higher throughput, already on Gate 2 list)
+      4. Run experiment in batches over multiple hours
+  - **DELIVERABLES (CODE COMPLETE, AWAITING SUCCESSFUL RUN):**
+    * ✅ All code implemented per spec
+    * ✅ All offline tests pass (6/6)
+    * ✅ Cross-process determinism verified
+    * ✅ Data join verified (50/50 tasks)
+    * ⚠️ Real API run blocked by rate limits
+    * ❌ `results/e1_panel_v1.json` NOT YET GENERATED (blocked)
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.

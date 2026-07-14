@@ -22,3 +22,4 @@ venv/
 
 # Data (large raw downloads stay out of git)
 data/raw/
+data/cache/
