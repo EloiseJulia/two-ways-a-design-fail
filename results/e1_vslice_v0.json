@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "timestamp": "2026-07-14T07:32:07.039882Z",
+    "timestamp": "2026-07-14T08:02:07.823855Z",
     "package_version": "0.1.0-vslice-v0",
     "config_hash": "4ae5a10bcbd40525",
     "seeds": {
@@ -64,34 +64,37 @@
       }
     },
     "panel_disagreement": {
-      "Human": 0.007999999999999997,
-      "Conf.+Adaptive": 0.16299999999999998
+      "Human": 0.008,
+      "Conf.+Adaptive": 0.037
     },
     "correlation": {
-      "r": -0.9999999999999999,
+      "r": -1.0,
       "human_rho": [
         0.03691344990864764,
         1.0037305930631128e-06
       ],
       "panel_disagreement": [
-        0.007999999999999997,
-        0.16299999999999998
-      ]
+        0.008,
+        0.037
+      ],
+      "n_conditions": 2,
+      "degenerate": true,
+      "note": "DEGENERATE CORRELATION WARNING: n=2 conditions. Pearson r with n=2 is ALWAYS \u00b11.0 by mathematical necessity. This is a v0 PLUMBING CHECK ONLY, NOT a scientific result. Meaningful correlation requires n\u22653 (ideally n\u22655) UI conditions."
     },
     "metadata": {
       "n_personas": 5,
       "n_tasks": 10,
       "task_ids": [
+        "0",
         "1",
+        "2",
         "3",
         "4",
         "5",
-        "9",
-        "0",
-        "2",
         "6",
         "7",
-        "8"
+        "8",
+        "9"
       ],
       "control_spread": 0.1,
       "treatment_spread": 0.3,
