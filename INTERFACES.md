@@ -144,5 +144,30 @@ agent's chat restatement of numbers.
 src/twdf/{data,features,panel,metrics,calibration,experiments}/
 configs/           # yaml run configs (vslice_v0.yaml, ...)
 tests/             # unit + integration (module seams get tests)
-docs/{plans,research}/
+docs/{plans,research,handoff}/
 ```
+
+## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2)
+> This section reflects what is ACTUALLY implemented on `main`, to prevent drift.
+- **data** — `twdf/data/bansal.py`: auto-downloads + loads Bansal to the canonical
+  schema; multi-condition selector with `task_selection` config
+  (`all` | `first_10_shared` | `min_per_domain`; default `all`). Lu&Yin NOT loaded yet.
+- **metrics** — `twdf/metrics/overdispersion.py`: `betabinom_overdispersion`,
+  `betabinom_overdispersion_within_domain` (renamed from a misleading "stratified
+  pooling"; domain is BETWEEN-SUBJECTS), `baseline_mean_predictor`, `within_task_diff`,
+  `bootstrap_ci`, and the cross-condition correlation (Spearman + permutation +
+  bootstrap, with an n<3 `degenerate` guard).
+  `twdf/metrics/variance_decomposition.py`: `split_half_reliability` (PRIMARY,
+  ICC(2,1) + Spearman-Brown → `stable_user_share` + CI) and
+  `variance_components_glmm` (`BinomialBayesMixedGLM`, bounded maxiter=10; currently
+  NON-CONVERGENT, reported honestly as corroboration-unavailable).
+- **panel** — `twdf/panel/stub.py`: SYNTHETIC deterministic stub only.
+  **`ModelProvider` / `run_panel` (real LLM panel) = NOT YET IMPLEMENTED = Module B,
+  the next slice.** Implement against GitHub Models reading `GH_MODELS_TOKEN` from env.
+- **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
+  (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). No single
+  `run_experiment` dispatcher; each experiment is its own module.
+- **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
+  `extract_features`/`UIFeatureVector` are still designs above).
+- Determinism: use `hashlib` for any string→seed (builtin `hash()` is banned —
+  non-deterministic across processes). Cross-process determinism tests use subprocesses.

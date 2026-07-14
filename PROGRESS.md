@@ -202,24 +202,31 @@ and timestamp for every change.
     tasks they encounter.
 
 ## Doing
-- (empty)
+- **2026-07-15 MANAGER HANDOFF** → see `docs/handoff/2026-07-15-manager-handoff.md`
+  and `docs/handoff/RESUME-CHECKLIST.md`. Next work = Module B (real LLM panel).
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.
-- [x] Thin vertical slice v0 (Module A schema on real data → B stub → axis-1
-      over-dispersion metric → one correlation number). **COMPLETE: r=-1.0 obtained.**
-- [ ] Real panel engine (Module B) — replace stub with LLM-based personas + counterfactual pairing.
-- [ ] Modules D (calibration/threshold freezing) + full E1/E2/E3/E4/E5/E6 experiments.
+- [x] Thin vertical slice v0 (PR #1) — real data → axis-1 over-dispersion metric.
+- [x] Axis-1 broadened to all 6 Bansal conditions + robustness (PR #2).
+- [x] Variance decomposition (PR #2): no-AI = stable trait; AI = user×task.
+- [x] H1a refined per decomposition finding (commit b48ab2b).
+- [ ] **Module B — real LLM panel via GitHub Models (`GH_MODELS_TOKEN`), NEXT.**
+      Replace stub; personas + counterfactual pairing; span DIVERSE tasks.
+- [ ] Axis-2 dark-pattern sensor + E4 compliance baseline.
+- [ ] §4.3 atomic feature extraction (UIFeatureVector).
+- [ ] Module D calibration + FREEZE τ_disp/τ_level (prereg) + abstention.
+- [ ] E3 LOIO (leakage!), E5 ECE/radius; cross-model triangulation; Lu&Yin seq mode.
 
 ## Module status (§2.1)
 | Module | Status | Blocked on |
 |---|---|---|
 | S0 architecture | ✅ DONE (v0.1.0, pyproject.toml, src/ structure) | — |
-| A data & features | ✅ DONE (Bansal loader, multi-condition support, difficulty mapping) | — |
-| B panel engine | ⚠️ STUB ONLY (synthetic generator; real LLM panel deferred) | Gate 2 (scaled for E1 full) |
-| C metrics & stats | ✅ DONE (beta-binomial, difficulty control, Spearman+permutation+bootstrap) | — |
-| D calibration & protocol | 🔲 NOT STARTED (threshold freezing deferred post-v0) | C+B |
-| E experiments & report | ✅ DONE (E1 v0 + E1 multicond end-to-end, correlation numbers obtained) | A+B+C |
+| A data & features | 🟡 PARTIAL — Bansal loader + multi-condition DONE; §4.3 atomic feature extraction NOT started; Lu&Yin not loaded | — |
+| B panel engine | ⚠️ STUB ONLY — real LLM panel is the NEXT slice (Gate 2 cleared: `GH_MODELS_TOKEN` set) | — (unblocked) |
+| C metrics & stats | ✅ DONE (beta-binomial + within_domain, split-half decomposition, Spearman+permutation+bootstrap; GLMM non-converged) | — |
+| D calibration & protocol | 🔲 NOT STARTED (threshold freezing — prereg — deferred) | C + real B |
+| E experiments & report | 🟡 E1 v0 + multicond + robustness + decomposition DONE; E2/E3/E4/E5/E6 not started | A+B+C+D |
 
 ## Known pitfalls (from §6 / §4.5 methodology checklist)
 - Train/test LEAKAGE in LOIO (E3): normalization params fit on full data.

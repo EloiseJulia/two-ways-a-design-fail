@@ -117,7 +117,15 @@ difficulty as control covariate (partial correlation / mixed-effects);
 **Benjamini–Hochberg** multiple-comparison correction; report effect sizes + CI.
 
 ## OPEN (PI to confirm) — see §15 of v2.4
-- Two-axis positioning (co-equal vs primary/secondary).
+- Two-axis positioning (co-equal vs primary/secondary). [axis-1 empirically
+  refined to user×task under AI — see H1a; axis-2 not yet built.]
 - Target venue (CHI Methods primary?) + scope narrowing in title; RTI → FAccT.
 - Whether to run prospective E6 + sequential stateful extension.
 - Availability of a public 2024–2026 modern reliance dataset.
+
+## DECIDED (log)
+- Gate 1 data = Bansal + Lu&Yin CHI'21 (verified URLs; see PROGRESS §Gate status).
+- Gate 2 batch API = GitHub Models via env var `GH_MODELS_TOKEN` (Azure fallback).
+- Gate 3 = PI owns correctness; independent audit is the merge gate.
+- H1a refined: axis-1 over-dispersion is user×task under AI (2026-07-15, commit b48ab2b).
+- Prereg: τ_disp/τ_level NOT YET FROZEN (freeze before calibrated E1 results).
