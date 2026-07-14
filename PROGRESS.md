@@ -33,7 +33,9 @@ and timestamp for every change.
   (good for thin-slice v0). For full-scale E1: verify GitHub Models rate limits
   for tier; Azure AI Foundry = high-throughput fallback. Copilot sub is
   interactive-only, not a batch endpoint.
-- **Gate 3 PI: pending explicit acknowledgement.**
+- **Gate 3 PI: CLEARED (2026-07-14).** PI owns final scientific correctness; no
+  result merges on "it runs" alone; independent hostile + §4.5 methodology audit
+  is the merge gate; τ_disp/τ_level frozen with timestamp before any results.
 
 ## Doing
 - STEP 0 nearly done (Gate 3 ack). Proposing dependency map + v0 plan for PI go.
