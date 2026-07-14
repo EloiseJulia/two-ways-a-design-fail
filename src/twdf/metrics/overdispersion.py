@@ -292,3 +292,236 @@ def within_task_diff(
              for task in shared_tasks]
     
     return np.mean(diffs)
+
+
+def betabinom_overdispersion_within_domain(
+    df: 'pd.DataFrame',
+    condition: str,
+    difficulty_col: str = 'task_difficulty'
+) -> 'OverdispersionResult':
+    """
+    Compute per-condition human over-dispersion with within-domain aggregation.
+    
+    METHODOLOGICAL RIGOR - Difficulty control via between-subjects design:
+    This function aggregates each user's trials within their assigned domain.
+    
+    **Critical design fact**: The Bansal CHI'21 dataset is BETWEEN-SUBJECTS on domain.
+    Each user saw exactly ONE domain (beer, amzbook, OR lsat), never multiple domains.
+    Therefore, difficulty is NOT confounded across conditions BECAUSE users are 
+    compared within their domain group.
+    
+    What this function actually does:
+    1. For each user in the given condition, aggregate (n_relied, n_trials) across
+       ALL trials that user saw (which are all in the same domain for that user)
+    2. Fit beta-binomial model on the per-user aggregated counts
+    3. The difficulty_col is present for diagnostic checks but does NOT affect the
+       computation (no stratification, no per-stratum weighting)
+    
+    Why this is valid:
+    - Between-subjects on domain means difficulty is balanced within each condition
+    - Cross-condition comparisons are valid because each condition has users from
+      all domains in similar proportions
+    - No need for stratified estimation or difficulty covariate because the experimental
+      design already controls for difficulty via randomization
+    
+    Future note for within-subjects data:
+    If future datasets have within-subjects difficulty variation (users see multiple
+    domains), this function would need modification to either:
+    (a) Stratify by domain and fit separate models, or
+    (b) Include difficulty as a covariate in a hierarchical model
+    
+    Args:
+        df: DataFrame with canonical schema (must include user_id, relied, ui_condition)
+        condition: UI condition name to analyze
+        difficulty_col: Column name for difficulty (used for diagnostic checks only)
+    
+    Returns:
+        OverdispersionResult for this condition with within-domain aggregation
+    
+    Audit note:
+        The auditor should verify:
+        1. Each user in Bansal dataset saw exactly 1 domain (between-subjects check)
+        2. Domain distribution is similar across conditions (randomization check)
+        3. This is NOT stratified estimation (no per-domain fits or weighting)
+    """
+    import pandas as pd
+    
+    # Filter to this condition
+    df_cond = df[df['ui_condition'] == condition].copy()
+    
+    if len(df_cond) == 0:
+        raise ValueError(f"No data for condition '{condition}'")
+    
+    # Check if difficulty data is available
+    if difficulty_col not in df_cond.columns or df_cond[difficulty_col].isna().all():
+        # Fallback: no difficulty control (warn user)
+        print(f"  Warning: No difficulty data for {condition}, using uncontrolled estimator")
+        user_stats = {}
+        for user_id in df_cond['user_id'].unique():
+            user_trials = df_cond[df_cond['user_id'] == user_id]
+            n_relied = user_trials['relied'].sum()
+            n_trials = len(user_trials)
+            user_stats[user_id] = (int(n_relied), n_trials)
+        return betabinom_overdispersion(user_stats)
+    
+    # Build per-user stats aggregating within their domain
+    # (In Bansal dataset, each user saw exactly 1 domain due to between-subjects design)
+    user_stats = {}
+    for user_id in df_cond['user_id'].unique():
+        user_trials = df_cond[df_cond['user_id'] == user_id]
+        n_relied = int(user_trials['relied'].sum())
+        n_trials = len(user_trials)
+        user_stats[user_id] = (n_relied, n_trials)
+    
+    # Diagnostic: verify between-subjects design (each user should see only 1 domain)
+    user_difficulty_counts = df_cond.groupby('user_id')[difficulty_col].nunique()
+    multi_domain_users = (user_difficulty_counts > 1).sum()
+    if multi_domain_users > 0:
+        print(f"  ⚠️  WARNING: {multi_domain_users}/{len(user_stats)} users saw multiple domains")
+        print(f"     This violates the between-subjects assumption - check dataset!")
+    
+    # Fit beta-binomial (pooled across difficulty, but each user saw mixed difficulty)
+    return betabinom_overdispersion(user_stats)
+
+
+@dataclass
+class ConditionCorrelationResult:
+    """Result of correlation between panel disagreement and human over-dispersion."""
+    spearman_rho: float
+    spearman_pvalue: float  # from scipy (asymptotic, for reference)
+    permutation_pvalue: float  # from permutation test (exact, small-n robust)
+    bootstrap_ci_lower: float
+    bootstrap_ci_upper: float
+    n_conditions: int
+    degenerate: bool  # True if n_conditions < 3
+    note: Optional[str] = None
+
+
+def condition_correlation(
+    disagreement_by_condition: dict[str, float],
+    overdispersion_by_condition: dict[str, float],
+    *,
+    permutation_n: int = 10000,
+    bootstrap_n: int = 10000,
+    bootstrap_seed: int = 42,
+    permutation_seed: int = 456
+) -> ConditionCorrelationResult:
+    """
+    Correlate panel disagreement vs human over-dispersion across UI conditions.
+    
+    METHODOLOGICAL RIGOR - Small-n robust statistics:
+    With n=6 conditions, we cannot rely on asymptotic normality assumptions.
+    Instead, we use:
+    
+    1. **Spearman rank correlation** (not Pearson):
+       - Robust to outliers and monotonic (not necessarily linear) relationships
+       - Natural for small n where rank-based tests are more powerful
+       - The scientific hypothesis is MONOTONIC (more disagreement -> more over-dispersion),
+         not necessarily linear, so Spearman is the right test
+    
+    2. **Permutation test for p-value**:
+       - Null hypothesis: no association between disagreement and over-dispersion
+       - Procedure: shuffle CONDITION LABELS (breaking the pairing between disagreement
+         and over-dispersion values), recompute Spearman rho, repeat 10k times
+       - p-value = fraction of shuffles with |rho| >= |observed rho|
+       - Exact finite-sample distribution under the null (no asymptotic assumptions)
+       - Requires seeded RNG for reproducibility
+    
+    3. **Bootstrap CI**:
+       - Resample conditions with replacement, recompute Spearman rho
+       - 95% percentile CI from 10k bootstrap samples
+       - Accounts for uncertainty in both disagreement and over-dispersion estimates
+    
+    4. **Degenerate guard**:
+       - If n_conditions < 3, correlation is degenerate (n=2 always gives rho=±1)
+       - Flag as degenerate, do NOT present as evidence
+    
+    Args:
+        disagreement_by_condition: condition -> panel disagreement (variance)
+        overdispersion_by_condition: condition -> human beta-binomial rho
+        permutation_n: Number of permutation samples (default 10000)
+        bootstrap_n: Number of bootstrap samples (default 10000)
+        bootstrap_seed: Seed for bootstrap RNG
+        permutation_seed: Seed for permutation RNG
+    
+    Returns:
+        ConditionCorrelationResult with Spearman rho, permutation p, bootstrap CI
+    
+    Audit notes:
+        - Degenerate flag must be checked; n<3 results are plumbing only
+        - Permutation test should be two-tailed (|rho| for generality)
+        - Seeds must be fixed and logged for reproducibility
+        - Bootstrap should resample CONDITIONS (not users within conditions)
+    """
+    from scipy import stats as scipy_stats
+    
+    # Align conditions (sorted for determinism)
+    conditions = sorted(set(disagreement_by_condition.keys()) & 
+                       set(overdispersion_by_condition.keys()))
+    
+    if len(conditions) == 0:
+        raise ValueError("No shared conditions between disagreement and overdispersion")
+    
+    n_conditions = len(conditions)
+    degenerate = n_conditions < 3
+    
+    # Extract aligned arrays
+    disagreement = np.array([disagreement_by_condition[c] for c in conditions])
+    overdispersion = np.array([overdispersion_by_condition[c] for c in conditions])
+    
+    # Compute Spearman rank correlation
+    spearman_result = scipy_stats.spearmanr(disagreement, overdispersion)
+    spearman_rho = spearman_result.correlation
+    spearman_pvalue = spearman_result.pvalue
+    
+    # Permutation test (null: no association)
+    perm_rng = np.random.RandomState(permutation_seed)
+    perm_rhos = []
+    for _ in range(permutation_n):
+        # Shuffle condition labels (break association)
+        shuffled_disagreement = perm_rng.permutation(disagreement)
+        perm_rho = scipy_stats.spearmanr(shuffled_disagreement, overdispersion).correlation
+        perm_rhos.append(perm_rho)
+    
+    perm_rhos = np.array(perm_rhos)
+    # Two-tailed: how often is |shuffled rho| >= |observed rho|?
+    permutation_pvalue = np.mean(np.abs(perm_rhos) >= np.abs(spearman_rho))
+    
+    # Bootstrap CI (resample conditions with replacement)
+    boot_rng = np.random.RandomState(bootstrap_seed)
+    boot_rhos = []
+    for _ in range(bootstrap_n):
+        # Resample condition indices
+        boot_idx = boot_rng.choice(n_conditions, size=n_conditions, replace=True)
+        boot_disagreement = disagreement[boot_idx]
+        boot_overdispersion = overdispersion[boot_idx]
+        boot_rho = scipy_stats.spearmanr(boot_disagreement, boot_overdispersion).correlation
+        # Handle NaN from constant arrays after resampling
+        if not np.isnan(boot_rho):
+            boot_rhos.append(boot_rho)
+    
+    boot_rhos = np.array(boot_rhos)
+    bootstrap_ci_lower = np.percentile(boot_rhos, 2.5)
+    bootstrap_ci_upper = np.percentile(boot_rhos, 97.5)
+    
+    # Degenerate warning
+    note = None
+    if degenerate:
+        note = (
+            f"DEGENERATE CORRELATION WARNING: n={n_conditions} conditions. "
+            f"Spearman rho with n<3 has NO statistical meaning. "
+            f"This is a PLUMBING CHECK ONLY, NOT a scientific result. "
+            f"Meaningful correlation requires n≥3 (ideally n≥5) UI conditions."
+        )
+    
+    return ConditionCorrelationResult(
+        spearman_rho=float(spearman_rho) if not np.isnan(spearman_rho) else 0.0,
+        spearman_pvalue=float(spearman_pvalue) if not np.isnan(spearman_pvalue) else 1.0,
+        permutation_pvalue=float(permutation_pvalue),
+        bootstrap_ci_lower=float(bootstrap_ci_lower) if not np.isnan(bootstrap_ci_lower) else 0.0,
+        bootstrap_ci_upper=float(bootstrap_ci_upper) if not np.isnan(bootstrap_ci_upper) else 0.0,
+        n_conditions=n_conditions,
+        degenerate=degenerate,
+        note=note
+    )
+

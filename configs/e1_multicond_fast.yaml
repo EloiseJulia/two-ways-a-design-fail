@@ -1,0 +1,20 @@
+# E1 multi-condition configuration (FAST for testing)
+# Reduced bootstrap/permutation for speed
+
+data:
+  raw_dir: "data/raw"
+  task_sample: null
+  ui_conditions: null  # all 6
+  min_tasks_per_domain: 3
+
+panel:
+  n_personas: 5
+  base_spread: 0.2
+
+seeds:
+  bootstrap: 42
+  panel: 123
+  permutation: 456
+
+bootstrap_n: 100     # Reduced for fast testing
+permutation_n: 100   # Reduced for fast testing

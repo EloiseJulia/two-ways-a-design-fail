@@ -1,0 +1,137 @@
+{
+  "conditions": {
+    "Conf.": {
+      "split_half_reliability": {
+        "spearman_mean": 0.21913984318666113,
+        "spearman_sd": 0.03916812702412431,
+        "icc_mean": 0.40513821079971374,
+        "icc_sd": 0.0394600235420648,
+        "spearman_brown_reliability": 0.3578304130581051,
+        "spearman_brown_reliability_sd": 0.05251974091626538,
+        "stable_user_share": 0.3578304130581051,
+        "stable_user_share_lower": 0.2710919000335035,
+        "stable_user_share_upper": 0.463344555612806,
+        "n_splits": 100,
+        "n_users": 286,
+        "min_tasks_threshold": 8
+      },
+      "glmm_variance_components": {
+        "converged": false,
+        "note": "Did not converge"
+      }
+    },
+    "Conf.+Adaptive": {
+      "split_half_reliability": {
+        "spearman_mean": 0.20134151586897633,
+        "spearman_sd": 0.03805248049692219,
+        "icc_mean": 0.36955726627988505,
+        "icc_sd": 0.03830825561898557,
+        "spearman_brown_reliability": 0.33353301466430507,
+        "spearman_brown_reliability_sd": 0.05301809143249139,
+        "stable_user_share": 0.33353301466430507,
+        "stable_user_share_lower": 0.2279529560003814,
+        "stable_user_share_upper": 0.4164345797234224,
+        "n_splits": 100,
+        "n_users": 292,
+        "min_tasks_threshold": 8
+      },
+      "glmm_variance_components": {
+        "converged": false,
+        "note": "Did not converge"
+      }
+    },
+    "Conf.+Adaptive (Expert)": {
+      "split_half_reliability": {
+        "spearman_mean": -0.12084475075911832,
+        "spearman_sd": 0.052901488907785475,
+        "icc_mean": 0.005519814842262798,
+        "icc_sd": 0.05535170630978068,
+        "spearman_brown_reliability": -0.28305785659347615,
+        "spearman_brown_reliability_sd": 0.13733088853721495,
+        "stable_user_share": 0.0007870738372558502,
+        "stable_user_share_lower": 0.0,
+        "stable_user_share_upper": 0.0,
+        "n_splits": 100,
+        "n_users": 195,
+        "min_tasks_threshold": 8
+      },
+      "glmm_variance_components": {
+        "converged": false,
+        "note": "Did not converge"
+      }
+    },
+    "Conf.+Double": {
+      "split_half_reliability": {
+        "spearman_mean": 0.2619236449749758,
+        "spearman_sd": 0.037903698910953854,
+        "icc_mean": 0.4268239077913431,
+        "icc_sd": 0.03895284627454566,
+        "spearman_brown_reliability": 0.41370324546135495,
+        "spearman_brown_reliability_sd": 0.0476172723612841,
+        "stable_user_share": 0.41370324546135495,
+        "stable_user_share_lower": 0.3135776596633325,
+        "stable_user_share_upper": 0.5053865162408486,
+        "n_splits": 100,
+        "n_users": 285,
+        "min_tasks_threshold": 8
+      },
+      "glmm_variance_components": {
+        "converged": false,
+        "note": "Did not converge"
+      }
+    },
+    "Conf.+Single": {
+      "split_half_reliability": {
+        "spearman_mean": 0.19305525491146722,
+        "spearman_sd": 0.044418878304646414,
+        "icc_mean": 0.31601838270565863,
+        "icc_sd": 0.046652086385525975,
+        "spearman_brown_reliability": 0.3213174902772023,
+        "spearman_brown_reliability_sd": 0.06289957598188332,
+        "stable_user_share": 0.3213174902772023,
+        "stable_user_share_lower": 0.16619108024376536,
+        "stable_user_share_upper": 0.4418860770729443,
+        "n_splits": 100,
+        "n_users": 280,
+        "min_tasks_threshold": 8
+      },
+      "glmm_variance_components": {
+        "converged": false,
+        "note": "Did not converge"
+      }
+    },
+    "Human": {
+      "split_half_reliability": {
+        "spearman_mean": 0.5902003144986545,
+        "spearman_sd": 0.03146539542059815,
+        "icc_mean": 0.6048180561376784,
+        "icc_sd": 0.032950366489620374,
+        "spearman_brown_reliability": 0.7418099746919325,
+        "spearman_brown_reliability_sd": 0.02486120954953622,
+        "stable_user_share": 0.7418099746919325,
+        "stable_user_share_lower": 0.6933450679128029,
+        "stable_user_share_upper": 0.7871535026591258,
+        "n_splits": 100,
+        "n_users": 283,
+        "min_tasks_threshold": 8
+      },
+      "glmm_variance_components": {
+        "converged": false,
+        "note": "Did not converge"
+      }
+    }
+  },
+  "run_manifest": {
+    "timestamp": "2026-07-14T13:29:50.429598+00:00",
+    "package_version": "0.1.0-vslice-v0",
+    "config_hash": "0b915d17c2e14100",
+    "seed_glmm": 42,
+    "seed_split_half": 43,
+    "n_splits": 100,
+    "min_tasks": 8,
+    "n_conditions": 6,
+    "n_tasks_total": 50,
+    "n_trials_total": 66040,
+    "note": "PRIMARY method: split-half reliability; GLMM is optional corroboration"
+  }
+}

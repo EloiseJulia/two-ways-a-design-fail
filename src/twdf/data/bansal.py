@@ -48,7 +48,8 @@ def download_if_missing(data_dir: Path) -> Path:
 
 def load_bansal(data_dir: Optional[Path] = None,
                 task_sample: Optional[list[str]] = None,
-                ui_conditions: Optional[tuple[str, str]] = None) -> pd.DataFrame:
+                ui_conditions: Optional[list[str] | tuple[str, str]] = None,
+                task_selection: str = 'all') -> pd.DataFrame:
     """
     Load Bansal CHI'21 data and convert to canonical per-trial schema.
     
@@ -64,12 +65,27 @@ def load_bansal(data_dir: Optional[Path] = None,
     Derived fields:
     - relied: human_final == ai_advice
     - ai_correct: ai_advice == ground_truth
+    - task_difficulty: derived from task domain (beer/amzbook/lsat in extra['task'])
     
     Args:
         data_dir: Directory containing raw data (default: ./data/raw)
-        task_sample: List of questionIds to keep (default: all)
-        ui_conditions: Tuple of (control, treatment) condition names to keep
-                      (default: ('Control', 'Conf.+Adaptive'))
+        task_sample: Explicit list of questionIds to keep (overrides task_selection)
+        ui_conditions: List or tuple of condition names to keep.
+                      None = all 6 conditions ('Human', 'Conf.', 'Conf.+Single',
+                      'Conf.+Double', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)')
+                      Tuple of 2 = backward compatible with v0 (control, treatment)
+                      List = multi-condition for E1 multicond
+        task_selection: Task selection strategy when task_sample is None:
+                       - 'all': Use ALL trials for each condition (maximum data, default)
+                                For cross-condition comparison, uses tasks that appear in
+                                ALL selected conditions (intersection), but keeps all trials
+                                for those tasks. This maximizes statistical power.
+                       - 'min_per_domain': Min 3 tasks/domain (backward compat, fragile)
+                       - 'first_10_shared': First 10 shared tasks (v0 mode, fragile)
+                       
+                       NOTE: The 'all' default gives maximum statistical power and is the
+                       principled choice for methods papers. Other modes exist only for
+                       robustness analysis to show sensitivity to task selection.
     
     Returns:
         DataFrame with canonical schema per INTERFACES.md §1
@@ -90,36 +106,85 @@ def load_bansal(data_dir: Optional[Path] = None,
     
     print(f"Loaded {len(df)} rows from Bansal dataset")
     print(f"Available conditions: {sorted(df['condition'].unique())}")
-    print(f"Available tasks: {sorted(df['task'].unique())}")
+    print(f"Available tasks (domains): {sorted(df['task'].unique())}")
     print(f"Question IDs range: {df['questionId'].min()} - {df['questionId'].max()}")
     
-    # Select UI condition pair
-    # Inspecting real data - available conditions from the dataset:
+    # Select UI conditions (multi-condition support with backward compatibility)
+    # Available conditions from the dataset:
     # 'Conf.', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)', 'Conf.+Double', 'Conf.+Single', 'Human'
-    # Choosing Human vs Conf.+Adaptive as they represent:
-    # - Human: no AI shown (pure human baseline)
-    # - Conf.+Adaptive: AI confidence + adaptive explanation (core intervention)
     if ui_conditions is None:
-        ui_conditions = ('Human', 'Conf.+Adaptive')
+        # Default: all 6 conditions for multi-condition E1
+        ui_conditions = ['Human', 'Conf.', 'Conf.+Single', 'Conf.+Double', 
+                        'Conf.+Adaptive', 'Conf.+Adaptive (Expert)']
+        print(f"Selected all {len(ui_conditions)} UI conditions (default)")
+    elif isinstance(ui_conditions, tuple) and len(ui_conditions) == 2:
+        # Backward compatible with v0: tuple of (control, treatment)
+        ui_conditions = list(ui_conditions)
+        print(f"Selected UI pair (v0 mode): {ui_conditions[0]} vs {ui_conditions[1]}")
+    else:
+        # Multi-condition list
+        print(f"Selected {len(ui_conditions)} UI conditions: {ui_conditions}")
     
-    control, treatment = ui_conditions
-    print(f"Selected UI pair: {control} vs {treatment}")
+    # Ensure sorted order for determinism
+    ui_conditions = sorted(ui_conditions)
     
     # Filter to selected conditions
-    df = df[df['condition'].isin([control, treatment])].copy()
+    df = df[df['condition'].isin(ui_conditions)].copy()
     print(f"After condition filter: {len(df)} rows")
     
-    # Select task sample (~10 tasks for v0)
+    # Select task sample
     if task_sample is None:
-        # Pick first 10 questionIds that appear in both conditions
-        control_qs = set(df[df['condition'] == control]['questionId'].unique())
-        treatment_qs = set(df[df['condition'] == treatment]['questionId'].unique())
-        shared_qs = sorted(control_qs & treatment_qs)[:10]
-        task_sample = shared_qs
-        print(f"Auto-selected {len(task_sample)} shared tasks: {task_sample}")
+        # Find questionIds that appear in ALL selected conditions
+        condition_tasks = [set(df[df['condition'] == cond]['questionId'].unique()) 
+                          for cond in ui_conditions]
+        shared_qs = set.intersection(*condition_tasks) if condition_tasks else set()
+        
+        if task_selection == 'all':
+            # Use ALL shared tasks (maximum data per condition)
+            task_sample = sorted(shared_qs)
+            print(f"Task selection: 'all' - using ALL {len(task_sample)} shared tasks (maximum data)")
+            
+        elif task_selection == 'min_per_domain':
+            # Min 3 tasks per domain (backward compat, fragile to task selection)
+            min_tasks_per_domain = 3
+            shared_df = df[df['questionId'].isin(shared_qs)]
+            domain_tasks = {}
+            for domain in shared_df['task'].unique():
+                domain_qs = sorted(shared_df[shared_df['task'] == domain]['questionId'].unique())
+                domain_tasks[domain] = domain_qs
+            
+            # Select min_tasks_per_domain from each domain
+            selected = []
+            for domain in sorted(domain_tasks.keys()):  # sorted for determinism
+                selected.extend(domain_tasks[domain][:min_tasks_per_domain])
+            task_sample = sorted(set(selected))
+            print(f"Task selection: 'min_per_domain' - using {len(task_sample)} shared tasks ({min_tasks_per_domain}/domain):")
+            for domain in sorted(domain_tasks.keys()):
+                domain_selected = [q for q in task_sample if q in domain_tasks[domain]]
+                print(f"  {domain}: {len(domain_selected)} tasks")
+        
+        elif task_selection == 'first_10_shared':
+            # First 10 shared tasks (v0 mode, fragile to task ordering)
+            task_sample = sorted(shared_qs)[:10] if len(shared_qs) >= 10 else sorted(shared_qs)
+            print(f"Task selection: 'first_10_shared' - using {len(task_sample)} shared tasks (v0 mode)")
+        
+        else:
+            raise ValueError(f"Unknown task_selection mode: {task_selection}. "
+                           f"Valid options: 'all', 'min_per_domain', 'first_10_shared'")
+    else:
+        print(f"Task selection: explicit task_sample with {len(task_sample)} tasks")
     
     df = df[df['questionId'].isin(task_sample)].copy()
     print(f"After task filter: {len(df)} rows")
+    
+    # Map task domain to difficulty proxy
+    # beer/amzbook/lsat have different inherent difficulty
+    # We'll use domain as a categorical difficulty indicator
+    domain_difficulty = {
+        'beer': 1.0,      # easiest (concrete, sensory)
+        'amzbook': 2.0,   # medium (semantic, subjective)
+        'lsat': 3.0       # hardest (abstract reasoning)
+    }
     
     # Convert to canonical schema
     canonical = pd.DataFrame({
@@ -134,7 +199,7 @@ def load_bansal(data_dir: Optional[Path] = None,
         'human_final': df['choice'],
         'ground_truth': df['y'],
         'relied': (df['choice'] == df['pred']),
-        'task_difficulty': pd.NA,  # not directly available; could compute from accuracy
+        'task_difficulty': df['task'].map(domain_difficulty),  # domain as difficulty proxy
         'confidence': df['conf'],
         'rt_ms': df['time'] * 1000,  # convert seconds to ms
         'extra': df[['task', 'conf2', 'pred2']].to_dict('records'),

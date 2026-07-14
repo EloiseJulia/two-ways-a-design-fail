@@ -52,7 +52,7 @@ class AgentResponse:
 def generate_synthetic_panel(
     personas: list[Persona],
     tasks: list[str],
-    ui_pair: tuple[str, str],
+    ui_conditions: list[str],  # Changed from ui_pair tuple to list
     *,
     base_reliance: dict[str, float],  # ui_condition -> base reliance rate
     persona_spread: float = 0.2,      # how much personas differ
@@ -62,19 +62,19 @@ def generate_synthetic_panel(
     ⚠️ STUB: Generate synthetic panel responses with tunable disagreement.
     
     This is NOT a real model panel. It's a deterministic generator that produces
-    AgentResponse-shaped records to let the v0 pipeline run without waiting for
+    AgentResponse-shaped records to let the pipeline run without waiting for
     the full LLM panel implementation.
     
     Disagreement mechanism:
     - Each persona has a base reliance probability that varies by UI condition
     - Personas differ from each other (controlled by persona_spread)
     - Higher persona_spread -> more between-persona disagreement -> higher over-dispersion
-    - Control vs treatment can have different base reliance rates
+    - Different conditions can have different base reliance rates and spreads
     
     Args:
         personas: List of persona configs
         tasks: List of task IDs to generate responses for
-        ui_pair: Tuple of (control, treatment) UI condition names
+        ui_conditions: List of UI condition names (multi-condition support)
         base_reliance: Mapping from ui_condition to base reliance rate (0-1)
         persona_spread: How much personas differ (0 = identical, 1 = very diverse)
         seed: Random seed for reproducibility
@@ -86,7 +86,7 @@ def generate_synthetic_panel(
     
     responses = []
     
-    for ui_cond in ui_pair:
+    for ui_cond in ui_conditions:  # Changed from ui_pair to ui_conditions
         base_p = base_reliance.get(ui_cond, 0.5)
         
         for persona in personas:
