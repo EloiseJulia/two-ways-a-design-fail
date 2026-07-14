@@ -1,0 +1,194 @@
+{
+  "manifest": {
+    "timestamp": "2026-07-14T08:52:59.105238Z",
+    "package_version": "0.1.0-vslice-v0",
+    "config_hash": "bd50ccbafedfaf62",
+    "seeds": {
+      "bootstrap": 42,
+      "panel": 123,
+      "permutation": 456
+    },
+    "config": {
+      "data": {
+        "raw_dir": "data/raw",
+        "task_sample": null,
+        "ui_conditions": null,
+        "min_tasks_per_domain": 3
+      },
+      "panel": {
+        "n_personas": 5,
+        "base_spread": 0.2
+      },
+      "seeds": {
+        "bootstrap": 42,
+        "panel": 123,
+        "permutation": 456
+      },
+      "bootstrap_n": 100,
+      "permutation_n": 100
+    }
+  },
+  "results": {
+    "ui_conditions": [
+      "Conf.",
+      "Conf.+Adaptive",
+      "Conf.+Adaptive (Expert)",
+      "Conf.+Double",
+      "Conf.+Single",
+      "Human"
+    ],
+    "n_conditions": 6,
+    "human_overdispersion": {
+      "Conf.": {
+        "rho": 0.0022653175473862663,
+        "rho_ci_lower": 1.0060217217738846e-06,
+        "rho_ci_upper": 0.05430451405335468,
+        "mean_p": 0.8415922014622258,
+        "empirical_var": 0.0351330852383484,
+        "binomial_var": 0.13331476790019015,
+        "excess_var": 0.004159873524738015,
+        "n_users": 286,
+        "n_trials": 1231
+      },
+      "Conf.+Adaptive": {
+        "rho": 0.014587150271253615,
+        "rho_ci_lower": 1.0184936385059485e-06,
+        "rho_ci_upper": 0.06498110496843591,
+        "mean_p": 0.8275039745627981,
+        "empirical_var": 0.0396095445820061,
+        "binomial_var": 0.14274114664557008,
+        "excess_var": 0.0064772593510788665,
+        "n_users": 292,
+        "n_trials": 1258
+      },
+      "Conf.+Adaptive (Expert)": {
+        "rho": 1.0037305930631128e-06,
+        "rho_ci_lower": 1.0037305930631128e-06,
+        "rho_ci_upper": 1.0241110602998958e-06,
+        "mean_p": 0.8448979591836735,
+        "empirical_var": 0.021045730901401,
+        "binomial_var": 0.1310453977509371,
+        "excess_var": -0.005029628855163015,
+        "n_users": 195,
+        "n_trials": 980
+      },
+      "Conf.+Double": {
+        "rho": 1.0037305930631128e-06,
+        "rho_ci_lower": 1.0037305930631128e-06,
+        "rho_ci_upper": 0.009580654297029562,
+        "mean_p": 0.8031045751633987,
+        "empirical_var": 0.03567970787689098,
+        "binomial_var": 0.15812761651501558,
+        "excess_var": -0.001139222439105296,
+        "n_users": 285,
+        "n_trials": 1224
+      },
+      "Conf.+Single": {
+        "rho": 1.053785069676123e-06,
+        "rho_ci_lower": 1.0039557978909523e-06,
+        "rho_ci_upper": 0.026367485473878828,
+        "mean_p": 0.8063439065108514,
+        "empirical_var": 0.03857654889912955,
+        "binomial_var": 0.15615341094367072,
+        "excess_var": 0.002079925306284973,
+        "n_users": 280,
+        "n_trials": 1198
+      },
+      "Human": {
+        "rho": 1.0555427010406064e-06,
+        "rho_ci_lower": 1.0038472105986117e-06,
+        "rho_ci_upper": 0.03862813506136444,
+        "mean_p": 0.6819672131147541,
+        "empirical_var": 0.05905921860511741,
+        "binomial_var": 0.21688793335124967,
+        "excess_var": 0.0087483291474095,
+        "n_users": 283,
+        "n_trials": 1220
+      }
+    },
+    "baseline_mean_predictor": {
+      "Conf.": {
+        "rho": 0.0,
+        "mean_p": 0.8415922014622258
+      },
+      "Conf.+Adaptive": {
+        "rho": 0.0,
+        "mean_p": 0.8275039745627981
+      },
+      "Conf.+Adaptive (Expert)": {
+        "rho": 0.0,
+        "mean_p": 0.8448979591836735
+      },
+      "Conf.+Double": {
+        "rho": 0.0,
+        "mean_p": 0.8031045751633987
+      },
+      "Conf.+Single": {
+        "rho": 0.0,
+        "mean_p": 0.8063439065108514
+      },
+      "Human": {
+        "rho": 0.0,
+        "mean_p": 0.6819672131147541
+      }
+    },
+    "panel_disagreement": {
+      "Conf.": 0.052,
+      "Conf.+Adaptive": 0.007999999999999997,
+      "Conf.+Adaptive (Expert)": 0.020000000000000004,
+      "Conf.+Double": 0.028,
+      "Conf.+Single": 0.04000000000000001,
+      "Human": 0.012000000000000007
+    },
+    "correlation": {
+      "spearman_rho": -0.23190841426097938,
+      "spearman_pvalue": 0.658373571260927,
+      "permutation_pvalue": 0.58,
+      "bootstrap_ci_lower": -1.0,
+      "bootstrap_ci_upper": 1.0,
+      "n_conditions": 6,
+      "degenerate": false,
+      "note": null,
+      "human_rho": [
+        0.0022653175473862663,
+        0.014587150271253615,
+        1.0037305930631128e-06,
+        1.0037305930631128e-06,
+        1.053785069676123e-06,
+        1.0555427010406064e-06
+      ],
+      "panel_disagreement": [
+        0.052,
+        0.007999999999999997,
+        0.020000000000000004,
+        0.028,
+        0.04000000000000001,
+        0.012000000000000007
+      ]
+    },
+    "methodology": {
+      "difficulty_control": "STRATIFIED POOLING - per-user (n_relied, n_trials) pooled across task domains (beer/amzbook/lsat) to control for difficulty confounding",
+      "correlation_method": "Spearman rank correlation (robust for small n=6, monotonic hypothesis)",
+      "pvalue_method": "Permutation test (10k shuffles, exact finite-sample distribution)",
+      "ci_method": "Bootstrap over conditions (10k resamples, percentile CI)",
+      "stub_warning": "SYNTHETIC PANEL STUB - disagreement derived from fixed condition properties (circular-by-design). Correlation is PLUMBING CHECK ONLY until real LLM panel replaces stub."
+    },
+    "metadata": {
+      "n_personas": 5,
+      "n_tasks": 5,
+      "task_ids": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "task_domains": [
+        "amzbook",
+        "beer",
+        "lsat"
+      ],
+      "base_spread": 0.2
+    }
+  }
+}

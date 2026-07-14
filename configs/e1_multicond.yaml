@@ -1,0 +1,30 @@
+# E1 multi-condition configuration
+# Broadens axis-1 from n=2 (degenerate) to n=6 conditions for non-degenerate correlation
+# with proper small-n statistics (Spearman rank + permutation test + bootstrap CI)
+
+data:
+  raw_dir: "data/raw"
+  task_sample: null  # null = auto-select shared tasks across all conditions
+  
+  # UI conditions from Bansal et al. CHI'21 dataset
+  # Available: 'Human', 'Conf.', 'Conf.+Single', 'Conf.+Double', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)'
+  # null = use all 6 conditions (default)
+  ui_conditions: null
+  
+  # Minimum number of shared tasks per domain (beer, amzbook, lsat)
+  # null = auto-select to maximize coverage
+  min_tasks_per_domain: 3
+
+panel:
+  n_personas: 5
+  # For multi-condition stub, we'll vary spread by condition
+  # In real panel, disagreement emerges from persona diversity + UI features
+  base_spread: 0.2
+
+seeds:
+  bootstrap: 42
+  panel: 123
+  permutation: 456
+
+bootstrap_n: 10000     # Full bootstrap for production (10k iterations)
+permutation_n: 10000   # Full permutation test (10k shuffles)

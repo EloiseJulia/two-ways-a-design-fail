@@ -151,7 +151,7 @@ def run_e1_vslice(config: dict) -> dict:
     panel_responses.extend(generate_synthetic_panel(
         personas=personas,
         tasks=task_ids,
-        ui_pair=(control,),  # just control
+        ui_conditions=[control],  # just control (changed from ui_pair tuple)
         base_reliance={control: base_reliance[control]},
         persona_spread=panel_config.get('control_spread', 0.1),  # low spread
         seed=seeds.get('panel', 42)
@@ -161,7 +161,7 @@ def run_e1_vslice(config: dict) -> dict:
     panel_responses.extend(generate_synthetic_panel(
         personas=personas,
         tasks=task_ids,
-        ui_pair=(treatment,),  # just treatment
+        ui_conditions=[treatment],  # just treatment (changed from ui_pair tuple)
         base_reliance={treatment: base_reliance[treatment]},
         persona_spread=panel_config.get('treatment_spread', 0.3),  # high spread
         seed=seeds.get('panel', 42) + 1

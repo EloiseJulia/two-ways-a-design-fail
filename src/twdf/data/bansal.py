@@ -48,7 +48,8 @@ def download_if_missing(data_dir: Path) -> Path:
 
 def load_bansal(data_dir: Optional[Path] = None,
                 task_sample: Optional[list[str]] = None,
-                ui_conditions: Optional[tuple[str, str]] = None) -> pd.DataFrame:
+                ui_conditions: Optional[list[str] | tuple[str, str]] = None,
+                min_tasks_per_domain: Optional[int] = None) -> pd.DataFrame:
     """
     Load Bansal CHI'21 data and convert to canonical per-trial schema.
     
@@ -64,12 +65,18 @@ def load_bansal(data_dir: Optional[Path] = None,
     Derived fields:
     - relied: human_final == ai_advice
     - ai_correct: ai_advice == ground_truth
+    - task_difficulty: derived from task domain (beer/amzbook/lsat in extra['task'])
     
     Args:
         data_dir: Directory containing raw data (default: ./data/raw)
-        task_sample: List of questionIds to keep (default: all)
-        ui_conditions: Tuple of (control, treatment) condition names to keep
-                      (default: ('Control', 'Conf.+Adaptive'))
+        task_sample: List of questionIds to keep (default: auto-select shared tasks)
+        ui_conditions: List or tuple of condition names to keep.
+                      None = all 6 conditions ('Human', 'Conf.', 'Conf.+Single',
+                      'Conf.+Double', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)')
+                      Tuple of 2 = backward compatible with v0 (control, treatment)
+                      List = multi-condition for E1 multicond
+        min_tasks_per_domain: Minimum shared tasks per domain (beer/amzbook/lsat)
+                             for difficulty control. None = no constraint.
     
     Returns:
         DataFrame with canonical schema per INTERFACES.md §1
@@ -90,36 +97,73 @@ def load_bansal(data_dir: Optional[Path] = None,
     
     print(f"Loaded {len(df)} rows from Bansal dataset")
     print(f"Available conditions: {sorted(df['condition'].unique())}")
-    print(f"Available tasks: {sorted(df['task'].unique())}")
+    print(f"Available tasks (domains): {sorted(df['task'].unique())}")
     print(f"Question IDs range: {df['questionId'].min()} - {df['questionId'].max()}")
     
-    # Select UI condition pair
-    # Inspecting real data - available conditions from the dataset:
+    # Select UI conditions (multi-condition support with backward compatibility)
+    # Available conditions from the dataset:
     # 'Conf.', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)', 'Conf.+Double', 'Conf.+Single', 'Human'
-    # Choosing Human vs Conf.+Adaptive as they represent:
-    # - Human: no AI shown (pure human baseline)
-    # - Conf.+Adaptive: AI confidence + adaptive explanation (core intervention)
     if ui_conditions is None:
-        ui_conditions = ('Human', 'Conf.+Adaptive')
+        # Default: all 6 conditions for multi-condition E1
+        ui_conditions = ['Human', 'Conf.', 'Conf.+Single', 'Conf.+Double', 
+                        'Conf.+Adaptive', 'Conf.+Adaptive (Expert)']
+        print(f"Selected all {len(ui_conditions)} UI conditions (default)")
+    elif isinstance(ui_conditions, tuple) and len(ui_conditions) == 2:
+        # Backward compatible with v0: tuple of (control, treatment)
+        ui_conditions = list(ui_conditions)
+        print(f"Selected UI pair (v0 mode): {ui_conditions[0]} vs {ui_conditions[1]}")
+    else:
+        # Multi-condition list
+        print(f"Selected {len(ui_conditions)} UI conditions: {ui_conditions}")
     
-    control, treatment = ui_conditions
-    print(f"Selected UI pair: {control} vs {treatment}")
+    # Ensure sorted order for determinism
+    ui_conditions = sorted(ui_conditions)
     
     # Filter to selected conditions
-    df = df[df['condition'].isin([control, treatment])].copy()
+    df = df[df['condition'].isin(ui_conditions)].copy()
     print(f"After condition filter: {len(df)} rows")
     
-    # Select task sample (~10 tasks for v0)
+    # Select task sample - tasks shared across ALL selected conditions
     if task_sample is None:
-        # Pick first 10 questionIds that appear in both conditions
-        control_qs = set(df[df['condition'] == control]['questionId'].unique())
-        treatment_qs = set(df[df['condition'] == treatment]['questionId'].unique())
-        shared_qs = sorted(control_qs & treatment_qs)[:10]
-        task_sample = shared_qs
-        print(f"Auto-selected {len(task_sample)} shared tasks: {task_sample}")
+        # Find questionIds that appear in ALL selected conditions
+        condition_tasks = [set(df[df['condition'] == cond]['questionId'].unique()) 
+                          for cond in ui_conditions]
+        shared_qs = set.intersection(*condition_tasks) if condition_tasks else set()
+        
+        # If min_tasks_per_domain specified, ensure representation across domains
+        if min_tasks_per_domain is not None and min_tasks_per_domain > 0:
+            # Group shared tasks by domain
+            shared_df = df[df['questionId'].isin(shared_qs)]
+            domain_tasks = {}
+            for domain in shared_df['task'].unique():
+                domain_qs = sorted(shared_df[shared_df['task'] == domain]['questionId'].unique())
+                domain_tasks[domain] = domain_qs
+            
+            # Select min_tasks_per_domain from each domain
+            selected = []
+            for domain in sorted(domain_tasks.keys()):  # sorted for determinism
+                selected.extend(domain_tasks[domain][:min_tasks_per_domain])
+            task_sample = sorted(set(selected))
+            print(f"Auto-selected {len(task_sample)} shared tasks ({min_tasks_per_domain}/domain):")
+            for domain in sorted(domain_tasks.keys()):
+                domain_selected = [q for q in task_sample if q in domain_tasks[domain]]
+                print(f"  {domain}: {len(domain_selected)} tasks")
+        else:
+            # Just take first N shared tasks (sorted for determinism)
+            task_sample = sorted(shared_qs)[:10] if len(shared_qs) >= 10 else sorted(shared_qs)
+            print(f"Auto-selected {len(task_sample)} shared tasks: {task_sample}")
     
     df = df[df['questionId'].isin(task_sample)].copy()
     print(f"After task filter: {len(df)} rows")
+    
+    # Map task domain to difficulty proxy
+    # beer/amzbook/lsat have different inherent difficulty
+    # We'll use domain as a categorical difficulty indicator
+    domain_difficulty = {
+        'beer': 1.0,      # easiest (concrete, sensory)
+        'amzbook': 2.0,   # medium (semantic, subjective)
+        'lsat': 3.0       # hardest (abstract reasoning)
+    }
     
     # Convert to canonical schema
     canonical = pd.DataFrame({
@@ -134,7 +178,7 @@ def load_bansal(data_dir: Optional[Path] = None,
         'human_final': df['choice'],
         'ground_truth': df['y'],
         'relied': (df['choice'] == df['pred']),
-        'task_difficulty': pd.NA,  # not directly available; could compute from accuracy
+        'task_difficulty': df['task'].map(domain_difficulty),  # domain as difficulty proxy
         'confidence': df['conf'],
         'rt_ms': df['time'] * 1000,  # convert seconds to ms
         'extra': df[['task', 'conf2', 'pred2']].to_dict('records'),

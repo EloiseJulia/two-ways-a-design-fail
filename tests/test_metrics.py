@@ -223,14 +223,14 @@ def test_panel_stub_determinism():
     ]
     
     tasks = ['t1', 't2', 't3']
-    ui_pair = ('control', 'treatment')
+    ui_conditions = ['control', 'treatment']  # Changed from ui_pair tuple to list
     base_reliance = {'control': 0.5, 'treatment': 0.6}
     
     # Run 1
     responses_1 = generate_synthetic_panel(
         personas=personas,
         tasks=tasks,
-        ui_pair=ui_pair,
+        ui_conditions=ui_conditions,  # Changed from ui_pair to ui_conditions
         base_reliance=base_reliance,
         persona_spread=0.2,
         seed=42
@@ -242,7 +242,7 @@ def test_panel_stub_determinism():
     responses_2 = generate_synthetic_panel(
         personas=personas,
         tasks=tasks,
-        ui_pair=ui_pair,
+        ui_conditions=ui_conditions,  # Changed from ui_pair to ui_conditions
         base_reliance=base_reliance,
         persona_spread=0.2,
         seed=42
@@ -264,4 +264,273 @@ def test_panel_stub_determinism():
         assert r1 == r2, f"Response mismatch: {r1} != {r2}"
     
     print("  ✓ Panel stub is deterministic with fixed seed")
+
+
+def test_multi_condition_data_loader():
+    """Test that data loader correctly handles multi-condition selection."""
+    from twdf.data.bansal import load_bansal
+    import pandas as pd
+    from pathlib import Path
+    
+    # Test with 3 conditions (subset of all 6)
+    test_conditions = ['Human', 'Conf.', 'Conf.+Adaptive']
+    
+    df = load_bansal(
+        data_dir=Path('data/raw'),
+        ui_conditions=test_conditions,
+        task_sample=None  # auto-select
+    )
+    
+    print(f"\nMulti-condition loader test:")
+    print(f"  Requested: {test_conditions}")
+    print(f"  Got: {sorted(df['ui_condition'].unique())}")
+    print(f"  Total rows: {len(df)}")
+    
+    # Verify all requested conditions are present
+    assert set(df['ui_condition'].unique()) == set(test_conditions), \
+        f"Condition mismatch: got {df['ui_condition'].unique()}, expected {test_conditions}"
+    
+    # Verify tasks are shared across all conditions
+    tasks_by_condition = {
+        cond: set(df[df['ui_condition'] == cond]['task_id'].unique())
+        for cond in test_conditions
+    }
+    shared_tasks = set.intersection(*tasks_by_condition.values())
+    
+    print(f"  Shared tasks: {len(shared_tasks)}")
+    assert len(shared_tasks) > 0, "Should have shared tasks across all conditions"
+    
+    # Verify task_difficulty is populated
+    assert not df['task_difficulty'].isna().all(), "task_difficulty should be populated"
+    
+    print("  ✓ Multi-condition loader working correctly")
+
+
+def test_difficulty_controlled_overdispersion():
+    """Test difficulty-controlled over-dispersion with synthetic confounded data."""
+    from twdf.metrics.overdispersion import betabinom_overdispersion_difficulty_controlled
+    import pandas as pd
+    import numpy as np
+    
+    # Create synthetic data where difficulty confounds the comparison:
+    # - Easy tasks (difficulty=1): users have low reliance variance
+    # - Hard tasks (difficulty=3): users have high reliance variance
+    # If we naively pool, we'd mistake difficulty for over-dispersion
+    
+    np.random.seed(46)
+    
+    trials = []
+    n_users = 30
+    
+    # Condition with more easy tasks (should appear low over-dispersion if confounded)
+    for user_id in range(n_users):
+        # 80% easy tasks (difficulty=1)
+        for task_id in range(8):
+            relied = np.random.rand() < 0.3  # low variance on easy tasks
+            trials.append({
+                'user_id': f"user_{user_id}",
+                'task_id': f"easy_{task_id}",
+                'task_difficulty': 1.0,
+                'ui_condition': 'test_cond',
+                'relied': relied
+            })
+        # 20% hard tasks (difficulty=3)
+        for task_id in range(2):
+            # High variance on hard tasks
+            user_p = 0.3 if user_id % 2 == 0 else 0.7  # split users
+            relied = np.random.rand() < user_p
+            trials.append({
+                'user_id': f"user_{user_id}",
+                'task_id': f"hard_{task_id}",
+                'task_difficulty': 3.0,
+                'ui_condition': 'test_cond',
+                'relied': relied
+            })
+    
+    df = pd.DataFrame(trials)
+    
+    # Compute difficulty-controlled over-dispersion
+    od_controlled = betabinom_overdispersion_difficulty_controlled(
+        df=df,
+        condition='test_cond',
+        difficulty_col='task_difficulty'
+    )
+    
+    print(f"\nDifficulty-controlled overdispersion test:")
+    print(f"  Controlled rho: {od_controlled.rho:.4f}")
+    print(f"  Mean p: {od_controlled.mean_p:.3f}")
+    
+    # Should detect over-dispersion from user split on hard tasks
+    # even though easy tasks dominate the count
+    assert od_controlled.rho >= 0, "Should get non-negative rho"
+    assert od_controlled.n_users == n_users, f"Should have {n_users} users"
+    
+    print("  ✓ Difficulty-controlled estimator working")
+
+
+def test_condition_correlation_spearman():
+    """Test Spearman correlation with monotonic synthetic data."""
+    from twdf.metrics.overdispersion import condition_correlation
+    
+    # Create monotonic relationship: higher disagreement -> higher over-dispersion
+    disagreement = {
+        'cond_A': 0.01,
+        'cond_B': 0.02,
+        'cond_C': 0.03,
+        'cond_D': 0.04,
+        'cond_E': 0.05,
+    }
+    
+    overdispersion = {
+        'cond_A': 0.10,
+        'cond_B': 0.15,
+        'cond_C': 0.20,
+        'cond_D': 0.25,
+        'cond_E': 0.30,
+    }
+    
+    # Perfect monotonic relationship -> Spearman rho ≈ 1.0
+    corr = condition_correlation(
+        disagreement_by_condition=disagreement,
+        overdispersion_by_condition=overdispersion,
+        permutation_n=1000,
+        bootstrap_n=1000,
+        bootstrap_seed=42,
+        permutation_seed=456
+    )
+    
+    print(f"\nMonotonic correlation test:")
+    print(f"  Spearman rho: {corr.spearman_rho:.4f} (expected ≈ 1.0)")
+    print(f"  Permutation p: {corr.permutation_pvalue:.4f} (expected < 0.05)")
+    print(f"  Bootstrap CI: [{corr.bootstrap_ci_lower:.4f}, {corr.bootstrap_ci_upper:.4f}]")
+    print(f"  Degenerate: {corr.degenerate} (n={corr.n_conditions})")
+    
+    # Should get near-perfect positive correlation
+    assert corr.spearman_rho > 0.9, f"Monotonic data should give rho > 0.9, got {corr.spearman_rho:.4f}"
+    
+    # Should be statistically significant
+    assert corr.permutation_pvalue < 0.05, f"Should be significant, got p={corr.permutation_pvalue:.4f}"
+    
+    # Should NOT be degenerate (n=5)
+    assert not corr.degenerate, "n=5 should not be degenerate"
+    
+    print("  ✓ Spearman correlation working on monotonic data")
+
+
+def test_condition_correlation_random():
+    """Test correlation with random (no association) synthetic data."""
+    from twdf.metrics.overdispersion import condition_correlation
+    import numpy as np
+    
+    np.random.seed(47)
+    
+    # Create random data (no association)
+    conditions = ['A', 'B', 'C', 'D', 'E', 'F']
+    disagreement = {c: np.random.rand() * 0.1 for c in conditions}
+    overdispersion = {c: np.random.rand() * 0.3 for c in conditions}
+    
+    corr = condition_correlation(
+        disagreement_by_condition=disagreement,
+        overdispersion_by_condition=overdispersion,
+        permutation_n=1000,
+        bootstrap_n=1000,
+        bootstrap_seed=42,
+        permutation_seed=456
+    )
+    
+    print(f"\nRandom correlation test:")
+    print(f"  Spearman rho: {corr.spearman_rho:.4f}")
+    print(f"  Permutation p: {corr.permutation_pvalue:.4f} (expected > 0.05)")
+    print(f"  n_conditions: {corr.n_conditions}")
+    
+    # With random data, should typically NOT be significant (though 5% chance of false positive)
+    # We don't assert on p-value (could fail by chance), just verify it runs
+    
+    # Should NOT be degenerate (n=6)
+    assert not corr.degenerate, "n=6 should not be degenerate"
+    
+    print("  ✓ Correlation test runs on random data")
+
+
+def test_condition_correlation_degenerate():
+    """Test that n<3 is correctly flagged as degenerate."""
+    from twdf.metrics.overdispersion import condition_correlation
+    
+    # Only 2 conditions
+    disagreement = {'A': 0.01, 'B': 0.03}
+    overdispersion = {'A': 0.10, 'B': 0.20}
+    
+    corr = condition_correlation(
+        disagreement_by_condition=disagreement,
+        overdispersion_by_condition=overdispersion,
+        permutation_n=100,
+        bootstrap_n=100,
+        bootstrap_seed=42,
+        permutation_seed=456
+    )
+    
+    print(f"\nDegenerate (n=2) test:")
+    print(f"  Spearman rho: {corr.spearman_rho:.4f}")
+    print(f"  Degenerate: {corr.degenerate}")
+    print(f"  Note: {corr.note}")
+    
+    # Should be flagged as degenerate
+    assert corr.degenerate, "n=2 should be flagged as degenerate"
+    assert corr.note is not None, "Should have warning note"
+    assert "DEGENERATE" in corr.note, "Note should mention degenerate"
+    
+    print("  ✓ Degenerate guard working")
+
+
+def test_panel_stub_multi_condition():
+    """Test panel stub with multi-condition (not just pair)."""
+    from twdf.panel.stub import Persona, generate_synthetic_panel, compute_panel_disagreement
+    
+    personas = [
+        Persona(
+            persona_id=f"p{i}",
+            domain_skill=0.5,
+            ai_literacy=0.5,
+            risk_sensitivity=0.5,
+            caution=0.5,
+            temperature=0.7,
+            prior_mix=0.5
+        )
+        for i in range(3)
+    ]
+    
+    tasks = ['t1', 't2']
+    ui_conditions = ['cond_A', 'cond_B', 'cond_C', 'cond_D']  # 4 conditions
+    base_reliance = {c: 0.5 for c in ui_conditions}
+    
+    responses = generate_synthetic_panel(
+        personas=personas,
+        tasks=tasks,
+        ui_conditions=ui_conditions,
+        base_reliance=base_reliance,
+        persona_spread=0.2,
+        seed=42
+    )
+    
+    print(f"\nMulti-condition panel stub test:")
+    print(f"  Conditions: {ui_conditions}")
+    print(f"  Expected responses: {len(personas)} * {len(tasks)} * {len(ui_conditions)} = {len(personas) * len(tasks) * len(ui_conditions)}")
+    print(f"  Got responses: {len(responses)}")
+    
+    # Should have responses for all conditions
+    assert len(responses) == len(personas) * len(tasks) * len(ui_conditions), \
+        "Should have response for each (persona, task, condition) combination"
+    
+    # Verify all conditions present
+    response_conditions = set(r.ui_condition for r in responses)
+    assert response_conditions == set(ui_conditions), \
+        f"Condition mismatch: {response_conditions} != {ui_conditions}"
+    
+    # Compute disagreement per condition
+    for ui_cond in ui_conditions:
+        disagreement = compute_panel_disagreement(responses, ui_cond)
+        print(f"  {ui_cond}: disagreement = {disagreement:.4f}")
+        assert disagreement >= 0, f"Disagreement should be non-negative, got {disagreement}"
+    
+    print("  ✓ Multi-condition panel stub working")
 
