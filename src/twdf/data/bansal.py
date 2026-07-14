@@ -80,7 +80,8 @@ def load_bansal(data_dir: Optional[Path] = None,
     csv_path = download_if_missing(data_dir)
     
     # Load raw data
-    df = pd.read_csv(csv_path)
+    # Specify dtype for mixed-type columns to avoid DtypeWarning
+    df = pd.read_csv(csv_path, dtype={'choice': str, 'y': str, 'pred': str, 'pred2': str})
     
     # Verify expected columns
     missing = set(EXPECTED_COLS) - set(df.columns)
