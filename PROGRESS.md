@@ -201,18 +201,22 @@ and timestamp for every change.
     not only user traits. A user's reliance risk profile is not fixed; it depends on which 
     tasks they encounter.
 
-## Doing
-- **2026-07-15 MODULE B (REAL LLM PANEL) — IMPLEMENTATION COMPLETE, REAL RUN BLOCKED BY RATE LIMITS**
+## Done (REAL RUN COMPLETE — 2026-07-15)
+- **2026-07-15 MODULE B (REAL LLM PANEL) — IMPLEMENTATION + REAL RUN COMPLETE**
   - **Scope:** Thin vertical slice — real LLM panel via GitHub Models with counterfactual pairing
-  - **Implementation Status: ✅ COMPLETE**
+  - **FINAL STATUS: ✅ COMPLETE AND VERIFIED**
     * `src/twdf/panel/provider.py`: GitHubModelsProvider with hashlib-based deterministic caching, retry logic, call budget
+      - **PACING FIX:** Raised default `inter_call_sleep` to 0.8s (≈1.25 req/s, safe margin under empirical 1.5 req/s sustainable rate)
+      - **BACKOFF FIX:** HTTP 429 now waits 8.0s minimum (vs exponential) to let token bucket refill, max 8 retries
+      - **5xx HANDLING:** Server errors keep exponential backoff (unchanged)
     * `src/twdf/panel/real_panel.py`: Dual-system flow (System-1 frozen + System-2 counterfactual pairing), implements INTERFACES §3 exactly
     * `src/twdf/data/bansal_tasks.py`: Beer task stimulus loader with testid→questionId join verification (50/50 overlap confirmed)
     * `src/twdf/metrics/overdispersion.py`: Added `paired_permutation_test()` for elasticity significance
     * `src/twdf/experiments/e1_panel_v1.py`: CLI runner with run_manifest, elasticity + bootstrap CI + permutation test
-    * `configs/e1_panel_v1.yaml`: 5 diverse personas, 20 beer tasks, UI pair (Conf. vs Conf.+Adaptive (Expert))
-    * `tests/test_panel_real.py`: 6/6 offline tests PASS (provider contract, counterfactual invariant cross-process, cache determinism cross-process, paired permutation, reliance computation)
-    * `.gitignore`: Added `data/cache/` exclusion
+      - **BOOTSTRAP FIX:** Edge-case handling for persona resampling (shared-tasks filter)
+    * `configs/e1_panel_v1.yaml`: 5 diverse personas, **20 beer tasks (thin-slice scale restored)**, UI pair (Conf. vs Conf.+Adaptive (Expert)), `inter_call_sleep=0.8`, `call_budget=350`
+    * `tests/test_panel_real.py`: **31/31 offline tests PASS** (updated live test assertion for System-1 sharing)
+    * `.gitignore`: Added `data/cache/`, `*.log`, `*_output.txt` exclusions
     * `pyproject.toml`: Added `requests>=2.31.0` dependency
   - **CRITICAL DESIGN VERIFIED:**
     * Counterfactual invariant holds (System-1 identical across UI arms for same persona/task/seed) — TESTED cross-process
@@ -220,24 +224,48 @@ and timestamp for every change.
     * testid→questionId join confirmed: 50/50 beer tasks overlap with Bansal questionIds 0-49
     * Reliance definition aligned with Bansal adoption: `final == ai_advice`
     * UI conditions use exact Bansal strings: "Conf.", "Conf.+Adaptive (Expert)"
-  - **REAL RUN STATUS: BLOCKED BY GITHUB MODELS RATE LIMITS (HTTP 429)**
-    * Pipeline successfully loads data (join verified), initializes provider, starts panel execution
-    * Hits rate limit after initial API calls despite 0.5s inter-call sleep + exponential backoff retry
-    * Error: "HTTP 429: Too many requests" after 5 retries
-    * Expected calls: 5 personas × 20 tasks × 2 UI × 2 systems = 400 calls
-    * **BLOCKER:** GitHub Models API rate limits appear tighter than expected for this workload
-    * **MITIGATION OPTIONS:**
-      1. Reduce to 2-3 personas + 5-10 tasks for a minimal viable run (~40-120 calls)
-      2. Increase inter-call sleep to 2-5 seconds (runtime: ~13-33 minutes)
-      3. Use Azure AI Foundry as fallback (higher throughput, already on Gate 2 list)
-      4. Run experiment in batches over multiple hours
-  - **DELIVERABLES (CODE COMPLETE, AWAITING SUCCESSFUL RUN):**
+  - **REAL RUN RESULTS (2026-07-15, config hash 424c5469d6bbb4c3):**
+    * **API Performance:** 145 API calls + 155 cache hits = 300 total requests, 0 HTTP 429 errors (0.8s pacing worked perfectly)
+    * **Runtime:** 745.9s first run (API calls), 4.5s cached rerun (100% cache hit)
+    * **Estimated Cost:** $0.0544 (145 calls @ gpt-4o-mini pricing)
+    * **Per-Persona Reliance Rates:**
+      - Control (Conf.): p1=0.70, p2=0.75, p3=0.70, p4=0.70, p5=0.80 (mean=0.73)
+      - Treatment (Conf.+Adaptive Expert): p1=0.70, p2=0.70, p3=0.75, p4=0.70, p5=0.80 (mean=0.73)
+    * **Panel Disagreement:** Control=0.0020, Treatment=0.0020 (identical variance across UI arms)
+    * **Within-Task Reliance Elasticity (Treatment − Control):** 0.0000
+    * **Paired Permutation Test:** p = 1.0000 (n_pairs=20, NO significant treatment effect)
+    * **Bootstrap 95% CI:** [0.0000, 0.0000]
+    * **System-1 Accuracy (no AI):** 0.800 (160/200 correct; agents genuinely attempt task)
+    * **Task Diversity:** 16/20 AI-correct (80%), 4/20 AI-incorrect, conf range [0.509, 0.983] mean=0.826
+  - **DELIVERABLES:**
     * ✅ All code implemented per spec
-    * ✅ All offline tests pass (6/6)
+    * ✅ All offline tests pass (31/31)
     * ✅ Cross-process determinism verified
     * ✅ Data join verified (50/50 tasks)
-    * ⚠️ Real API run blocked by rate limits
-    * ❌ `results/e1_panel_v1.json` NOT YET GENERATED (blocked)
+    * ✅ Real API run completed with no 429s
+    * ✅ `results/e1_panel_v1.json` with full run_manifest
+    * ✅ Pacing empirically validated (0.8s inter-call sleep sustainable)
+  - **KEY FINDING (METHODOLOGY):**
+    * **NULL RESULT:** No treatment effect detected (elasticity=0, p=1.0). Expert explanations did NOT shift reliance in this LLM panel.
+    * **CAVEAT:** This is a SYNTHETIC agent panel (gpt-4o-mini System-2), NOT real humans. Null result does NOT contradict Bansal's human findings. This run VALIDATES THE PIPELINE (data → panel → metrics → output) for hostile audit, NOT the scientific hypothesis.
+    * **PANEL vs HUMAN COMPARISON:** Humans show reliance 79.1% (Bansal data), LLM panel 73%. LLM agents are NOT calibrated to human behavior. This is EXPECTED for a plumbing validation run.
+  - **METHODOLOGY CAVEATS (FOR AUDIT):**
+    1. LLM panel personas are SYNTHETIC proxies (defined by skill/literacy/caution parameters), NOT real user archetypes
+    2. System-2 generation prompts are MINIMAL (not psychologically validated)
+    3. 20-task thin slice is smaller than full Bansal dataset (50 tasks)
+    4. Single model (gpt-4o-mini) — no cross-model triangulation yet
+    5. No abstention modeling (future: Module D protocol)
+    6. Reliance definition is binary (final == AI), no partial adoption modeling
+  - **READY FOR MERGE (PENDING PI/AUDITOR REVIEW):**
+    * Code quality: production-ready, deterministic, tested
+    * Scientific validity: pipeline proven, NOT claiming human-equivalent behavior
+    * Commit: cedc671 "Fix API pacing + restore thin-slice scale + complete real run"
+    * Branch: `feature/moduleB-panel`
+    * Tests: 31/31 pass
+    * Docs: PROGRESS.md updated with real numbers
+
+## Doing
+- **NEXT:** Independent auditor review + PI sign-off for Module B merge
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.
@@ -245,8 +273,8 @@ and timestamp for every change.
 - [x] Axis-1 broadened to all 6 Bansal conditions + robustness (PR #2).
 - [x] Variance decomposition (PR #2): no-AI = stable trait; AI = user×task.
 - [x] H1a refined per decomposition finding (commit b48ab2b).
-- [ ] **Module B — real LLM panel via GitHub Models (`GH_MODELS_TOKEN`), NEXT.**
-      Replace stub; personas + counterfactual pairing; span DIVERSE tasks.
+- [x] **Module B — real LLM panel via GitHub Models (`GH_MODELS_TOKEN`), DONE (2026-07-15).**
+      Real panel implemented; counterfactual pairing verified; 20-task thin slice complete.
 - [ ] Axis-2 dark-pattern sensor + E4 compliance baseline.
 - [ ] §4.3 atomic feature extraction (UIFeatureVector).
 - [ ] Module D calibration + FREEZE τ_disp/τ_level (prereg) + abstention.
@@ -257,10 +285,10 @@ and timestamp for every change.
 |---|---|---|
 | S0 architecture | ✅ DONE (v0.1.0, pyproject.toml, src/ structure) | — |
 | A data & features | 🟡 PARTIAL — Bansal loader + multi-condition DONE; §4.3 atomic feature extraction NOT started; Lu&Yin not loaded | — |
-| B panel engine | ⚠️ STUB ONLY — real LLM panel is the NEXT slice (Gate 2 cleared: `GH_MODELS_TOKEN` set) | — (unblocked) |
+| B panel engine | ✅ DONE (2026-07-15) — Real LLM panel with GitHub Models, counterfactual pairing, deterministic caching, 31/31 tests pass | — |
 | C metrics & stats | ✅ DONE (beta-binomial + within_domain, split-half decomposition, Spearman+permutation+bootstrap; GLMM non-converged) | — |
 | D calibration & protocol | 🔲 NOT STARTED (threshold freezing — prereg — deferred) | C + real B |
-| E experiments & report | 🟡 E1 v0 + multicond + robustness + decomposition DONE; E2/E3/E4/E5/E6 not started | A+B+C+D |
+| E experiments & report | 🟡 E1 v0 + multicond + robustness + decomposition + **panel_v1 (real LLM)** DONE; E2/E3/E4/E5/E6 not started | A+B+C+D |
 
 ## Known pitfalls (from §6 / §4.5 methodology checklist)
 - Train/test LEAKAGE in LOIO (E3): normalization params fit on full data.
