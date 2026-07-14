@@ -99,4 +99,21 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
-_(none yet)_
+- **2026-07-14 — PR #1 `vslice-v0` SQUASH-MERGED to main (commit e5a257b).**
+  - Flow: impl-vslice-v0 → audit-vslice-v0 (FAIL: B1 degenerate n=2 corr, B2
+    non-reproducible panel values, B3 test import) → fix-vslice-v0 → reaudit-
+    vslice-v0 (**PASS**). Merge executed by Manager per policy.
+  - B2 root cause: Python builtin `hash()` non-deterministic across processes →
+    replaced with `hashlib.md5`; task iteration sorted. Re-audit independently
+    confirmed byte-identical output across 3 separate-process runs.
+  - Reproduced committed numbers: panel disagreement Human=0.008,
+    Conf.+Adaptive=0.037; Human over-dispersion ρ=0.03691 [CI 0.0087, 0.0681]
+    beats mean-predictor (ρ=0); Conf.+Adaptive ρ≈0 (axis-2 pattern). Correlation
+    flagged `degenerate:true` (n=2, plumbing-only, NOT evidence).
+  - Core beta-binomial estimator independently re-verified correct (pure
+    binomial→~0, over-dispersed→>0, beats baseline).
+  - **Post-merge TODO (re-audit MINOR-1):** `test_panel_stub_determinism` runs
+    the stub twice in ONE process, so it would NOT by itself catch cross-process
+    hash-seed nondeterminism. Enhance it to spawn a subprocess (or document the
+    limitation). Cross-process reproducibility currently proven only by manual
+    3-run audit, not by an automated regression test.
