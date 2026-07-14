@@ -92,15 +92,15 @@
 ```
 ① 调研(可选) → ② Issue 准备 → ③ 拆分+依赖分析 → ④ 每 slice 执行
                                                         ↓
-        ⑦ 交付给你(不 merge) ← ⑥ 整体 PR-Audit ← ⑤ 独立敌对审计(每 slice)
+        ⑦ Manager 自动合并(audit PASS) ← ⑥ 整体 PR-Audit ← ⑤ 独立敌对审计(每 slice)
                     ↓
-        你决定 → mark ready → 交 owner review + merge
+        仅三闸/方法学争议/判断题 → 升级给你(PI)
 ```
 
 **不可跳过的 gate：**
-- 每个 slice 完 → ④自检 + ⑤独立敌对审计
-- 全部 slice 完 → ⑥整体 PR-Audit（build 真产物 + 全量测试 + diff 卫生）
-- 交付前 → ⑦先发你，不 ready、不 merge
+- 每个 slice 完 → ④自检 + ⑤独立敌对审计（含 §4.5 方法学）
+- 全部 slice 完 → ⑥整体 PR-Audit（build 真产物 + 全量测试 + diff 卫生 + 方法学）
+- 合并前 → 独立 audit PASS（取代人工 review）；FAIL/争议才升级给你
 
 ---
 
@@ -108,15 +108,58 @@
 
 | 角色 | 何时用 | 位置 | 关键约束 |
 |---|---|---|---|
-| **你（PI + 首席验证官）** | 全程 | 本地 / 浏览器 | 唯一强制触发点；定架构 + 集成 + **验方法学正确性**（§6）；过三道闸（§0.5）；merge 决定 |
+| **你（PI + 首席验证官）** | 关键节点 | 本地 / 浏览器 | 启动 Manager；过三道闸（§0.5）；裁决判断题与方法学争议（§6）；**日常 PR 不手动审——交 AI**（audit 为合并闸） |
+| **Manager Agent（本项目总调度）** | 全程 | 常驻交互 session | **只调度不干活**：依赖分析 + 派单 + 合并决策；只有它碰 `main`/`topic` 的 git 与 `gh pr merge`；永不碰主 checkout；**audit PASS 后自动合并**，仅三闸/判断题升级给你 |
 | **Research Agent**（可选） | 数据/API/选型不明 | 独立 session，doc-only | 输出 research md，直接 commit `<DEFAULT_BRANCH>`；不写代码；**不能代你搞定 gated 数据**（会编不存在的链接） |
-| **Manager Agent** | 多 slice / 多 issue | 长驻 session（`<COMPUTE>`） | **先画依赖图**；只有它碰 git/topic；永不碰主 checkout、永不 merge 进主干 |
-| **Sub-Agent（执行）** | 每个 slice | 独立 worktree + session | 只在自己 worktree；spec→plan→执行；严格按 `INTERFACES.md` 签名；自检 gate |
-| **Audit Agent（独立敌对）** | 每 slice 完 + 整体 | **全新 session、无上下文** | 目标是挑毛病；不信任何既有结论；**包括方法学审计（§4.5）**；只报不修 |
+| **Sub-Agent（实现）** | 每个 slice | 独立 worktree + session | 只在自己 worktree；spec→plan→执行；严格按 `INTERFACES.md` 签名；自检 gate；**永不 merge** |
+| **Audit Agent（独立敌对）** | 每 slice 完 + 整体 | **全新 session、无上下文** | 目标是挑毛病；不信任何既有结论；**包括方法学审计（§4.5）**；只报不修（PASS = 合并闸） |
 
 **两种规模：**
 - **单 slice（日常默认）**：不需要 Manager。你在 worktree 里起一个交互 session，讨论 → spec → plan → 执行 → review。
-- **多 slice 并行（高级）**：才需要 Manager Agent 编排多个 Sub-Agent（见 §4.7 模块分工）。
+- **多 slice 并行（本项目默认）**：由 Manager Agent 编排多个 Sub-Agent（见下方「编排层」与 §4.7 模块分工）。
+
+---
+
+## 编排层 · Manager Agent 驱动（Copilot CLI · 本项目实际运行方式）
+
+本项目**全流程由一个常驻 Manager Agent 交互 session 调度**；它**只做拆分 / 派单 / 调度 / 合并决策，绝不自己写代码、跑统计、做分析**——所有具体任务（调研、实现、审计、修复）都由它用 `copilot -p` **新开 session** 委派给 subagent。
+
+**权限与合并策略（本项目已选全自动，覆盖通用模板的“人工合并”规则）：**
+- Copilot CLI 全程 `--allow-all`（= `--allow-all-tools --allow-all-paths --allow-all-urls`；等价 `--yolo`）。
+- **PR 由 AI 审、AI 合，人不手动 review**：**独立 audit subagent（含 §4.5 方法学审计）PASS = 合并闸**，取代人工 review。写代码的 subagent 不自审自合；由**另一个** audit session 判定、由 **Manager**（第三个 session）执行 `gh pr merge`。
+- **只升级给你（PI）的三类**：① §0.5 三道闸（数据可获取性、批量 API 通道、需 PI 判断的科学正确性）；② audit 反复 FAIL 或分诊为方法学争议；③ 判断题（venue、范围收窄、是否投 E6）。**其余 Manager 自决**（含排期、并行/串行、slice 粒度、非争议性设计取舍）。
+
+**Manager 启动（交互 session，可用 `ask_user` 向你提问）：**
+```powershell
+cd "<REPO_PATH>"
+copilot --allow-all --name manager-twdf --model auto --effort high -i (Get-Content .\docs\manager-prompt.md -Raw)
+```
+> 完整 Manager prompt 见 [docs/manager-prompt.md](docs/manager-prompt.md)（可直接跑）。`--model auto` 可换成你可用的最强长上下文模型。
+
+**Manager 派 subagent（每个任务新开非交互 session）：**
+```powershell
+# 实现型 slice（worktree + draft PR）
+copilot -p (Get-Content .\.prompts\impl-S1.md -Raw) --allow-all --name impl-S1 --model <MODEL> --log-dir .\.copilot-logs --share
+
+# 独立敌对 + 方法学审计（全新 session、无上下文、只报不修）
+copilot -p (Get-Content .\.prompts\audit-S1.md -Raw) --allow-all --name audit-S1 --model <MODEL> --effort high
+
+# 调研（doc-only：数据可获取性 / 批量 API 选型）
+copilot -p (Get-Content .\.prompts\research-data.md -Raw) --allow-all --name research-data --model <MODEL>
+```
+> **为什么用文件传 prompt**：Windows PowerShell 内联多行 prompt 引号极易破碎；Manager 应把每个 subagent prompt 写进 `.prompts\<name>.md` 再 `Get-Content -Raw` 传入。
+> subagent 是 `-p` 非交互，**不能反问**；它把 findings / 产物作为输出返回 Manager。Manager 汇总后自决或升级给你。独立 slice 可后台并发（`Start-Job` 或多开终端），依赖链串行。
+
+**Manager 运行闭环（每个 issue）：**
+1. 读工作流 + [开题稿 v2.4](开题沟通稿_分歧度分诊_部署前评估_v2.4.md) + [实验分工计划](实验实施与AI分工计划.md) + SPEC/INTERFACES/PROGRESS（缺则先建骨架）。
+2. **先过 §0.5 三道闸** → 未清零就 `ask_user` 升级给你，别让 subagent 对着想象的数据格式写白工。
+3. 依赖分析（§2.1 模块图 A–E）→ 定 slice 与并行/串行。
+4. 先派 **纵切 v0**（§2.2）打通端到端骨架。
+5. 每 slice：派 impl subagent → 派 audit subagent（独立敌对 + 方法学）→ PASS 则 Manager `gh pr merge`；FAIL 则派 fix subagent 重跑，直到 PASS 或分诊升级。
+6. 全部 slice 完：派一次整体 PR-Audit（§阶段5 A–H 面）→ PASS 合并。
+7. 每步更新 PROGRESS.md；**预注册阈值 τ_disp/τ_level 在看结果前冻结并记时间戳**。
+
+---
 
 ---
 
@@ -279,11 +322,11 @@ git push -u origin feature/<N>-<name>
 
 ---
 
-## 阶段 6 · 交付（先发你，不 merge）
+## 阶段 6 · 交付（本项目：audit PASS → Manager 自动合并）
 
-- **先发你**：报告 / `git diff <DEFAULT_BRANCH>...feature/<N>` / PASS-FAIL 表。**不 mark ready、不 merge。**
-- 你审完 → 才 mark PR ready → 交 owner review + merge。
-- 共享 infra 改动在 PR body/commit 里**单独标注 "needs your sign-off"**。
+- **合并闸 = 独立 audit（含 §4.5 方法学）PASS**：Manager 直接 `gh pr merge --squash --delete-branch`，人不手动 review。
+- Manager 合并后在 PROGRESS.md 记一笔（PR / diff 摘要 / audit verdict），供你事后抽查。
+- **升级给你而不自合的情形**：audit 反复 FAIL、方法学争议、或触及 §0.5 三道闸 / 判断题。
 - **（可选）图文报告**：结果 + 可视化 + 指标 + **诚实的精度验证**。
   - 别 overclaim：无 ground truth 时说清「是合理性/一致性/稳定性验证，不是误差 vs 真值」；要真误差就用**带 GT 的标定数据集**，并写明域差距。
   - 重型产物（图/大文件）放 `<REPORT_STORE>`（git 外），只把摘要发 PR。
@@ -296,7 +339,7 @@ git push -u origin feature/<N>-<name>
 |---|---|
 | **只读主 checkout** | agent 永不改 `<REPO_PATH>` 主 checkout；只 `git worktree add` / 只读 inspect（`git log/status/diff`） |
 | **禁止在主 checkout 上 test-checkout** | 临时 checkout 某 commit 也不行（会留 detached HEAD）；要看某 commit 用临时 worktree |
-| **PR-first 但不 merge** | 早开 draft 拿 CI/可见性；ready/merge 是人的动作 |
+| **PR-first；合并=audit PASS**（本项目） | 早开 draft 拿 CI/可见性；**独立 audit（含方法学）PASS 后由 Manager 自动 `gh pr merge`**，人不手动审 |
 | **commit trailer** | 每个 commit 带 `<COMMIT_TRAILER>` |
 | **空分支陷阱** | 0-commit 开不了 PR → 先 `git commit --allow-empty` 引导提交 |
 | **删 worktree 陷阱** | 先 `cd <REPO_PATH>` 再 `git worktree remove`，否则后续 shell 找不到 cwd 报 ENOENT |
@@ -322,12 +365,12 @@ git push -u origin feature/<N>-<name>
 **Topic 模式**（多 sub-agent 并行）：
 ```
 topic/xxx（伞状，Manager 维护）
-  ├── slice/xxx-S1（Sub-Agent 1，auto-merge 进 topic）
-  ├── slice/xxx-S2（Sub-Agent 2，auto-merge 进 topic）
-  └── topic → <DEFAULT_BRANCH>（人工 approve 一次）
+  ├── slice/xxx-S1（Sub-Agent 1，audit PASS 后 Manager 合进 topic）
+  ├── slice/xxx-S2（Sub-Agent 2，audit PASS 后 Manager 合进 topic）
+  └── topic → main（整体 audit PASS 后 Manager 自动合并）
 ```
 
-**auto-merge 策略**：slice → topic 可由 Manager 验证后 auto-merge；topic → 主干**永远需要人 approve**，即使 CI 全绿。
+**auto-merge 策略（本项目全自动）**：slice → topic 与 topic → 主干**均由 Manager 在独立 audit（含 §4.5 方法学审计）PASS 后自动合并**，人不手动 approve。**唯一例外——升级给你**：audit 反复 FAIL、方法学争议、或 §0.5 三道闸未清零。
 
 ---
 
@@ -359,8 +402,8 @@ git branch -D feature/<N>-<name>                        # PR 已 merge 时
 |---|---|
 | Goal → Spec 全自动 | issue 仍需人判断业务价值后创建 |
 | 独立「Planner Agent」角色 | Manager 兼任规划职能 |
-| 持久化向量记忆 / 知识图谱 | 仅有文件式 handoff 记忆（`docs/<date>-handoff.md`，git 追踪，session 间接力）|
-| Agent 自主 approve 自己的 PR 进主干 | 平台限制 + 本规范明确禁止 |
+| 持久化向量记忆 / 知识图谱 | 仅有文件式 handoff 记忆（SPEC/INTERFACES/PROGRESS + `docs/<date>-handoff.md`，git 追踪，session 间接力）|
+| 写代码的 subagent 自审自合（本项目） | 禁止自审自合；由**独立 audit subagent** PASS + **Manager**（另一 session）执行合并，人不手动审 |
 
 ---
 
@@ -383,23 +426,15 @@ main checkout；commit trailer <COMMIT_TRAILER>；push 到 draft PR，测试绿�
 ready；NEVER merge。判断题上报我，不要猜。
 ```
 
-### B. Manager spawn（多 slice，依赖感知）
-```bash
-<AGENT_CLI> --name manager-<N> --model <MODEL> \
-  -i 'You are a manager agent (<REPO_PATH>). Drive issue #<N>.
-1. Read issue #<N> + parent epic; read AGENTS.md.
-2. DEPENDENCY ANALYSIS FIRST: map which slices touch the same files or depend on
-   each other. PARALLELIZE only INDEPENDENT slices; SEQUENCE dependent ones. Do
-   NOT force-parallelize a dependency chain.
-3. Write spec + per-slice plans (<SPEC_DIR> + <PLAN_DIR>).
-4. Per slice: own worktree + draft PR; ONLY you touch git/topic; sub-agents never
-   touch main/merge.
-5. After each slice: run an INDEPENDENT hostile audit (fresh session).
-6. After all slices: full PR-audit (build the artifact + full test suite + diff
-   hygiene).
-7. Escalate real judgment calls to me. NEVER merge to <DEFAULT_BRANCH>. Deliver to
-   me first. Trailer: <COMMIT_TRAILER>'
+### B. Manager spawn（本项目总调度 · 完整 prompt 见 [docs/manager-prompt.md](docs/manager-prompt.md)）
+```powershell
+cd "<REPO_PATH>"
+copilot --allow-all --name manager-twdf --model auto --effort high -i (Get-Content .\docs\manager-prompt.md -Raw)
 ```
+Manager 只调度不干活：读上下文 → 过 §0.5 三道闸 → 依赖分析（§2.1）→ 先纵切 v0（§2.2）→
+每 slice 派 impl+audit subagent → **audit PASS 后自己 `gh pr merge`** → 更新 PROGRESS.md。
+仅三道闸 / 方法学争议 / 判断题升级给你，其余自决。subagent 用 `copilot -p (Get-Content
+.\.prompts\<name>.md -Raw) --allow-all --name <name>` 新开非交互 session 委派。
 
 ### C. Spec / Plan 确认 prompt
 ```
@@ -479,8 +514,8 @@ Issue 准备
   □ E 全量测试+归因  □ F diff 卫生  □ G review 闭环  □ H 方法学清单
 
 交付
-  □ 先发你(不 merge)  □ 共享 infra 标注 sign-off  □ (可选)图文+精度报告
-  □ 你确认 → mark ready → 交 owner merge
+  □ audit PASS → Manager 自动合并  □ 三闸/方法学争议/判断题才升级给你  □ (可选)图文+精度报告
+  □ audit PASS → Manager 自动 `gh pr merge`（人不手动审）
 
 铁律自检
   □ 验证了真实产物(不只测试)  □ 上了独立敌对审计  □ 并行只对独立切片
