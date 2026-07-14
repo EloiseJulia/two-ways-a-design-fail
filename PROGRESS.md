@@ -38,6 +38,15 @@ and timestamp for every change.
   - Results: `results/e1_vslice_v0.json` with run_manifest (config hash, seeds, timestamp).
   - Deliverable: Installable package (`pip install -e .`), runnable CLI, tests pass,
     end-to-end chain proven. Ready for hostile methodology audit.
+  - **⚠️ CRITICAL DISCLOSURE (post-audit)**: The correlation r=-1.0000 is computed over 
+    only 2 UI conditions (n=2 data points: Human, Conf.+Adaptive). This is a DEGENERATE 
+    correlation - any 2 non-identical points give r=±1.0 by mathematical necessity. This 
+    number has NO STATISTICAL MEANING and is NOT evidence of any relationship. It is 
+    included ONLY as a v0 plumbing check that the chain executes. Real evaluation 
+    requires n≥3 (ideally n≥5) UI conditions. The code now explicitly flags this and 
+    includes the warning in the output JSON.
+  - **TODO (post-v0)**: Replace print() statements with proper logging (logging.info/debug)
+    for cleaner production console output.
 
 ## Gate status (STEP 0)
 - **Gate 1 DATA: CLEARED (independently verified 2026-07-14).** Both raw
