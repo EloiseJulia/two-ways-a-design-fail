@@ -49,7 +49,7 @@ def download_if_missing(data_dir: Path) -> Path:
 def load_bansal(data_dir: Optional[Path] = None,
                 task_sample: Optional[list[str]] = None,
                 ui_conditions: Optional[list[str] | tuple[str, str]] = None,
-                min_tasks_per_domain: Optional[int] = None) -> pd.DataFrame:
+                task_selection: str = 'all') -> pd.DataFrame:
     """
     Load Bansal CHI'21 data and convert to canonical per-trial schema.
     
@@ -69,14 +69,23 @@ def load_bansal(data_dir: Optional[Path] = None,
     
     Args:
         data_dir: Directory containing raw data (default: ./data/raw)
-        task_sample: List of questionIds to keep (default: auto-select shared tasks)
+        task_sample: Explicit list of questionIds to keep (overrides task_selection)
         ui_conditions: List or tuple of condition names to keep.
                       None = all 6 conditions ('Human', 'Conf.', 'Conf.+Single',
                       'Conf.+Double', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)')
                       Tuple of 2 = backward compatible with v0 (control, treatment)
                       List = multi-condition for E1 multicond
-        min_tasks_per_domain: Minimum shared tasks per domain (beer/amzbook/lsat)
-                             for difficulty control. None = no constraint.
+        task_selection: Task selection strategy when task_sample is None:
+                       - 'all': Use ALL trials for each condition (maximum data, default)
+                                For cross-condition comparison, uses tasks that appear in
+                                ALL selected conditions (intersection), but keeps all trials
+                                for those tasks. This maximizes statistical power.
+                       - 'min_per_domain': Min 3 tasks/domain (backward compat, fragile)
+                       - 'first_10_shared': First 10 shared tasks (v0 mode, fragile)
+                       
+                       NOTE: The 'all' default gives maximum statistical power and is the
+                       principled choice for methods papers. Other modes exist only for
+                       robustness analysis to show sensitivity to task selection.
     
     Returns:
         DataFrame with canonical schema per INTERFACES.md §1
@@ -123,16 +132,21 @@ def load_bansal(data_dir: Optional[Path] = None,
     df = df[df['condition'].isin(ui_conditions)].copy()
     print(f"After condition filter: {len(df)} rows")
     
-    # Select task sample - tasks shared across ALL selected conditions
+    # Select task sample
     if task_sample is None:
         # Find questionIds that appear in ALL selected conditions
         condition_tasks = [set(df[df['condition'] == cond]['questionId'].unique()) 
                           for cond in ui_conditions]
         shared_qs = set.intersection(*condition_tasks) if condition_tasks else set()
         
-        # If min_tasks_per_domain specified, ensure representation across domains
-        if min_tasks_per_domain is not None and min_tasks_per_domain > 0:
-            # Group shared tasks by domain
+        if task_selection == 'all':
+            # Use ALL shared tasks (maximum data per condition)
+            task_sample = sorted(shared_qs)
+            print(f"Task selection: 'all' - using ALL {len(task_sample)} shared tasks (maximum data)")
+            
+        elif task_selection == 'min_per_domain':
+            # Min 3 tasks per domain (backward compat, fragile to task selection)
+            min_tasks_per_domain = 3
             shared_df = df[df['questionId'].isin(shared_qs)]
             domain_tasks = {}
             for domain in shared_df['task'].unique():
@@ -144,14 +158,21 @@ def load_bansal(data_dir: Optional[Path] = None,
             for domain in sorted(domain_tasks.keys()):  # sorted for determinism
                 selected.extend(domain_tasks[domain][:min_tasks_per_domain])
             task_sample = sorted(set(selected))
-            print(f"Auto-selected {len(task_sample)} shared tasks ({min_tasks_per_domain}/domain):")
+            print(f"Task selection: 'min_per_domain' - using {len(task_sample)} shared tasks ({min_tasks_per_domain}/domain):")
             for domain in sorted(domain_tasks.keys()):
                 domain_selected = [q for q in task_sample if q in domain_tasks[domain]]
                 print(f"  {domain}: {len(domain_selected)} tasks")
-        else:
-            # Just take first N shared tasks (sorted for determinism)
+        
+        elif task_selection == 'first_10_shared':
+            # First 10 shared tasks (v0 mode, fragile to task ordering)
             task_sample = sorted(shared_qs)[:10] if len(shared_qs) >= 10 else sorted(shared_qs)
-            print(f"Auto-selected {len(task_sample)} shared tasks: {task_sample}")
+            print(f"Task selection: 'first_10_shared' - using {len(task_sample)} shared tasks (v0 mode)")
+        
+        else:
+            raise ValueError(f"Unknown task_selection mode: {task_selection}. "
+                           f"Valid options: 'all', 'min_per_domain', 'first_10_shared'")
+    else:
+        print(f"Task selection: explicit task_sample with {len(task_sample)} tasks")
     
     df = df[df['questionId'].isin(task_sample)].copy()
     print(f"After task filter: {len(df)} rows")

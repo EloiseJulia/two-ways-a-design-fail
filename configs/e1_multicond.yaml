@@ -4,16 +4,23 @@
 
 data:
   raw_dir: "data/raw"
-  task_sample: null  # null = auto-select shared tasks across all conditions
+  task_sample: null  # null = auto-select based on task_selection mode
   
   # UI conditions from Bansal et al. CHI'21 dataset
   # Available: 'Human', 'Conf.', 'Conf.+Single', 'Conf.+Double', 'Conf.+Adaptive', 'Conf.+Adaptive (Expert)'
   # null = use all 6 conditions (default)
   ui_conditions: null
   
-  # Minimum number of shared tasks per domain (beer, amzbook, lsat)
-  # null = auto-select to maximize coverage
-  min_tasks_per_domain: 3
+  # Task selection strategy (CRITICAL methodological choice):
+  # - 'all': Use ALL shared tasks across conditions (MAXIMUM DATA, default)
+  #          This gives maximum statistical power and is the principled choice.
+  # - 'min_per_domain': Min 3 tasks/domain (backward compat from early dev, FRAGILE)
+  # - 'first_10_shared': First 10 shared tasks sorted by ID (v0 mode, FRAGILE)
+  # 
+  # NOTE: Different selections can give WILDLY different over-dispersion estimates
+  # on small datasets. The 'all' default maximizes n_trials and is most robust.
+  # Other modes exist ONLY for robustness analysis (see BLOCKER-1 audit fix).
+  task_selection: 'all'
 
 panel:
   n_personas: 5
