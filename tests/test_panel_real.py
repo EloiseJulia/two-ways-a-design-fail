@@ -501,4 +501,8 @@ def test_real_api_end_to_end():
         stats = provider.get_stats()
         print(f"\nLive API test stats: {stats}")
         assert stats['api_calls'] >= 0  # May be 0 if fully cached
-        assert stats['total_requests'] == len(personas) * len(tasks) * 2 * 2  # 2 UI × 2 systems
+        # System-1 is shared across UI arms (counterfactual design)
+        # Expected: personas × tasks × (1 System-1 + 2 System-2 for 2 UI)
+        expected = len(personas) * len(tasks) * 3
+        assert stats['total_requests'] == expected, \
+            f"Expected {expected} requests (System-1 shared), got {stats['total_requests']}"

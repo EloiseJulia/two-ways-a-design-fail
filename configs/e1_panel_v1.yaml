@@ -12,7 +12,7 @@ ui_pair:
 
 # Task selection
 domain: "beer"  # Beer sentiment tasks
-n_tasks: 5  # Reduced for faster testing (was 20)
+n_tasks: 20  # Thin-slice scale (diverse tasks spanning AI-correct/incorrect + conf range)
 task_seed: 42  # Deterministic selection
 
 # Personas (5 diverse personas spanning user×task interaction space)
@@ -60,9 +60,9 @@ personas:
 # Model provider config
 model:
   name: "openai/gpt-4o-mini"
-  call_budget: 200  # Hard cap on API calls (5 tasks × 5 personas × 2 conditions × 2 systems = 100 calls)
-  inter_call_sleep: 0.2  # Reduced sleep for faster testing (was 0.5)
-  max_retries: 5  # Exponential backoff retries
+  call_budget: 350  # Hard cap (System-1: 5×20=100 shared, System-2: 5×20×2=200, total=300 + margin)
+  inter_call_sleep: 0.8  # Safe margin under empirical 1.5 req/s sustainable rate
+  max_retries: 5  # Exponential backoff retries (429 gets 8 retries in provider)
   
 # Generation parameters
 seeds: [42]  # Single seed for determinism (uses first seed per persona×task)

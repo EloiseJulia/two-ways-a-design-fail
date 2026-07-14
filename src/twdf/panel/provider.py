@@ -57,7 +57,7 @@ class GitHubModelsProvider:
                  *,
                  cache_dir: Optional[Path] = None,
                  call_budget: int = 1000,
-                 inter_call_sleep: float = 0.5,
+                 inter_call_sleep: float = 0.8,
                  max_retries: int = 5):
         """
         Initialize GitHub Models provider.
@@ -222,10 +222,29 @@ class GitHubModelsProvider:
                     
                     return content
                 
-                # Rate limit or server error - retry with backoff
-                if response.status_code in [429, 500, 502, 503, 504]:
+                # Rate limit (429) - wait longer to let token bucket refill
+                if response.status_code == 429:
+                    # Try Retry-After header if present, else use fixed 8s cooldown
+                    retry_after = response.headers.get('Retry-After')
+                    if retry_after and retry_after.isdigit():
+                        wait_time = max(float(retry_after), 8.0)
+                    else:
+                        wait_time = 8.0
+                    
+                    # Allow more retries for 429 specifically
+                    max_attempts = 8
+                    if attempt >= max_attempts:
+                        raise RuntimeError(f"Rate limit (429) exceeded after {max_attempts} retries")
+                    
+                    print(f"Rate limit (429), cooling down {wait_time:.1f}s (attempt {attempt + 1}/{max_attempts})")
+                    time.sleep(wait_time)
+                    last_error = f"HTTP 429: {response.text}"
+                    continue
+                
+                # Server errors (5xx) - exponential backoff
+                if response.status_code in [500, 502, 503, 504]:
                     wait_time = (2 ** attempt) + (attempt * 0.5)  # Exponential backoff
-                    print(f"API error {response.status_code}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
+                    print(f"Server error {response.status_code}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
                     time.sleep(wait_time)
                     last_error = f"HTTP {response.status_code}: {response.text}"
                     continue

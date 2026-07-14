@@ -1,0 +1,2037 @@
+{
+  "run_manifest": {
+    "experiment_name": "e1_panel_v1",
+    "config_hash": "424c5469d6bbb4c3",
+    "config_file": "configs/e1_panel_v1.yaml",
+    "timestamp": "2026-07-14T17:24:56.730850Z",
+    "wall_time_seconds": 4.536714315414429,
+    "n_personas": 5,
+    "n_tasks": 20,
+    "n_responses": 200,
+    "ui_pair": [
+      "Conf.",
+      "Conf.+Adaptive (Expert)"
+    ],
+    "model": "openai/gpt-4o-mini",
+    "seeds": [
+      42
+    ],
+    "total_api_calls": 0,
+    "cache_hits": 300,
+    "estimated_cost_usd": 0.0
+  },
+  "panel_disagreement": {
+    "Conf.": 0.0020000000000000035,
+    "Conf.+Adaptive (Expert)": 0.0020000000000000035
+  },
+  "elasticity": {
+    "mean_diff": 0.0,
+    "permutation_pvalue": 1.0,
+    "bootstrap_ci_lower": 0.0,
+    "bootstrap_ci_upper": 0.0,
+    "n_pairs": 20
+  },
+  "system1_accuracy": 0.8,
+  "responses": [
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "13",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "13",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "15",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "15",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "18",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "18",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "19",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "19",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "21",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "21",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "24",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "24",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "27",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "27",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "29",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "29",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "30",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "30",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "31",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "31",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "33",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "33",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "40",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "40",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "42",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "42",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "43",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "43",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "44",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "44",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.6,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "45",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "45",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "46",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "46",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "48",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "48",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "5",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "5",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "9",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p1-novice-cautious",
+      "task_id": "9",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "13",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "13",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "15",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "15",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "18",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "18",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "19",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "19",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "21",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "21",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "24",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "24",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "27",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "27",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "29",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "29",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "30",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "30",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "31",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "31",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "33",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "33",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "40",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "40",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "42",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "42",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "43",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "43",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "44",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "44",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "45",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "45",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "46",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "46",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "48",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "48",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "5",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "5",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "9",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p2-expert-trusting",
+      "task_id": "9",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "13",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "13",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "15",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "15",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "18",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "18",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "19",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "19",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "21",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "21",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "24",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "24",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "27",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "27",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "29",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "29",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "30",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "30",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "31",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "31",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "33",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "33",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "40",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "40",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "42",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "42",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "43",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "43",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "44",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "44",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "45",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "45",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "46",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "46",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "48",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "48",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "5",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "5",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "9",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p3-moderate-balanced",
+      "task_id": "9",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "13",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "13",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "15",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "15",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "18",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "18",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "19",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "19",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "21",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "21",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "24",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "24",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "27",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "27",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "29",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "29",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "30",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "30",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "31",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "31",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "33",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "33",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "40",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "40",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "42",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "42",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "43",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "43",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "44",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "44",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "45",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "45",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "46",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "46",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "48",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "48",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "5",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "5",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "9",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p4-skilled-skeptical",
+      "task_id": "9",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "13",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "13",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "15",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "15",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "18",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "18",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": false,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "19",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "19",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "21",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "21",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "24",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "24",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "27",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "27",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "29",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "29",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "30",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "30",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "31",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "31",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "33",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "33",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.7,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "40",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "40",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "42",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "42",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "43",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "43",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "44",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "44",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": false,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "45",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "45",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "46",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "46",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.95,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "48",
+      "ui_condition": "Conf.",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.8,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "48",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "0",
+      "final_decision": "0",
+      "relied": true,
+      "confidence": 0.75,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "5",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "5",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.85,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "9",
+      "ui_condition": "Conf.",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    },
+    {
+      "persona_id": "p5-novice-trusting",
+      "task_id": "9",
+      "ui_condition": "Conf.+Adaptive (Expert)",
+      "system1_decision": "1",
+      "final_decision": "1",
+      "relied": true,
+      "confidence": 0.9,
+      "seed": 42
+    }
+  ]
+}

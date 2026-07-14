@@ -236,6 +236,8 @@ def main():
     # We need to resample personas, not tasks
     def elasticity_stat(persona_sample):
         # Compute elasticity for a bootstrap sample of personas
+        # Note: Some bootstrap samples may have tasks with data in only one arm
+        # We compute means only for tasks with data in BOTH arms
         control_means = {}
         treatment_means = {}
         
@@ -254,8 +256,16 @@ def main():
                     treatment_means[task] = []
                 treatment_means[task].append(float(resp.relied))
         
-        control_task_means = {t: np.mean(v) for t, v in control_means.items()}
-        treatment_task_means = {t: np.mean(v) for t, v in treatment_means.items()}
+        # Only keep tasks present in BOTH arms
+        shared_tasks = set(control_means.keys()) & set(treatment_means.keys())
+        
+        if len(shared_tasks) == 0:
+            # Edge case: bootstrap sample has no overlap
+            # Return 0.0 (no effect when no data)
+            return 0.0
+        
+        control_task_means = {t: np.mean(control_means[t]) for t in shared_tasks}
+        treatment_task_means = {t: np.mean(treatment_means[t]) for t in shared_tasks}
         
         return within_task_diff(control_task_means, treatment_task_means)
     
