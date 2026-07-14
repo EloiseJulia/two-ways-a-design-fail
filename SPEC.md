@@ -36,6 +36,18 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
     counterfactual difference — disagreement increment predicts human reliance
     **over-dispersion** (excess over p(1−p) floor), significantly better than
     random / **mean-predictor** / prompt-only / single-model; CI excludes 0.
+    - **Refinement (empirical, PR #2 decomposition on Bansal):** the between-user
+      reliance over-dispersion axis-1 targets is, under AI assistance,
+      predominantly a **user × task** interaction rather than a stable user trait.
+      Split-half reliability: no-AI baseline reliance is substantially a stable
+      user trait (stable-user share ≈ 0.74, 95% CI [0.69, 0.79]), but AI-assisted
+      conditions drop to ≈ 0.32–0.41 (task-dependent). So axis-1's "safety depends
+      on *who the user is*" is, in the AI-assisted regime, more precisely "depends
+      on **user × task**": whether a user over-relies is contingent on the specific
+      task. Consequence: the agent panel and the disagreement→over-dispersion
+      mapping must span **diverse tasks** to expose the signal (few-task samples
+      attenuate it). Single dataset; replication + GLMM corroboration pending.
+      See docs/research/2026-07-14-overdispersion-decomposition.md.
   - H1b (axis 2, level/dark, E1+E4): systematic over-reliance on wrong AI gives
     a high-risk reading **even where over-dispersion ≈ 0**; converges with E4
     compliance sensor.
