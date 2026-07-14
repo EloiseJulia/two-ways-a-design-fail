@@ -18,17 +18,27 @@ and timestamp for every change.
   template, manager-prompt. Verified env (copilot/gh authed EloiseJulia/git/
   python3.12; uv absent). Created SPEC.md / INTERFACES.md / PROGRESS.md skeletons.
 
-## Doing
-- STEP 0: surfacing the THREE GATES to the PI (blocking all data-pipeline work).
+## Gate status (STEP 0)
+- **Gate 1 DATA: CLEARED (independently verified 2026-07-14).** Both raw
+  per-trial datasets downloadable & academic-use licensed:
+  - Bansal CHI'21: `uw-hai/Complementary-Performance` →
+    `experiment-data/decision-result-filter.csv` (HTTP 200, 66,042 rows; cols
+    assignmentId/questionId/condition/choice/y/pred/conf). Has UI conditions.
+  - Lu&Yin CHI'21: `ZhuoranLu/Trustworthy-ML` →
+    `data/expOneFinalPredictionsValid1125.csv` (HTTP 200, 9,031 rows; cols
+    workerId/taskId/prediction/finalPrediction/mlCorrect/switch).
+  - Manager verified URLs return 200 + real CSV headers (not subagent-claimed).
+  - Detail: `docs/research/2026-07-14-dataset-availability.md`.
+- **Gate 2 BATCH API: CLEARED for v0.** GitHub Models API via fine-grained PAT
+  (good for thin-slice v0). For full-scale E1: verify GitHub Models rate limits
+  for tier; Azure AI Foundry = high-throughput fallback. Copilot sub is
+  interactive-only, not a batch endpoint.
+- **Gate 3 PI: pending explicit acknowledgement.**
 
-## Todo (blocked on gates / PI go)
-- [ ] Gate 1 DATA: confirm Bansal CHI'21 + Lu&Yin CHI'21 raw per-trial data
-      obtainable (downloadable CSV/logs). Until cleared: NO data pipeline.
-- [ ] Gate 2 BATCH API: confirm a programmable endpoint callable in a Python
-      for-loop 10k+ times. Until cleared: NO panel inference loop.
-- [ ] Gate 3 PI: PI owns scientific correctness (acknowledge).
-- [ ] (allowed pre-gate) research subagent: dataset availability + batch-API
-      options + license — must NEVER fabricate links.
+## Doing
+- STEP 0 nearly done (Gate 3 ack). Proposing dependency map + v0 plan for PI go.
+
+## Todo (post-gate)
 - [ ] S0 code scaffold: package `twdf`, config, logging, run_manifest.
 - [ ] Thin vertical slice v0 (Module A schema on fake data → B → axis-1
       over-dispersion metric → one correlation number).
@@ -38,8 +48,8 @@ and timestamp for every change.
 | Module | Status | Blocked on |
 |---|---|---|
 | S0 architecture | docs skeleton done; code pending | — |
-| A data & features | not started | Gate 1 |
-| B panel engine | not started | Gate 2 |
+| A data & features | not started | Gate 1 CLEARED — ready |
+| B panel engine | not started | Gate 2 CLEARED (v0: GitHub Models API) |
 | C metrics & stats | not started (can start on fake data) | A schema |
 | D calibration & protocol | not started | B + C |
 | E experiments & report | not started | A+B+C+D |
