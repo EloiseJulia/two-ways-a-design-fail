@@ -4,6 +4,7 @@ import tempfile
 import json
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from twdf.experiments.e1_vslice import run_e1_vslice
