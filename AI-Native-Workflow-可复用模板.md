@@ -1,36 +1,49 @@
-# AI-Native 工作流 · 可复用模板
+# AI-Native 工作流 · Two Ways a Design Fails
 
-> **用途**：把这份文件放进任意 repo 根目录（建议命名 `AI-Native-Workflow.md` 或并入 `AGENTS.md`），即可套用一套 **Spec-Driven Development + Agent Execution + 独立审计 Gate** 的 AI 协作工作流。
-> **使用前**：先做一次 §0 的「一次性适配」，把占位符 `<...>` 替换成你自己项目的值。之后所有 issue 都照 §12 的 checklist 跑一遍即可，质量可复现。
+> **项目**：基于双轴分诊的人机协同决策界面部署前评估（v2.4）——用真实 reliance 日志校准的 LLM agent panel，在真人研究前对 AI 辅助决策界面做低成本部署前评估。核心依据见 [开题沟通稿_分歧度分诊_部署前评估_v2.4.md](开题沟通稿_分歧度分诊_部署前评估_v2.4.md)；工程可行性与分工见 [实验实施与AI分工计划.md](实验实施与AI分工计划.md)。
+> **本文用途**：把这套 **Spec-Driven Development + Agent Execution + 独立审计 Gate** 的 AI 协作工作流，落到本项目的实际参数上。它是一篇**方法论论文**，因此在通用工程 gate 之上，额外加了一道**科研方法学审计 gate**（§4.5、§6）——「能跑」在这里**不等于**「正确」。
+> **每个 issue** 都照 §12 的 checklist 跑一遍，质量可复现。
 
 ---
 
-## 0. 一次性适配（换项目时改这里）
+## 0. 项目参数（本项目已适配好的值）
 
-把下表占位符替换成你项目的实际值，全文其它地方引用同名占位符即可。
+本项目已把通用占位符替换为下表实际值，全文引用同名参数即可。
 
-| 占位符 | 含义 | 示例 |
+| 参数 | 含义 | 本项目取值 |
 |---|---|---|
-| `<REPO>` | 仓库名 | `MyProject` |
-| `<REPO_PATH>` | 主 checkout 的绝对路径 | `~/MyProject` / `C:\code\MyProject` |
-| `<OWNER>` | GitHub owner / org | `your-org` |
+| `<REPO>` | 仓库名 | `two-ways-a-design-fail` |
+| `<REPO_PATH>` | 主 checkout 的绝对路径 | `C:\Users\v-elzhang\Desktop\MyFolder\two ways a design fail` |
+| `<OWNER>` | GitHub owner | `EloiseJulia` |
 | `<DEFAULT_BRANCH>` | 主干分支 | `main` |
 | `<WORKTREE_ROOT>` | worktree 存放目录 | `<REPO_PATH>/.worktrees` |
-| `<AGENT_CLI>` | 你用的 agent CLI 命令 | `copilot` / `claude` / 自定义 |
-| `<MODEL>` | 复杂任务默认模型 | 你可用的最强长上下文模型 |
-| `<TMUX_SESSION>` | 长驻 agent 的 tmux session 名 | `proj-t` |
-| `<COMPUTE>` | 执行 GPU/重任务的机器描述 | `4× GPU 服务器` / `本地` / `CI runner` |
-| `<PROJECT_BOARD>` | 项目看板标识（可选） | GitHub Project number / 无 |
-| `<SPEC_DIR>` | spec 存放目录 | `docs/specs/` |
+| `<AGENT_CLI>` | 使用的 agent CLI | `copilot`（Copilot Premium，多模型、token 不限额） |
+| `<MODEL>` | 复杂任务默认模型 | 可用的最强长上下文模型（统计/校准模块用高 effort） |
+| `<COMPUTE>` | 执行重任务的机器 | 本地 + 待定的批量推理端点 / GPU（见闸 2） |
+| `<SPEC_DIR>` | spec 存放目录（= 冻结设计） | `SPEC.md`（根目录单一事实源，见 §2） |
 | `<PLAN_DIR>` | plan 存放目录 | `docs/plans/` |
 | `<RESEARCH_DIR>` | 调研报告目录 | `docs/research/` |
-| `<REPORT_STORE>` | 重型交付物（图/大文件）存放处（git 外） | `~/reports/<REPO>/` |
-| `<COMMIT_TRAILER>` | 每个 commit 的署名 trailer | `Co-authored-by: <agent> <email>` |
-| `<BUILD_CMD>` | 构建/产物验证命令 | `make build` / `npm run build` / `nix build` |
-| `<RUN_CMD>` | 跑真实产物的命令 | `./bin/app --help` |
-| `<TEST_CMD>` | 全量测试命令 | `pytest` / `npm test` / `go test ./...` |
+| `<REPORT_STORE>` | 重型交付物（图/大文件）存放处（git 外） | `~/reports/two-ways-a-design-fail/` |
+| `<COMMIT_TRAILER>` | 每个 commit 的署名 trailer | `Co-authored-by: Copilot <copilot@github.com>` |
+| `<BUILD_CMD>` | 环境/依赖验证命令 | `pip install -e .` / `uv sync` |
+| `<RUN_CMD>` | 跑真实产物（一次纵切实验） | `python -m experiments.e1 --config configs/vslice_v0.yaml` |
+| `<TEST_CMD>` | 全量测试命令 | `pytest` |
 
-> 如果你的项目没有服务器 / tmux / GPU，把「长驻 agent」相关内容当作「本地终端里跑 agent」即可，方法论不变。
+> 本项目是单人 + Copilot 多 agent/session 并行代工，没有服务器 tmux 常驻；把「长驻 agent」理解为「本地多个终端/session 里跑 agent」即可，方法论不变。
+
+---
+
+## 0.5 三道闸：AI 过不了、必须你先亲自清掉（先于一切代码）
+
+代码量约 **80–90% 可交给 AI**，但有三道闸**与写多少代码无关**，决定项目能否启动。详见 [实验实施与AI分工计划.md](实验实施与AI分工计划.md) §1。
+
+| 闸 | 内容 | 不过的后果 |
+|---|---|---|
+| **闸 1 · 数据** | 能否真正拿到 Bansal CHI'21 与 Lu & Yin CHI'21 的**原始 trial 级数据**（可下载的 CSV/日志，不是论文图表） | 拿不到 → E1 无法校准/验证，项目空转。**没结论前别让 AI 写数据管道**（它会对着想象的格式写白工，甚至编出不存在的下载链接）。 |
+| **闸 2 · 批量推理通道** | 「Copilot 不限额」是否等于**可在 Python `for` 循环里调几万次的批量 API** | 只有交互聊天 → agent panel 的推理循环跑不起来。备选：Azure OpenAI / 各家 API key；开源权重档用本地/托管 vLLM（需 GPU，AI 开不出来）。 |
+| **闸 3 · 你自己当 PI** | 科学正确性（无泄漏、无污染、统计不自欺）**无法外包** | 全托管 AI → 产出「能跑、数字漂亮、方法学却是错的」管道，对一篇方法论论文是致命的。 |
+
+> **一句话：AI 能当整个工程团队，但当不了 PI。** 你的角色是「定架构 + 做集成 + 验正确性 + 解释结果」——恰是 AI 干不了的高价值 10%。
 
 ---
 
@@ -42,27 +55,34 @@
 
 | # | 铁律 | 教训 |
 |---|---|---|
-| 1 | **验证真实产物，不只看测试绿** | 关键配置被误删、整条命令失效，却通过了几十个测试——只有 build + 运行真产物才抓得到 |
-| 2 | **独立敌对审计 > 自审** | 自审容易判「都是 pre-existing / PASS」，独立新 agent 常挖出真 bug |
+| 1 | **验证真实产物，不只看测试绿** | 关键配置被误删、整条命令失效，却通过了几十个测试——只有 build + 跑真产物才抓得到 |
+| 2 | **独立敌对审计 > 自审** | 自审容易判「都是 pre-existing / PASS」；独立新 agent 常挖出真 bug（尤其隐蔽的**统计/方法学**错误） |
 | 3 | **并行只对「独立切片」，依赖链必须串行** | 硬并行依赖链 = 冲突 + 跨切片一致性 bug 更隐蔽 |
-| 4 | **共享基础设施改动标注交 owner，永不自 merge** | env/build/infra 是 owner 地盘；agent 只测明白、标注醒目，merge 是人的判断 |
+| 4 | **共享基础设施/schema 改动标注交你，永不自 merge** | `INTERFACES.md` 里的 schema/签名是全局契约；agent 只测明白、标注醒目，merge 是人的判断 |
 | 5 | **知道何时停手** | 一道彻底审计 0 新问题后继续审 = 边际收益趋零的焦虑循环；验到合理程度就交 |
+| 6 | **能跑 ≠ 正确（本项目专属）** | 这是一篇**方法论**论文：泄漏/污染/beta-binomial 算错/阈值事后回填都会让「能跑的漂亮管道」静默作废；正确性由你负责（§6） |
 
-外加一条贯穿铁律：**「标注边界 ≠ 修 bug」**——低风险且真超范围的可文档化为「已知边界」；但**会静默丢数据 / 破坏正确性**的（如身份维度缺失、窗口截断丢帧）**必须修**。
+外加一条贯穿铁律：**「标注边界 ≠ 修 bug」**——低风险且真超范围的可文档化为「已知边界」；但**会静默丢数据 / 破坏正确性**的（如泄漏、身份维度缺失、超弥散算成原始方差）**必须修**。
 
 ---
 
-## 2. 三层文档体系（全部 git 追踪）
+## 2. 三层文档体系 · 单一事实源（全部 git 追踪）
+
+多个无记忆 session 各写各的、代码拼不拢（接口对不上、schema 各定各的）是本项目的头号风险。解法是在根目录维护**三份共享大脑**，每个新 session 第一件事是读它们：
 
 | 层 | 位置 | 作用 | 谁拥有 |
 |---|---|---|---|
-| **执行规范** | `AGENTS.md`（或本文件） | 定义 HOW：worktree 隔离 / PR 流程 / 分支命名 / commit 规范 / auto-merge 策略 / 看板更新 | 人（项目主人） |
-| **设计规格** | `<SPEC_DIR>` | 每个 issue 一个 spec：Objective → Non-goals → Surface → Design → Acceptance Criteria → Slice Plan | 人 或 Agent（讨论后写） |
+| **执行规范** | `AGENTS.md`（或本文件） | 定义 HOW：worktree 隔离 / PR 流程 / 分支命名 / commit 规范 / auto-merge 策略 | 你（PI） |
+| **冻结设计** | **`SPEC.md`** | 双轴定义、RQ/H、E1–E6、双阈协议——基本就是 v2.4 开题稿的技术版 | 你 或 Agent（讨论后写） |
+| **接口契约** | **`INTERFACES.md`** | 所有模块的数据 schema 与函数签名（数据帧列名、`AgentResponse` 结构、指标函数输入输出）——**防代码拼不拢的关键** | 你 + Agent |
+| **进度与坐标** | **`PROGRESS.md`** | 已完成/进行中/待办 + 已知坑 + **预注册阈值冻结时间戳**（防事后调参）。每个 session 结束前更新 | Agent（你审） |
 | **执行脚本** | `<PLAN_DIR>` | 每个 slice 一个 plan：架构图 + 数据流 + 分步骤 checklist + 测试步骤 + push 点 | Agent（执行中生成） |
-| **调研报告**（可选） | `<RESEARCH_DIR>` | SOTA 调研 / 选型 / license 审查 | Research Agent |
+| **调研报告**（可选） | `<RESEARCH_DIR>` | 数据集可获取性核实 / 批量 API 选型 / license 审查 | Research Agent |
+
+> **每个新 agent/session 的开场白**：「先读 `SPEC.md` / `INTERFACES.md` / `PROGRESS.md`，严格按 `INTERFACES.md` 的签名实现 X 模块，不要改动其它模块的接口，完成后更新 `PROGRESS.md`。」
 
 **Spec 与 Plan 都可以由 Agent 写**，但必须**经你确认后 commit**。区别：
-- **单 issue 交互模式**：讨论后 Agent 写 spec（人机协作，spec 质量取决于讨论深度）。
+- **单 issue 交互模式**：讨论后 Agent 写 spec（spec 质量取决于讨论深度）。
 - **多 issue 非交互模式**：Agent 自主写 spec，所以 **issue body 质量决定 spec 质量**。
 
 ---
@@ -88,15 +108,15 @@
 
 | 角色 | 何时用 | 位置 | 关键约束 |
 |---|---|---|---|
-| **你（人）** | 全程 | 本地 / 浏览器 | 唯一强制触发点；判断题的最终裁决者；merge 决定 |
-| **Research Agent**（可选） | 技术路线/选型不明 | 独立 session，doc-only | 输出 research md，直接 commit `<DEFAULT_BRANCH>`；不写代码 |
+| **你（PI + 首席验证官）** | 全程 | 本地 / 浏览器 | 唯一强制触发点；定架构 + 集成 + **验方法学正确性**（§6）；过三道闸（§0.5）；merge 决定 |
+| **Research Agent**（可选） | 数据/API/选型不明 | 独立 session，doc-only | 输出 research md，直接 commit `<DEFAULT_BRANCH>`；不写代码；**不能代你搞定 gated 数据**（会编不存在的链接） |
 | **Manager Agent** | 多 slice / 多 issue | 长驻 session（`<COMPUTE>`） | **先画依赖图**；只有它碰 git/topic；永不碰主 checkout、永不 merge 进主干 |
-| **Sub-Agent（执行）** | 每个 slice | 独立 worktree + session | 只在自己 worktree；spec→plan→执行；自检 gate |
-| **Audit Agent（独立敌对）** | 每 slice 完 + 整体 | **全新 session、无上下文** | 目标是挑毛病；不信任何既有结论；只报不修 |
+| **Sub-Agent（执行）** | 每个 slice | 独立 worktree + session | 只在自己 worktree；spec→plan→执行；严格按 `INTERFACES.md` 签名；自检 gate |
+| **Audit Agent（独立敌对）** | 每 slice 完 + 整体 | **全新 session、无上下文** | 目标是挑毛病；不信任何既有结论；**包括方法学审计（§4.5）**；只报不修 |
 
 **两种规模：**
-- **单 issue（日常默认）**：不需要 Manager。你在 worktree 里起一个交互 session，讨论 → spec → plan → 执行 → review。
-- **多 issue 并行（高级）**：才需要 Manager Agent 编排多个 Sub-Agent。
+- **单 slice（日常默认）**：不需要 Manager。你在 worktree 里起一个交互 session，讨论 → spec → plan → 执行 → review。
+- **多 slice 并行（高级）**：才需要 Manager Agent 编排多个 Sub-Agent（见 §4.7 模块分工）。
 
 ---
 
@@ -153,6 +173,29 @@ Commit directly to <DEFAULT_BRANCH> (doc-only). Trailer: <COMMIT_TRAILER>'
 
 **产物**：Manager 写 spec + per-slice plan，标明每个 slice 的**依赖关系 + 并行/串行编排**，commit 到 topic 分支。
 
+### 2.1 本项目模块分解与 agent 分工（依赖已标注）
+
+清晰的模块边界 = 干净的 session 分配。详见 [实验实施与AI分工计划.md](实验实施与AI分工计划.md) §4。
+
+| Agent/Session | 模块 | 依赖 | 阻塞于 |
+|---|---|---|---|
+| **S0（你 + AI）** | 架构：仓库、`SPEC/INTERFACES/PROGRESS`、config、schema | — | 最先做 |
+| **A · 数据与特征** | 加载 Bansal/Lu&Yin → 统一 schema；抽取原子认知-交互特征（§4.3 特征向量） | S0 | **闸 1（数据）** |
+| **B · Panel 引擎** | 双系统架构、persona、反事实配对、摩擦代理、模型 provider 抽象、序列有状态模式 | S0 | **闸 2（API）** |
+| **C · 指标与统计** | beta-binomial 超弥散、bootstrap、置换检验、双轴信号、PAS/ECS/ECE、四基线 | A 的 schema | — |
+| **D · 校准与协议** | 特征空间/分区校准、双阈值学习、弃权逻辑、泛化梯度、逆转区 | B + C | — |
+| **E · 实验与报告** | E1–E5 编排、结果表、图、预注册日志 | A+B+C+D | — |
+
+**并行建议**：A 和 B 可同时起步（分别阻塞于各自外部资源——闸 1/闸 2）；C 只需 A 的 schema 就能开工（先用假数据写好、真数据到位再接）。
+
+### 2.2 推进策略：先纵切一刀，再横向铺开（强烈建议）
+
+**不要**让五个 agent 各把模块写"完整"再集成——那对单人协调多 session 是集成地狱。改为**先打通一条最薄的端到端纵切**：
+
+> **纵切 v0**：Bansal 一个数据集 × 一个模型 × 十来个任务 × 一个 UI 对比 → 只算**轴一超弥散信号 E1** → 跑出一个"分歧度 vs 人类超弥散"的相关数字。
+
+打通它，证明"数据→panel→指标→结果"整条链能拼起来。**然后再横向加**：加模型（跨家族三角）→ 加轴二（暗黑/系统性过度依赖）→ 加特征与校准 → 加 E3/E4/E5。集成风险第一天就暴露，每加一块都在一条能跑的链上增量。
+
 ---
 
 ## 阶段 3 · 每个 Slice 执行
@@ -199,8 +242,23 @@ git push -u origin feature/<N>-<name>
 
 **审计回来后分诊：**
 - 我们代码 + 修法清楚 → 修
-- 共享 infra / owner 说过别动 → **不擅改，文档 + follow-up issue，交 owner**
+- 共享 infra / `INTERFACES.md` 契约 → **不擅改，文档 + follow-up issue，交你**
 - 会静默丢数据 / 破坏正确性 → **必须修**（哪怕它自称「边界」）
+
+### 4.5 方法学审计 gate（本项目专属 · 最重要的一道）
+
+工程 bug 让代码"跑不了"，方法学 bug 让代码"跑得漂亮却是错的"——对一篇卖方法学的论文，后者致命。**每一条你都要亲自核对，或让第二个 AI 以对抗视角复核（"请找出这段统计代码里的方法学错误"）。** 详见 [实验实施与AI分工计划.md](实验实施与AI分工计划.md) §6。
+
+- [ ] **训练/测试泄漏**：LOIO（E3）留出的整类干预，其任何信息（含校准阈值、特征归一化参数）**绝不能**在训练侧见过。AI 极易把归一化 fit 在全量数据上——这就是泄漏。
+- [ ] **污染隔离**：是否真跑在扰动版数据上；模型训练截止日期 vs 数据发布日期是否如实报告。
+- [ ] **beta-binomial 超弥散**：是否真从二项抽样噪声里**分离**出 between-user 超弥散，还是错算成原始方差？（错了整个 H1a 塌。）
+- [ ] **均值预测器基线**：必须是"只输出 p(1−p)"的基线，且分歧度**确实显著优于它**——不能偷偷放水。
+- [ ] **null model / 适当依赖锚点**：理性贝叶斯 null model 是否正确，"过度依赖"是否相对它定义。
+- [ ] **难度控制**：E1 主估计量是否真的是 within-task 差分（难度配对内抵消），还是被写成 pooled 相关（会被难度混淆）。
+- [ ] **双轴不串味**：轴一（离散）与轴二（水平）是否分别计算、分别设阈；暗黑条件下轴二是否确实触发（闭合盲区的验收点）。
+- [ ] **researcher DoF / 预注册**：阈值 τ_disp、τ_level 是否**在看结果前**锁定并写进 `PROGRESS.md`？事后调参回填 = 科研不端。
+- [ ] **多重比较**：扫多个干预时 Benjamini–Hochberg 校正是否真的做了。
+- [ ] **AI 幻觉数字**：任何"结果摘要"以**代码重跑的原始输出**为准，不信 AI 在对话里复述的数字。
 
 ---
 
@@ -215,8 +273,9 @@ git push -u origin feature/<N>-<name>
 | **E 全量回归** | 跑**整个**测试套（不只子集）；每个失败 clean-main 独立归因 |
 | **F diff 卫生** | 逐行看配置/依赖文件，防「误删」；无 throwaway/debug 残留；worktree 干净 |
 | **G review 闭环** | 所有 review thread 回复 + 真修（不只回复）；lint |
+| **H 方法学（本项目）** | §4.5 清单：无泄漏/污染、超弥散分离正确、基线未放水、难度受控、双轴不串味、预注册未事后回填 |
 
-**产出**：PASS/FAIL 表 + ranked findings。确认的 bug 修，判断题标注交你/owner。
+**产出**：PASS/FAIL 表 + ranked findings。确认的 bug 修，判断题标注交你。
 
 ---
 
@@ -393,11 +452,16 @@ our real content (domain gap). Outputs stay local (git-out), no commits, no merg
 ## 12. 一页 Checklist（每个 issue 跑一遍）
 
 ```
+三道闸（项目启动前，先于代码）
+  □ 闸1 数据: Bansal/Lu&Yin 原始 trial 级可获取? 否则备选现代数据/E6 自采
+  □ 闸2 批量 API: 有可在 Python loop 调几万次的 endpoint? 否则搞 API key/本地开源
+  □ 闸3 PI: 方法学正确性你亲自守（不外包）
+
 调研(可选)
   □ 对比表 + 推荐 + license/可商用性 + 诚实 caveat
 
 Issue 准备
-  □ body 够详细(验收/文件/Non-goals/epic)  □ (可选)登记看板
+  □ body 够详细(验收/文件/Non-goals/epic)  □ SPEC/INTERFACES/PROGRESS 已建
 
 拆分
   □ 画了依赖图  □ 独立→并行, 依赖→串行(没硬并行一条链)
@@ -408,11 +472,11 @@ Issue 准备
 
 独立敌对审计(每 slice)
   □ 新 session 无上下文  □ 先读代码找逻辑 bug  □ 验真产物  □ 失败 clean-main 归因
-  □ ranked findings + verdict
+  □ 方法学审计(§4.5): 无泄漏/超弥散分离/基线不放水/难度受控/双轴不串味  □ ranked findings + verdict
 
 整体 PR-Audit
   □ A 真产物 build+run  □ B 幂等/共存  □ C 结构/接口  □ D 正确性
-  □ E 全量测试+归因  □ F diff 卫生  □ G review 闭环
+  □ E 全量测试+归因  □ F diff 卫生  □ G review 闭环  □ H 方法学清单
 
 交付
   □ 先发你(不 merge)  □ 共享 infra 标注 sign-off  □ (可选)图文+精度报告
@@ -420,9 +484,9 @@ Issue 准备
 
 铁律自检
   □ 验证了真实产物(不只测试)  □ 上了独立敌对审计  □ 并行只对独立切片
-  □ 共享 infra 交 owner  □ 该修的修了(没拿"边界"糊弄)  □ 知道何时停
+  □ 共享 schema/接口改动交你  □ 该修的修了(没拿"边界"糊弄)  □ 方法学正确(§6 清单)  □ 知道何时停
 ```
 
 ---
 
-> **一句话收尾**：这套流程的价值不在「用了多少 agent」，而在**每个交付物都过了「独立敌对审计 + 验证真实产物」两道 gate，且每一处未验证/有意为之的边界都写清楚了**。换新项目时先做一次 §0 适配，之后照 §12 checklist 跑，任何 issue 的质量都可复现。
+> **一句话收尾**：这套流程的价值不在「用了多少 agent」，而在**每个交付物都过了「独立敌对审计 + 验证真实产物 + 方法学审计」三道 gate**。对这篇方法论论文：AI 能当你的整个工程团队，但成败压在你亲自守住的那 10%——**数据、算力、方法学正确性**。
