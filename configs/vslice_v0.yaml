@@ -1,0 +1,17 @@
+# E1 vslice v0 configuration
+# Thin vertical slice: prove the chain end-to-end with minimal compute
+
+data:
+  raw_dir: "data/raw"
+  task_sample: null  # null = auto-select 10 tasks shared between conditions
+
+panel:
+  n_personas: 5
+  control_spread: 0.1    # low disagreement for control UI
+  treatment_spread: 0.3  # high disagreement for treatment UI
+
+seeds:
+  bootstrap: 42
+  panel: 123
+
+bootstrap_n: 1000  # reduced from 10000 for v0 speed
