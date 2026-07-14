@@ -122,7 +122,7 @@
     }
   },
   "run_manifest": {
-    "timestamp": "2026-07-14T11:46:50.149830+00:00",
+    "timestamp": "2026-07-14T13:29:50.429598+00:00",
     "package_version": "0.1.0-vslice-v0",
     "config_hash": "0b915d17c2e14100",
     "seed_glmm": 42,

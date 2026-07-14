@@ -1,8 +1,8 @@
 {
   "manifest": {
-    "timestamp": "2026-07-14T08:52:59.105238Z",
+    "timestamp": "2026-07-14T14:22:48.766519Z",
     "package_version": "0.1.0-vslice-v0",
-    "config_hash": "bd50ccbafedfaf62",
+    "config_hash": "e95fce4cac58bf71",
     "seeds": {
       "bootstrap": 42,
       "panel": 123,
@@ -13,7 +13,7 @@
         "raw_dir": "data/raw",
         "task_sample": null,
         "ui_conditions": null,
-        "min_tasks_per_domain": 3
+        "task_selection": "all"
       },
       "panel": {
         "n_personas": 5,
@@ -24,8 +24,8 @@
         "panel": 123,
         "permutation": 456
       },
-      "bootstrap_n": 100,
-      "permutation_n": 100
+      "bootstrap_n": 10000,
+      "permutation_n": 10000
     }
   },
   "results": {
@@ -40,134 +40,134 @@
     "n_conditions": 6,
     "human_overdispersion": {
       "Conf.": {
-        "rho": 0.0022653175473862663,
-        "rho_ci_lower": 1.0060217217738846e-06,
-        "rho_ci_upper": 0.05430451405335468,
-        "mean_p": 0.8415922014622258,
-        "empirical_var": 0.0351330852383484,
-        "binomial_var": 0.13331476790019015,
-        "excess_var": 0.004159873524738015,
+        "rho": 0.020583163509343493,
+        "rho_ci_lower": 0.00804476898216533,
+        "rho_ci_upper": 0.03578569962307151,
+        "mean_p": 0.812666076173605,
+        "empirical_var": 0.012899246718194085,
+        "binomial_var": 0.15223992481020146,
+        "excess_var": 0.009042681749574278,
         "n_users": 286,
-        "n_trials": 1231
+        "n_trials": 11290
       },
       "Conf.+Adaptive": {
-        "rho": 0.014587150271253615,
-        "rho_ci_lower": 1.0184936385059485e-06,
-        "rho_ci_upper": 0.06498110496843591,
-        "mean_p": 0.8275039745627981,
-        "empirical_var": 0.0396095445820061,
-        "binomial_var": 0.14274114664557008,
-        "excess_var": 0.0064772593510788665,
+        "rho": 0.013900013992197854,
+        "rho_ci_lower": 0.004979418079954397,
+        "rho_ci_upper": 0.026987970165575595,
+        "mean_p": 0.8063094209161625,
+        "empirical_var": 0.011497467401026218,
+        "binomial_var": 0.15617453865800518,
+        "excess_var": 0.007555983797902837,
         "n_users": 292,
-        "n_trials": 1258
+        "n_trials": 11570
       },
       "Conf.+Adaptive (Expert)": {
-        "rho": 1.0037305930631128e-06,
+        "rho": 1.0184936385059485e-06,
         "rho_ci_lower": 1.0037305930631128e-06,
-        "rho_ci_upper": 1.0241110602998958e-06,
-        "mean_p": 0.8448979591836735,
-        "empirical_var": 0.021045730901401,
-        "binomial_var": 0.1310453977509371,
-        "excess_var": -0.005029628855163015,
+        "rho_ci_upper": 0.008804756720357767,
+        "mean_p": 0.8248979591836735,
+        "empirical_var": 0.002877689664287602,
+        "binomial_var": 0.14444131611828404,
+        "excess_var": 3.6022517299096057e-06,
         "n_users": 195,
-        "n_trials": 980
+        "n_trials": 9800
       },
       "Conf.+Double": {
-        "rho": 1.0037305930631128e-06,
-        "rho_ci_lower": 1.0037305930631128e-06,
-        "rho_ci_upper": 0.009580654297029562,
-        "mean_p": 0.8031045751633987,
-        "empirical_var": 0.03567970787689098,
-        "binomial_var": 0.15812761651501558,
-        "excess_var": -0.001139222439105296,
+        "rho": 0.02631770361415474,
+        "rho_ci_lower": 0.012529396957215173,
+        "rho_ci_upper": 0.04199645273286897,
+        "mean_p": 0.79964317573595,
+        "empirical_var": 0.01336372127501853,
+        "binomial_var": 0.16021396723487458,
+        "excess_var": 0.009290484819894602,
         "n_users": 285,
-        "n_trials": 1224
+        "n_trials": 11210
       },
       "Conf.+Single": {
-        "rho": 1.053785069676123e-06,
-        "rho_ci_lower": 1.0039557978909523e-06,
-        "rho_ci_upper": 0.026367485473878828,
-        "mean_p": 0.8063439065108514,
-        "empirical_var": 0.03857654889912955,
-        "binomial_var": 0.15615341094367072,
-        "excess_var": 0.002079925306284973,
+        "rho": 0.010937384512127986,
+        "rho_ci_lower": 0.002255391165458147,
+        "rho_ci_upper": 0.022004237374820258,
+        "mean_p": 0.8189608021877849,
+        "empirical_var": 0.010167516641065029,
+        "binomial_var": 0.14826400666772477,
+        "excess_var": 0.006383202888379256,
         "n_users": 280,
-        "n_trials": 1198
+        "n_trials": 10970
       },
       "Human": {
-        "rho": 1.0555427010406064e-06,
-        "rho_ci_lower": 1.0038472105986117e-06,
-        "rho_ci_upper": 0.03862813506136444,
-        "mean_p": 0.6819672131147541,
-        "empirical_var": 0.05905921860511741,
-        "binomial_var": 0.21688793335124967,
-        "excess_var": 0.0087483291474095,
+        "rho": 0.06658603687576103,
+        "rho_ci_lower": 0.05138862716582558,
+        "rho_ci_upper": 0.08093846201016477,
+        "mean_p": 0.6891071428571428,
+        "empirical_var": 0.02710231060321279,
+        "binomial_var": 0.2142384885204082,
+        "excess_var": 0.021688963080777474,
         "n_users": 283,
-        "n_trials": 1220
+        "n_trials": 11200
       }
     },
     "baseline_mean_predictor": {
       "Conf.": {
         "rho": 0.0,
-        "mean_p": 0.8415922014622258
+        "mean_p": 0.812666076173605
       },
       "Conf.+Adaptive": {
         "rho": 0.0,
-        "mean_p": 0.8275039745627981
+        "mean_p": 0.8063094209161625
       },
       "Conf.+Adaptive (Expert)": {
         "rho": 0.0,
-        "mean_p": 0.8448979591836735
+        "mean_p": 0.8248979591836735
       },
       "Conf.+Double": {
         "rho": 0.0,
-        "mean_p": 0.8031045751633987
+        "mean_p": 0.79964317573595
       },
       "Conf.+Single": {
         "rho": 0.0,
-        "mean_p": 0.8063439065108514
+        "mean_p": 0.8189608021877849
       },
       "Human": {
         "rho": 0.0,
-        "mean_p": 0.6819672131147541
+        "mean_p": 0.6891071428571428
       }
     },
     "panel_disagreement": {
-      "Conf.": 0.052,
-      "Conf.+Adaptive": 0.007999999999999997,
-      "Conf.+Adaptive (Expert)": 0.020000000000000004,
-      "Conf.+Double": 0.028,
-      "Conf.+Single": 0.04000000000000001,
-      "Human": 0.012000000000000007
+      "Conf.": 0.014000000000000002,
+      "Conf.+Adaptive": 0.005320000000000002,
+      "Conf.+Adaptive (Expert)": 0.0035200000000000006,
+      "Conf.+Double": 0.013080000000000001,
+      "Conf.+Single": 0.0037199999999999998,
+      "Human": 0.009079999999999998
     },
     "correlation": {
-      "spearman_rho": -0.23190841426097938,
-      "spearman_pvalue": 0.658373571260927,
-      "permutation_pvalue": 0.58,
-      "bootstrap_ci_lower": -1.0,
+      "spearman_rho": 0.7714285714285715,
+      "spearman_pvalue": 0.07239650145772594,
+      "permutation_pvalue": 0.0999,
+      "bootstrap_ci_lower": -0.0909090909090909,
       "bootstrap_ci_upper": 1.0,
       "n_conditions": 6,
       "degenerate": false,
       "note": null,
       "human_rho": [
-        0.0022653175473862663,
-        0.014587150271253615,
-        1.0037305930631128e-06,
-        1.0037305930631128e-06,
-        1.053785069676123e-06,
-        1.0555427010406064e-06
+        0.020583163509343493,
+        0.013900013992197854,
+        1.0184936385059485e-06,
+        0.02631770361415474,
+        0.010937384512127986,
+        0.06658603687576103
       ],
       "panel_disagreement": [
-        0.052,
-        0.007999999999999997,
-        0.020000000000000004,
-        0.028,
-        0.04000000000000001,
-        0.012000000000000007
+        0.014000000000000002,
+        0.005320000000000002,
+        0.0035200000000000006,
+        0.013080000000000001,
+        0.0037199999999999998,
+        0.009079999999999998
       ]
     },
     "methodology": {
-      "difficulty_control": "STRATIFIED POOLING - per-user (n_relied, n_trials) pooled across task domains (beer/amzbook/lsat) to control for difficulty confounding",
+      "difficulty_control": "BETWEEN-SUBJECTS DESIGN - Each user saw exactly 1 domain (beer/amzbook/lsat). Within-domain aggregation: each user contributes (n_relied, n_trials) aggregated across all trials in their assigned domain. Cross-condition comparisons are not confounded by difficulty because domain assignment was balanced across conditions.",
       "correlation_method": "Spearman rank correlation (robust for small n=6, monotonic hypothesis)",
       "pvalue_method": "Permutation test (10k shuffles, exact finite-sample distribution)",
       "ci_method": "Bootstrap over conditions (10k resamples, percentile CI)",
@@ -175,13 +175,58 @@
     },
     "metadata": {
       "n_personas": 5,
-      "n_tasks": 5,
+      "n_tasks": 50,
       "task_ids": [
         "0",
         "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
         "2",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
         "3",
-        "4"
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "4",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
       ],
       "task_domains": [
         "amzbook",

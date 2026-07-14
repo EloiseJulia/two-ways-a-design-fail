@@ -113,8 +113,11 @@ def run_e1_multicond(config: dict) -> dict:
         # that resamples users (not the full df resampling)
         def simple_bootstrap_rho(user_stats_dict):
             """Simple bootstrap by resampling users."""
+            import hashlib
             import numpy as np
-            rng = np.random.RandomState(seeds.get('bootstrap', 42) + hash(ui_cond) % 10000)
+            # Use stable hash to avoid PYTHONHASHSEED nondeterminism
+            seed_offset = int(hashlib.md5(ui_cond.encode()).hexdigest()[:8], 16) % 10000
+            rng = np.random.RandomState(seeds.get('bootstrap', 42) + seed_offset)
             boot_rhos = []
             for _ in range(min(config.get('bootstrap_n', 1000), 1000)):  # Cap at 1000 for speed
                 # Resample users
