@@ -1,0 +1,16 @@
+# E1 Decomposition Analysis Configuration
+# Variance decomposition: stable user trait vs user x task interaction
+#
+# PRIMARY METHOD: Split-half reliability (well-identified on Bansal structure)
+# OPTIONAL CORROBORATION: GLMM (if it converges)
+
+data:
+  raw_dir: "data/raw"
+  ui_conditions: null  # null = all 6 Bansal conditions
+  task_selection: "all"  # maximum data for statistical power
+
+analysis:
+  seed_variance_components: 42  # for GLMM (optional corroboration)
+  seed_split_half: 43  # for split-half (primary method), different from GLMM for independence
+  n_splits: 100  # number of random split-half replications
+  min_tasks_per_user: 8  # minimum tasks required for split-half (ensures 4+ per half)
