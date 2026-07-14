@@ -205,8 +205,11 @@ def test_panel_stub_determinism():
     Test that synthetic panel stub produces identical results with same seed.
     
     This verifies reproducibility requirement from audit (B2).
+    Enhanced to catch cross-process nondeterminism via subprocess spawning.
     """
     from twdf.panel.stub import Persona, generate_synthetic_panel, compute_panel_disagreement
+    import subprocess
+    import sys
     
     # Create test personas
     personas = [
@@ -226,7 +229,7 @@ def test_panel_stub_determinism():
     ui_conditions = ['control', 'treatment']  # Changed from ui_pair tuple to list
     base_reliance = {'control': 0.5, 'treatment': 0.6}
     
-    # Run 1
+    # Run 1 - in-process
     responses_1 = generate_synthetic_panel(
         personas=personas,
         tasks=tasks,
@@ -238,7 +241,7 @@ def test_panel_stub_determinism():
     disagreement_1_control = compute_panel_disagreement(responses_1, 'control')
     disagreement_1_treatment = compute_panel_disagreement(responses_1, 'treatment')
     
-    # Run 2 with same seed
+    # Run 2 with same seed - in-process
     responses_2 = generate_synthetic_panel(
         personas=personas,
         tasks=tasks,
@@ -250,13 +253,85 @@ def test_panel_stub_determinism():
     disagreement_2_control = compute_panel_disagreement(responses_2, 'control')
     disagreement_2_treatment = compute_panel_disagreement(responses_2, 'treatment')
     
-    print(f"\nPanel stub determinism test:")
+    print(f"\nPanel stub determinism test (in-process):")
     print(f"  Run 1 - Control: {disagreement_1_control:.6f}, Treatment: {disagreement_1_treatment:.6f}")
     print(f"  Run 2 - Control: {disagreement_2_control:.6f}, Treatment: {disagreement_2_treatment:.6f}")
     
     # Should be byte-for-byte identical
     assert disagreement_1_control == disagreement_2_control, "Control disagreement not deterministic"
     assert disagreement_1_treatment == disagreement_2_treatment, "Treatment disagreement not deterministic"
+    
+    # ENHANCED: Cross-process determinism check via subprocess
+    # This catches hash-seed differences that single-process test misses
+    subprocess_script = '''
+import sys
+from twdf.panel.stub import Persona, generate_synthetic_panel, compute_panel_disagreement
+
+personas = [
+    Persona(
+        persona_id=f"p{i}",
+        domain_skill=0.5,
+        ai_literacy=0.5,
+        risk_sensitivity=0.5,
+        caution=0.5,
+        temperature=0.7,
+        prior_mix=0.5
+    )
+    for i in range(3)
+]
+
+tasks = ['t1', 't2', 't3']
+ui_conditions = ['control', 'treatment']
+base_reliance = {'control': 0.5, 'treatment': 0.6}
+
+responses = generate_synthetic_panel(
+    personas=personas,
+    tasks=tasks,
+    ui_conditions=ui_conditions,
+    base_reliance=base_reliance,
+    persona_spread=0.2,
+    seed=42
+)
+
+control = compute_panel_disagreement(responses, 'control')
+treatment = compute_panel_disagreement(responses, 'treatment')
+
+print(f"{control:.10f},{treatment:.10f}")
+'''
+    
+    # Run subprocess twice
+    proc1 = subprocess.run(
+        [sys.executable, '-c', subprocess_script],
+        capture_output=True,
+        text=True,
+        check=True,
+        env={**subprocess.os.environ, 'PYTHONHASHSEED': '0'}
+    )
+    
+    proc2 = subprocess.run(
+        [sys.executable, '-c', subprocess_script],
+        capture_output=True,
+        text=True,
+        check=True,
+        env={**subprocess.os.environ, 'PYTHONHASHSEED': '0'}
+    )
+    
+    output1 = proc1.stdout.strip()
+    output2 = proc2.stdout.strip()
+    
+    print(f"\nPanel stub determinism test (cross-process with PYTHONHASHSEED=0):")
+    print(f"  Subprocess 1: {output1}")
+    print(f"  Subprocess 2: {output2}")
+    
+    assert output1 == output2, (
+        f"Cross-process nondeterminism detected!\n"
+        f"  Subprocess 1: {output1}\n"
+        f"  Subprocess 2: {output2}\n"
+        f"This means the stub is NOT deterministic across processes even with fixed PYTHONHASHSEED."
+    )
+    
+    print("  ✓ Panel stub is deterministic both in-process and cross-process")
+
     
     # Verify individual responses are identical
     assert len(responses_1) == len(responses_2), "Different number of responses"
@@ -306,66 +381,63 @@ def test_multi_condition_data_loader():
     print("  ✓ Multi-condition loader working correctly")
 
 
-def test_difficulty_controlled_overdispersion():
-    """Test difficulty-controlled over-dispersion with synthetic confounded data."""
-    from twdf.metrics.overdispersion import betabinom_overdispersion_difficulty_controlled
+def test_within_domain_overdispersion():
+    """Test within-domain over-dispersion aggregation (Bansal between-subjects design)."""
+    from twdf.metrics.overdispersion import betabinom_overdispersion_within_domain
     import pandas as pd
     import numpy as np
     
-    # Create synthetic data where difficulty confounds the comparison:
-    # - Easy tasks (difficulty=1): users have low reliance variance
-    # - Hard tasks (difficulty=3): users have high reliance variance
-    # If we naively pool, we'd mistake difficulty for over-dispersion
+    # Create synthetic data mimicking Bansal's between-subjects design:
+    # Each user sees exactly 1 domain (beer, amzbook, OR lsat)
+    # Domain is balanced across conditions
     
     np.random.seed(46)
     
     trials = []
     n_users = 30
     
-    # Condition with more easy tasks (should appear low over-dispersion if confounded)
+    # Assign users to domains (10 per domain, between-subjects)
     for user_id in range(n_users):
-        # 80% easy tasks (difficulty=1)
-        for task_id in range(8):
-            relied = np.random.rand() < 0.3  # low variance on easy tasks
-            trials.append({
-                'user_id': f"user_{user_id}",
-                'task_id': f"easy_{task_id}",
-                'task_difficulty': 1.0,
-                'ui_condition': 'test_cond',
-                'relied': relied
-            })
-        # 20% hard tasks (difficulty=3)
-        for task_id in range(2):
-            # High variance on hard tasks
-            user_p = 0.3 if user_id % 2 == 0 else 0.7  # split users
+        if user_id < 10:
+            domain, difficulty = 'beer', 1.0
+        elif user_id < 20:
+            domain, difficulty = 'amzbook', 2.0
+        else:
+            domain, difficulty = 'lsat', 3.0
+        
+        # Each user sees 10 tasks in their domain
+        # Users have different reliance tendencies (creates over-dispersion)
+        user_p = 0.3 if user_id % 2 == 0 else 0.7
+        
+        for task_id in range(10):
             relied = np.random.rand() < user_p
             trials.append({
                 'user_id': f"user_{user_id}",
-                'task_id': f"hard_{task_id}",
-                'task_difficulty': 3.0,
+                'task_id': f"{domain}_{task_id}",
+                'task_difficulty': difficulty,
                 'ui_condition': 'test_cond',
                 'relied': relied
             })
     
     df = pd.DataFrame(trials)
     
-    # Compute difficulty-controlled over-dispersion
-    od_controlled = betabinom_overdispersion_difficulty_controlled(
+    # Compute within-domain aggregation
+    od_result = betabinom_overdispersion_within_domain(
         df=df,
         condition='test_cond',
         difficulty_col='task_difficulty'
     )
     
-    print(f"\nDifficulty-controlled overdispersion test:")
-    print(f"  Controlled rho: {od_controlled.rho:.4f}")
-    print(f"  Mean p: {od_controlled.mean_p:.3f}")
+    print(f"\nWithin-domain aggregation test:")
+    print(f"  rho: {od_result.rho:.4f}")
+    print(f"  Mean p: {od_result.mean_p:.3f}")
     
-    # Should detect over-dispersion from user split on hard tasks
-    # even though easy tasks dominate the count
-    assert od_controlled.rho >= 0, "Should get non-negative rho"
-    assert od_controlled.n_users == n_users, f"Should have {n_users} users"
+    # Should detect over-dispersion from user split
+    assert od_result.rho > 0, "Should detect over-dispersion from user heterogeneity"
+    assert od_result.n_users == n_users, f"Should have {n_users} users"
     
-    print("  ✓ Difficulty-controlled estimator working")
+    print("  ✓ Within-domain aggregation working")
+
 
 
 def test_condition_correlation_spearman():

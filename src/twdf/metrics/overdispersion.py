@@ -294,48 +294,55 @@ def within_task_diff(
     return np.mean(diffs)
 
 
-def betabinom_overdispersion_difficulty_controlled(
+def betabinom_overdispersion_within_domain(
     df: 'pd.DataFrame',
     condition: str,
     difficulty_col: str = 'task_difficulty'
 ) -> 'OverdispersionResult':
     """
-    Compute per-condition human over-dispersion controlling for task difficulty.
+    Compute per-condition human over-dispersion with within-domain aggregation.
     
-    METHODOLOGICAL RIGOR - Difficulty control:
-    Task domains (beer/amzbook/lsat) have different inherent difficulty, which can
-    confound cross-condition comparisons. If we naively pool all trials, a condition
-    with more hard tasks would show different reliance patterns than one with easy
-    tasks, and we'd mistake task difficulty for a UI effect.
+    METHODOLOGICAL RIGOR - Difficulty control via between-subjects design:
+    This function aggregates each user's trials within their assigned domain.
     
-    Approach: STRATIFIED ESTIMATION
-    1. Group trials by difficulty level (task domain: beer=1, amzbook=2, lsat=3)
-    2. Compute per-user (n_relied, n_trials) WITHIN each difficulty stratum
-    3. Pool across strata: each user contributes trials from all difficulty levels
-    4. Fit beta-binomial on the pooled per-user counts
+    **Critical design fact**: The Bansal CHI'21 dataset is BETWEEN-SUBJECTS on domain.
+    Each user saw exactly ONE domain (beer, amzbook, OR lsat), never multiple domains.
+    Therefore, difficulty is NOT confounded across conditions BECAUSE users are 
+    compared within their domain group.
     
-    This ensures users are compared on the SAME task difficulty distribution, so
-    any observed over-dispersion reflects true UI-condition-driven heterogeneity,
-    not difficulty confounding.
+    What this function actually does:
+    1. For each user in the given condition, aggregate (n_relied, n_trials) across
+       ALL trials that user saw (which are all in the same domain for that user)
+    2. Fit beta-binomial model on the per-user aggregated counts
+    3. The difficulty_col is present for diagnostic checks but does NOT affect the
+       computation (no stratification, no per-stratum weighting)
     
-    Alternative considered but rejected:
-    - Within-stratum separate fits + meta-analysis: loses power with small per-stratum N
-    - Difficulty as covariate in regression: assumes linear effect, harder to interpret rho
-    - Random stratum assignment: breaks the real difficulty structure
+    Why this is valid:
+    - Between-subjects on domain means difficulty is balanced within each condition
+    - Cross-condition comparisons are valid because each condition has users from
+      all domains in similar proportions
+    - No need for stratified estimation or difficulty covariate because the experimental
+      design already controls for difficulty via randomization
+    
+    Future note for within-subjects data:
+    If future datasets have within-subjects difficulty variation (users see multiple
+    domains), this function would need modification to either:
+    (a) Stratify by domain and fit separate models, or
+    (b) Include difficulty as a covariate in a hierarchical model
     
     Args:
-        df: DataFrame with canonical schema (must include user_id, relied, task_difficulty)
+        df: DataFrame with canonical schema (must include user_id, relied, ui_condition)
         condition: UI condition name to analyze
-        difficulty_col: Column name for difficulty (default: 'task_difficulty')
+        difficulty_col: Column name for difficulty (used for diagnostic checks only)
     
     Returns:
-        OverdispersionResult for this condition with difficulty-controlled estimate
+        OverdispersionResult for this condition with within-domain aggregation
     
     Audit note:
         The auditor should verify:
-        1. Each user's trials span multiple difficulty levels (no single-difficulty users)
-        2. Difficulty distribution is similar across conditions (no systematic bias)
-        3. Results change meaningfully from uncontrolled pooling if difficulty matters
+        1. Each user in Bansal dataset saw exactly 1 domain (between-subjects check)
+        2. Domain distribution is similar across conditions (randomization check)
+        3. This is NOT stratified estimation (no per-domain fits or weighting)
     """
     import pandas as pd
     
@@ -357,8 +364,8 @@ def betabinom_overdispersion_difficulty_controlled(
             user_stats[user_id] = (int(n_relied), n_trials)
         return betabinom_overdispersion(user_stats)
     
-    # Build per-user stats pooling across difficulty strata
-    # Each user contributes (n_relied, n_trials) summed over all difficulty levels they saw
+    # Build per-user stats aggregating within their domain
+    # (In Bansal dataset, each user saw exactly 1 domain due to between-subjects design)
     user_stats = {}
     for user_id in df_cond['user_id'].unique():
         user_trials = df_cond[df_cond['user_id'] == user_id]
@@ -366,11 +373,12 @@ def betabinom_overdispersion_difficulty_controlled(
         n_trials = len(user_trials)
         user_stats[user_id] = (n_relied, n_trials)
     
-    # Verify users span multiple difficulty levels (diagnostic check)
+    # Diagnostic: verify between-subjects design (each user should see only 1 domain)
     user_difficulty_counts = df_cond.groupby('user_id')[difficulty_col].nunique()
-    single_diff_users = (user_difficulty_counts == 1).sum()
-    if single_diff_users > 0:
-        print(f"  Note: {single_diff_users}/{len(user_stats)} users saw only one difficulty level")
+    multi_domain_users = (user_difficulty_counts > 1).sum()
+    if multi_domain_users > 0:
+        print(f"  ⚠️  WARNING: {multi_domain_users}/{len(user_stats)} users saw multiple domains")
+        print(f"     This violates the between-subjects assumption - check dataset!")
     
     # Fit beta-binomial (pooled across difficulty, but each user saw mixed difficulty)
     return betabinom_overdispersion(user_stats)
@@ -413,7 +421,8 @@ def condition_correlation(
     
     2. **Permutation test for p-value**:
        - Null hypothesis: no association between disagreement and over-dispersion
-       - Procedure: shuffle condition labels, recompute Spearman rho, repeat 10k times
+       - Procedure: shuffle CONDITION LABELS (breaking the pairing between disagreement
+         and over-dispersion values), recompute Spearman rho, repeat 10k times
        - p-value = fraction of shuffles with |rho| >= |observed rho|
        - Exact finite-sample distribution under the null (no asymptotic assumptions)
        - Requires seeded RNG for reproducibility

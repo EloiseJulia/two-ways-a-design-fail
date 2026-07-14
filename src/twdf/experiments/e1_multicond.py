@@ -23,7 +23,7 @@ import yaml
 from twdf import RunManifest, __version__
 from twdf.data.bansal import load_bansal
 from twdf.metrics.overdispersion import (
-    betabinom_overdispersion_difficulty_controlled,
+    betabinom_overdispersion_within_domain,
     betabinom_overdispersion,
     baseline_mean_predictor,
     bootstrap_ci,
@@ -68,7 +68,7 @@ def run_e1_multicond(config: dict) -> dict:
         data_dir=Path(data_config.get('raw_dir', 'data/raw')),
         task_sample=data_config.get('task_sample'),
         ui_conditions=data_config.get('ui_conditions'),  # None = all 6 conditions
-        min_tasks_per_domain=data_config.get('min_tasks_per_domain', 3)
+        task_selection=data_config.get('task_selection', 'all')
     )
     
     # Get list of conditions (sorted for determinism)
@@ -79,19 +79,19 @@ def run_e1_multicond(config: dict) -> dict:
     print(f"Tasks: {sorted(df['task_id'].unique())}")
     print(f"Task domains: {sorted(df['extra'].apply(lambda x: x['task']).unique())}")
     
-    # 2. Compute human over-dispersion per condition (difficulty-controlled)
-    print(f"\n[2/6] Computing difficulty-controlled human over-dispersion per condition...")
-    print("  Difficulty control method: STRATIFIED POOLING")
-    print("  - Task domains (beer/amzbook/lsat) have different inherent difficulty")
-    print("  - Each user contributes trials pooled across all difficulty levels")
-    print("  - This ensures cross-condition comparisons are not confounded by difficulty")
+    # 2. Compute human over-dispersion per condition (within-domain aggregation)
+    print(f"\n[2/6] Computing human over-dispersion per condition (within-domain aggregation)...")
+    print("  Difficulty control method: BETWEEN-SUBJECTS DESIGN")
+    print("  - Each user saw exactly 1 domain (beer/amzbook/lsat) - between-subjects on domain")
+    print("  - Aggregating each user's trials within their domain (no confounding)")
+    print("  - Cross-condition comparisons valid because domain is balanced across conditions")
     
     human_results = {}
     for ui_cond in ui_conditions:
         print(f"\n  {ui_cond}:")
         
-        # Difficulty-controlled over-dispersion
-        od_result = betabinom_overdispersion_difficulty_controlled(
+        # Within-domain aggregation (difficulty control via between-subjects design)
+        od_result = betabinom_overdispersion_within_domain(
             df=df,
             condition=ui_cond,
             difficulty_col='task_difficulty'
@@ -292,7 +292,7 @@ def run_e1_multicond(config: dict) -> dict:
             'panel_disagreement': [panel_disagreement[c] for c in sorted(panel_disagreement.keys())]
         },
         'methodology': {
-            'difficulty_control': 'STRATIFIED POOLING - per-user (n_relied, n_trials) pooled across task domains (beer/amzbook/lsat) to control for difficulty confounding',
+            'difficulty_control': 'BETWEEN-SUBJECTS DESIGN - Each user saw exactly 1 domain (beer/amzbook/lsat). Within-domain aggregation: each user contributes (n_relied, n_trials) aggregated across all trials in their assigned domain. Cross-condition comparisons are not confounded by difficulty because domain assignment was balanced across conditions.',
             'correlation_method': 'Spearman rank correlation (robust for small n=6, monotonic hypothesis)',
             'pvalue_method': 'Permutation test (10k shuffles, exact finite-sample distribution)',
             'ci_method': 'Bootstrap over conditions (10k resamples, percentile CI)',
