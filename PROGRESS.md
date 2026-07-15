@@ -487,8 +487,23 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing
-- **In parallel (co-anchor):** elevate + harden the real-data decomposition
-  (replication on Lu&Yin + task-selection robustness).
+- **⏸ E4 axis-2 sensor + placebo baseline (branch `feature/e4-compliance`, PR #7 DRAFT —
+  NOT merged; RESUME NEXT SESSION):**
+  - Code COMPLETE + 8/8 offline tests pass (placebo renderer content-free-tested; System-1
+    frozen across all 4 conditions control/faithful/placebo/wrong-AI; compliance-floor +
+    compliance-adjusted axis-2 metrics). Committed `f670b97`, pushed.
+  - REAL RUN BLOCKED on GitHub Models **per-model DAILY cap**: both gpt-4o-mini AND
+    gpt-4.1-mini are daily-exhausted (2026-07-15). Provider correctly failed fast (120s cap)
+    and CACHED progress (~190/450 calls done). Reset ~19h.
+  - **RESUME:** after quota reset, bridge token + `python -u -m twdf.experiments.e4_compliance
+    --config configs/e4_compliance.yaml` (cache covers ~190; ~260 new calls remain on
+    gpt-4.1-mini for model-consistency with PR#4). Then: independent audit
+    (`.prompts/audit-e4-compliance.md` already written) → Manager verify → merge.
+  - HYPOTHESES to read out: H3 compliance floor (control < placebo < faithful, conflict-
+    conditioned) + formalized axis-2 over-reliance sensor on wrong-AI (+ compliance-adjusted).
+- **QUOTA STRATEGY needed for axis-1 scaling / full E1:** per-model daily cap ~500; plan
+  family-spreading (gpt-4o / Llama-3.3-70B / Phi-4 all had budget) + day-batching + Azure
+  fallback BEFORE any large run. Do NOT burn scarce quota on speculative work.
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.
