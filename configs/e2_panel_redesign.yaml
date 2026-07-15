@@ -1,0 +1,92 @@
+# E2 Panel Redesign Configuration
+# Panel redesign with 4 fixes: conflict-conditioned DV, hard items, strong personas, Wrong-AI axis-2
+
+# Experiment metadata
+experiment_name: "e2_panel_redesign"
+description: "Panel redesign fixing PR#3 compliance-collapse: conflict-conditioned DV + hard items + strong personas + Wrong-AI axis-2"
+
+# UI conditions (3-way: control, treatment, dark)
+ui_conditions:
+  - "Conf."  # Control: AI pred + conf, NO explanation (Bansal exact)
+  - "Conf.+Adaptive (Expert)"  # Treatment: AI pred + conf + expert explanation (Bansal exact)
+  - "Wrong-AI (dark)"  # Dark axis-2: WRONG AI + pseudo-high conf + oppressive framing (NEW Fix D)
+
+# Task selection (Fix B: data-driven hard/ambiguous items)
+domain: "beer"
+item_selection:
+  n_items: 20  # ~20 hard items (trimmed from 30 to fit GitHub Models per-model DAILY cap ~500; gpt-4o-mini daily-exhausted 2026-07-15, switched to gpt-4.1-mini fresh quota)
+  prefer_ai_wrong: 0.5  # Weight for AI-incorrect items
+  prefer_low_conf: 0.3  # Weight for low-confidence items
+  prefer_high_variance: 0.2  # Weight for high human-variance items (selection only, NOT leaked)
+  seed: 42  # Deterministic selection
+
+# Personas (Fix C: strengthened behavioral policies, 6 personas spanning trait space)
+personas:
+  - persona_id: "p1-novice-skeptical"
+    domain_skill: 0.1  # Very low domain knowledge
+    ai_literacy: 0.2  # Highly skeptical of AI
+    risk_sensitivity: 0.2  # Very risk-averse
+    caution: 0.8  # Very cautious
+    temperature: 0.3  # Low sampling temp
+    prior_mix: 0.3  # Weak prior beliefs
+  
+  - persona_id: "p2-expert-trusting"
+    domain_skill: 0.9  # Expert knowledge
+    ai_literacy: 0.9  # Highly trusts AI
+    risk_sensitivity: 0.8  # Risk-tolerant
+    caution: 0.2  # Decisive, not cautious
+    temperature: 0.8  # High sampling temp
+    prior_mix: 0.9  # Strong prior beliefs
+  
+  - persona_id: "p3-moderate-balanced"
+    domain_skill: 0.5  # Moderate knowledge
+    ai_literacy: 0.5  # Balanced AI view
+    risk_sensitivity: 0.5  # Moderate risk
+    caution: 0.5  # Balanced caution
+    temperature: 0.5  # Medium sampling temp
+    prior_mix: 0.5  # Moderate priors
+  
+  - persona_id: "p4-skilled-skeptical"
+    domain_skill: 0.7  # Good knowledge
+    ai_literacy: 0.1  # Very skeptical of AI
+    risk_sensitivity: 0.3  # Risk-averse
+    caution: 0.7  # Cautious
+    temperature: 0.4  # Lower temp
+    prior_mix: 0.7  # Strong priors
+  
+  - persona_id: "p5-novice-trusting"
+    domain_skill: 0.2  # Low knowledge
+    ai_literacy: 0.8  # Trusts AI
+    risk_sensitivity: 0.7  # Risk-tolerant
+    caution: 0.3  # Not very cautious
+    temperature: 0.7  # Higher temp
+    prior_mix: 0.2  # Weak priors
+  
+  - persona_id: "p6-expert-moderate"
+    domain_skill: 0.8  # High knowledge
+    ai_literacy: 0.4  # Somewhat skeptical of AI
+    risk_sensitivity: 0.4  # Moderate risk
+    caution: 0.6  # Moderately cautious
+    temperature: 0.5  # Medium temp
+    prior_mix: 0.6  # Moderately strong priors
+
+# Model provider config
+model:
+  name: "openai/gpt-4.1-mini"
+  call_budget: 560  # System-1: 6×20=120, System-2: 6×20×3=360, total=480 + margin
+  inter_call_sleep: 0.8  # 8s cooldown on 429 in provider, plus courtesy sleep
+  max_retries: 5  # Exponential backoff retries (429 gets 8 retries in provider)
+  
+# Generation parameters
+seeds: [42]  # Single seed for determinism
+max_tokens: 600  # Sufficient for decision + reasoning
+temperature_override: null  # Use per-persona temperature
+
+# Panel mode
+mode: "static"  # Counterfactual pairing (not sequential)
+
+# Cache directory
+cache_dir: "data/cache/panel"
+
+# Output
+output_file: "results/e2_panel_redesign.json"

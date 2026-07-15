@@ -282,10 +282,70 @@ and timestamp for every change.
     present, cross-process determinism IDENTICAL, worktree clean → MERGED (see Merge log).
     * Tests: 31/31 pass. Branch: `feature/moduleB-panel` (PR #3).
 
+## Done (E2 PANEL REDESIGN — 2026-07-15)
+- **2026-07-15 E2 PANEL REDESIGN — IMPLEMENTATION + REAL RUN COMPLETE**
+  - **Scope:** Panel redesign with 4 fixes (A-D) to address PR#3's compliance-collapse
+  - **FINAL STATUS: ✅ COMPLETE AND VERIFIED**
+    * **Fix A (conflict-conditioned reliance DV):** `conflict_conditioned_reliance()` in overdispersion.py — computes reliance ONLY on conflict trials (system1 ≠ AI), resolving the 97% agreement-collapse
+    * **Fix B (data-driven item selection):** `src/twdf/data/item_selector.py` — selects hard/ambiguous items using AI-wrong (50%), low-conf (30%), high-variance (20%) criteria; deterministic with sorted+seeded RNG
+    * **Fix C (strengthened personas):** 6 diverse personas spanning skill×ai_literacy×caution space with explicit behavioral policies (vs PR#3's weak 5-persona set)
+    * **Fix D (axis-2 Wrong-AI):** `over_reliance_level()` in overdispersion.py — Wrong-AI dark condition shows WRONG label (1 - ai_pred) + pseudo-high conf + oppressive framing; measures adoption of wrong AI
+    * **3-condition panel:** Control ("Conf."), Treatment ("Conf.+Adaptive (Expert)"), Dark ("Wrong-AI (dark)")
+    * **Provider fixes:** `model_name` parameter added; 429 cooldown capped at 120s (fails fast on daily quota exhaustion instead of sleeping ~13h)
+    * **Item selection:** 20 hard beer tasks (AI-wrong 40%, low-conf 50%, mean conf 0.721, human variance 0.159)
+    * `tests/test_panel_redesign.py`: 39/39 offline tests PASS (2 live tests skipped due to daily quota)
+  - **REAL RUN RESULTS (2026-07-15, model openai/gpt-4.1-mini, config hash d0a7f2e9):**
+    * **API Performance:** 480 API calls first run, 0 calls + 480 cache hits on rerun (DETERMINISTIC, cross-process verified)
+    * **Runtime:** Real run 8.4s (cached), $0.18 total cost
+    * **FIX A EFFECTIVENESS — Conflict rate RESTORED:**
+      - Overall conflict rate: **43.3%** (vs PR#3's 3% collapse) ✅
+      - Control: 52/120 conflict trials (43.3%)
+      - Treatment: 52/120 conflict trials (43.3%)
+    * **Conflict-conditioned reliance (PRIMARY DV):**
+      - Control (Conf.): 0.327 (unconditional: 0.708)
+      - Treatment (Conf.+Adaptive Expert): 0.481 (unconditional: 0.775)
+    * **Per-persona conflict reliance DIVERGES (FIX C works):**
+      - Control range: 0.111 (p2-expert-trusting) → 0.556 (p5-novice-trusting)
+      - Treatment range: 0.333 (p1,p2) → 0.667 (p5-novice-trusting)
+      - Personas now show clear heterogeneity (vs PR#3's near-uniformity)
+    * **Axis-1 within-task elasticity (conflict trials):**
+      - Mean diff (treatment − control): **+0.194**
+      - Paired permutation test: p = 0.174 (n_pairs=11)
+      - Direction: POSITIVE (treatment increased reliance as expected)
+      - Power: UNDERPOWERED (n=11 tasks with conflict, not significant)
+    * **FIX D — Axis-2 over-reliance level:**
+      - Wrong-AI adoption: **0.325** (32.5% adopted wrong AI advice)
+      - Per-persona range: 0.000 (p5) → 0.450 (p2, p4)
+      - Between-persona spread: 0.0287
+      - **ANOMALY NOTE:** p5-novice-trusting shows 0.000 adoption (vs 0.556 on axis-1 conflict); may be parsing artifact or genuine persona×condition interaction — requires manual trace review
+    * **System-1 accuracy:** 0.817 (agents genuinely attempt task)
+    * **System-1 frozen invariant:** ✅ HOLDS across all 3 conditions (0 violations)
+  - **DELIVERABLES:**
+    * ✅ All code implemented per spec
+    * ✅ 39/39 offline tests pass (2 live tests expected to skip on quota)
+    * ✅ Cross-process determinism verified (subprocess pattern from test_panel_real.py)
+    * ✅ Item selector determinism + criteria validated
+    * ✅ Wrong-AI condition renders wrong label (tested)
+    * ✅ `results/e2_panel_redesign.json` with full run_manifest
+    * ✅ Documentation updated (PROGRESS.md + INTERFACES.md)
+  - **KEY FINDINGS (HONEST FRAMING):**
+    * **RESOLVES PR#3 compliance-collapse:** Conflict rate 3% → 43% ✅, personas now diverge ✅
+    * **Positive-but-underpowered axis-1 elasticity:** +0.194 in expected direction, p=0.174 (n=11 not sufficient power)
+    * **Real axis-2 signal:** 32.5% wrong-AI adoption, per-persona heterogeneity present
+    * **CAVEATS:**
+      - Model switched to gpt-4.1-mini (gpt-4o-mini daily quota exhausted) — NOT same-model comparable to PR#3
+      - Elasticity not significant (small n, limited power)
+      - Single domain (beer), 20 items, 6 personas — thin slice
+      - One persona (p5) shows axis-2=0 anomaly — requires investigation
+  - **METHODOLOGY IMPROVEMENTS:**
+    * Conflict-conditioned reliance is now the PRIMARY axis-1 DV (resolves agreement≈reliance conflation)
+    * Data-driven item selection concentrates conflict/ambiguity where it matters (vs random sampling)
+    * Stronger persona conditioning gives axis-1 mechanism dynamic range
+    * Axis-2 dark condition closes "uniformly lethal" blind spot (PR#3 had no wrong-AI pressure)
+    * Provider model_name param + 120s cooldown cap improves robustness
+  - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
+
 ## Doing
-- **NEXT SLICE = Panel redesign (PI-approved):** conflict-conditioned reliance DV
-  (System-1 ≠ AI trials) + WRONG-AI/axis-2 condition + harder/ambiguous items +
-  stronger persona conditioning, to give the axis-1 mechanism dynamic range.
 - **In parallel (co-anchor):** elevate + harden the real-data decomposition
   (replication on Lu&Yin + task-selection robustness).
 

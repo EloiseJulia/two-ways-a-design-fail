@@ -55,6 +55,7 @@ class GitHubModelsProvider:
     
     def __init__(self, 
                  *,
+                 model_name: str = "openai/gpt-4o-mini",
                  cache_dir: Optional[Path] = None,
                  call_budget: int = 1000,
                  inter_call_sleep: float = 0.8,
@@ -63,11 +64,15 @@ class GitHubModelsProvider:
         Initialize GitHub Models provider.
         
         Args:
+            model_name: GitHub Models model id (e.g. 'openai/gpt-4o-mini').
+                Included in the request body AND the cache key.
             cache_dir: Directory for response cache (default: data/cache/panel/)
             call_budget: Maximum number of API calls allowed (hard cap)
             inter_call_sleep: Sleep seconds between API calls (rate limit courtesy)
             max_retries: Maximum retry attempts on 429/5xx errors
         """
+        # Instance-level model id (overrides the class default in cache key + body)
+        self.name = model_name
         # Get token from environment (NEVER log/print it!)
         self.token = os.environ.get("GH_MODELS_TOKEN")
         if not self.token:
@@ -222,16 +227,28 @@ class GitHubModelsProvider:
                     
                     return content
                 
-                # Rate limit (429) - wait longer to let token bucket refill
+                # Rate limit (429) - wait to let token bucket refill
                 if response.status_code == 429:
-                    # Try Retry-After header if present, else use fixed 8s cooldown
                     retry_after = response.headers.get('Retry-After')
+                    rl_type = response.headers.get('x-ratelimit-type', '')
                     if retry_after and retry_after.isdigit():
                         wait_time = max(float(retry_after), 8.0)
                     else:
                         wait_time = 8.0
-                    
-                    # Allow more retries for 429 specifically
+
+                    # Fail fast on a long-window (e.g. per-day) cap: never hang for
+                    # hours. A Retry-After beyond this cap means the per-model DAILY
+                    # quota is exhausted -> abort loudly so the caller can switch model
+                    # or resume after reset (cache preserves completed calls).
+                    MAX_COOLDOWN_S = 120.0
+                    if wait_time > MAX_COOLDOWN_S:
+                        raise RuntimeError(
+                            f"GitHub Models rate limit '{rl_type or '429'}' requires a "
+                            f"{wait_time:.0f}s cooldown (> {MAX_COOLDOWN_S:.0f}s cap). The "
+                            f"per-model daily quota is likely exhausted; switch model or "
+                            f"resume after reset. Completed calls are cached."
+                        )
+
                     max_attempts = 8
                     if attempt >= max_attempts:
                         raise RuntimeError(f"Rate limit (429) exceeded after {max_attempts} retries")
