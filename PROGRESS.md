@@ -6,9 +6,11 @@
 ## Preregistration freeze log (CRITICAL — never back-fill)
 | Item | Value | Frozen-at (UTC) | Set by | Notes |
 |---|---|---|---|---|
-| τ_disp (axis 1 disagreement threshold) | NOT YET FROZEN | — | — | freeze in feature space BEFORE seeing E1 results |
+| Axis-1 confirmatory design §§1–7 (H1a, model set, 5 conditions, DV, baselines, stats) | LOCKED | 2026-07-15T09:23:55Z | Manager/PI | `docs/plans/preregistration-axis1.md` — frozen BEFORE the exploratory pilot (PR #8) was RUN; pilot informs ONLY power target N (§8); pilot data EXCLUDED from confirmatory |
+| BH alpha | 0.05 (RATIFIED) | 2026-07-15T09:23:55Z | Manager/PI | ratified in prereg §6 |
+| Power target N (axis-1 confirmatory) | PENDING (from pilot) | — | — | fill after pilot power analysis; then record FINAL freeze before confirmatory run |
+| τ_disp (axis 1 disagreement threshold) | NOT YET FROZEN | — | — | procedure pre-specified (prereg §7); freeze in feature space BEFORE Module D results |
 | τ_level (axis 2 over-reliance threshold) | NOT YET FROZEN | — | — | same |
-| BH alpha | 0.05 (proposed) | — | — | ratify before multiple comparisons |
 
 Any post-hoc tuning of a frozen threshold = research misconduct. Log the reason
 and timestamp for every change.
