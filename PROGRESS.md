@@ -317,7 +317,7 @@ and timestamp for every change.
       - Wrong-AI adoption: **0.325** (32.5% adopted wrong AI advice)
       - Per-persona range: 0.000 (p5) → 0.450 (p2, p4)
       - Between-persona spread: 0.0287
-      - **ANOMALY NOTE:** p5-novice-trusting shows 0.000 adoption (vs 0.556 on axis-1 conflict); may be parsing artifact or genuine persona×condition interaction — requires manual trace review
+      - **p5-novice-trusting dark-pattern BACKFIRE (audit-confirmed GENUINE):** p5 adopted **0% of WRONG AI advice** in Wrong-AI (dark) condition, vs 55.6% reliance in control condition. Independent audit verified this is NOT a parsing/label bug but GENUINE behavior: p5 actively changes AWAY from AI under oppressive framing. Possible interpretations (state all, commit to none): (a) tension in "novice-trusting" persona label, (b) coercive dark-pattern BACKFIRES and triggers skepticism in some agents, (c) gpt-4.1-mini safety training resisting coercion. Flag as follow-up to investigate — scientifically relevant to axis-2 (dark-pattern sensor) design.
     * **System-1 accuracy:** 0.817 (agents genuinely attempt task)
     * **System-1 frozen invariant:** ✅ HOLDS across all 3 conditions (0 violations)
   - **DELIVERABLES:**
