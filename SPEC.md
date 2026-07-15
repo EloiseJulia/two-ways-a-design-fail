@@ -39,14 +39,22 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
   sensitivity estimate via frozen-persona paired UI swap.
 - (RTI = follow-up second paper, out of scope here.)
 
-> **Empirical status of the panel (C1/C2), honest (2026-07-15, PR #3):** the first
-> REAL LLM panel (thin slice, Module B) produced a NULL — a naive gpt-4o-mini panel
-> COLLAPSES to near-uniform agreement (97% no-movement from the System-1 anchor;
-> measured "reliance" ≈ agent↔AI agreement, not adoption; persona disagreement ≈ 0).
-> It does NOT yet reproduce human reliance heterogeneity. Active redesign (next
-> slice): conflict-conditioned reliance DV (System-1 ≠ AI trials), WRONG-AI/axis-2
-> condition, harder/ambiguous items, stronger persona conditioning. Until the panel
-> reproduces heterogeneity, C0 (real-data) carries the empirical weight.
+> **Empirical status of the panel (C1/C2), honest — updated 2026-07-15, PR #4:**
+> PR #3 (naive gpt-4o-mini panel) produced a NULL: near-uniform agreement (97%
+> no-movement; "reliance" ≈ agreement, not adoption; disagreement ≈ 0). PR #4's
+> REDESIGN (conflict-conditioned reliance DV on System-1≠AI trials + data-driven
+> hard/ambiguous item selection + stronger persona conditioning + a WRONG-AI dark
+> condition; model gpt-4.1-mini) RESOLVES the collapse: conflict rate 3% → **43%**,
+> personas now DIVERGE on the conflict-conditioned DV (0.11–0.56), the explanation
+> shows a positive within-task elasticity **+0.19 (p=0.17, n=11 — UNDERPOWERED, not
+> yet significant)**, and axis-2 gives a first real signal — **over-reliance on WRONG
+> AI = 0.325**, with one persona actively resisting the coercive dark framing (a
+> dark-pattern-BACKFIRE lead, audit-confirmed genuine). So the mechanism CAN produce
+> heterogeneity + an axis-2 reading; it is not yet powered/multi-model/calibrated.
+> CAVEATS: single model (gpt-4.1-mini; not same-model comparable to PR #3), 20 items /
+> 6 personas / beer only, elasticity underpowered. C0 (real-data) still co-anchors;
+> C1/C2 now have preliminary supporting evidence. Next: power up + betabinom
+> over-dispersion on conflict DV + axis-2/E4 build-out + cross-model.
 
 ## 3. RQ / Hypotheses (pass criteria)
 - **RQ1 (core, two-axis).**

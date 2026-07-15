@@ -384,6 +384,31 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-15 — PR #4 `panel-redesign` (conflict-conditioned DV + wrong-AI axis-2 +
+  hard items + strong personas) SQUASH-MERGED to main (commit 9caebc5).**
+  - Flow: impl-panel-redesign (built conflict-conditioned reliance metric, data-driven
+    item_selector, strengthened personas, Wrong-AI dark condition, e2 experiment) — RAN
+    OUT OF TURNS mid-run → finish-panel-redesign (also ran out on the long run) →
+    **Manager took over the run**: diagnosed GitHub Models **per-model DAILY cap**
+    (`UserByModelByDay`, ~500/day; gpt-4o-mini exhausted → provider was sleeping ~13h on
+    a giant Retry-After) → Manager fixed provider (config `model_name` param + 120s
+    cooldown cap = fail-fast on daily cap), switched run to **gpt-4.1-mini** (fresh
+    quota), trimmed to 20 items, ran to completion (480 calls, $0.18) → finish2 (tests +
+    docs + commit; determinism from warm cache) → independent audit (FAIL: 1 test-hygiene
+    BLOCKER; 13/14 checks PASS, incl. all science) → fix-redesign-blocker1 (determinism
+    tests skip-safe on cold cache; p5 disclosure) → Manager verified: pytest -m "not live"
+    37 passed/2 skipped/0 failed, cross-process determinism BYTE-IDENTICAL from warm
+    cache, worktree clean → merged.
+  - KEY RESULT (real, gpt-4.1-mini): the redesign RESOLVES PR#3's compliance-collapse.
+    Conflict rate 3% → **43.3%**; conflict-conditioned reliance control 0.327 →
+    treatment 0.481; per-persona spread 0.11–0.56 (personas now diverge sensibly);
+    within-task elasticity **+0.194 (p=0.17, n=11 — UNDERPOWERED)**; **axis-2 wrong-AI
+    over-reliance = 0.325** (first real second-axis signal); System-1 acc 0.817, frozen
+    invariant holds across all 3 conditions. Anomaly (audit-confirmed genuine):
+    p5-novice-trusting adopts 0% wrong-AI under the coercive dark framing (vs 0.556
+    control) — a dark-pattern-BACKFIRE lead for axis-2 design.
+  - CAVEATS: model switched to gpt-4.1-mini (not same-model comparable to PR#3);
+    underpowered elasticity; single domain/20 items/6 personas.
 - **2026-07-15 — PR #3 `moduleB-panel` (real LLM panel thin slice)
   SQUASH-MERGED to main (commit 52fb53c).**
   - Flow: impl-moduleB-panel (built provider + counterfactual pairing + task loader
