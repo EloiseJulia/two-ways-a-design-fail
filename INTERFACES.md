@@ -147,26 +147,36 @@ tests/             # unit + integration (module seams get tests)
 docs/{plans,research,handoff}/
 ```
 
-## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2)
+## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + Module B impl)
 > This section reflects what is ACTUALLY implemented on `main`, to prevent drift.
 - **data** — `twdf/data/bansal.py`: auto-downloads + loads Bansal to the canonical
   schema; multi-condition selector with `task_selection` config
   (`all` | `first_10_shared` | `min_per_domain`; default `all`). Lu&Yin NOT loaded yet.
+  **NEW (Module B):** `twdf/data/bansal_tasks.py`: Beer task stimulus loader with
+  AI predictions + expert explanations; testid→questionId join verified (50/50 overlap).
 - **metrics** — `twdf/metrics/overdispersion.py`: `betabinom_overdispersion`,
   `betabinom_overdispersion_within_domain` (renamed from a misleading "stratified
   pooling"; domain is BETWEEN-SUBJECTS), `baseline_mean_predictor`, `within_task_diff`,
   `bootstrap_ci`, and the cross-condition correlation (Spearman + permutation +
-  bootstrap, with an n<3 `degenerate` guard).
+  bootstrap, with an n<3 `degenerate` guard). **NEW (Module B):** `paired_permutation_test()`
+  for within-task elasticity significance testing (hashlib-seeded, paired permutation scheme).
   `twdf/metrics/variance_decomposition.py`: `split_half_reliability` (PRIMARY,
   ICC(2,1) + Spearman-Brown → `stable_user_share` + CI) and
   `variance_components_glmm` (`BinomialBayesMixedGLM`, bounded maxiter=10; currently
   NON-CONVERGENT, reported honestly as corroboration-unavailable).
-- **panel** — `twdf/panel/stub.py`: SYNTHETIC deterministic stub only.
-  **`ModelProvider` / `run_panel` (real LLM panel) = NOT YET IMPLEMENTED = Module B,
-  the next slice.** Implement against GitHub Models reading `GH_MODELS_TOKEN` from env.
+- **panel** — `twdf/panel/stub.py`: SYNTHETIC deterministic stub only (v0/PR#1/PR#2).
+  **NEW (Module B, IMPLEMENTED):** `twdf/panel/provider.py`: `GitHubModelsProvider`
+  implementing `ModelProvider` protocol, reads `GH_MODELS_TOKEN` from env, hashlib-based
+  deterministic caching to `data/cache/panel/`, retry with exponential backoff, call budget.
+  `twdf/panel/real_panel.py`: `run_panel()` implementing INTERFACES §3 exactly, dual-system
+  flow (System-1 no-AI anchor → System-2 with AI + UI intervention), counterfactual pairing
+  (System-1 frozen across UI arms), reliance definition aligned with Bansal adoption.
+  **Status:** Code complete, offline tests pass (6/6), cross-process determinism verified.
+  **BLOCKER:** Real API run hits GitHub Models rate limits (HTTP 429) despite retry logic.
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
-  (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). No single
-  `run_experiment` dispatcher; each experiment is its own module.
+  (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). **NEW (Module B):**
+  `e1_panel_v1` (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap).
+  No single `run_experiment` dispatcher; each experiment is its own module.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).
 - Determinism: use `hashlib` for any string→seed (builtin `hash()` is banned —
