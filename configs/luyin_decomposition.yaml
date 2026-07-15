@@ -1,0 +1,27 @@
+# Lu&Yin Decomposition Analysis Configuration
+# Replication of C0 decomposition finding on a second dataset
+#
+# PRIMARY METHOD: Split-half reliability (same as Bansal)
+# OPTIONAL CORROBORATION: GLMM (if it converges)
+#
+# CRITICAL: Use SAME seeds and params as Bansal run (e1_decomposition.yaml)
+# for direct comparability
+
+data:
+  raw_dir: "data/raw"
+  dataset: "luyin21"
+  condition: null  # null = overall decomposition (no condition split)
+                   # If meaningful condition exists (e.g., 'idpAgreement==70'), 
+                   # specify here for per-condition analysis
+
+analysis:
+  seed_variance_components: 42  # SAME as Bansal for GLMM (optional corroboration)
+  seed_split_half: 43  # SAME as Bansal for split-half (primary method)
+  n_splits: 100  # SAME as Bansal: number of random split-half replications
+  min_tasks_per_user: 8  # SAME as Bansal: minimum tasks for split-half (ensures 4+ per half)
+
+  # Robustness: conflict-conditioned DV
+  # In addition to unconditional reliance, also compute split-half on
+  # conflict-conditioned reliance (finalPrediction==prediction where selfPrediction≠prediction)
+  # This mirrors the PR#4 panel DV
+  compute_conflict_conditioned: true

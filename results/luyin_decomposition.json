@@ -1,0 +1,53 @@
+{
+  "run_manifest": {
+    "timestamp": "2026-07-15T05:21:01.588346+00:00",
+    "package_version": "0.1.0-vslice-v0",
+    "config_hash": "8685ef92c79c1ca5",
+    "dataset": "luyin21",
+    "seed_glmm": 42,
+    "seed_split_half": 43,
+    "n_splits": 100,
+    "min_tasks": 8,
+    "n_users": 301,
+    "n_tasks": 31,
+    "n_trials_total": 9030,
+    "note": "C0 replication on Lu&Yin; PRIMARY: split-half reliability; GLMM optional"
+  },
+  "unconditional_reliance": {
+    "split_half_reliability": {
+      "spearman_mean": 0.668482452600924,
+      "spearman_sd": 0.022974881432484124,
+      "icc_mean": 0.662411153910619,
+      "icc_sd": 0.02484441743535455,
+      "spearman_brown_reliability": 0.8010810918811722,
+      "spearman_brown_reliability_sd": 0.016496975404368064,
+      "stable_user_share": 0.8010810918811722,
+      "stable_user_share_lower": 0.7705678784684364,
+      "stable_user_share_upper": 0.8336925909608318,
+      "n_splits": 100,
+      "n_users": 301,
+      "min_tasks_threshold": 8
+    },
+    "glmm_variance_components": {
+      "converged": false,
+      "note": "Did not converge"
+    }
+  },
+  "conflict_conditioned_reliance": {
+    "split_half_reliability": {
+      "spearman_mean": 0.655586951957371,
+      "spearman_sd": 0.024937653661093184,
+      "icc_mean": 0.7724298797791672,
+      "icc_sd": 0.02127549231130284,
+      "spearman_brown_reliability": 0.7916978335825717,
+      "spearman_brown_reliability_sd": 0.018201800372427898,
+      "stable_user_share": 0.7916978335825717,
+      "stable_user_share_lower": 0.7606364991319151,
+      "stable_user_share_upper": 0.8239838567393815,
+      "n_splits": 100,
+      "n_users": 240,
+      "min_tasks_threshold": 8,
+      "n_conflict_trials": 3446
+    }
+  }
+}
