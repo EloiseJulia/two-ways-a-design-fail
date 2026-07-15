@@ -525,6 +525,24 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-15 — PR #6 `bansal-discriminator` (C0 mechanism test) SQUASH-MERGED to main
+  (commit 50250e6).**
+  - Flow: impl-bansal-discriminator (zero-API; matched-subset split-half; produced an
+    OVERSTATED "PERSISTS → clean demote" verdict) → **Manager caught a ceiling artifact**
+    (beer/amzbook between-user SD ≈ 0.05 → share ≈ 0 is uninterpretable, NOT user×task) →
+    escalated → PI chose demote-on-honest-grounds → Manager CORRECTED framing to
+    INCONCLUSIVE + demoted C0 / elevated C1 → independent audit **APPROVE** (independently
+    reproduced beer SD 0.047 / amzbook 0.044 / lsat 0.139; confirmed lsat CI [0.31,0.59]
+    overlaps full_ai [0.23,0.42]; verified docs honest, no overclaim; 13/13 tests,
+    determinism) → Manager verified clean → merged.
+  - RESULT: **INCONCLUSIVE.** Matching Bansal to Lu&Yin's regime does not cleanly move the
+    share to trait-stable; 2/3 domains are ceiling artifacts; the one interpretable subset
+    (lsat) rose only partway (0.46, CI overlapping the 0.33 baseline). Bansal↔Lu&Yin gap
+    CONFOUNDED and UNRESOLVED.
+  - **DECISION (PI-approved): C1 (panel two-axis triage) is now the PRIMARY contribution;
+    C0 DEMOTED to a Bansal-specific supporting finding (honest, not shown to generalize);
+    regime/sequential-feedback = explicit OPEN QUESTION for a future mechanism study
+    (§4.1), deferred until C1 is solid.** See SPEC §2.
 - **2026-07-15 — PR #5 `luyin-decomp` (C0 generalization test) SQUASH-MERGED to main
   (commit 4364d54).**
   - Flow: impl-luyin-decomp (zero-API; Lu&Yin loader + split-half decomposition reusing
