@@ -335,13 +335,16 @@ def main():
         'responses': [
             {
                 'persona_id': r.persona_id,
+                'model': r.model,
                 'task_id': r.task_id,
                 'ui_condition': r.ui_condition,
+                'seed': r.seed,
                 'system1_decision': r.system1_decision,
                 'final_decision': r.final_decision,
                 'relied': r.relied,
                 'confidence': r.confidence,
-                'seed': r.seed,
+                'trace': r.trace,
+                'trust_state': r.trust_state,
             }
             for r in responses
         ]
