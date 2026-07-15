@@ -256,16 +256,38 @@ and timestamp for every change.
     4. Single model (gpt-4o-mini) — no cross-model triangulation yet
     5. No abstention modeling (future: Module D protocol)
     6. Reliance definition is binary (final == AI), no partial adoption modeling
-  - **READY FOR MERGE (PENDING PI/AUDITOR REVIEW):**
-    * Code quality: production-ready, deterministic, tested
-    * Scientific validity: pipeline proven, NOT claiming human-equivalent behavior
-    * Commit: cedc671 "Fix API pacing + restore thin-slice scale + complete real run"
-    * Branch: `feature/moduleB-panel`
-    * Tests: 31/31 pass
-    * Docs: PROGRESS.md updated with real numbers
+  - **MANAGER DIAGNOSIS (independent, from raw responses — the scientifically important part):**
+    * The null is REAL, not a bug (audit + Manager confirmed: counterfactual invariant
+      0/100 violations; treatment prompt genuinely renders the expert explanation; arms
+      are not cache-collapsed — 2/100 cells flip, in opposite directions).
+    * **Mechanism = panel compliance/anchoring collapse:** in **97% of cells the agent's
+      final decision == its own System-1 anchor** (agent almost never moves). Of 146
+      "relied" cells, **140 are baseline agreement** (System-1 already matched AI); only
+      **6 are genuine switches-to-AI**. So measured "reliance" (~0.73) ≈ agent↔AI
+      AGREEMENT, not AI adoption. Personas barely diverge (disagreement 0.002 ≈ 0).
+    * **Root cause:** the sim agent is a strong, confident independent classifier
+      (System-1 acc 0.80) on easy binary sentiment → rarely uncertain → rarely defers;
+      the reliance DV conflates agreement with adoption; no wrong-AI/conflict pressure;
+      weak persona conditioning. => the naive panel does NOT reproduce human reliance
+      heterogeneity (the axis-1 signal has ~no dynamic range to act on).
+  - **PI DECISION (2026-07-15, user = "BOTH"):** (1) MERGE this slice as honest infra +
+    documented negative result (audit CONDITIONAL PASS → BLOCKER-1 fixed → Manager
+    verified); (2) NEXT slice REDESIGNS the panel DV = conflict-conditioned reliance
+    (System-1 ≠ AI trials only) + inject WRONG-AI / axis-2 condition + harder/ambiguous
+    item selection + stronger persona conditioning; (3) ELEVATE the real-data
+    decomposition (stable-trait → user×task) to a CO-ANCHOR contribution (see SPEC C1).
+  - **MERGE STATUS:** audit CONDITIONAL PASS (all methodology/security/determinism PASS;
+    one schema BLOCKER-1) → BLOCKER-1 fixed (model/trace/trust_state serialized, commit
+    d6c48db, numbers unchanged, 0 API calls) → Manager independently verified: 11 fields
+    present, cross-process determinism IDENTICAL, worktree clean → MERGED (see Merge log).
+    * Tests: 31/31 pass. Branch: `feature/moduleB-panel` (PR #3).
 
 ## Doing
-- **NEXT:** Independent auditor review + PI sign-off for Module B merge
+- **NEXT SLICE = Panel redesign (PI-approved):** conflict-conditioned reliance DV
+  (System-1 ≠ AI trials) + WRONG-AI/axis-2 condition + harder/ambiguous items +
+  stronger persona conditioning, to give the axis-1 mechanism dynamic range.
+- **In parallel (co-anchor):** elevate + harden the real-data decomposition
+  (replication on Lu&Yin + task-selection robustness).
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.
