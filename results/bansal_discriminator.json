@@ -1,0 +1,246 @@
+{
+  "subsets": {
+    "full_ai": {
+      "description": "Full AI-assisted data (all domains, all tasks, all users)",
+      "filter_config": {
+        "description": "Full AI-assisted data (all domains, all tasks, all users)",
+        "filter_type": "none"
+      },
+      "structure": {
+        "n_users": 292,
+        "n_tasks": 50,
+        "n_trials": 11570,
+        "tasks_per_user_median": 50.0,
+        "tasks_per_user_mean": 39.62328767123287,
+        "tasks_per_user_min": 20,
+        "tasks_per_user_max": 50,
+        "reliance_rate": 0.8063094209161625,
+        "ai_accuracy": 0.806828003457217
+      },
+      "split_half_reliability": {
+        "spearman_mean": 0.20134151586897633,
+        "spearman_sd": 0.03805248049692219,
+        "icc_mean": 0.36955726627988505,
+        "icc_sd": 0.03830825561898557,
+        "spearman_brown_reliability": 0.33353301466430507,
+        "spearman_brown_reliability_sd": 0.05301809143249139,
+        "stable_user_share": 0.33353301466430507,
+        "stable_user_share_lower": 0.2279529560003814,
+        "stable_user_share_upper": 0.4164345797234224,
+        "n_splits": 100,
+        "n_users": 292,
+        "min_tasks_threshold": 8
+      }
+    },
+    "domain_beer": {
+      "description": "Beer domain only (difficulty=1, easiest, concrete/sensory)",
+      "filter_config": {
+        "description": "Beer domain only (difficulty=1, easiest, concrete/sensory)",
+        "filter_type": "domain",
+        "domain": "beer"
+      },
+      "structure": {
+        "n_users": 98,
+        "n_tasks": 50,
+        "n_trials": 4900,
+        "tasks_per_user_median": 50.0,
+        "tasks_per_user_mean": 50.0,
+        "tasks_per_user_min": 50,
+        "tasks_per_user_max": 50,
+        "reliance_rate": 0.8106122448979591,
+        "ai_accuracy": 0.84
+      },
+      "split_half_reliability": {
+        "spearman_mean": -0.15220017800000385,
+        "spearman_sd": 0.07388310631652105,
+        "icc_mean": -0.14996912700877826,
+        "icc_sd": 0.0718225643863606,
+        "spearman_brown_reliability": -0.3772631229890496,
+        "spearman_brown_reliability_sd": 0.21310535673380848,
+        "stable_user_share": 0.0009747231197071923,
+        "stable_user_share_lower": 0.0,
+        "stable_user_share_upper": 0.010767693473916167,
+        "n_splits": 100,
+        "n_users": 98,
+        "min_tasks_threshold": 8
+      }
+    },
+    "domain_amzbook": {
+      "description": "Amazon book domain only (difficulty=2, medium, semantic/subjective)",
+      "filter_config": {
+        "description": "Amazon book domain only (difficulty=2, medium, semantic/subjective)",
+        "filter_type": "domain",
+        "domain": "amzbook"
+      },
+      "structure": {
+        "n_users": 93,
+        "n_tasks": 50,
+        "n_trials": 4650,
+        "tasks_per_user_median": 50.0,
+        "tasks_per_user_mean": 50.0,
+        "tasks_per_user_min": 50,
+        "tasks_per_user_max": 50,
+        "reliance_rate": 0.8449462365591398,
+        "ai_accuracy": 0.84
+      },
+      "split_half_reliability": {
+        "spearman_mean": -0.23823310996410743,
+        "spearman_sd": 0.06732339914723891,
+        "icc_mean": -0.14448848912671244,
+        "icc_sd": 0.07744467871738753,
+        "spearman_brown_reliability": -0.6459729717447797,
+        "spearman_brown_reliability_sd": 0.2365423375443247,
+        "stable_user_share": 0.0,
+        "stable_user_share_lower": 0.0,
+        "stable_user_share_upper": 0.0,
+        "n_splits": 100,
+        "n_users": 93,
+        "min_tasks_threshold": 8
+      }
+    },
+    "domain_lsat": {
+      "description": "LSAT domain only (difficulty=3, hardest, abstract reasoning)",
+      "filter_config": {
+        "description": "LSAT domain only (difficulty=3, hardest, abstract reasoning)",
+        "filter_type": "domain",
+        "domain": "lsat"
+      },
+      "structure": {
+        "n_users": 101,
+        "n_tasks": 20,
+        "n_trials": 2020,
+        "tasks_per_user_median": 20.0,
+        "tasks_per_user_mean": 20.0,
+        "tasks_per_user_min": 20,
+        "tasks_per_user_max": 20,
+        "reliance_rate": 0.7069306930693069,
+        "ai_accuracy": 0.65
+      },
+      "split_half_reliability": {
+        "spearman_mean": 0.3054661091918981,
+        "spearman_sd": 0.06477173846311132,
+        "icc_mean": 0.33464955558420145,
+        "icc_sd": 0.06583343751635086,
+        "spearman_brown_reliability": 0.46419708740118165,
+        "spearman_brown_reliability_sd": 0.07715765621243925,
+        "stable_user_share": 0.46419708740118165,
+        "stable_user_share_lower": 0.30930660492840095,
+        "stable_user_share_upper": 0.5868052813159707,
+        "n_splits": 100,
+        "n_users": 101,
+        "min_tasks_threshold": 8
+      }
+    },
+    "ai_acc_band_0.6_0.75": {
+      "description": "Tasks with AI accuracy in [0.60, 0.75] band (Lu&Yin-matched)",
+      "filter_config": {
+        "description": "Tasks with AI accuracy in [0.60, 0.75] band (Lu&Yin-matched)",
+        "filter_type": "ai_accuracy_band",
+        "ai_acc_min": 0.6,
+        "ai_acc_max": 0.75
+      },
+      "structure": {
+        "n_users": 292,
+        "n_tasks": 9,
+        "n_trials": 2628,
+        "tasks_per_user_median": 9.0,
+        "tasks_per_user_mean": 9.0,
+        "tasks_per_user_min": 9,
+        "tasks_per_user_max": 9,
+        "reliance_rate": 0.7214611872146118,
+        "ai_accuracy": 0.6643835616438356
+      },
+      "split_half_reliability": {
+        "spearman_mean": 0.1920065275434885,
+        "spearman_sd": 0.03938469601144375,
+        "icc_mean": 0.20347980345603958,
+        "icc_sd": 0.038435819710409554,
+        "spearman_brown_reliability": 0.3203435467221717,
+        "spearman_brown_reliability_sd": 0.055496975432208835,
+        "stable_user_share": 0.3203435467221717,
+        "stable_user_share_lower": 0.20475401273090327,
+        "stable_user_share_upper": 0.41744151631660553,
+        "n_splits": 100,
+        "n_users": 292,
+        "min_tasks_threshold": 8
+      }
+    },
+    "tasks_per_user_30": {
+      "description": "Subsample to ~30 tasks/user (Lu&Yin-matched count, robustness)",
+      "filter_config": {
+        "description": "Subsample to ~30 tasks/user (Lu&Yin-matched count, robustness)",
+        "filter_type": "subsample_tasks_per_user",
+        "target_tasks": 30
+      },
+      "structure": {
+        "n_users": 292,
+        "n_tasks": 50,
+        "n_trials": 7750,
+        "tasks_per_user_median": 30.0,
+        "tasks_per_user_mean": 26.541095890410958,
+        "tasks_per_user_min": 20,
+        "tasks_per_user_max": 30,
+        "reliance_rate": 0.7943225806451613,
+        "ai_accuracy": 0.7868387096774193
+      },
+      "split_half_reliability": {
+        "spearman_mean": 0.23065542422018528,
+        "spearman_sd": 0.035803454341056105,
+        "icc_mean": 0.32628599142165127,
+        "icc_sd": 0.0376108135680955,
+        "spearman_brown_reliability": 0.3734884703146228,
+        "spearman_brown_reliability_sd": 0.047297872281279484,
+        "stable_user_share": 0.3734884703146228,
+        "stable_user_share_lower": 0.2841344712209887,
+        "stable_user_share_upper": 0.4534122794897533,
+        "n_splits": 100,
+        "n_users": 292,
+        "min_tasks_threshold": 8
+      }
+    },
+    "lsat_matched": {
+      "description": "LSAT domain + AI-acc [0.60, 0.75] (strictest Lu&Yin match)",
+      "filter_config": {
+        "description": "LSAT domain + AI-acc [0.60, 0.75] (strictest Lu&Yin match)",
+        "filter_type": "domain_and_accuracy",
+        "domain": "lsat",
+        "ai_acc_min": 0.6,
+        "ai_acc_max": 0.75
+      },
+      "error": "No data after filtering"
+    }
+  },
+  "benchmarks": {
+    "luyin_ai_assisted": 0.801,
+    "luyin_ci_lower": 0.771,
+    "luyin_ci_upper": 0.834,
+    "bansal_human_no_ai": 0.742,
+    "bansal_human_ci_lower": 0.693,
+    "bansal_human_ci_upper": 0.787,
+    "bansal_ai_assisted_min": 0.321,
+    "bansal_ai_assisted_max": 0.414
+  },
+  "run_manifest": {
+    "timestamp": "2026-07-15T06:45:24.517376+00:00",
+    "package_version": "0.1.0-vslice-v0",
+    "config_hash": "b158521576873848",
+    "seed_split_half": 43,
+    "n_splits": 100,
+    "min_tasks_per_user": 8,
+    "ai_condition_focus": "Conf.+Adaptive",
+    "n_subsets": 7,
+    "note": "C0 mechanism test: matched-subset decompositions to test PERSIST vs COLLAPSE (using Conf.+Adaptive as representative AI condition)"
+  },
+  "verdict": {
+    "summary": "PERSISTS",
+    "details": [
+      "LSAT domain (Lu&Yin-matched regime) shows PERSISTENT low share (0.464 \u2264 0.5)"
+    ],
+    "recommendation": "User\u00d7task dominance PERSISTS under Lu&Yin-matched homogeneity. The controllable regime confounds (task/difficulty/accuracy homogeneity) are NOT the primary driver of the low share. The residual gap is likely the UNCONTROLLABLE sequential-feedback difference (Bansal is static, Lu&Yin is sequential). RECOMMENDATION: **DEMOTE C0** to a single-dataset finding (Bansal only); lean on C1 (panel two-axis) as the primary contribution.",
+    "decision_rule": {
+      "persist_threshold_upper": 0.5,
+      "collapse_threshold_lower": 0.7,
+      "note": "Thresholds defined by PI-directed decision rule (see config comments)"
+    }
+  }
+}

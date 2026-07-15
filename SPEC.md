@@ -25,25 +25,30 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
 (font size, color, button size, Fitts-law effects, pure visual fatigue).
 
 ## 2. Contributions
-- **C0 (co-anchor — STATUS: HELD pending mechanism test, 2026-07-15 PR #5):** AI
-  assistance TRANSFORMS reliance from a stable individual trait into a
-  task-contingent behavior. On Bansal, no-AI reliance is substantially a stable
-  user trait (split-half stable-user share ≈ 0.74, 95% CI [0.69,0.79]); under AI
-  assistance it drops to ≈ 0.32–0.41 (user×task). Consequence (IF it holds):
-  reliance-calibration / user-modeling interventions that profile "who the user is"
-  are mis-specified under AI assistance, and pre-deployment screening must be
-  TASK-SPANNING — motivating the two-axis, task-diverse panel (C1).
-  **⚠️ GENERALIZATION CHALLENGE (Lu&Yin, PR #5):** on Lu&Yin, AI-assisted reliance is
-  trait-stable (stable-user share ≈ 0.80), NOT user×task. This shows the AI-assisted
-  share is NOT universal. BUT the between-dataset comparison is confounded (Lu&Yin has
-  no no-AI arm, so it cannot test C0's within-dataset contrast; sequential-feedback +
-  homogeneity + AI-accuracy confounds). Do NOT assert "design-dependent C0" yet. A
-  zero-quota DISCRIMINATOR (Bansal re-decomposed on Lu&Yin-matched subsets) will decide:
-  user×task persists under matched homogeneity → DEMOTE C0 (lean on C1); collapses to
-  trait-stable → reframe C0 as design-dependent. Until then C0 is HELD, not load-bearing.
-- C1 (core): propose + validate the two-axis triage signal.
+- **C1 (PRIMARY / core, elevated 2026-07-15 PR #6):** propose + validate the two-axis
+  triage signal (panel-disagreement over-dispersion axis + systematic wrong-AI
+  over-reliance axis). This is the paper's load-bearing contribution. Preliminary
+  real-panel evidence: PR #4 shows the redesigned panel produces genuine heterogeneity
+  (conflict rate 43%, personas diverge) and a first axis-2 wrong-AI signal (0.325).
 - C2 (support): "counterfactual reliance elasticity" — difficulty-controlled
   sensitivity estimate via frozen-persona paired UI swap.
+- **C0 (DEMOTED to a Bansal-specific SUPPORTING finding, 2026-07-15 PR #6 —
+  was briefly elevated to co-anchor, now demoted on honest grounds):** On **Bansal**,
+  AI assistance is associated with reliance shifting from a stable user trait (no-AI
+  split-half stable-user share ≈ 0.74) toward user×task (AI-assisted ≈ 0.32–0.41). This
+  motivates task-spanning screening. **It is NOT shown to generalize:** on Lu&Yin,
+  AI-assisted reliance is trait-stable (≈ 0.80) (PR #5). The zero-quota discriminator
+  (PR #6) was **INCONCLUSIVE** — 2 of 3 Bansal domain subsets are ceiling/low-variance
+  artifacts (between-user SD ≈ 0.05 → share ≈ 0, uninterpretable); the one interpretable
+  Lu&Yin-matched subset (lsat) rose only partway (0.46 [0.31, 0.59], CI overlapping the
+  0.33 baseline). So the Bansal↔Lu&Yin gap is CONFOUNDED and UNRESOLVED. C0 is therefore
+  presented as a Bansal-specific observation with an explicit **OPEN QUESTION** (below),
+  not a general law.
+- **OPEN QUESTION (future mechanism study, not a claim):** is reliance stability
+  **regime-dependent** — specifically, does **sequential feedback** (Lu&Yin) drive users
+  toward a stable trust policy, vs static settings (Bansal) yielding user×task? Testable
+  via the §4.1 sequential-stateful (Bayesian-trust) mode. Deferred as optional upside
+  AFTER C1 is solid.
 - (RTI = follow-up second paper, out of scope here.)
 
 > **Empirical status of the panel (C1/C2), honest — updated 2026-07-15, PR #4:**
@@ -59,9 +64,9 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
 > dark-pattern-BACKFIRE lead, audit-confirmed genuine). So the mechanism CAN produce
 > heterogeneity + an axis-2 reading; it is not yet powered/multi-model/calibrated.
 > CAVEATS: single model (gpt-4.1-mini; not same-model comparable to PR #3), 20 items /
-> 6 personas / beer only, elasticity underpowered. C0 (real-data) still co-anchors;
-> C1/C2 now have preliminary supporting evidence. Next: power up + betabinom
-> over-dispersion on conflict DV + axis-2/E4 build-out + cross-model.
+> 6 personas / beer only, elasticity underpowered. C1 is now the PRIMARY contribution;
+> C0 demoted to a Bansal-specific supporting finding (PR #6; generalization unresolved).
+> Next: power up + betabinom over-dispersion on conflict DV + axis-2/E4 build-out + cross-model.
 
 ## 3. RQ / Hypotheses (pass criteria)
 - **RQ1 (core, two-axis).**
