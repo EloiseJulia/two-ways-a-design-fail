@@ -1,0 +1,123 @@
+# Bansal Discriminator Configuration
+# 
+# SCIENTIFIC QUESTION (C0 mechanism test):
+# Does Bansal's low AI-assisted stable_user_share (~0.32-0.41, user×task dominant)
+# PERSIST under Lu&Yin-matched homogeneity (single domain, matched AI-accuracy regime,
+# comparable tasks/user), or does it COLLAPSE to trait-stable (~0.80)?
+#
+# DECISION RULE (PI-directed):
+# - PERSISTS (share stays low ~0.3-0.5) → controllable regime NOT the driver → 
+#   recommend DEMOTE C0 (lean on C1 panel)
+# - COLLAPSES (share rises toward ~0.7-0.8) → regime DOES drive share → 
+#   recommend reframe C0 as design-dependent
+#
+# HONEST CAVEAT: Sequential-feedback is an UNCONTROLLABLE confound here (Bansal is
+# static). A persisting low share does NOT prove "regime doesn't matter" in general;
+# it only rules out the controllable confounds tested here.
+#
+# PRE-SPECIFICATION: All subsets defined below BEFORE seeing results. Report ALL,
+# including inconvenient ones. Do NOT tune to hit a target share.
+
+data:
+  raw_dir: 'data/raw'
+  # Focus on AI-assisted conditions (pool or analyze separately)
+  # Lu&Yin's regime (AI-acc ~0.70, reliance ~0.67) most closely matches lsat domain
+  ai_conditions:
+    - 'Conf.'
+    - 'Conf.+Single'
+    - 'Conf.+Double'
+    - 'Conf.+Adaptive'
+    - 'Conf.+Adaptive (Expert)'
+  
+  # Reference: Human baseline for comparison
+  no_ai_condition: 'Human'
+
+analysis:
+  # Same split-half params as e1_decomposition for direct comparability
+  seed_split_half: 43
+  n_splits: 100
+  min_tasks_per_user: 8
+  
+  # Matched-subset decomposition definitions (PRE-SPECIFIED)
+  subsets:
+    # FULL BANSAL AI-ASSISTED (baseline for comparison)
+    full_ai:
+      description: 'Full AI-assisted data (all domains, all tasks, all users)'
+      filter_type: 'none'
+      # Expected: stable_user_share ~0.32-0.41 (from e1_decomposition.json)
+    
+    # BY-DOMAIN SLICES (difficulty homogeneity test)
+    # Each domain is BETWEEN-SUBJECTS in Bansal (each user saw only 1 domain)
+    # This tests whether single-domain homogeneity raises the share
+    domain_beer:
+      description: 'Beer domain only (difficulty=1, easiest, concrete/sensory)'
+      filter_type: 'domain'
+      domain: 'beer'
+      # Hypothesis: If homogeneity drives share, this should be higher than full_ai
+    
+    domain_amzbook:
+      description: 'Amazon book domain only (difficulty=2, medium, semantic/subjective)'
+      filter_type: 'domain'
+      domain: 'amzbook'
+    
+    domain_lsat:
+      description: 'LSAT domain only (difficulty=3, hardest, abstract reasoning)'
+      filter_type: 'domain'
+      domain: 'lsat'
+      # HEADLINE SUBSET: Lu&Yin-matched regime
+      # Manager reports: lsat has AI-acc ~0.65, reliance ~0.71, tasks/user ~20
+      # Lu&Yin: AI-acc ~0.70, reliance ~0.67, tasks/user ~30
+      # This is the closest match to Lu&Yin's regime
+      # Key test: If share is still low (~0.3-0.5), PERSIST verdict
+      #           If share rises toward ~0.7-0.8, COLLAPSE verdict
+    
+    # BY AI-ACCURACY BAND (regime matching test)
+    # Restrict to tasks whose AI accuracy is near Lu&Yin's ~0.70
+    ai_acc_band_0.6_0.75:
+      description: 'Tasks with AI accuracy in [0.60, 0.75] band (Lu&Yin-matched)'
+      filter_type: 'ai_accuracy_band'
+      ai_acc_min: 0.60
+      ai_acc_max: 0.75
+      # Tests if matching AI-accuracy regime raises share toward Lu&Yin's 0.80
+    
+    # BY TASKS-PER-USER (estimation length robustness)
+    # Subsample to ~30 tasks/user (Lu&Yin's count) to rule out length artifact
+    # Spearman-Brown is length-corrected, so this should be a robustness check,
+    # not a big mover
+    tasks_per_user_30:
+      description: 'Subsample to ~30 tasks/user (Lu&Yin-matched count, robustness)'
+      filter_type: 'subsample_tasks_per_user'
+      target_tasks: 30
+      # Expected: Spearman-Brown corrects for length, so share should be comparable
+      #           to full_ai. This is a robustness check, not expected to drive share.
+    
+    # JOINT MATCHED SUBSET (lsat + ai_acc_band)
+    # Most stringent Lu&Yin match: lsat domain + AI-acc band
+    lsat_matched:
+      description: 'LSAT domain + AI-acc [0.60, 0.75] (strictest Lu&Yin match)'
+      filter_type: 'domain_and_accuracy'
+      domain: 'lsat'
+      ai_acc_min: 0.60
+      ai_acc_max: 0.75
+      # CRITICAL TEST: If this STILL shows low share (~0.3-0.5), PERSIST verdict
+      #                If it rises toward ~0.7-0.8, COLLAPSE verdict
+
+  # Heterogeneity gradient (internal Bansal test)
+  # Compute share at decreasing task-set heterogeneity and report whether
+  # share RISES as heterogeneity falls (direct evidence within Bansal)
+  # Order: full_ai → domain_beer/amzbook/lsat → ai_acc_band → lsat_matched
+  # This gradient tests the design-dependent hypothesis directly
+
+  # Comparison benchmarks (from prior results)
+  benchmarks:
+    luyin_ai_assisted: 0.801  # Lu&Yin AI-assisted share (from luyin_decomposition.json)
+    luyin_ci_lower: 0.771
+    luyin_ci_upper: 0.834
+    bansal_human_no_ai: 0.742  # Bansal Human (no-AI) baseline (from e1_decomposition.json)
+    bansal_human_ci_lower: 0.693
+    bansal_human_ci_upper: 0.787
+    bansal_ai_assisted_min: 0.321  # Bansal AI-assisted range (Conf.+Single, lowest)
+    bansal_ai_assisted_max: 0.414  # (Conf.+Double, highest; Expert ~0 excluded)
+
+output:
+  results_file: 'results/bansal_discriminator.json'

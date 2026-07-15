@@ -147,7 +147,7 @@ tests/             # unit + integration (module seams get tests)
 docs/{plans,research,handoff}/
 ```
 
-## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + PR #3 + E2 Panel Redesign + PR #5 Lu&Yin)
+## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + PR #3 + E2 Panel Redesign + PR #5 Lu&Yin + PR #6 Bansal Discriminator)
 > This section reflects what is ACTUALLY implemented on `main`, to prevent drift.
 - **data** — `twdf/data/bansal.py`: auto-downloads + loads Bansal to the canonical
   schema; multi-condition selector with `task_selection` config
@@ -201,6 +201,13 @@ docs/{plans,research,handoff}/
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
   **NEW (E2):** `e2_panel_redesign` (3-condition panel with Fixes A-D: conflict-conditioned
   DV + data-driven items + strong personas + Wrong-AI axis-2; config `configs/e2_panel_redesign.yaml`).
+  **NEW (PR #5):** `luyin_decomposition` (Lu&Yin C0 replication, split-half reliability on
+  Lu&Yin dataset; config `configs/luyin_decomposition.yaml`).
+  **NEW (PR #6):** `bansal_discriminator` (C0 mechanism test, matched-subset decompositions
+  to test whether Bansal's user×task dominance PERSISTS or COLLAPSES under Lu&Yin-matched
+  homogeneity; config `configs/bansal_discriminator.yaml`; subset filters: domain, AI-accuracy
+  band, tasks-per-user subsampling, joint domain+accuracy; `filter_subset()` + `compute_subset_structure()`
+  functions; PI-directed verdict decision rule with thresholds PERSIST ≤ 0.50, COLLAPSE ≥ 0.70).
   No single `run_experiment` dispatcher; each experiment is its own module.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).
@@ -208,3 +215,5 @@ docs/{plans,research,handoff}/
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
   **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical
   responses excluding manifest timestamp).
+  **PR #6 verified:** Cross-process determinism for bansal_discriminator (bit-identical
+  stable_user_share across separate runs, excluding timestamp; tested via subprocess rerun).
