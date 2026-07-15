@@ -195,7 +195,10 @@ docs/{plans,research,handoff}/
   (control, treatment, dark); dual-system flow runs for ALL conditions; System-1 frozen invariant
   tested across all 3. **NEW (E2 — Fix D):** `render_ui_condition()` in bansal_tasks.py handles
   "Wrong-AI (dark)" condition (renders WRONG label: 1 - ai_pred, with pseudo-high conf + oppressive
-  framing).
+  framing). **NEW (E4 — 4-condition support + placebo):** `ui_pair` now accepts 4-tuple; 
+  `render_ui_condition()` handles "Conf.+Placebo" condition (content-free explanation: present, 
+  matched in format to faithful, but NO task-specific decision-relevant content; generic boilerplate 
+  only, identical across tasks by construction).
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
   (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
@@ -208,6 +211,10 @@ docs/{plans,research,handoff}/
   homogeneity; config `configs/bansal_discriminator.yaml`; subset filters: domain, AI-accuracy
   band, tasks-per-user subsampling, joint domain+accuracy; `filter_subset()` + `compute_subset_structure()`
   functions; PI-directed verdict decision rule with thresholds PERSIST ≤ 0.50, COLLAPSE ≥ 0.70).
+  **NEW (E4 — PR #7):** `e4_compliance` (4-condition panel: control, faithful, placebo, dark; 
+  formalizes H3 compliance floor + axis-2 sensor; config `configs/e4_compliance.yaml`; 
+  compliance-adjusted axis-2 = over_reliance_level − placebo_floor; System-1 frozen across all 4 
+  conditions; 15 items, 6 personas, gpt-4.1-mini; full response serialization).
   No single `run_experiment` dispatcher; each experiment is its own module.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).

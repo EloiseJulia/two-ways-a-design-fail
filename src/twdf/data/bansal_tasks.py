@@ -224,7 +224,8 @@ def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     UI Conditions:
     - "Conf.": AI prediction + confidence, NO explanation (Bansal exact string)
     - "Conf.+Adaptive (Expert)": AI prediction + confidence + expert explanation (Bansal exact)
-    - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (NEW, Fix D)
+    - "Conf.+Placebo": AI prediction + confidence + PLACEBO explanation (NEW E4, H3 compliance floor)
+    - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (Fix D)
     
     Args:
         task: Task stimulus
@@ -242,12 +243,37 @@ Task:
 {task.text}"""
     
     elif ui_condition == "Conf.+Adaptive (Expert)":
-        # Treatment: prediction + confidence + expert explanation
+        # Faithful: prediction + confidence + expert explanation
         return f"""AI Prediction: {task.ai_pred}
 AI Confidence: {task.ai_conf:.2%}
 
 Explanation (Expert highlights):
 {task.expert_explanation}
+
+Task:
+{task.text}"""
+    
+    elif ui_condition == "Conf.+Placebo":
+        # Placebo (E4, H3): prediction + confidence + NON-INFORMATIVE explanation
+        # CRITICAL: Must be present, matched in length/format to faithful, but content-free.
+        # Carries NO task-specific decision-relevant content. Generic boilerplate only.
+        # By construction: does NOT leak the task's actual features or decision logic.
+        
+        # Generate a placebo explanation matched in structure to expert explanations
+        # (~3-5 sentences of generic analysis statements, no task-specific content)
+        placebo_text = (
+            "The AI model has analyzed the input features using its trained parameters. "
+            "Based on pattern recognition across the training data, the model has identified "
+            "characteristics consistent with its prediction. The confidence score reflects "
+            "the model's internal evaluation of prediction certainty. The system has processed "
+            "the available information and generated this recommendation accordingly."
+        )
+        
+        return f"""AI Prediction: {task.ai_pred}
+AI Confidence: {task.ai_conf:.2%}
+
+Explanation:
+{placebo_text}
 
 Task:
 {task.text}"""
@@ -279,4 +305,4 @@ Your decision carries full responsibility. Choose wisely."""
     
     else:
         raise ValueError(f"Unknown UI condition: {ui_condition}. "
-                        f"Valid: 'Conf.', 'Conf.+Adaptive (Expert)', 'Wrong-AI (dark)'")
+                        f"Valid: 'Conf.', 'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)'")

@@ -1,0 +1,94 @@
+# E4 Compliance Experiment Configuration
+# Axis-2 dark-pattern sensor + placebo baseline (formalize compliance floor, H3)
+
+# Experiment metadata
+experiment_name: "e4_compliance"
+description: "E4: Placebo-explanation condition to isolate compliance floor + formalize axis-2 systematic over-reliance sensor"
+
+# UI conditions (4-way: control, faithful, placebo, dark)
+# CRITICAL: System-1 frozen across ALL 4 conditions
+ui_conditions:
+  - "Conf."  # Control: AI pred + conf, NO explanation (Bansal exact)
+  - "Conf.+Adaptive (Expert)"  # Faithful: AI pred + conf + real expert explanation (Bansal exact)
+  - "Conf.+Placebo"  # Placebo (NEW E4): AI pred + conf + content-free explanation (H3 compliance floor)
+  - "Wrong-AI (dark)"  # Dark axis-2: WRONG AI + pseudo-high conf + oppressive framing (axis-2 sensor)
+
+# Task selection
+domain: "beer"
+item_selection:
+  n_items: 15  # Budget-conscious: 6×15×(1 System-1 + 4 System-2) = 90 + 360 = 450 calls
+  prefer_ai_wrong: 0.5  # Weight for AI-incorrect items
+  prefer_low_conf: 0.3  # Weight for low-confidence items
+  prefer_high_variance: 0.2  # Weight for high human-variance items (selection only, NOT leaked)
+  seed: 42  # Deterministic selection
+
+# Personas (reuse PR#4's 6 personas)
+personas:
+  - persona_id: "p1-novice-skeptical"
+    domain_skill: 0.1
+    ai_literacy: 0.2
+    risk_sensitivity: 0.2
+    caution: 0.8
+    temperature: 0.3
+    prior_mix: 0.3
+  
+  - persona_id: "p2-expert-trusting"
+    domain_skill: 0.9
+    ai_literacy: 0.9
+    risk_sensitivity: 0.8
+    caution: 0.2
+    temperature: 0.8
+    prior_mix: 0.9
+  
+  - persona_id: "p3-moderate-balanced"
+    domain_skill: 0.5
+    ai_literacy: 0.5
+    risk_sensitivity: 0.5
+    caution: 0.5
+    temperature: 0.5
+    prior_mix: 0.5
+  
+  - persona_id: "p4-skilled-skeptical"
+    domain_skill: 0.7
+    ai_literacy: 0.1
+    risk_sensitivity: 0.3
+    caution: 0.7
+    temperature: 0.4
+    prior_mix: 0.7
+  
+  - persona_id: "p5-novice-trusting"
+    domain_skill: 0.2
+    ai_literacy: 0.8
+    risk_sensitivity: 0.7
+    caution: 0.3
+    temperature: 0.7
+    prior_mix: 0.2
+  
+  - persona_id: "p6-expert-moderate"
+    domain_skill: 0.8
+    ai_literacy: 0.4
+    risk_sensitivity: 0.4
+    caution: 0.6
+    temperature: 0.5
+    prior_mix: 0.6
+
+# Model provider config (consistent with PR#4)
+model:
+  name: "openai/gpt-4.1-mini"
+  call_budget: 520  # System-1: 6×15=90, System-2: 6×15×4=360, total=450 + margin
+  inter_call_sleep: 0.8  # 0.8s pacing (consistent with PR#4)
+  max_retries: 5
+
+# Generation parameters
+seeds: [42]  # Single seed for determinism (consistent with PR#4)
+max_tokens: 600  # Sufficient for decision + reasoning
+temperature_override: null  # Use per-persona temperature
+
+# Panel mode
+mode: "static"  # Counterfactual pairing (not sequential)
+
+# Cache directory
+cache_dir: "data/cache/panel"
+
+# Output
+output_file: "results/e4_compliance.json"

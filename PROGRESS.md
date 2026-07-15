@@ -487,6 +487,59 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing
+- **E4 COMPLIANCE (feature/e4-compliance, PR #7) — CODE-COMPLETE, REAL RUN PENDING (Manager will execute)**
+  - **Scope:** Formalize H3 compliance floor (placebo explanation) + axis-2 systematic over-reliance sensor
+  - **STATUS: ✅ CODE + OFFLINE TESTS COMPLETE, REAL RUN PENDING**
+  - **IMPLEMENTATION:**
+    * **Placebo UI condition:** Added `"Conf.+Placebo"` to `render_ui_condition()` in bansal_tasks.py
+      - Content-free explanation: present, matched in length/format to faithful, but carries NO task-specific decision-relevant content
+      - Generic boilerplate: "The AI model has analyzed the input features... confidence score reflects... system has processed..."
+      - By construction: does NOT leak task features or decision logic
+      - Tested: distinct from control & faithful, identical across tasks (no leakage)
+    * **4-condition experiment:** `src/twdf/experiments/e4_compliance.py` + `configs/e4_compliance.yaml`
+      - 4 conditions: control ("Conf."), faithful ("Conf.+Adaptive (Expert)"), placebo ("Conf.+Placebo"), dark ("Wrong-AI (dark)")
+      - 6 personas (reuse PR#4), 15 items (budget: 6×15×5 = 450 calls), model openai/gpt-4.1-mini
+      - System-1 frozen across ALL 4 conditions (invariant tested)
+    * **H3 compliance floor hypotheses:**
+      - control < placebo (presence alone induces reliance)
+      - placebo < faithful (genuine value beyond presence)
+      - Paired permutation tests for both contrasts + bootstrap CI
+      - Per-persona breakdown for all 3 conditions
+    * **Axis-2 sensor formalization:**
+      - Raw over_reliance_level on wrong-AI (reuse PR#4 metric)
+      - NEW: compliance-adjusted axis-2 = over_reliance_level − placebo_floor
+      - Per-persona adoption rates (surface any backfire personas)
+    * **Metrics:** Reuses existing `conflict_conditioned_reliance()`, `over_reliance_level()`, `paired_permutation_test()` from overdispersion.py
+    * **Full response serialization:** All AgentResponse fields (persona_id, model, task_id, ui_condition, seed, system1_decision, final_decision, relied, confidence, trace, trust_state)
+  - **TESTS (tests/test_e4_compliance.py): ✅ 8/8 OFFLINE TESTS PASS**
+    1. Placebo renderer: distinct from control/faithful, content-free, no task-specific leakage ✓
+    2. Placebo content-free: identical explanation across different tasks ✓
+    3. Placebo length-matched: within 5x of faithful explanations ✓
+    4. 4-condition panel: System-1 frozen invariant across all 4 conditions ✓
+    5. Compliance floor synthetic: recovers known ordering (control < placebo < faithful) ✓
+    6. Axis-2 sensor synthetic: detects wrong-AI adoption + compliance-adjusted value ✓
+    7. Cross-process determinism: subprocess pattern ✓
+    8. Placebo in panel flow: well-formed responses ✓
+  - **METHODOLOGY GUARDRAILS:**
+    * ✅ System-1 frozen across all 4 conditions (tested)
+    * ✅ Placebo genuinely content-free (documented + tested for no leakage)
+    * ✅ Two axes computed SEPARATELY (H3 compliance floor + axis-2 over-reliance)
+    * ✅ Conflict-conditioned DV (reuse PR#4 approach)
+    * ✅ hashlib only (no `hash()`)
+    * ✅ All response fields serialized
+    * ✅ Exact Bansal condition strings ("Conf.", "Conf.+Adaptive (Expert)", "Conf.+Placebo", "Wrong-AI (dark)")
+  - **DELIVERABLES:**
+    * ✅ Placebo UI renderer in bansal_tasks.py
+    * ✅ E4 experiment runner + config (e4_compliance.py, configs/e4_compliance.yaml)
+    * ✅ 8/8 offline tests pass (no network calls, mock provider)
+    * ✅ Documentation updated (PROGRESS.md, INTERFACES.md §8 AS-BUILT)
+    * ⏳ REAL RUN PENDING (Manager will execute; subagents keep dying on long API runs + daily quota is scarce)
+  - **NEXT STEP:** Manager runs the real experiment, generates results/e4_compliance.json, then independent audit + verify + merge
+  - **FILES:**
+    * Code: `src/twdf/data/bansal_tasks.py` (placebo renderer), `src/twdf/experiments/e4_compliance.py`, `configs/e4_compliance.yaml`
+    * Tests: `tests/test_e4_compliance.py` (8/8 pass)
+    * Docs: This PROGRESS.md entry, INTERFACES.md §8 AS-BUILT update
+
 - **In parallel (co-anchor):** elevate + harden the real-data decomposition
   (replication on Lu&Yin + task-selection robustness).
 
