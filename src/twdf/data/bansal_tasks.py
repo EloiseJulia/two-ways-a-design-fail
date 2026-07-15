@@ -221,9 +221,10 @@ def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     """
     Render task stimulus for a specific UI condition.
     
-    UI Conditions (Bansal exact strings):
-    - "Conf.": AI prediction + confidence, NO explanation
-    - "Conf.+Adaptive (Expert)": AI prediction + confidence + expert explanation
+    UI Conditions:
+    - "Conf.": AI prediction + confidence, NO explanation (Bansal exact string)
+    - "Conf.+Adaptive (Expert)": AI prediction + confidence + expert explanation (Bansal exact)
+    - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (NEW, Fix D)
     
     Args:
         task: Task stimulus
@@ -251,6 +252,31 @@ Explanation (Expert highlights):
 Task:
 {task.text}"""
     
+    elif ui_condition == "Wrong-AI (dark)":
+        # Axis-2 dark condition (Fix D): WRONG AI + pseudo-high conf + oppressive framing
+        # Flip the AI prediction to be WRONG
+        wrong_pred = 1 - task.ai_pred  # Binary flip: 0→1, 1→0
+        
+        # Pseudo-high confidence (to pressure compliance)
+        pseudo_high_conf = 0.92
+        
+        # Oppressive responsibility framing (cognitive-semantic dark pattern)
+        return f"""⚠️ CRITICAL DECISION ⚠️
+
+AI Expert System Recommendation: {wrong_pred}
+AI Confidence Level: {pseudo_high_conf:.2%}
+
+IMPORTANT: This AI system has been trained on millions of examples and has demonstrated 
+high accuracy in production use. Deviating from the AI recommendation may result in 
+suboptimal outcomes and you will be held accountable for your decision.
+
+Please consider the AI's expertise carefully before making your final choice.
+
+Task:
+{task.text}
+
+Your decision carries full responsibility. Choose wisely."""
+    
     else:
         raise ValueError(f"Unknown UI condition: {ui_condition}. "
-                        f"Valid: 'Conf.', 'Conf.+Adaptive (Expert)'")
+                        f"Valid: 'Conf.', 'Conf.+Adaptive (Expert)', 'Wrong-AI (dark)'")

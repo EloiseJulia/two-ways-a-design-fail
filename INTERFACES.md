@@ -147,37 +147,58 @@ tests/             # unit + integration (module seams get tests)
 docs/{plans,research,handoff}/
 ```
 
-## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + Module B impl)
+## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + PR #3 + E2 Panel Redesign)
 > This section reflects what is ACTUALLY implemented on `main`, to prevent drift.
 - **data** — `twdf/data/bansal.py`: auto-downloads + loads Bansal to the canonical
   schema; multi-condition selector with `task_selection` config
   (`all` | `first_10_shared` | `min_per_domain`; default `all`). Lu&Yin NOT loaded yet.
-  **NEW (Module B):** `twdf/data/bansal_tasks.py`: Beer task stimulus loader with
-  AI predictions + expert explanations; testid→questionId join verified (50/50 overlap).
+  `twdf/data/bansal_tasks.py`: Beer task stimulus loader with AI predictions + expert
+  explanations; testid→questionId join verified (50/50 overlap).
+  **NEW (E2):** `twdf/data/item_selector.py`: Data-driven hard/ambiguous item selection
+  (Fix B) using weighted criteria (AI-wrong, low-conf, high-human-variance); deterministic
+  with sorted+seeded RNG; `ItemSelectionCriteria` dataclass + `select_hard_items()` +
+  `compute_human_reliance_variance()` functions. Includes leakage guard (human variance
+  used ONLY for selection, NOT in agent prompts).
 - **metrics** — `twdf/metrics/overdispersion.py`: `betabinom_overdispersion`,
-  `betabinom_overdispersion_within_domain` (renamed from a misleading "stratified
+  `betabinom_overdispersion_within_domain` (renamed from misleading "stratified
   pooling"; domain is BETWEEN-SUBJECTS), `baseline_mean_predictor`, `within_task_diff`,
-  `bootstrap_ci`, and the cross-condition correlation (Spearman + permutation +
-  bootstrap, with an n<3 `degenerate` guard). **NEW (Module B):** `paired_permutation_test()`
-  for within-task elasticity significance testing (hashlib-seeded, paired permutation scheme).
+  `bootstrap_ci`, cross-condition correlation (Spearman + permutation + bootstrap,
+  with n<3 `degenerate` guard), `paired_permutation_test()` for within-task elasticity
+  (hashlib-seeded, paired permutation scheme).
+  **NEW (E2 — Fixes A + D):** `conflict_conditioned_reliance()` (PRIMARY axis-1 DV,
+  computes reliance ONLY on conflict trials where system1 ≠ AI, resolving PR#3's
+  agreement-collapse; returns `ConflictConditionedRelianceResult` with conflict/unconditional
+  rates + per-cell counts), `over_reliance_level()` (axis-2 DV for Wrong-AI dark condition,
+  measures adoption of WRONG AI advice; returns `OverRelianceLevelResult` with panel-wide
+  + per-persona adoption rates + between-persona spread).
   `twdf/metrics/variance_decomposition.py`: `split_half_reliability` (PRIMARY,
   ICC(2,1) + Spearman-Brown → `stable_user_share` + CI) and
   `variance_components_glmm` (`BinomialBayesMixedGLM`, bounded maxiter=10; currently
   NON-CONVERGENT, reported honestly as corroboration-unavailable).
 - **panel** — `twdf/panel/stub.py`: SYNTHETIC deterministic stub only (v0/PR#1/PR#2).
-  **NEW (Module B, IMPLEMENTED):** `twdf/panel/provider.py`: `GitHubModelsProvider`
-  implementing `ModelProvider` protocol, reads `GH_MODELS_TOKEN` from env, hashlib-based
-  deterministic caching to `data/cache/panel/`, retry with exponential backoff, call budget.
+  `twdf/panel/provider.py`: `GitHubModelsProvider` implementing `ModelProvider` protocol,
+  reads `GH_MODELS_TOKEN` from env, hashlib-based deterministic caching to `data/cache/panel/`,
+  retry with exponential backoff, call budget. **NEW (E2):** `model_name` parameter added
+  to `GitHubModelsProvider.__init__()` (supports per-model caching + model switching on quota);
+  429 cooldown capped at 120s (fails fast on daily quota exhaustion instead of sleeping ~13h).
   `twdf/panel/real_panel.py`: `run_panel()` implementing INTERFACES §3 exactly, dual-system
   flow (System-1 no-AI anchor → System-2 with AI + UI intervention), counterfactual pairing
   (System-1 frozen across UI arms), reliance definition aligned with Bansal adoption.
-  **Status:** Code complete, offline tests pass (6/6), cross-process determinism verified.
-  **BLOCKER:** Real API run hits GitHub Models rate limits (HTTP 429) despite retry logic.
+  **NEW (E2 — Fix C):** Stronger persona conditioning in System-2 prompt (explicit behavioral
+  policies). **NEW (E2 — 3-condition support):** `ui_pair` now accepts tuple of 2 or 3 conditions
+  (control, treatment, dark); dual-system flow runs for ALL conditions; System-1 frozen invariant
+  tested across all 3. **NEW (E2 — Fix D):** `render_ui_condition()` in bansal_tasks.py handles
+  "Wrong-AI (dark)" condition (renders WRONG label: 1 - ai_pred, with pseudo-high conf + oppressive
+  framing).
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
-  (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). **NEW (Module B):**
-  `e1_panel_v1` (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap).
+  (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
+  (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
+  **NEW (E2):** `e2_panel_redesign` (3-condition panel with Fixes A-D: conflict-conditioned
+  DV + data-driven items + strong personas + Wrong-AI axis-2; config `configs/e2_panel_redesign.yaml`).
   No single `run_experiment` dispatcher; each experiment is its own module.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).
-- Determinism: use `hashlib` for any string→seed (builtin `hash()` is banned —
+- **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
+  **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical
+  responses excluding manifest timestamp).

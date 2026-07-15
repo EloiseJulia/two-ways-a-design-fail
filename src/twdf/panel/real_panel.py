@@ -32,7 +32,7 @@ from twdf.data.bansal_tasks import TaskStimulus, render_ui_condition
 def run_panel(
     personas: list[Persona],
     tasks: list[TaskStimulus],
-    ui_pair: tuple[str, str],
+    ui_pair: tuple[str, str] | tuple[str, str, str],
     providers: list[ModelProvider],
     *,
     seeds: list[int],
@@ -46,23 +46,25 @@ def run_panel(
     1. System-1 (no AI): agent sees only task content X → initial decision (FROZEN)
     2. System-2 (with AI): agent sees System-1 decision + AI advice rendered per UI
        condition → final decision + confidence
-    3. Counterfactual swap: Steps 1-2 run TWICE with control vs treatment UI,
-       reusing IDENTICAL System-1 output (bit-identical except UI rendering)
+    3. Counterfactual swap: Steps 1-2 run TWICE (or THRICE for 3-condition redesign)
+       with control vs treatment vs dark UI, reusing IDENTICAL System-1 output
     
-    INVARIANT: system1_decision MUST be identical across both UI arms for the
-    same (persona, task, seed). This is tested in test_panel_real.py.
+    INVARIANT: system1_decision MUST be identical across ALL UI arms for the
+    same (persona, task, seed). This is tested in test_panel_redesign.py.
     
     Args:
         personas: List of persona configurations
         tasks: List of task stimuli (TaskStimulus objects)
-        ui_pair: Tuple of (control_condition, treatment_condition)
+        ui_pair: Tuple of UI condition names (2 or 3 conditions)
+                 E.g., ("Conf.", "Conf.+Adaptive (Expert)") OR
+                       ("Conf.", "Conf.+Adaptive (Expert)", "Wrong-AI (dark)")
         providers: List of model providers (uses first provider for this slice)
         seeds: List of random seeds (uses first seed per persona×task)
         mode: "static" (counterfactual pairing) | "sequential" (NotImplemented)
         friction: Friction budget config (NotImplemented for this slice)
     
     Returns:
-        List of AgentResponse records (2 per persona×task: control + treatment)
+        List of AgentResponse records (len(ui_pair) per persona×task)
     
     Raises:
         NotImplementedError: If mode != "static" or friction is set
@@ -81,7 +83,8 @@ def run_panel(
     
     provider = providers[0]  # Use first provider for this slice
     
-    control_cond, treatment_cond = ui_pair
+    # Support both 2-condition and 3-condition UI tuples
+    ui_conditions = list(ui_pair)
     
     responses = []
     
@@ -91,7 +94,7 @@ def run_panel(
             # Use first seed (deterministic per persona×task)
             seed = seeds[0]
             
-            # ===== SYSTEM-1: No-AI anchor (FROZEN) =====
+            # ===== SYSTEM-1: No-AI anchor (FROZEN ACROSS ALL CONDITIONS) =====
             # Agent sees only the task content, no AI advice
             system1_decision, system1_trace = _system1_no_ai(
                 persona=persona,
@@ -100,10 +103,10 @@ def run_panel(
                 seed=seed
             )
             
-            # ===== SYSTEM-2: Counterfactual pairing (control vs treatment) =====
-            # Run TWICE with identical System-1 state, only UI rendering differs
+            # ===== SYSTEM-2: Counterfactual pairing (ALL ui_conditions) =====
+            # Run MULTIPLE TIMES with identical System-1 state, only UI rendering differs
             
-            for ui_condition in [control_cond, treatment_cond]:
+            for ui_condition in ui_conditions:
                 # Inject AI advice + UI intervention
                 final_decision, confidence, trace = _system2_with_ai(
                     persona=persona,
@@ -122,7 +125,12 @@ def run_panel(
                     ai_advice=task.ai_pred
                 )
                 
-                # Record response
+                # Record response with task metadata for metrics
+                # Store ai_advice, ground_truth in trace for axis-2 metrics
+                trace['ai_advice'] = task.ai_pred
+                trace['ground_truth'] = task.ground_truth
+                trace['ai_correct'] = (task.ai_pred == task.ground_truth)
+                
                 response = AgentResponse(
                     persona_id=persona.persona_id,
                     model=provider.name,
@@ -133,10 +141,7 @@ def run_panel(
                     final_decision=str(final_decision),
                     relied=relied,
                     confidence=confidence,
-                    trace={
-                        'system1_trace': system1_trace,
-                        'system2_trace': trace,
-                    },
+                    trace=trace,
                     trust_state=None  # Not used in static mode
                 )
                 
@@ -284,26 +289,96 @@ Respond in JSON format:
 
 
 def _build_system_prompt(persona: Persona) -> str:
-    """Build system prompt encoding persona characteristics."""
+    """
+    Build system prompt encoding persona characteristics (Fix C - strengthened).
     
-    # Map persona traits to instructions
-    skill_desc = _trait_to_desc(persona.domain_skill, "domain expertise",
-                                 low="limited knowledge", high="expert knowledge")
-    ai_lit_desc = _trait_to_desc(persona.ai_literacy, "AI literacy",
-                                  low="cautious about AI", high="trusts AI systems")
-    risk_desc = _trait_to_desc(persona.risk_sensitivity, "risk tolerance",
-                                low="risk-averse", high="risk-tolerant")
-    caution_desc = _trait_to_desc(persona.caution, "decision style",
-                                   low="decisive", high="cautious and deliberate")
+    FIX C: The original personas (trait floats → mild text) barely changed behavior.
+    Strengthened conditioning translates traits into EXPLICIT decision policies that
+    are behaviorally consequential:
     
-    return f"""You are a decision-maker with the following characteristics:
-- {skill_desc}
-- {ai_lit_desc}
-- {risk_desc}
-- {caution_desc}
+    - domain_skill: Affects how much weight to give to own judgment vs AI
+    - ai_literacy: Affects trust in AI systems and demand for evidence
+    - risk_sensitivity: Affects tolerance for potential errors
+    - caution: Affects threshold for changing initial decision
+    
+    The instructions are concrete and tied to decision-making, not just descriptive.
+    """
+    
+    # Domain skill → confidence in own judgment
+    if persona.domain_skill < 0.3:
+        skill_policy = ("You have limited knowledge in this domain. "
+                       "You should heavily weight external advice, especially from AI systems, "
+                       "as your own judgment is often unreliable.")
+    elif persona.domain_skill > 0.7:
+        skill_policy = ("You are highly knowledgeable in this domain. "
+                       "Trust your own expertise and only defer to AI when it provides "
+                       "strong, evidence-backed reasoning that contradicts your initial read.")
+    else:
+        skill_policy = ("You have moderate domain knowledge. "
+                       "Balance your own judgment with AI advice, giving weight to both.")
+    
+    # AI literacy → trust in AI / demand for evidence
+    if persona.ai_literacy < 0.3:
+        ai_policy = ("You are skeptical of AI systems and their capabilities. "
+                    "Demand strong textual evidence before accepting AI recommendations. "
+                    "Do not blindly trust confidence scores — they can be misleading. "
+                    "Keep your own read unless you find the AI's reasoning clearly superior.")
+    elif persona.ai_literacy > 0.7:
+        ai_policy = ("You trust AI systems and understand their strengths. "
+                    "Give significant weight to AI recommendations, especially when confidence is high. "
+                    "AI systems are generally well-calibrated and you should defer to them "
+                    "in cases of uncertainty.")
+    else:
+        ai_policy = ("You have a balanced view of AI capabilities. "
+                    "Consider AI advice seriously but verify reasoning. "
+                    "High confidence is helpful but not dispositive.")
+    
+    # Risk sensitivity → tolerance for errors
+    if persona.risk_sensitivity < 0.3:
+        risk_policy = ("You are highly risk-averse. "
+                      "Err on the side of caution and avoid potentially wrong decisions. "
+                      "If the AI disagrees with you, seriously consider whether you might be wrong.")
+    elif persona.risk_sensitivity > 0.7:
+        risk_policy = ("You are comfortable with risk and trust your instincts. "
+                      "Don't second-guess your initial judgment without strong contrary evidence. "
+                      "It's acceptable to stick with your read even if AI disagrees.")
+    else:
+        risk_policy = ("You have moderate risk tolerance. "
+                      "Weigh potential errors against potential gains. "
+                      "Be willing to change your mind if evidence is compelling.")
+    
+    # Caution → threshold for changing initial decision
+    if persona.caution < 0.3:
+        caution_policy = ("You make decisions quickly and decisively. "
+                         "Once you form an initial judgment, stick with it unless there's "
+                         "overwhelming reason to change. Don't overthink.")
+    elif persona.caution > 0.7:
+        caution_policy = ("You are very deliberate and cautious in decision-making. "
+                         "Carefully reconsider your initial judgment when presented with "
+                         "new information. Be willing to revise your decision if AI "
+                         "provides a compelling alternative perspective.")
+    else:
+        caution_policy = ("You are thoughtful but not overly cautious. "
+                         "Reconsider your initial judgment when AI provides good reasons, "
+                         "but don't change your mind without solid justification.")
+    
+    return f"""You are a decision-maker with a specific cognitive profile and decision style:
 
-Your task is to make careful, reasoned decisions based on the information provided.
-Be honest about your reasoning process."""
+DOMAIN EXPERTISE:
+{skill_policy}
+
+AI TRUST & LITERACY:
+{ai_policy}
+
+RISK ORIENTATION:
+{risk_policy}
+
+DECISION STYLE:
+{caution_policy}
+
+Your task is to make careful, reasoned decisions. Be honest about your reasoning process 
+and make choices that align with your cognitive profile. Do not simply describe these 
+traits — EMBODY them in your actual decision-making behavior."""
 
 
 def _trait_to_desc(value: float, trait_name: str, low: str, high: str) -> str:

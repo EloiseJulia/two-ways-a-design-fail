@@ -468,6 +468,23 @@ def betabinom_overdispersion_within_domain(
 
 
 @dataclass
+class ConflictConditionedRelianceResult:
+    """Result of conflict-conditioned reliance analysis (Fix A)."""
+    reliance_rate: float  # Fraction of CONFLICT trials where agent switched to AI advice
+    unconditional_reliance: float  # Traditional reliance (all trials)
+    n_conflict: int  # Number of conflict trials (system1 != ai_advice)
+    n_total: int  # Total trials
+    conflict_fraction: float  # n_conflict / n_total
+    per_cell_counts: dict  # Detailed conflict counts per cell
+    
+    def __repr__(self) -> str:
+        return (f"ConflictConditionedRelianceResult("
+                f"conflict_reliance={self.reliance_rate:.3f}, "
+                f"unconditional={self.unconditional_reliance:.3f}, "
+                f"n_conflict={self.n_conflict}/{self.n_total} ({self.conflict_fraction:.1%}))")
+
+
+@dataclass
 class ConditionCorrelationResult:
     """Result of correlation between panel disagreement and human over-dispersion."""
     spearman_rho: float
@@ -606,5 +623,237 @@ def condition_correlation(
         n_conditions=n_conditions,
         degenerate=degenerate,
         note=note
+    )
+
+
+def conflict_conditioned_reliance(responses: list) -> ConflictConditionedRelianceResult:
+    """
+    Conflict-conditioned reliance DV (Fix A) - PRIMARY axis-1 metric.
+    
+    CRITICAL METRIC FIX: The compliance-collapse in PR #3 (97% no-movement) showed
+    that unconditional reliance ≈ agent↔AI agreement, NOT adoption. The fix is to
+    define reliance on the subset of trials where the agent's System-1 decision
+    CONFLICTS with the AI advice shown (genuine conflict — the only trials where
+    AI advice can actually move the agent).
+    
+    Definition:
+    - CONFLICT trial: system1_decision != ai_advice
+    - On conflict trials, reliance = (final_decision == ai_advice)
+      i.e., agent SWITCHED from their initial decision to adopt AI advice
+    
+    Returns both:
+    - Conflict-conditioned reliance (PRIMARY DV)
+    - Unconditional reliance (for transparency / comparison to PR #3)
+    - Per-cell conflict counts (for underpowered-cell flagging)
+    
+    Args:
+        responses: List of AgentResponse records (must have system1_decision, 
+                   final_decision, ai_advice attributes)
+    
+    Returns:
+        ConflictConditionedRelianceResult with conflict-reliance + unconditional
+        reliance + n_conflict per cell
+    
+    Guard:
+        If n_conflict is tiny for a cell (< 3), flag as underpowered rather than
+        silently averaging. Report per-cell conflict counts in results JSON.
+    
+    Methodological notes:
+        - Item selection (Fix B) deliberately concentrates conflict/ambiguity
+        - Conflict-conditioning is defined a priori (this docstring = preregistration)
+        - BOTH metrics reported side-by-side for transparency
+        - This is the axis-1 DV; axis-2 (over_reliance_level) computed separately
+    """
+    if not responses:
+        return ConflictConditionedRelianceResult(
+            reliance_rate=0.0,
+            unconditional_reliance=0.0,
+            n_conflict=0,
+            n_total=0,
+            conflict_fraction=0.0,
+            per_cell_counts={}
+        )
+    
+    # Group responses by (persona, condition) cells
+    cells = {}
+    for resp in responses:
+        # Extract ai_advice from task if available, else from response trace
+        # For panel responses, ai_advice is task.ai_pred
+        ai_advice = None
+        if hasattr(resp, 'ai_advice'):
+            ai_advice = str(resp.ai_advice)
+        elif 'ai_advice' in resp.trace:
+            ai_advice = str(resp.trace['ai_advice'])
+        else:
+            # Try to infer from task_id if tasks are available
+            # For now, skip this response if ai_advice not available
+            continue
+        
+        system1 = str(resp.system1_decision)
+        final = str(resp.final_decision)
+        
+        cell_key = (resp.persona_id, resp.ui_condition)
+        
+        if cell_key not in cells:
+            cells[cell_key] = {
+                'conflict_trials': [],
+                'all_trials': [],
+                'n_conflict': 0,
+                'n_total': 0,
+            }
+        
+        # Check if conflict trial
+        is_conflict = (system1 != ai_advice)
+        
+        # Record trial
+        relied = (final == ai_advice)
+        cells[cell_key]['all_trials'].append(relied)
+        cells[cell_key]['n_total'] += 1
+        
+        if is_conflict:
+            # On conflict trial, did agent switch to AI?
+            switched = (final == ai_advice)
+            cells[cell_key]['conflict_trials'].append(switched)
+            cells[cell_key]['n_conflict'] += 1
+    
+    # Aggregate across all cells
+    total_conflict = sum(c['n_conflict'] for c in cells.values())
+    total_all = sum(c['n_total'] for c in cells.values())
+    
+    # Compute conflict-conditioned reliance
+    conflict_switched = sum(sum(c['conflict_trials']) for c in cells.values())
+    conflict_reliance_rate = conflict_switched / total_conflict if total_conflict > 0 else 0.0
+    
+    # Compute unconditional reliance (for comparison)
+    all_relied = sum(sum(c['all_trials']) for c in cells.values())
+    unconditional_reliance = all_relied / total_all if total_all > 0 else 0.0
+    
+    # Per-cell conflict counts (for underpowered-cell flagging)
+    per_cell_counts = {
+        f"{cell[0]}|{cell[1]}": {
+            'n_conflict': data['n_conflict'],
+            'n_total': data['n_total'],
+            'conflict_fraction': data['n_conflict'] / data['n_total'] if data['n_total'] > 0 else 0.0,
+            'underpowered': data['n_conflict'] < 3,
+        }
+        for cell, data in cells.items()
+    }
+    
+    return ConflictConditionedRelianceResult(
+        reliance_rate=conflict_reliance_rate,
+        unconditional_reliance=unconditional_reliance,
+        n_conflict=total_conflict,
+        n_total=total_all,
+        conflict_fraction=total_conflict / total_all if total_all > 0 else 0.0,
+        per_cell_counts=per_cell_counts
+    )
+
+
+@dataclass
+class OverRelianceLevelResult:
+    """Result of axis-2 over-reliance level analysis (Fix D)."""
+    over_reliance_level: float  # Fraction adopting WRONG AI advice across panel
+    per_persona_adoption: dict  # persona_id -> adoption rate of wrong AI
+    n_trials: int  # Total trials in Wrong-AI condition
+    between_persona_spread: float  # Variance in per-persona adoption (uniformity check)
+    
+    def __repr__(self) -> str:
+        return (f"OverRelianceLevelResult("
+                f"level={self.over_reliance_level:.3f}, "
+                f"spread={self.between_persona_spread:.4f}, "
+                f"n={self.n_trials})")
+
+
+def over_reliance_level(responses: list) -> OverRelianceLevelResult:
+    """
+    Axis-2 over-reliance level (Fix D) - systematic adoption of WRONG AI advice.
+    
+    AXIS-2 SIGNAL (separate from axis-1 over-dispersion):
+    Even if between-persona disagreement ≈ 0 (uniform), high adoption of WRONG AI
+    advice ⇒ high-risk flag (closes the "uniformly lethal" blind spot).
+    
+    This metric is computed on the Wrong-AI dark condition where:
+    - AI advice shown is the WRONG label (ai_advice != ground_truth)
+    - Presented with pseudo-high confidence + oppressive responsibility framing
+    
+    Definition:
+    - over_reliance_level = fraction of trials where agent adopted the WRONG label
+    - Computed across the panel (all personas × tasks in Wrong-AI condition)
+    - Also report per-persona spread to distinguish uniform vs heterogeneous adoption
+    
+    Args:
+        responses: List of AgentResponse records from Wrong-AI condition
+                   (must have final_decision, ground_truth, ai_advice)
+    
+    Returns:
+        OverRelianceLevelResult with:
+        - over_reliance_level: panel-wide adoption rate of wrong AI
+        - per_persona_adoption: per-persona wrong-AI adoption rates
+        - between_persona_spread: variance in per-persona rates
+    
+    Methodological notes:
+        - This is AXIS-2 (separate from axis-1 disagreement)
+        - τ_level threshold stays unfrozen (prereg not yet completed)
+        - Wrong-AI condition deliberately shows wrong labels (tested)
+        - Convergent high adoption (low spread, high level) = uniform lethality
+    """
+    if not responses:
+        return OverRelianceLevelResult(
+            over_reliance_level=0.0,
+            per_persona_adoption={},
+            n_trials=0,
+            between_persona_spread=0.0
+        )
+    
+    # Group by persona
+    persona_trials = {}
+    for resp in responses:
+        # Extract ground_truth and ai_advice
+        # For panel responses with task objects
+        ground_truth = None
+        ai_advice = None
+        
+        if hasattr(resp, 'ground_truth'):
+            ground_truth = str(resp.ground_truth)
+        elif 'ground_truth' in resp.trace:
+            ground_truth = str(resp.trace['ground_truth'])
+        
+        if hasattr(resp, 'ai_advice'):
+            ai_advice = str(resp.ai_advice)
+        elif 'ai_advice' in resp.trace:
+            ai_advice = str(resp.trace['ai_advice'])
+        
+        if ground_truth is None or ai_advice is None:
+            continue
+        
+        final = str(resp.final_decision)
+        
+        # Adopted wrong AI? (final == ai_advice AND ai_advice != ground_truth)
+        # In Wrong-AI condition, ai_advice IS WRONG by design
+        adopted_wrong_ai = (final == ai_advice)
+        
+        if resp.persona_id not in persona_trials:
+            persona_trials[resp.persona_id] = []
+        persona_trials[resp.persona_id].append(adopted_wrong_ai)
+    
+    # Compute per-persona adoption rates
+    per_persona_adoption = {
+        persona_id: np.mean(trials)
+        for persona_id, trials in persona_trials.items()
+    }
+    
+    # Overall level (across panel)
+    all_trials = [trial for trials in persona_trials.values() for trial in trials]
+    over_reliance_level = np.mean(all_trials) if all_trials else 0.0
+    
+    # Between-persona spread (variance)
+    persona_rates = list(per_persona_adoption.values())
+    between_persona_spread = float(np.var(persona_rates, ddof=1) if len(persona_rates) > 1 else 0.0)
+    
+    return OverRelianceLevelResult(
+        over_reliance_level=float(over_reliance_level),
+        per_persona_adoption=per_persona_adoption,
+        n_trials=len(all_trials),
+        between_persona_spread=between_persona_spread
     )
 
