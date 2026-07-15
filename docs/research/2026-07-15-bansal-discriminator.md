@@ -2,19 +2,42 @@
 
 **Date:** 2026-07-15  
 **Analysis:** Bansal matched-subset decompositions (PR #6, branch feature/bansal-discriminator)  
-**Status:** COMPLETE — **PERSISTS** verdict; **DEMOTE C0** recommendation
+**Status:** COMPLETE — **INCONCLUSIVE** (mechanism not isolated); C0 DEMOTED to a
+Bansal-specific supporting finding on honest grounds (Manager/PI-corrected 2026-07-15)
 
 ---
 
 ## Executive Summary
 
-**VERDICT: PERSISTS**
+**VERDICT: INCONCLUSIVE — the mechanism could NOT be isolated.**
 
-Bansal's low AI-assisted stable_user_share (~0.32-0.41, user×task dominant) **PERSISTS** under Lu&Yin-matched homogeneity. The LSAT domain (Lu&Yin-matched regime: AI-acc ~0.65, reliance ~0.71, tasks/user 20) shows **stable_user_share = 0.464 [0.309, 0.587]**—higher than full AI (0.334) but still **well below** Lu&Yin's 0.80.
+> ⚠️ **This corrects the original subagent verdict ("PERSISTS → clean demote"), which
+> was OVERSTATED.** Two of the three domain subsets are **ceiling/low-variance artifacts**
+> and are UNINTERPRETABLE (see below); the one interpretable matched subset (lsat) rose
+> only partway with a CI overlapping the baseline. We cannot cleanly attribute the
+> Bansal↔Lu&Yin gap.
 
-**Interpretation:** The controllable regime confounds (task/difficulty/accuracy homogeneity, tasks/user count) are **NOT the primary driver** of the low share. The residual gap is likely the **UNCONTROLLABLE sequential-feedback difference** (Bansal is static, Lu&Yin is sequential within-subject).
+- **beer / amzbook single domains → share ≈ 0.00: CEILING ARTIFACTS, DISCARD.** In these
+  domains reliance is near-ceiling (mean ~0.81–0.85, **between-user SD ≈ 0.05**), so there
+  is almost no between-user signal for split-half to detect → reliability is mechanically
+  ≈ 0. This is NOT evidence of "pure user×task"; you cannot measure trait-stability without
+  between-user spread. These subsets are uninterpretable.
+- **lsat (the ONLY interpretable Lu&Yin-matched subset; SD ≈ 0.135):
+  stable_user_share = 0.464 [0.309, 0.587].** This is a RISE from full-AI's 0.334 toward
+  Lu&Yin's 0.80 — but only PARTWAY, and its CI **overlaps** full-AI's [0.228, 0.416], so the
+  rise is not statistically clean.
 
-**RECOMMENDATION: DEMOTE C0** to a single-dataset finding (Bansal only); lean on C1 (panel two-axis) as the primary contribution.
+**Conclusion:** Matching Bansal to Lu&Yin's controllable regime does NOT cleanly move its
+share to trait-stable, but it does move lsat partway. The Bansal↔Lu&Yin gap remains
+**CONFOUNDED and UNRESOLVED** — we cannot isolate whether it is driven by sequential
+feedback (uncontrollable here; Bansal is static), residual variance/ceiling differences, or
+a genuine dataset difference.
+
+**RECOMMENDATION (PI-approved): DEMOTE C0** from co-anchor to a **Bansal-specific supporting
+finding** (honestly caveated as NOT shown to generalize, esp. to sequential-feedback
+settings). Make **C1 (panel two-axis triage) the PRIMARY contribution.** The
+**regime-dependent / sequential-feedback hypothesis is an explicit OPEN QUESTION** for a
+future mechanism study (§4.1 sequential-stateful mode), NOT a claim.
 
 ---
 

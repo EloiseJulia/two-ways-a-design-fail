@@ -271,7 +271,7 @@ and timestamp for every change.
 ## Done (BANSAL DISCRIMINATOR — 2026-07-15)
 - **2026-07-15 BANSAL DISCRIMINATOR (feature/bansal-discriminator, PR #6)**
   - **Scope:** C0 mechanism test — DECISIVE test of whether Bansal's low AI-assisted stable_user_share (~0.32–0.41, user×task dominant) PERSISTS or COLLAPSES under Lu&Yin-matched homogeneity
-  - **STATUS: ✅ COMPLETE — **PERSISTS** VERDICT; **DEMOTE C0** RECOMMENDATION**
+  - **STATUS: ✅ COMPLETE — INCONCLUSIVE (mechanism not isolated); C0 DEMOTED to Bansal-specific supporting finding on honest grounds (Manager/PI-corrected)**
   - **IMPLEMENTATION:**
     * `configs/bansal_discriminator.yaml`: PRE-SPECIFIED subsets (defined BEFORE seeing results):
       - `full_ai`: Full Conf.+Adaptive baseline
@@ -286,13 +286,12 @@ and timestamp for every change.
     * `docs/research/2026-07-15-bansal-discriminator.md`: Full discriminator report with matched-subset table, heterogeneity gradient, honest verdict, C0 recommendation
   - **RESULTS (2026-07-15, seed=43, 100 splits, Conf.+Adaptive):**
     * **full_ai (baseline):** stable_user_share = **0.334** [0.228, 0.416] — matches Bansal AI-assisted range
-    * **domain_beer:** 0.001 [0.000, 0.011] — VERY LOW! Homogeneity in easy tasks LOWERS share (paradoxical)
-    * **domain_amzbook:** 0.000 [0.000, 0.000] — Also near-zero
-    * **domain_lsat (Lu&Yin-matched regime):** **0.464 [0.309, 0.587]** — **HEADLINE RESULT**
-      - Higher than full_ai (0.334) → homogeneity HAS SOME EFFECT
-      - Still WELL BELOW Lu&Yin's 0.80 → does NOT collapse to trait-stable
-      - In the PERSIST range (≤ 0.50) → user×task dominance persists
-      - Regime: AI-acc 0.65 (vs Lu&Yin 0.70), reliance 0.71 (vs 0.67), tasks/user 20 (vs 30)
+    * **domain_beer:** 0.001 [0.000, 0.011] — **CEILING ARTIFACT, UNINTERPRETABLE** (between-user SD ≈ 0.05; no signal to detect)
+    * **domain_amzbook:** 0.000 [0.000, 0.000] — **CEILING ARTIFACT, UNINTERPRETABLE** (SD ≈ 0.05)
+    * **domain_lsat (Lu&Yin-matched regime):** **0.464 [0.309, 0.587]** — **HEADLINE (only interpretable subset; SD ≈ 0.135)**
+      - RISES from full_ai (0.334) toward Lu&Yin's 0.80 — but only PARTWAY
+      - CI [0.309, 0.587] OVERLAPS full_ai's [0.228, 0.416] → rise NOT statistically clean
+      - Does NOT collapse to trait-stable (0.80) → INCONCLUSIVE, not a clean persist
     * **ai_acc_band_0.6_0.75:** 0.320 [0.205, 0.417] — Matching AI-acc alone does NOT raise share
     * **tasks_per_user_30:** 0.373 [0.284, 0.453] — Slightly higher (robustness check, Spearman-Brown corrects)
     * **lsat_matched:** error (no data — LSAT 20 tasks + narrow AI-acc band leaves too few)
@@ -304,14 +303,24 @@ and timestamp for every change.
       - domain_lsat: 0.464 — **RISES** (modest effect, but does not collapse)
       - ai_acc_band: 0.320 — Similar to full_ai
     * Conclusion: Relationship between task homogeneity and trait-stability is **COMPLEX and DOMAIN-DEPENDENT**, not a simple linear effect
-  - **VERDICT: PERSISTS**
-    * Decision rule: LSAT domain (Lu&Yin-matched) stable_user_share = 0.464 ≤ 0.50 threshold → **PERSIST**
-    * User×task dominance PERSISTS under Lu&Yin-matched homogeneity
-    * Controllable regime confounds (task/difficulty/accuracy homogeneity, tasks/user) are **NOT the primary driver** of the low share
-    * Residual gap is likely the **UNCONTROLLABLE sequential-feedback difference** (Bansal is static between-subjects; Lu&Yin is sequential within-subject)
-  - **RECOMMENDATION: DEMOTE C0 to single-dataset finding (Bansal only); lean on C1 (panel two-axis)**
-    * Rationale: User×task dominance persists under matched homogeneity → cannot attribute Bansal-Lu&Yin gap to controllable regime differences → remaining confound is sequential-feedback (UNCONTROLLABLE) → C0 cannot be generalized beyond Bansal without additional data
-    * Alternative framing (if PI prefers): "C0 is design-dependent on sequential-feedback (static vs sequential within-subject)"
+  - **VERDICT (Manager/PI-corrected 2026-07-15): INCONCLUSIVE — mechanism NOT isolated.**
+    * ⚠️ The original subagent verdict "PERSISTS → clean DEMOTE" was OVERSTATED. It leaned on
+      the beer/amzbook near-zero shares, which are **CEILING/LOW-VARIANCE ARTIFACTS**:
+      between-user reliance SD ≈ 0.05 (mean ~0.81–0.85) → almost no between-user signal →
+      split-half reliability mechanically ≈ 0. These 2 of 3 domain subsets are
+      **UNINTERPRETABLE** (you cannot measure trait-stability without between-user spread).
+    * The ONLY interpretable Lu&Yin-matched subset is **lsat** (SD ≈ 0.135): share = 0.464
+      [0.309, 0.587] — a RISE from full_ai 0.334 toward Lu&Yin 0.80, but only PARTWAY, and
+      its CI **OVERLAPS** full_ai's [0.228, 0.416] → the rise is not statistically clean.
+    * So matching Bansal to Lu&Yin's controllable regime does NOT cleanly resolve the gap;
+      the Bansal↔Lu&Yin difference remains **CONFOUNDED and UNRESOLVED** (sequential feedback
+      is uncontrollable here; residual variance/ceiling differences remain).
+  - **RECOMMENDATION (PI-approved): DEMOTE C0** to a **Bansal-specific SUPPORTING finding**
+    on HONEST inconclusive grounds (generalization unresolved; NOT a "clean persist"). Make
+    **C1 (panel two-axis triage) the PRIMARY contribution.** Keep the **regime-dependent /
+    sequential-feedback driver as an explicit OPEN QUESTION** + future mechanism study
+    (§4.1 sequential-stateful mode), NOT a claim. §4.1 build deferred as optional upside
+    AFTER C1 is solid (don't spend scarce quota on a speculative C0 upgrade now).
   - **HONEST CAVEATS:**
     1. Sequential-feedback is UNCONTROLLABLE (Bansal static; Lu&Yin sequential). PERSIST verdict does NOT prove "regime doesn't matter" in general; only rules out controllable confounds tested.
     2. Beer/amzbook paradox: single-domain homogeneity in easy/medium tasks LOWERS share (near-zero), not raises it. Unexpected; may be ceiling effect (high reliance → low variance → weak split-half correlation).
