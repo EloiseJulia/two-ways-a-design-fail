@@ -147,13 +147,19 @@ tests/             # unit + integration (module seams get tests)
 docs/{plans,research,handoff}/
 ```
 
-## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + PR #3 + E2 Panel Redesign)
+## 8. AS-BUILT (reconciliation — actual state after PR #1 + PR #2 + PR #3 + E2 Panel Redesign + PR #5 Lu&Yin)
 > This section reflects what is ACTUALLY implemented on `main`, to prevent drift.
 - **data** — `twdf/data/bansal.py`: auto-downloads + loads Bansal to the canonical
   schema; multi-condition selector with `task_selection` config
-  (`all` | `first_10_shared` | `min_per_domain`; default `all`). Lu&Yin NOT loaded yet.
+  (`all` | `first_10_shared` | `min_per_domain`; default `all`). 
   `twdf/data/bansal_tasks.py`: Beer task stimulus loader with AI predictions + expert
   explanations; testid→questionId join verified (50/50 overlap).
+  **NEW (PR #5):** `twdf/data/luyin.py`: Loader for Lu&Yin CHI'21 dataset (income prediction 
+  tasks, 301 users × 30 tasks each, within-subject sequential design). Auto-downloads from 
+  https://github.com/ZhuoranLu/Trustworthy-ML, canonical schema mapping with dtype coercion 
+  (boolean strings → bool), ground_truth derivation from finalCorrect+finalPrediction. 
+  Reliance = `finalPrediction == AI advice` (same as Bansal). Conflict-conditioned reliance 
+  computed for robustness (reliance among `selfPrediction ≠ AI` trials). Determinism verified.
   **NEW (E2):** `twdf/data/item_selector.py`: Data-driven hard/ambiguous item selection
   (Fix B) using weighted criteria (AI-wrong, low-conf, high-human-variance); deterministic
   with sorted+seeded RNG; `ItemSelectionCriteria` dataclass + `select_hard_items()` +
