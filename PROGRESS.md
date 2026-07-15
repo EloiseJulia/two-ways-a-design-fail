@@ -236,10 +236,19 @@ and timestamp for every change.
     * The "AI assistance → user×task dominance" pattern found on Bansal **does NOT generalize** to Lu&Yin
     * On Lu&Yin, AI-assisted reliance remains a **stable user trait** (share 0.80), resembling Bansal's *no-AI* baseline (0.74)
     * This is **NOT a failure** — it reveals **boundary conditions** for the C0 theory
-  - **REFINED C0 CLAIM (post-Lu&Yin):**
-    * Original (Bansal-only): "AI assistance transforms reliance from stable user trait to user×task"
-    * **Refined:** "AI assistance *can* transform reliance to user×task, but the effect **depends on dataset characteristics**. On Bansal: task-contingent (0.32–0.41). On Lu&Yin: trait-stable (0.80)."
-    * **Hypothesized moderators:** Sequential within-subject design (Lu&Yin) vs between-subjects (Bansal), higher AI accuracy (70% Lu&Yin), task homogeneity (single domain Lu&Yin vs multi-domain Bansal)
+  - **C0 STATUS: HELD (not refined, not demoted) — mechanism UNRESOLVED (PI-directed):**
+    * Lu&Yin establishes ONLY that the AI-assisted stable-user share is NOT universal
+      (Bansal 0.32–0.41 vs Lu&Yin 0.80). It does NOT establish a cause. The between-dataset
+      comparison is CONFOUNDED and Lu&Yin has NO no-AI arm, so it cannot test C0's core
+      within-dataset contrast (0.74→0.32). Do NOT write "design-dependent C0" into SPEC yet.
+    * **NEXT SLICE = zero-quota DISCRIMINATOR:** re-decompose **Bansal on subsets MATCHED to
+      Lu&Yin's regime** (single domain, matched difficulty, comparable AI-accuracy).
+      - user×task PERSISTS under matched homogeneity → regime NOT the driver → **demote C0**,
+        lean on C1 (panel two-axis).
+      - COLLAPSES to trait-stable → regime/feedback isolated → **reframe C0 as design-dependent**
+        on identified ground.
+    * Candidate (untested) moderators: sequential-feedback design, single-domain/difficulty
+      homogeneity, higher AI accuracy, estimation power.
   - **METHODOLOGY RIGOR:**
     * ✅ Split-half reliability (PRIMARY, well-identified, same seeds/params as Bansal)
     * ✅ Determinism verified (cross-process subprocess test passes)
@@ -252,7 +261,8 @@ and timestamp for every change.
     3. No no-AI baseline in Lu&Yin (cannot replicate 0.74 → 0.32 shift within-dataset)
     4. Task domain differs: income prediction vs beer/books/LSAT
     5. GLMM non-convergence (split-half stands alone)
-  - **NEXT STEP:** Manager verification + independent audit. If approved, this becomes the honest C0 replication result (divergence is valid and refines the theory).
+  - **NEXT STEP:** Independent audit + Manager verification → merge as an honest BOUNDARY
+    result. C0 co-anchor framing HELD pending the discriminator slice (above).
   - **FILES:**
     * Results: `results/luyin_decomposition.json`
     * Research doc: `docs/research/2026-07-15-luyin-decomposition-replication.md`

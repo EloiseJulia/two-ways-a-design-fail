@@ -25,15 +25,22 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
 (font size, color, button size, Fitts-law effects, pure visual fatigue).
 
 ## 2. Contributions
-- **C0 (co-anchor, empirical, real human data — elevated 2026-07-15):** AI
+- **C0 (co-anchor — STATUS: HELD pending mechanism test, 2026-07-15 PR #5):** AI
   assistance TRANSFORMS reliance from a stable individual trait into a
   task-contingent behavior. On Bansal, no-AI reliance is substantially a stable
   user trait (split-half stable-user share ≈ 0.74, 95% CI [0.69,0.79]); under AI
-  assistance it drops to ≈ 0.32–0.41 (user×task). Consequence: reliance-calibration
-  / user-modeling interventions that profile "who the user is" are mis-specified
-  under AI assistance, and pre-deployment screening must be TASK-SPANNING — which
-  motivates the two-axis, task-diverse panel (C1). This finding owes nothing to the
-  simulation and is a load-bearing contribution in its own right.
+  assistance it drops to ≈ 0.32–0.41 (user×task). Consequence (IF it holds):
+  reliance-calibration / user-modeling interventions that profile "who the user is"
+  are mis-specified under AI assistance, and pre-deployment screening must be
+  TASK-SPANNING — motivating the two-axis, task-diverse panel (C1).
+  **⚠️ GENERALIZATION CHALLENGE (Lu&Yin, PR #5):** on Lu&Yin, AI-assisted reliance is
+  trait-stable (stable-user share ≈ 0.80), NOT user×task. This shows the AI-assisted
+  share is NOT universal. BUT the between-dataset comparison is confounded (Lu&Yin has
+  no no-AI arm, so it cannot test C0's within-dataset contrast; sequential-feedback +
+  homogeneity + AI-accuracy confounds). Do NOT assert "design-dependent C0" yet. A
+  zero-quota DISCRIMINATOR (Bansal re-decomposed on Lu&Yin-matched subsets) will decide:
+  user×task persists under matched homogeneity → DEMOTE C0 (lean on C1); collapses to
+  trait-stable → reframe C0 as design-dependent. Until then C0 is HELD, not load-bearing.
 - C1 (core): propose + validate the two-axis triage signal.
 - C2 (support): "counterfactual reliance elasticity" — difficulty-controlled
   sensitivity estimate via frozen-persona paired UI swap.

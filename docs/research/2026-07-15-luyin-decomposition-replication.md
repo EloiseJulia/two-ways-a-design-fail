@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-15  
 **Analysis:** Lu&Yin decomposition (PR #5, branch feature/luyin-decomp)  
-**Status:** Complete — DIVERGENCE finding (valid, informative result)
+**Status:** Complete — BOUNDARY OBSERVATION (mechanism UNRESOLVED; between-dataset comparison is confounded)
 
 ## Executive Summary
 
@@ -10,9 +10,27 @@
 
 On **Bansal et al. (2019)**, AI assistance transformed reliance from a stable user trait (no-AI: share 0.74) to predominantly user×task interaction (AI-assisted: 0.32–0.41). On **Lu&Yin et al. (2021)**, AI-assisted reliance shows **stable_user_share = 0.801 [0.771, 0.834]**, approaching the stable-trait pattern of Bansal's *no-AI* baseline.
 
-**Implication:** The "AI assistance → user×task dominance" pattern found on Bansal is **NOT a universal law**. Dataset-specific factors (sequential trust dynamics, task characteristics, AI accuracy regime) modulate whether reliance behaves as a stable user trait or a context-sensitive interaction.
+**Implication (bounded):** The AI-assisted "user×task dominance" number is **NOT
+universal** — on Lu&Yin, AI-assisted reliance is trait-stable (0.80). But this is a
+**BETWEEN-dataset comparison that is heavily CONFOUNDED**, so we do NOT (yet) attribute
+the difference to any specific cause:
+- **Lu&Yin has NO no-AI condition.** C0's actual claim is a *within-dataset contrast*
+  (no-AI 0.74 → AI 0.32–0.41). Lu&Yin can only supply the AI-assisted number, not the
+  contrast — so it does **not** cleanly test C0's core claim; it only shows the
+  AI-assisted share is dataset-dependent.
+- Lu&Yin differs from Bansal on MANY axes at once: sequential-feedback vs static,
+  single-domain vs multi-domain, difficulty homogeneity, AI-accuracy regime, and
+  estimation power. Any of these could drive the difference.
 
-**Scientific honesty:** This divergence is **not a failure**. It refines C0 from "AI assistance always makes reliance task-dependent" to "AI assistance *can* shift reliance from trait-like to context-sensitive, but the effect depends on dataset characteristics." The finding highlights boundary conditions for the theory.
+**MECHANISM UNRESOLVED — do NOT claim "design-dependent C0" yet.** A zero-quota
+DISCRIMINATOR is required and is the next slice: re-decompose **Bansal on subsets
+MATCHED to Lu&Yin's regime** (single domain, matched difficulty, comparable AI-accuracy).
+- If user×task PERSISTS under matched homogeneity → regime is NOT the driver → **demote
+  C0** to a single-dataset finding and lean on C1 (the panel two-axis).
+- If it COLLAPSES to trait-stable → regime/feedback isolated → THEN reframe C0 as
+  design-dependent on identified ground.
+Until then, C0's "co-anchor" status is **HELD**, and this document reports an honest
+boundary observation, not a causal refinement.
 
 ---
 
@@ -145,9 +163,11 @@ On **Bansal et al. (2019)**, AI assistance transformed reliance from a stable us
 
 **NOT a failure of the replication:** Divergence is a valid, informative scientific result. It reveals **boundary conditions** for the C0 theory.
 
-**Refined C0 claim (post-Lu&Yin):**
+**C0 status after Lu&Yin: HELD (not refined, not demoted) — pending the discriminator.**
 - **Original (Bansal-only):** "AI assistance transforms reliance from stable user trait to user×task interaction."
-- **Refined (post-Lu&Yin):** "AI assistance *can* transform reliance from stable user trait to user×task, but the effect **depends on dataset characteristics**. On Bansal, AI assistance induced task-contingent reliance (share 0.32–0.41). On Lu&Yin, reliance remained a stable user trait (share 0.80) despite AI assistance."
+- **What Lu&Yin establishes:** the AI-assisted stable-user share is NOT universal (Bansal 0.32–0.41 vs Lu&Yin 0.80). Nothing more — the between-dataset comparison is confounded and Lu&Yin lacks a no-AI arm to test C0's within-dataset contrast.
+- **What Lu&Yin does NOT establish:** that the difference is caused by interaction design / feedback regime. The "design-dependent" hypothesis is the leading candidate but is UNTESTED. Do not write it into SPEC as fact.
+- **Resolution:** the zero-quota discriminator (Bansal re-decomposed on Lu&Yin-matched subsets) decides between demote-C0 (option 2) and design-dependent-reframe (option 1).
 
 ### Why Might Lu&Yin Diverge?
 
