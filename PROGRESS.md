@@ -451,6 +451,21 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-15 — PR #5 `luyin-decomp` (C0 generalization test) SQUASH-MERGED to main
+  (commit 4364d54).**
+  - Flow: impl-luyin-decomp (zero-API; Lu&Yin loader + split-half decomposition reusing
+    split_half_reliability; 7 tests) → Manager verified numbers + escalated the finding →
+    PI-directed FRAMING correction (hold causal claim) → independent audit **PASS** (10/10,
+    no blockers; numbers reproduced, determinism verified, docs confirmed NOT overclaiming)
+    → Manager verified (pytest 17 passed incl. cross-process determinism; worktree clean) → merged.
+  - RESULT (real): Lu&Yin AI-assisted reliance stable_user_share = **0.80** [0.77,0.83]
+    (unconditional) / 0.79 (conflict-conditioned) — TRAIT-STABLE, near Bansal's no-AI 0.74,
+    NOT Bansal's AI-assisted 0.32–0.41. So the AI-assisted user×task share is NOT universal.
+  - **C0 STATUS = HELD (not refined/demoted).** The between-dataset comparison is CONFOUNDED
+    (Lu&Yin has no no-AI arm → cannot test C0's within-dataset contrast; sequential-feedback +
+    homogeneity + AI-accuracy confounds). Mechanism UNRESOLVED. NEXT SLICE = zero-quota
+    DISCRIMINATOR (Bansal re-decomposed on Lu&Yin-matched subsets) → decides demote-C0 vs
+    design-dependent-reframe. Do NOT bake "design-dependent" into SPEC until then.
 - **2026-07-15 — PR #4 `panel-redesign` (conflict-conditioned DV + wrong-AI axis-2 +
   hard items + strong personas) SQUASH-MERGED to main (commit 9caebc5).**
   - Flow: impl-panel-redesign (built conflict-conditioned reliance metric, data-driven
