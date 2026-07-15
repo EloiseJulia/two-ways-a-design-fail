@@ -25,10 +25,28 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
 (font size, color, button size, Fitts-law effects, pure visual fatigue).
 
 ## 2. Contributions
+- **C0 (co-anchor, empirical, real human data — elevated 2026-07-15):** AI
+  assistance TRANSFORMS reliance from a stable individual trait into a
+  task-contingent behavior. On Bansal, no-AI reliance is substantially a stable
+  user trait (split-half stable-user share ≈ 0.74, 95% CI [0.69,0.79]); under AI
+  assistance it drops to ≈ 0.32–0.41 (user×task). Consequence: reliance-calibration
+  / user-modeling interventions that profile "who the user is" are mis-specified
+  under AI assistance, and pre-deployment screening must be TASK-SPANNING — which
+  motivates the two-axis, task-diverse panel (C1). This finding owes nothing to the
+  simulation and is a load-bearing contribution in its own right.
 - C1 (core): propose + validate the two-axis triage signal.
 - C2 (support): "counterfactual reliance elasticity" — difficulty-controlled
   sensitivity estimate via frozen-persona paired UI swap.
 - (RTI = follow-up second paper, out of scope here.)
+
+> **Empirical status of the panel (C1/C2), honest (2026-07-15, PR #3):** the first
+> REAL LLM panel (thin slice, Module B) produced a NULL — a naive gpt-4o-mini panel
+> COLLAPSES to near-uniform agreement (97% no-movement from the System-1 anchor;
+> measured "reliance" ≈ agent↔AI agreement, not adoption; persona disagreement ≈ 0).
+> It does NOT yet reproduce human reliance heterogeneity. Active redesign (next
+> slice): conflict-conditioned reliance DV (System-1 ≠ AI trials), WRONG-AI/axis-2
+> condition, harder/ambiguous items, stronger persona conditioning. Until the panel
+> reproduces heterogeneity, C0 (real-data) carries the empirical weight.
 
 ## 3. RQ / Hypotheses (pass criteria)
 - **RQ1 (core, two-axis).**
@@ -128,4 +146,9 @@ difficulty as control covariate (partial correlation / mixed-effects);
 - Gate 2 batch API = GitHub Models via env var `GH_MODELS_TOKEN` (Azure fallback).
 - Gate 3 = PI owns correctness; independent audit is the merge gate.
 - H1a refined: axis-1 over-dispersion is user×task under AI (2026-07-15, commit b48ab2b).
+- **Decomposition elevated to CO-ANCHOR contribution C0 (PI-approved 2026-07-15).**
+- **Module B real panel (PR #3, commit 52fb53c): first real run = NULL (naive panel
+  compliance-collapse). PI decision "BOTH": merge as honest infra+negative result;
+  redesign panel DV next (conflict-conditioned + wrong-AI/axis-2 + harder items +
+  stronger personas); elevate decomposition to co-anchor.**
 - Prereg: τ_disp/τ_level NOT YET FROZEN (freeze before calibrated E1 results).

@@ -324,6 +324,24 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-15 — PR #3 `moduleB-panel` (real LLM panel thin slice)
+  SQUASH-MERGED to main (commit 52fb53c).**
+  - Flow: impl-moduleB-panel (built provider + counterfactual pairing + task loader
+    + metrics + tests) → hit real GitHub Models rate-limit (429) → Manager probed
+    limits (hidden burst bucket ~20 calls; sustainable ≤1.5 req/s) → fix-moduleB-panel
+    (pacing 0.8s + 8s 429 cooldown; restored 20-task scale; real run: 145 calls +
+    155 cache = 300, 0×429, $0.05) → produced NULL result → Manager diagnosed
+    mechanism (97% no-movement; reliance≈agreement) → PI decision "BOTH" → independent
+    audit (CONDITIONAL PASS: all methodology/security/determinism PASS; one schema
+    BLOCKER-1) → fix-moduleB-schema (serialize model/trace/trust_state; regen from
+    cache, 0 API calls, numbers unchanged) → Manager verified (11 fields, cross-process
+    determinism IDENTICAL, worktree clean) → merged.
+  - KEY RESULT: naive gpt-4o-mini panel COLLAPSES to near-uniform agreement — does NOT
+    reproduce human reliance heterogeneity. Documented as an honest negative result +
+    the reason for the panel-DV redesign. Infra (provider/cache/pairing/join/pacing)
+    is sound + reusable. Task stimuli (beer/amzbook/lsat JSON) + testid↔questionId join
+    (50/50) verified.
+  - FRAMING: real-data decomposition elevated to co-anchor contribution C0 (SPEC §2).
 - **2026-07-14 — PR #2 `e1-multicond` (+robustness +variance-decomposition)
   SQUASH-MERGED to main.** 12 commits.
   - Flow: impl-e1-multicond → audit (FAIL: over-dispersion fragile to task
