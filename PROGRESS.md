@@ -487,6 +487,40 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing
+- **2026-07-15 AXIS-1 MULTI-FAMILY EXPLORATORY PILOT (PR #8) — CODE COMPLETE, REAL RUN PENDING (Manager)**
+  - **⚠️ EXPLORATORY ONLY — NOT CONFIRMATORY ⚠️**
+  - **Purpose:**
+    1. De-risk the multi-family, 5-condition pipeline end-to-end
+    2. Produce power-analysis input (effect-size + variance estimates) for sizing a confirmatory run
+    3. MUST NOT be used to tune conditions, thresholds (τ), or model set
+  - **Scope:** All 5 Bansal AI conditions (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`, `Conf.+Adaptive (Expert)`) + multi-family panel (gpt-4o, Llama-3.3-70B, Phi-4)
+  - **Implementation:**
+    * `src/twdf/data/bansal_tasks.py`: Updated `TaskStimulus` with `system_highlights` field (LIME HTML), implemented 5-condition renderers (`render_ui_condition`)
+      - **Mapping documentation (EXPLORATORY — flagged for audit):**
+        - `Conf.`: pred + conf only (NO explanation)
+        - `Conf.+Single`: pred + conf + top-1 LIME highlight
+        - `Conf.+Double`: pred + conf + top-2 LIME highlights
+        - `Conf.+Adaptive`: pred + conf + adaptive-N LIME highlights (heuristic: all if conf > 0.8, else top-3)
+        - `Conf.+Adaptive (Expert)`: pred + conf + expert explanation (already implemented)
+      - **Uncertainty:** Bansal repo README does not fully specify LIME highlight selection algorithm (ranking by feature weight vs document order). Implementation uses DEFENSIBLE heuristics (document order, adaptive=show all or top-3) that preserve cognitive-semantic intervention but may not exactly match original UI. Acceptable for EXPLORATORY analysis; flagged for confirmatory audit.
+    * `src/twdf/experiments/axis1_pilot.py`: Multi-provider run loop (iterates model list, runs panel per model, System-1 frozen across all 5 conditions AND models)
+      - Metrics: per-condition conflict-conditioned reliance, panel disagreement (across personas×models), cross-condition correlation (Spearman + permutation + bootstrap), cross-family agreement (rank correlations)
+      - Power-analysis readout: observed effect-size (Spearman ρ + CI width), variance components (between-condition, within-model)
+    * `configs/axis1_pilot.yaml`: 3 models (gpt-4o, Llama-3.3-70B, Phi-4), 6 personas, 10 items, 5 conditions, 1 seed, call_budget=450/model (~360 estimated)
+    * `tests/test_axis1_pilot.py`: **9/9 OFFLINE TESTS PASS** (5-condition renderer tests, multi-provider System-1 frozen across conditions AND models, cross-condition correlation on synthetic data with KNOWN pattern, degenerate guard, determinism)
+      - Live tests marked `@pytest.mark.live` (skip-safe)
+    * `INTERFACES.md` §8 AS-BUILT updated: 5-condition renderers + multi-provider loop
+  - **Guardrails verified:**
+    * ✅ System-1 frozen across all 5 conditions AND across models (tested)
+    * ✅ No ground truth leakage in any explanation (tested)
+    * ✅ Conflict-conditioned DV (conflict_conditioned_reliance)
+    * ✅ Degenerate guard (n<3) respected (tested)
+    * ✅ hashlib cache keys only (grep verified, no builtin hash())
+    * ✅ 5-condition renderers produce DISTINCT content (tested)
+    * ✅ All outputs labeled EXPLORATORY / NON-CONFIRMATORY
+  - **NEXT:** Manager runs the real experiment (multi-family, 5-condition, ~1080 calls total), then audit + merge.
+  - **NOTE:** This implementation does NOT run the real GitHub Models experiment; it is CODE + OFFLINE TESTS ONLY per the subagent's charter.
+
 - **⏸ E4 axis-2 sensor + placebo baseline (branch `feature/e4-compliance`, PR #7 DRAFT —
   NOT merged; RESUME NEXT SESSION):**
   - Code COMPLETE + 8/8 offline tests pass (placebo renderer content-free-tested; System-1
