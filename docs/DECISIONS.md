@@ -297,6 +297,20 @@
   calibration/abstention protocol while preserving the preregistration discipline that thresholds
   remain unfrozen until the calibration step.
 
+### D5.7 — Module D calibration/triage machinery implemented; τ still UNFROZEN (PR #14)
+- **What:** Added `twdf.calibration.thresholds` with `fit_thresholds`, `triage`,
+  `ThresholdModel`, `TriageDecision`, precision-at-recall reporting, feature-space OOD/novel-dim
+  abstention, and a `freeze_thresholds` mechanism.
+- **Why:** Operationalizes SPEC §6's dual-threshold pre-deployment screen: either axis over
+  threshold sends a design to human study, both low can release, and uncertainty/OOD/reversal
+  regions abstain to the safe default. The fitting rule favors high recall because a miss means
+  releasing a dangerous design, which is worse than a false alarm.
+- **Guardrail:** τ VALUES remain **UNFROZEN** in this PR. Freshly fitted models have
+  `timestamp=None`; no frozen-τ artifact is written to `results/`. Real freezing is a later,
+  deliberate timestamped step after calibration data including E4 axis-2 are available.
+- **Paper implication:** The protocol machinery now exists for Module D/E5 without violating the
+  preregistered discipline that τ_disp/τ_level must be frozen only once, before threshold results.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
