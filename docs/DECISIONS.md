@@ -272,6 +272,21 @@
   Consistent with the existing C1-PRIMARY structure — a sharpening, not an upheaval. C0 stays a
   Bansal-specific supporting finding; sequential-feedback stays an open question.
 
+### D5.6 — Atomic UI feature space implemented for Module D calibration (PR #13)
+- **Ordering note:** D5.5 lives on the confirmatory branch and is not yet on `main`; this branch uses
+  D5.6 to avoid renumbering that branch-only decision when histories reconcile.
+- **What:** Added `twdf.features.ui_features` with a frozen `UIFeatureVector`, deterministic
+  extraction for all 7 Bansal/panel UI conditions, stable `FEATURE_NAMES`, numeric array encoding,
+  and standardized feature-space distance.
+- **Why:** SPEC §4.3 requires UI designs to be represented as atomic, interpretable
+  cognitive-interaction features so Module D can later learn τ_disp/τ_level and E5 can measure OOD
+  distance in feature space rather than over whole rendered UI surfaces.
+- **Guardrail:** This does **not** learn, freeze, or tune τ. Features are computed only from visible
+  prediction/confidence/explanation/framing and condition semantics, never from `ground_truth`.
+- **Paper implication:** Enables §5/E5 feature-distance analyses and the §6 dual-threshold
+  calibration/abstention protocol while preserving the preregistration discipline that thresholds
+  remain unfrozen until the calibration step.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
