@@ -381,14 +381,14 @@ Task:
         # Carries NO task-specific decision-relevant content. Generic boilerplate only.
         # By construction: does NOT leak the task's actual features or decision logic.
         
-        # Generate a placebo explanation matched in structure to expert explanations
-        # (~3-5 sentences of generic analysis statements, no task-specific content)
+        # Placebo matched in LENGTH/FORMAT to the (faithful) expert explanation but
+        # content-free: after the PR #10 renderer-fidelity fix the faithful Expert
+        # explanation is a short class-filtered phrase (beer: ~84-186 chars, median ~128),
+        # so the placebo is a single generic sentence of comparable length. It carries NO
+        # task-specific decision-relevant content and is IDENTICAL across all tasks/items.
         placebo_text = (
-            "The AI model has analyzed the input features using its trained parameters. "
-            "Based on pattern recognition across the training data, the model has identified "
-            "characteristics consistent with its prediction. The confidence score reflects "
-            "the model's internal evaluation of prediction certainty. The system has processed "
-            "the available information and generated this recommendation accordingly."
+            "The AI model analyzed the input using its trained parameters and generated "
+            "this recommendation based on its internal confidence evaluation."
         )
         
         return f"""AI Prediction: {task.ai_pred}

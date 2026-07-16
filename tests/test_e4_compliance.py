@@ -197,7 +197,8 @@ def test_placebo_length_matched():
         ai_pred=1,
         ai_conf=0.85,
         expert_explanation="The **malty aroma** and **hints of caramel** are strong indicators of a positive review.",
-        system="gpt-3.5-turbo",
+        system_highlights="<span class=class1>malty aroma</span> with <span class=class1>hints of caramel</span>",
+        expert_highlights_html="This beer has a <span class='class1'>malty aroma with hints of caramel</span> that reads positive.",
         testid="beer_001"
     )
     
@@ -211,10 +212,13 @@ def test_placebo_length_matched():
     faithful_len = len(faithful_exp)
     placebo_len = len(placebo_exp)
     
-    # Check that they are in the same ballpark (within 5x is acceptable for generic boilerplate)
+    # Placebo must be length-matched to the (faithful) expert explanation to isolate the
+    # compliance floor (presence-of-explanation) from a text-length confound. After the
+    # PR #10 fidelity fix the faithful Expert render is a short class-filtered phrase, so
+    # the placebo is a single generic sentence of comparable length (within ~2.5x).
     ratio = max(faithful_len, placebo_len) / max(min(faithful_len, placebo_len), 1)
     
-    assert ratio < 5.0, f"Placebo length ({placebo_len}) too far from faithful ({faithful_len}), ratio={ratio:.2f}"
+    assert ratio < 2.5, f"Placebo length ({placebo_len}) too far from faithful ({faithful_len}), ratio={ratio:.2f}"
     
     print(f"✓ Placebo length-matched to faithful (faithful={faithful_len}, placebo={placebo_len}, ratio={ratio:.2f})")
 

@@ -229,6 +229,21 @@
   corrected renderer. PR #4's exploratory numbers used the old renderer and must be described as
   exploratory/old-renderer results, not as corrected-renderer evidence.
 
+### D5.2 — E4 placebo re-matched to the (shorter) faithful explanation (PR #7, on E4 branch)
+- **From → To:** E4's fixed ~390-char, 5-sentence placebo (matched to the OLD long full-expert-text
+  faithful) → a single generic content-free sentence (~140 chars) length-matched to the NEW faithful
+  `Conf.+Adaptive (Expert)` render (beer expert phrase ~84-186 chars, median ~128, measured on the
+  50-item stimulus set).
+- **Why:** The D5.1 fidelity fix shortened the faithful Expert explanation to a class-filtered phrase.
+  The compliance-floor control (H3: control < placebo < faithful) must isolate PRESENCE-of-explanation
+  from a text-LENGTH confound, so the placebo has to track the faithful length. The old 390-char
+  placebo was 2-3× longer than the corrected faithful (a length confound). The new placebo stays
+  content-free (no task-specific/decision-relevant content, identical across all items → no leakage).
+  `test_placebo_length_matched` tightened (fixture now populates `expert_highlights_html`; ratio < 2.5).
+- **Paper implication:** Keeps the E4 axis-2 / H3 compliance-floor measurement clean under the
+  corrected renderer. To be re-validated by the fresh E4 run + independent §4.5 methodology audit
+  (the placebo design is a documented researcher DoF; length-matched-to-median is the stated choice).
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
