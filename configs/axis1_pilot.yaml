@@ -1,0 +1,101 @@
+# Axis-1 Multi-Family EXPLORATORY Pilot Configuration
+#
+# ⚠️  EXPLORATORY ONLY — NOT CONFIRMATORY ⚠️
+#
+# Purpose:
+#   1. De-risk the multi-family, 5-condition pipeline end-to-end
+#   2. Produce power-analysis input (effect-size + variance estimates)
+#   3. MUST NOT be used to tune conditions, thresholds (τ), or model set
+#
+# Budget-conscious design:
+#   - 3 models (different families): gpt-4o, Llama-3.3-70B, Phi-4
+#   - 6 personas × 10 items × 5 conditions × 1 seed
+#   - System-1 = 6×10 = 60 per model
+#   - System-2 = 6×10×5 = 300 per model
+#   - Total = 360 calls/model (fits ~500/day budget with margin)
+#   - 3 models × 360 = ~1080 calls total
+
+experiment_name: "axis1_pilot"
+description: "EXPLORATORY multi-family axis-1 pilot (5 Bansal AI conditions, 3 model families)"
+
+# Model families (EXPLORATORY choice; fresh daily budget as of 2026-07-16).
+# NOTE: gpt-4o is swapped out for gpt-4.1-mini here ONLY because gpt-4o's per-model
+# DAILY cap is tier-small (~200) and was exhausted; this is the EXPLORATORY pilot, so
+# the model set is flexible and does NOT touch the FROZEN confirmatory model set
+# (gpt-4o/Llama-3.3-70B/Phi-4 in docs/plans/preregistration-axis1.md). Skip-on-cap
+# resilience means any model that hits its daily cap is skipped, not crashed.
+models:
+  - "openai/gpt-4.1-mini"
+  - "meta/Llama-3.3-70B-Instruct"
+  - "microsoft/Phi-4"
+
+# 5 Bansal AI conditions (EXACT strings from Bansal CHI'21)
+ui_conditions:
+  - "Conf."                      # pred + conf, NO explanation (control)
+  - "Conf.+Single"              # pred + conf + top-1 LIME highlight
+  - "Conf.+Double"              # pred + conf + top-2 LIME highlights
+  - "Conf.+Adaptive"            # pred + conf + adaptive-N LIME highlights
+  - "Conf.+Adaptive (Expert)"   # pred + conf + expert explanation
+
+# Item selection (Fix B: data-driven hard/ambiguous items)
+n_items: 10
+
+item_selection:
+  prefer_ai_wrong: 0.5         # Weight for AI-incorrect items
+  prefer_low_conf: 0.3         # Weight for low-confidence items
+  prefer_high_variance: 0.2    # Weight for high human variance items
+
+# Personas (same 6 from PR #4 panel redesign)
+personas:
+  - persona_id: "novice_trusting"
+    domain_skill: 0.2
+    ai_literacy: 0.8
+    risk_sensitivity: 0.3
+    caution: 0.7
+    temperature: 0.7
+    prior_mix: 0.5
+    
+  - persona_id: "novice_skeptical"
+    domain_skill: 0.2
+    ai_literacy: 0.3
+    risk_sensitivity: 0.3
+    caution: 0.7
+    temperature: 0.7
+    prior_mix: 0.5
+    
+  - persona_id: "expert_cautious"
+    domain_skill: 0.8
+    ai_literacy: 0.5
+    risk_sensitivity: 0.8
+    caution: 0.8
+    temperature: 0.5
+    prior_mix: 0.3
+    
+  - persona_id: "expert_confident"
+    domain_skill: 0.8
+    ai_literacy: 0.5
+    risk_sensitivity: 0.2
+    caution: 0.3
+    temperature: 0.5
+    prior_mix: 0.3
+    
+  - persona_id: "moderate_balanced"
+    domain_skill: 0.5
+    ai_literacy: 0.5
+    risk_sensitivity: 0.5
+    caution: 0.5
+    temperature: 0.6
+    prior_mix: 0.5
+    
+  - persona_id: "moderate_ai_literate"
+    domain_skill: 0.5
+    ai_literacy: 0.8
+    risk_sensitivity: 0.5
+    caution: 0.5
+    temperature: 0.6
+    prior_mix: 0.5
+
+# Runtime parameters
+seeds: [42]
+inter_call_sleep: 0.8  # seconds between API calls (rate limit courtesy)
+call_budget: 450       # max calls per model (conservative; daily budget ~500)

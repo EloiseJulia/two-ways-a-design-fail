@@ -206,7 +206,13 @@ docs/{plans,research,handoff}/
   (control, treatment, dark); dual-system flow runs for ALL conditions; System-1 frozen invariant
   tested across all 3. **NEW (E2 — Fix D):** `render_ui_condition()` in bansal_tasks.py handles
   "Wrong-AI (dark)" condition (renders WRONG label: 1 - ai_pred, with pseudo-high conf + oppressive
-  framing).
+  framing). **NEW (PR #8 — axis-1 multi-family pilot):** `ui_pair` now accepts tuple of 5 Bansal
+  AI conditions (multi-condition support); `render_ui_condition()` handles all 5 Bansal AI conditions
+  (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`, `Conf.+Adaptive (Expert)`) via
+  `_extract_lime_highlights()` helper (extracts LIME highlights from `system_highlights` HTML field,
+  supports top-N and adaptive selection); `TaskStimulus` dataclass updated with `system_highlights`
+  field (raw LIME HTML from Bansal task JSON). Multi-provider run loop in `axis1_pilot.py` iterates
+  model list, runs panel per model, System-1 frozen across all 5 conditions AND models (tested).
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
   (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
@@ -219,6 +225,10 @@ docs/{plans,research,handoff}/
   homogeneity; config `configs/bansal_discriminator.yaml`; subset filters: domain, AI-accuracy
   band, tasks-per-user subsampling, joint domain+accuracy; `filter_subset()` + `compute_subset_structure()`
   functions; PI-directed verdict decision rule with thresholds PERSIST ≤ 0.50, COLLAPSE ≥ 0.70).
+  **NEW (PR #8):** `axis1_pilot` (EXPLORATORY multi-family axis-1 pilot, 5 Bansal AI conditions,
+  multi-provider run loop iterates models, System-1 frozen across conditions AND models; config
+  `configs/axis1_pilot.yaml`; metrics: cross-condition correlation Spearman + permutation + bootstrap,
+  cross-family agreement rank correlations, power-analysis readout; EXPLORATORY ONLY — not confirmatory).
   No single `run_experiment` dispatcher; each experiment is its own module.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).
