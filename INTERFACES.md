@@ -291,7 +291,23 @@ docs/{plans,research,handoff}/
   model set `{openai/gpt-4o, openai/gpt-4.1-mini}` and five Bansal AI conditions. The runner only
   collects responses with `real_panel.run_panel()` and calls the pure analysis; tests exercise this
   path with mock providers only (no live/networked calls during the BLIND build).
-- **calibration** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage` are still designs above).
+- **calibration** — `twdf/calibration/thresholds.py`: Module D dual-threshold machinery for
+  SPEC §6 is implemented. Exposes
+  `CalibrationExample(features: UIFeatureVector, axis1_overdispersion: float,
+  axis2_over_reliance: float, is_dangerous: bool)`,
+  `ThresholdModel(tau_disp, tau_level, calibration_features_ref, ood_radius,
+  target_recall, precision_at_target_recall, achieved_recall, feature_mins,
+  feature_maxs, seed=42, timestamp=None)`,
+  `fit_thresholds(calibration: list[CalibrationExample], *, target_recall: float = 0.9,
+  seed: int = 42) -> ThresholdModel`,
+  `triage(features: UIFeatureVector, axis1_signal: float, axis2_signal: float,
+  model: ThresholdModel, *, reversal_flag: bool = False, ece: float | None = None,
+  ece_threshold: float | None = None) -> TriageDecision`, and
+  `freeze_thresholds(model: ThresholdModel, *, timestamp: str) -> ThresholdModel`.
+  `fit_thresholds` scans dual-axis cutoffs for high recall and reports precision-at-recall;
+  `triage` returns `RELEASE`, `HUMAN_STUDY`, or `ABSTAIN` with abstention for feature-space OOD,
+  novel/uncalibrated dimensions, ECE, or reversal flags. **τ_disp/τ_level remain UNFROZEN on
+  fresh fits (`timestamp is None`); no frozen τ artifact is committed in this PR.**
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
   **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical
