@@ -155,20 +155,28 @@ difficulty as control covariate (partial correlation / mixed-effects);
 **Benjamini–Hochberg** multiple-comparison correction; report effect sizes + CI.
 
 ## OPEN (PI to confirm) — see §15 of v2.4
-- Two-axis positioning (co-equal vs primary/secondary). [axis-1 empirically
-  refined to user×task under AI — see H1a; axis-2 not yet built.]
 - Target venue (CHI Methods primary?) + scope narrowing in title; RTI → FAccT.
-- Whether to run prospective E6 + sequential stateful extension.
+- Whether to run prospective E6 + sequential stateful extension (also the C0 open
+  question: is reliance-stability regime-dependent / sequential-feedback-driven?).
 - Availability of a public 2024–2026 modern reliance dataset.
+- **Powered confirmatory axis-1 (H1a) NOT yet run** — the PRIMARY (C1) result is pending.
 
-## DECIDED (log)
+## DECIDED (log) — full chronology + WHY in docs/DECISIONS.md
 - Gate 1 data = Bansal + Lu&Yin CHI'21 (verified URLs; see PROGRESS §Gate status).
-- Gate 2 batch API = GitHub Models via env var `GH_MODELS_TOKEN` (Azure fallback).
-- Gate 3 = PI owns correctness; independent audit is the merge gate.
-- H1a refined: axis-1 over-dispersion is user×task under AI (2026-07-15, commit b48ab2b).
-- **Decomposition elevated to CO-ANCHOR contribution C0 (PI-approved 2026-07-15).**
-- **Module B real panel (PR #3, commit 52fb53c): first real run = NULL (naive panel
-  compliance-collapse). PI decision "BOTH": merge as honest infra+negative result;
-  redesign panel DV next (conflict-conditioned + wrong-AI/axis-2 + harder items +
-  stronger personas); elevate decomposition to co-anchor.**
-- Prereg: τ_disp/τ_level NOT YET FROZEN (freeze before calibrated E1 results).
+- Gate 2 batch API = GitHub Models via env var `GH_MODELS_TOKEN`; AzureFoundryProvider
+  merged (PR #9) as the uncapped fallback (per-model DAILY cap is tier-dependent
+  ~200 strong / ~500 mini).
+- Gate 3 = PI owns correctness; independent audit + Manager numeric re-derivation is the merge gate.
+- H1a refined: axis-1 over-dispersion is user×task under AI ON BANSAL (2026-07-15, b48ab2b).
+- **CONTRIBUTION STRUCTURE (2026-07-15, PR #6): C1 (panel two-axis) = PRIMARY; C0
+  (trait→user×task) = DEMOTED to a Bansal-specific supporting finding (Lu&Yin PR#5
+  trait-stable 0.80; discriminator PR#6 INCONCLUSIVE — ceiling artifacts);
+  sequential-feedback = OPEN QUESTION.** (C0 was briefly elevated to co-anchor 2026-07-15
+  then demoted on honest grounds.)
+- **Panel: PR #3 NULL (compliance-collapse) → PR #4 redesign (conflict-conditioned DV +
+  wrong-AI axis-2 + hard items + strong personas) RESOLVES it (conflict 3%→43%, personas
+  diverge, elasticity +0.19 underpowered, axis-2 wrong-AI 0.325, p5 backfire).**
+- **PREREG amendment (2026-07-16T02:29:50Z): confirmatory model set → {gpt-4o, gpt-4.1-mini}
+  (stable OpenAI, day-batched); non-OpenAI (Llama/Phi) = EXPLORATORY-ONLY — provider-stability
+  limitation on GitHub Models (timeouts/500s/unparseable→0). Cross-vendor deferred to Azure.**
+- Prereg: axis-1 design LOCKED 2026-07-15T09:23:55Z; τ_disp/τ_level + power-N NOT YET FROZEN.

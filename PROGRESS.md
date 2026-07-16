@@ -6,9 +6,12 @@
 ## Preregistration freeze log (CRITICAL — never back-fill)
 | Item | Value | Frozen-at (UTC) | Set by | Notes |
 |---|---|---|---|---|
-| τ_disp (axis 1 disagreement threshold) | NOT YET FROZEN | — | — | freeze in feature space BEFORE seeing E1 results |
+| Axis-1 confirmatory design §§1–7 (H1a, model set, 5 conditions, DV, baselines, stats) | LOCKED | 2026-07-15T09:23:55Z | Manager/PI | `docs/plans/preregistration-axis1.md` — frozen BEFORE the exploratory pilot (PR #8) was RUN; pilot informs ONLY power target N (§8); pilot data EXCLUDED from confirmatory |
+| Confirmatory MODEL SET amendment | {gpt-4o, Llama-3.3-70B, Phi-4} → **{gpt-4o, gpt-4.1-mini}** (GitHub, day-batched) | 2026-07-16T02:29:50Z | PI | AMENDMENT (prereg §2). Provider-stability driven via the pre-committed PIPELINE-only exclusion rule (non-OpenAI: timeouts/500s/unparseable→0), NOT effect-driven (pilot gave no clean axis-1 effect). Non-OpenAI = exploratory-only; cross-vendor deferred to Azure. |
+| BH alpha | 0.05 (RATIFIED) | 2026-07-15T09:23:55Z | Manager/PI | ratified in prereg §6 |
+| Power target N (axis-1 confirmatory) | PENDING | — | — | GitHub pilot did NOT deliver N (non-OpenAI parse failures). Get N from a CLEAN exploratory pass on {gpt-4o, gpt-4.1-mini} (or Azure); fill prereg §8 + record a freeze timestamp BEFORE the confirmatory run |
+| τ_disp (axis 1 disagreement threshold) | NOT YET FROZEN | — | — | procedure pre-specified (prereg §7); freeze in feature space BEFORE Module D results |
 | τ_level (axis 2 over-reliance threshold) | NOT YET FROZEN | — | — | same |
-| BH alpha | 0.05 (proposed) | — | — | ratify before multiple comparisons |
 
 Any post-hoc tuning of a frozen threshold = research misconduct. Log the reason
 and timestamp for every change.
@@ -486,58 +489,79 @@ and timestamp for every change.
     * Provider model_name param + 120s cooldown cap improves robustness
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
-## Doing
-- **2026-07-15 AXIS-1 MULTI-FAMILY EXPLORATORY PILOT (PR #8) — CODE COMPLETE, REAL RUN PENDING (Manager)**
-  - **⚠️ EXPLORATORY ONLY — NOT CONFIRMATORY ⚠️**
-  - **Purpose:**
-    1. De-risk the multi-family, 5-condition pipeline end-to-end
-    2. Produce power-analysis input (effect-size + variance estimates) for sizing a confirmatory run
-    3. MUST NOT be used to tune conditions, thresholds (τ), or model set
-  - **Scope:** All 5 Bansal AI conditions (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`, `Conf.+Adaptive (Expert)`) + multi-family panel (gpt-4o, Llama-3.3-70B, Phi-4)
-  - **Implementation:**
-    * `src/twdf/data/bansal_tasks.py`: Updated `TaskStimulus` with `system_highlights` field (LIME HTML), implemented 5-condition renderers (`render_ui_condition`)
-      - **Mapping documentation (EXPLORATORY — flagged for audit):**
-        - `Conf.`: pred + conf only (NO explanation)
-        - `Conf.+Single`: pred + conf + top-1 LIME highlight
-        - `Conf.+Double`: pred + conf + top-2 LIME highlights
-        - `Conf.+Adaptive`: pred + conf + adaptive-N LIME highlights (heuristic: all if conf > 0.8, else top-3)
-        - `Conf.+Adaptive (Expert)`: pred + conf + expert explanation (already implemented)
-      - **Uncertainty:** Bansal repo README does not fully specify LIME highlight selection algorithm (ranking by feature weight vs document order). Implementation uses DEFENSIBLE heuristics (document order, adaptive=show all or top-3) that preserve cognitive-semantic intervention but may not exactly match original UI. Acceptable for EXPLORATORY analysis; flagged for confirmatory audit.
-    * `src/twdf/experiments/axis1_pilot.py`: Multi-provider run loop (iterates model list, runs panel per model, System-1 frozen across all 5 conditions AND models)
-      - Metrics: per-condition conflict-conditioned reliance, panel disagreement (across personas×models), cross-condition correlation (Spearman + permutation + bootstrap), cross-family agreement (rank correlations)
-      - Power-analysis readout: observed effect-size (Spearman ρ + CI width), variance components (between-condition, within-model)
-    * `configs/axis1_pilot.yaml`: 3 models (gpt-4o, Llama-3.3-70B, Phi-4), 6 personas, 10 items, 5 conditions, 1 seed, call_budget=450/model (~360 estimated)
-    * `tests/test_axis1_pilot.py`: **9/9 OFFLINE TESTS PASS** (5-condition renderer tests, multi-provider System-1 frozen across conditions AND models, cross-condition correlation on synthetic data with KNOWN pattern, degenerate guard, determinism)
-      - Live tests marked `@pytest.mark.live` (skip-safe)
-    * `INTERFACES.md` §8 AS-BUILT updated: 5-condition renderers + multi-provider loop
-  - **Guardrails verified:**
-    * ✅ System-1 frozen across all 5 conditions AND across models (tested)
-    * ✅ No ground truth leakage in any explanation (tested)
-    * ✅ Conflict-conditioned DV (conflict_conditioned_reliance)
-    * ✅ Degenerate guard (n<3) respected (tested)
-    * ✅ hashlib cache keys only (grep verified, no builtin hash())
-    * ✅ 5-condition renderers produce DISTINCT content (tested)
-    * ✅ All outputs labeled EXPLORATORY / NON-CONFIRMATORY
-  - **NEXT:** Manager runs the real experiment (multi-family, 5-condition, ~1080 calls total), then audit + merge.
-  - **NOTE:** This implementation does NOT run the real GitHub Models experiment; it is CODE + OFFLINE TESTS ONLY per the subagent's charter.
+## Doing (handoff snapshot 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ f670b97, DRAFT — NOT merged):**
+  - Code COMPLETE + 8/8 offline tests (placebo content-free-tested; System-1 frozen across all 4
+    conditions control/faithful/placebo/wrong-AI; compliance-floor + compliance-adjusted axis-2).
+  - REAL RUN PARTIAL: **193/450 cached on gpt-4.1-mini** (its daily bucket was shared with the pilot
+    and exhausted). Provider failed fast + cached.
+  - **RESUME:** after gpt-4.1-mini daily reset, bridge token + `python -u -m twdf.experiments.e4_compliance
+    --config configs/e4_compliance.yaml` (cache covers 193; ~257 remain). Then audit
+    (`.prompts/audit-e4-compliance.md` written) → Manager verify → merge. (Auto-resume schedule was
+    STOPPED at retirement; resume manually.)
+  - READ OUT: H3 compliance floor (control < placebo < faithful, conflict-conditioned) + formal axis-2
+    over_reliance_level on wrong-AI (+ compliance-adjusted).
+- **⏸ PR #8 axis1-pilot EXPLORATORY (branch `feature/axis1-pilot` @ bba48dc, DRAFT — NOT merged):**
+  - Code COMPLETE + 9 offline tests: 5 Bansal condition renderers (LIME-based; Single/Double/Adaptive
+    use documented HEURISTICS — firm up before confirmatory), multi-provider loop with **skip-on-cap
+    resilience**, cross-family + power-analysis readout.
+  - REAL RUN did NOT yield a usable power/effect estimate: gpt-4.1-mini skipped (capped);
+    **Llama-3.3-70B / Phi-4 unstable on GitHub Models (60s timeouts, 500s, unparseable→0)**. No
+    `results/axis1_pilot.json`. => PROVIDER-STABILITY LIMITATION (documented). Power-N UNMET.
+  - NEXT: merge as EXPLORATORY infra + limitation; get power-N from a CLEAN pass on {gpt-4o, gpt-4.1-mini}.
+- **CONFIRMATORY axis-1 (H1a) — the PRIMARY (C1) deliverable, NOT yet run.** Per prereg amendment
+  2026-07-16T02:29:50Z: run on STABLE OpenAI family **{gpt-4o, gpt-4.1-mini}**, DAY-BATCHED across
+  their separate daily buckets (free; no Azure dependency). Steps: clean power-N pass → fill prereg §8
+  + freeze N + τ discipline BEFORE results → confirmatory (beta-binomial over-dispersion on conflict DV
+  + within-task estimator + cross-condition Spearman over 5 conditions; beat 4 baselines; BH α=0.05;
+  bootstrap over personas×seeds×models). **Report regardless of outcome.** Report per-model (model-mix confound).
+- **✅ MERGED PR #9 AzureFoundryProvider (5cd179b)** — uncapped confirmatory path READY once PI sets
+  `AZURE_OPENAI_ENDPOINT/KEY/API_VERSION/DEPLOYMENT` (see docs/plans/azure-setup.md). Detailed entry below.
+- **gh GOTCHA:** run `$env:GH_TOKEN=$null` before every `gh` command (GH_TOKEN env hijacks gh to the
+  wrong account; repo is EloiseJulia). git push unaffected.
 
-- **⏸ E4 axis-2 sensor + placebo baseline (branch `feature/e4-compliance`, PR #7 DRAFT —
-  NOT merged; RESUME NEXT SESSION):**
-  - Code COMPLETE + 8/8 offline tests pass (placebo renderer content-free-tested; System-1
-    frozen across all 4 conditions control/faithful/placebo/wrong-AI; compliance-floor +
-    compliance-adjusted axis-2 metrics). Committed `f670b97`, pushed.
-  - REAL RUN BLOCKED on GitHub Models **per-model DAILY cap**: both gpt-4o-mini AND
-    gpt-4.1-mini are daily-exhausted (2026-07-15). Provider correctly failed fast (120s cap)
-    and CACHED progress (~190/450 calls done). Reset ~19h.
-  - **RESUME:** after quota reset, bridge token + `python -u -m twdf.experiments.e4_compliance
-    --config configs/e4_compliance.yaml` (cache covers ~190; ~260 new calls remain on
-    gpt-4.1-mini for model-consistency with PR#4). Then: independent audit
-    (`.prompts/audit-e4-compliance.md` already written) → Manager verify → merge.
-  - HYPOTHESES to read out: H3 compliance floor (control < placebo < faithful, conflict-
-    conditioned) + formalized axis-2 over-reliance sensor on wrong-AI (+ compliance-adjusted).
-- **QUOTA STRATEGY needed for axis-1 scaling / full E1:** per-model daily cap ~500; plan
-  family-spreading (gpt-4o / Llama-3.3-70B / Phi-4 all had budget) + day-batching + Azure
-  fallback BEFORE any large run. Do NOT burn scarce quota on speculative work.
+### (merged) 2026-07-16: PR #9 — AzureFoundryProvider (MERGED to main, 5cd179b)
+  - **Context:** GitHub Models' per-model daily cap (~500/day) blocks powered axis-1 runs. Lever C
+    (quota-strategy.md): Azure AI Foundry / Azure OpenAI have NO daily cap, enabling single-session
+    confirmatory runs.
+  - **Implementation:** `src/twdf/panel/azure_provider.py` — `AzureFoundryProvider` implementing
+    the SAME `ModelProvider` protocol as `GitHubModelsProvider`, making it a DROP-IN replacement.
+    - Two API styles supported (constructor `api_style` parameter):
+      1. `"azure_openai"` (default, Azure OpenAI Service): POST
+         `{endpoint}/openai/deployments/{deployment}/chat/completions?api-version={version}`,
+         header `api-key: {key}`, body has NO `model` field (deployment is in URL).
+      2. `"foundry"` (Azure AI Foundry models-as-a-service): POST `{endpoint}/chat/completions`
+         (or custom `foundry_path`), header `Authorization: Bearer {key}`, body includes `model`.
+    - **Cache mechanism:** Reuses the SAME hashlib-based response cache as `GitHubModelsProvider`
+      (`data/cache/panel/`); cache keys include deployment name to prevent cross-provider collisions.
+      Cross-process determinism verified. hashlib only; builtin `hash()` banned (grep test passes).
+    - **Environment variables (REQUIRED, PI must provision):**
+      - `AZURE_OPENAI_ENDPOINT` (e.g., `https://<resource>.openai.azure.com` or Foundry endpoint)
+      - `AZURE_OPENAI_KEY` (NEVER logged/printed/committed; clear error if missing)
+      - `AZURE_OPENAI_API_VERSION` (defaults to `"2024-10-21"` if not set)
+      - `AZURE_OPENAI_DEPLOYMENT` (optional override; falls back to constructor `deployment` arg)
+    - **Retry logic:** 429/5xx with backoff; NO daily-cap special-case (Azure has no such cap).
+      Optional `inter_call_sleep` (default 0.2s) and `max_retries` (default 5).
+    - **Protocol compliance:** Implements `name`, `generate()`, `generate_messages()`, `get_stats()`
+      exactly per INTERFACES §3. Drop-in replacement for `run_panel`.
+  - **Tests:** `tests/test_azure_provider.py` — 22 offline tests (mocked HTTP, NO real network):
+    - Env var validation (missing vars → clear errors)
+    - `azure_openai` style: URL format (`/deployments/{deployment}/...`), `api-key` header, NO
+      `model` in body, response parsing
+    - `foundry` style: URL format (`/chat/completions`), `Bearer` header, `model` in body, response parsing
+    - Cache determinism: hashlib cache reuse + cross-process subprocess test (byte-identical)
+    - Security: key never in cache files / repr / logs
+    - Protocol compliance: satisfies `ModelProvider` + `run_panel` smoke test
+    - Retry: 429/5xx handling with backoff
+    - hashlib-only: grep `\bhash\(` in code (excluding comments) = 0 violations
+  - **Result:** `pytest -m "not live" tests/test_azure_provider.py` → **22/22 PASSED** (offline).
+    Existing `test_panel_real.py` → **5/5 PASSED** (no regressions).
+  - **Documentation:**
+    - `INTERFACES.md` §8 AS-BUILT updated: AzureFoundryProvider added; env vars; both api styles.
+    - `PROGRESS.md` (this entry): exact env vars PI must set; confirmatory run switches provider.
+    - `docs/plans/azure-setup.md` (NEW): PI provisioning steps (endpoint, key, api-version, deployment names).
+  - **Status:** Code-complete, offline tests GREEN, awaiting PI-provisioned Azure credentials for
+    the confirmatory axis-1 run. NO real API calls made (offline tests only). Ready for audit.
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.
@@ -574,6 +598,18 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-16 — PR #9 `azure-provider` (AzureFoundryProvider) SQUASH-MERGED to main
+  (commit 5cd179b).**
+  - Flow: impl-azure-provider (no API; drop-in ModelProvider vs Azure OpenAI + Foundry api
+    styles, env creds, replicated hashlib cache w/ deployment in key, 22 offline mock tests,
+    docs/plans/azure-setup.md) → independent audit **PASS** (8/8, no blockers; verified both
+    api styles, key never leaked, cache no-collision, GitHubModelsProvider untouched) →
+    Manager verify (22/22 azure + 5/5 GitHub regression, worktree clean) → merged.
+  - UNLOCKS: the confirmatory axis-1 run WITHOUT the GitHub Models daily cap. PI must set
+    AZURE_OPENAI_ENDPOINT / AZURE_OPENAI_KEY / AZURE_OPENAI_API_VERSION + deployment names
+    (see docs/plans/azure-setup.md); recommend one `pytest -m live` cred check (~$0.001)
+    before the confirmatory run. Non-blocking note: cache logic is replicated (future
+    refactor to a shared base class).
 - **2026-07-15 — PR #6 `bansal-discriminator` (C0 mechanism test) SQUASH-MERGED to main
   (commit 50250e6).**
   - Flow: impl-bansal-discriminator (zero-API; matched-subset split-half; produced an

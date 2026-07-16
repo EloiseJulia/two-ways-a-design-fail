@@ -187,6 +187,17 @@ docs/{plans,research,handoff}/
   retry with exponential backoff, call budget. **NEW (E2):** `model_name` parameter added
   to `GitHubModelsProvider.__init__()` (supports per-model caching + model switching on quota);
   429 cooldown capped at 120s (fails fast on daily quota exhaustion instead of sleeping ~13h).
+  **NEW (PR #9 — Azure provider):** `twdf/panel/azure_provider.py`: `AzureFoundryProvider`
+  implementing the SAME `ModelProvider` protocol, making it a DROP-IN replacement for
+  `GitHubModelsProvider`. Supports two API styles: (1) `"azure_openai"` (Azure OpenAI Service,
+  deployment in URL, api-key header, NO model field in body); (2) `"foundry"` (Azure AI Foundry
+  models-as-a-service, model in body, Bearer token). Reuses the SAME hashlib-based cache
+  mechanism as GitHub provider (cache keys include deployment name to prevent collisions).
+  Azure has NO per-model daily cap (Lever C, quota-strategy.md), enabling powered single-session
+  axis-1 runs. Environment variables: `AZURE_OPENAI_ENDPOINT` (required, endpoint URL),
+  `AZURE_OPENAI_KEY` (required, NEVER logged/committed), `AZURE_OPENAI_API_VERSION` (defaults
+  to `"2024-10-21"`), `AZURE_OPENAI_DEPLOYMENT` (optional override). Offline tests pass (22/22);
+  cross-process cache determinism verified. See `docs/plans/azure-setup.md` for PI provisioning steps.
   `twdf/panel/real_panel.py`: `run_panel()` implementing INTERFACES §3 exactly, dual-system
   flow (System-1 no-AI anchor → System-2 with AI + UI intervention), counterfactual pairing
   (System-1 frozen across UI arms), reliance definition aligned with Bansal adoption.
@@ -227,3 +238,14 @@ docs/{plans,research,handoff}/
   responses excluding manifest timestamp).
   **PR #6 verified:** Cross-process determinism for bansal_discriminator (bit-identical
   stable_user_share across separate runs, excluding timestamp; tested via subprocess rerun).
+- **AzureFoundryProvider (PR #9, MERGED):** `twdf/panel/azure_provider.py` — drop-in
+  `ModelProvider` for Azure OpenAI (`azure_openai` style: deployment in URL, `api-key` header,
+  no `model` in body) + Azure AI Foundry (`foundry` style: `{endpoint}/chat/completions`,
+  `Authorization: Bearer`, `model` in body). Env creds `AZURE_OPENAI_ENDPOINT/KEY/API_VERSION/
+  DEPLOYMENT`; replicated hashlib cache (deployment in key). Uncapped confirmatory path.
+- **UNMERGED (branch-only) additions to be reconciled on merge:** the 5 Bansal-condition
+  renderers in `bansal_tasks.py` (`Conf.`/`Conf.+Single`/`Conf.+Double`/`Conf.+Adaptive`/
+  `Conf.+Adaptive (Expert)`, LIME-based; Single/Double/Adaptive use documented HEURISTICS) and
+  the multi-provider run loop with **skip-on-cap** resilience live on `feature/axis1-pilot`
+  (PR #8, NOT merged). E4's placebo renderer (`Conf.+Placebo`) + 4-condition experiment live on
+  `feature/e4-compliance` (PR #7, NOT merged). Reconcile this AS-BUILT section when those merge.
