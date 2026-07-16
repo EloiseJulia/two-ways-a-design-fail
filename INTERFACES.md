@@ -228,3 +228,14 @@ docs/{plans,research,handoff}/
   responses excluding manifest timestamp).
   **PR #6 verified:** Cross-process determinism for bansal_discriminator (bit-identical
   stable_user_share across separate runs, excluding timestamp; tested via subprocess rerun).
+- **AzureFoundryProvider (PR #9, MERGED):** `twdf/panel/azure_provider.py` — drop-in
+  `ModelProvider` for Azure OpenAI (`azure_openai` style: deployment in URL, `api-key` header,
+  no `model` in body) + Azure AI Foundry (`foundry` style: `{endpoint}/chat/completions`,
+  `Authorization: Bearer`, `model` in body). Env creds `AZURE_OPENAI_ENDPOINT/KEY/API_VERSION/
+  DEPLOYMENT`; replicated hashlib cache (deployment in key). Uncapped confirmatory path.
+- **UNMERGED (branch-only) additions to be reconciled on merge:** the 5 Bansal-condition
+  renderers in `bansal_tasks.py` (`Conf.`/`Conf.+Single`/`Conf.+Double`/`Conf.+Adaptive`/
+  `Conf.+Adaptive (Expert)`, LIME-based; Single/Double/Adaptive use documented HEURISTICS) and
+  the multi-provider run loop with **skip-on-cap** resilience live on `feature/axis1-pilot`
+  (PR #8, NOT merged). E4's placebo renderer (`Conf.+Placebo`) + 4-condition experiment live on
+  `feature/e4-compliance` (PR #7, NOT merged). Reconcile this AS-BUILT section when those merge.

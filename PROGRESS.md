@@ -7,8 +7,9 @@
 | Item | Value | Frozen-at (UTC) | Set by | Notes |
 |---|---|---|---|---|
 | Axis-1 confirmatory design §§1–7 (H1a, model set, 5 conditions, DV, baselines, stats) | LOCKED | 2026-07-15T09:23:55Z | Manager/PI | `docs/plans/preregistration-axis1.md` — frozen BEFORE the exploratory pilot (PR #8) was RUN; pilot informs ONLY power target N (§8); pilot data EXCLUDED from confirmatory |
+| Confirmatory MODEL SET amendment | {gpt-4o, Llama-3.3-70B, Phi-4} → **{gpt-4o, gpt-4.1-mini}** (GitHub, day-batched) | 2026-07-16T02:29:50Z | PI | AMENDMENT (prereg §2). Provider-stability driven via the pre-committed PIPELINE-only exclusion rule (non-OpenAI: timeouts/500s/unparseable→0), NOT effect-driven (pilot gave no clean axis-1 effect). Non-OpenAI = exploratory-only; cross-vendor deferred to Azure. |
 | BH alpha | 0.05 (RATIFIED) | 2026-07-15T09:23:55Z | Manager/PI | ratified in prereg §6 |
-| Power target N (axis-1 confirmatory) | PENDING (from pilot) | — | — | fill after pilot power analysis; then record FINAL freeze before confirmatory run |
+| Power target N (axis-1 confirmatory) | PENDING | — | — | GitHub pilot did NOT deliver N (non-OpenAI parse failures). Get N from a CLEAN exploratory pass on {gpt-4o, gpt-4.1-mini} (or Azure); fill prereg §8 + record a freeze timestamp BEFORE the confirmatory run |
 | τ_disp (axis 1 disagreement threshold) | NOT YET FROZEN | — | — | procedure pre-specified (prereg §7); freeze in feature space BEFORE Module D results |
 | τ_level (axis 2 over-reliance threshold) | NOT YET FROZEN | — | — | same |
 
@@ -488,25 +489,38 @@ and timestamp for every change.
     * Provider model_name param + 120s cooldown cap improves robustness
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
-## Doing
-- **⏸ E4 axis-2 sensor + placebo baseline (branch `feature/e4-compliance`, PR #7 DRAFT —
-  NOT merged; RESUME NEXT SESSION):**
-  - Code COMPLETE + 8/8 offline tests pass (placebo renderer content-free-tested; System-1
-    frozen across all 4 conditions control/faithful/placebo/wrong-AI; compliance-floor +
-    compliance-adjusted axis-2 metrics). Committed `f670b97`, pushed.
-  - REAL RUN BLOCKED on GitHub Models **per-model DAILY cap**: both gpt-4o-mini AND
-    gpt-4.1-mini are daily-exhausted (2026-07-15). Provider correctly failed fast (120s cap)
-    and CACHED progress (~190/450 calls done). Reset ~19h.
-  - **RESUME:** after quota reset, bridge token + `python -u -m twdf.experiments.e4_compliance
-    --config configs/e4_compliance.yaml` (cache covers ~190; ~260 new calls remain on
-    gpt-4.1-mini for model-consistency with PR#4). Then: independent audit
-    (`.prompts/audit-e4-compliance.md` already written) → Manager verify → merge.
-  - HYPOTHESES to read out: H3 compliance floor (control < placebo < faithful, conflict-
-    conditioned) + formalized axis-2 over-reliance sensor on wrong-AI (+ compliance-adjusted).
-- **QUOTA STRATEGY needed for axis-1 scaling / full E1:** per-model daily cap ~500; plan
-  family-spreading (gpt-4o / Llama-3.3-70B / Phi-4 all had budget) + day-batching + Azure
-  fallback BEFORE any large run. Do NOT burn scarce quota on speculative work.
-- **2026-07-16: PR #9 — AzureFoundryProvider (feature/azure-provider branch, CODE + OFFLINE TESTS DONE)**
+## Doing (handoff snapshot 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ f670b97, DRAFT — NOT merged):**
+  - Code COMPLETE + 8/8 offline tests (placebo content-free-tested; System-1 frozen across all 4
+    conditions control/faithful/placebo/wrong-AI; compliance-floor + compliance-adjusted axis-2).
+  - REAL RUN PARTIAL: **193/450 cached on gpt-4.1-mini** (its daily bucket was shared with the pilot
+    and exhausted). Provider failed fast + cached.
+  - **RESUME:** after gpt-4.1-mini daily reset, bridge token + `python -u -m twdf.experiments.e4_compliance
+    --config configs/e4_compliance.yaml` (cache covers 193; ~257 remain). Then audit
+    (`.prompts/audit-e4-compliance.md` written) → Manager verify → merge. (Auto-resume schedule was
+    STOPPED at retirement; resume manually.)
+  - READ OUT: H3 compliance floor (control < placebo < faithful, conflict-conditioned) + formal axis-2
+    over_reliance_level on wrong-AI (+ compliance-adjusted).
+- **⏸ PR #8 axis1-pilot EXPLORATORY (branch `feature/axis1-pilot` @ bba48dc, DRAFT — NOT merged):**
+  - Code COMPLETE + 9 offline tests: 5 Bansal condition renderers (LIME-based; Single/Double/Adaptive
+    use documented HEURISTICS — firm up before confirmatory), multi-provider loop with **skip-on-cap
+    resilience**, cross-family + power-analysis readout.
+  - REAL RUN did NOT yield a usable power/effect estimate: gpt-4.1-mini skipped (capped);
+    **Llama-3.3-70B / Phi-4 unstable on GitHub Models (60s timeouts, 500s, unparseable→0)**. No
+    `results/axis1_pilot.json`. => PROVIDER-STABILITY LIMITATION (documented). Power-N UNMET.
+  - NEXT: merge as EXPLORATORY infra + limitation; get power-N from a CLEAN pass on {gpt-4o, gpt-4.1-mini}.
+- **CONFIRMATORY axis-1 (H1a) — the PRIMARY (C1) deliverable, NOT yet run.** Per prereg amendment
+  2026-07-16T02:29:50Z: run on STABLE OpenAI family **{gpt-4o, gpt-4.1-mini}**, DAY-BATCHED across
+  their separate daily buckets (free; no Azure dependency). Steps: clean power-N pass → fill prereg §8
+  + freeze N + τ discipline BEFORE results → confirmatory (beta-binomial over-dispersion on conflict DV
+  + within-task estimator + cross-condition Spearman over 5 conditions; beat 4 baselines; BH α=0.05;
+  bootstrap over personas×seeds×models). **Report regardless of outcome.** Report per-model (model-mix confound).
+- **✅ MERGED PR #9 AzureFoundryProvider (5cd179b)** — uncapped confirmatory path READY once PI sets
+  `AZURE_OPENAI_ENDPOINT/KEY/API_VERSION/DEPLOYMENT` (see docs/plans/azure-setup.md). Detailed entry below.
+- **gh GOTCHA:** run `$env:GH_TOKEN=$null` before every `gh` command (GH_TOKEN env hijacks gh to the
+  wrong account; repo is EloiseJulia). git push unaffected.
+
+### (merged) 2026-07-16: PR #9 — AzureFoundryProvider (MERGED to main, 5cd179b)
   - **Context:** GitHub Models' per-model daily cap (~500/day) blocks powered axis-1 runs. Lever C
     (quota-strategy.md): Azure AI Foundry / Azure OpenAI have NO daily cap, enabling single-session
     confirmatory runs.

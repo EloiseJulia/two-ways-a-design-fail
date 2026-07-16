@@ -16,6 +16,30 @@ noise baselines** (random, mean-predictor, prompt-only, single-model), with a bo
 correlation between panel disagreement and human over-dispersion is **significantly positive**.
 
 ## 2. Panel model set (frozen a-priori for DIVERSITY, independent of any pilot effect)
+
+> **AMENDMENT 2026-07-16T02:29:50Z (PI decision, provider-stability driven — NOT effect
+> driven):** The confirmatory panel model set is CHANGED from
+> {`openai/gpt-4o`, `meta/Llama-3.3-70B-Instruct`, `microsoft/Phi-4`} to the STABLE
+> OpenAI family on GitHub Models: **{`openai/gpt-4o`, `openai/gpt-4.1-mini`}**, run
+> **day-batched** across their separate per-model daily buckets (no Azure dependency).
+> **WHY:** the exploratory pilot (PR #8) invoked the pre-registered §2 PIPELINE-only
+> exclusion rule — `meta/Llama-3.3-70B-Instruct` (and by extension the non-OpenAI
+> families) exhibited a documented PIPELINE FAILURE on GitHub Models: frequent 60s read
+> timeouts, HTTP 500s, and **unparseable System-2 outputs that defaulted to 0** (a
+> degenerate parse). This exclusion is by the pre-committed rule, on a pipeline
+> diagnostic, NOT on any axis-1 result (the pilot produced NO clean axis-1 estimate).
+> The non-OpenAI families are retained as EXPLORATORY-ONLY and documented as a
+> provider-stability limitation. This amendment REDUCES cross-family scope to
+> capability-tier diversity WITHIN the OpenAI family (strong gpt-4o vs small
+> gpt-4.1-mini); the multi-vendor triangulation (SPEC §4.2) is deferred to a future
+> Azure run where non-OpenAI families can be hosted reliably. Original set preserved
+> below for provenance.
+
+**AMENDED confirmatory set (2026-07-16):** `openai/gpt-4o` (strong tier) +
+`openai/gpt-4.1-mini` (small tier), GitHub Models, day-batched. Capability-tier diversity;
+cross-vendor deferred to Azure.
+
+**Original a-priori set (2026-07-15T09:23:55Z, superseded by the amendment above):**
 Three families spanning ≥2 vendors + capability tiers (SPEC §4.2: separate preference-driven
 vs capability-noise disagreement; trust only cross-family-consistent flags):
 - `openai/gpt-4o` (strong, OpenAI), `meta/Llama-3.3-70B-Instruct` (strong, Meta open-weight),
