@@ -311,6 +311,17 @@
 - **Paper implication:** The protocol machinery now exists for Module D/E5 without violating the
   preregistered discipline that τ_disp/τ_level must be frozen only once, before threshold results.
 
+### D5.8 — E3 LOIO generalization harness implemented leakage-safe (PR #15)
+- **What:** Added the pure offline `twdf.analysis.loio.loio_generalization()` core plus the
+  `twdf.experiments.e3_loio` public entry points for leave-one-item-out axis-1 generalization.
+- **Why:** Implements SPEC §5 E3 pass criteria: held-out direction hit rate against a 0.5 binomial
+  baseline and predicted-vs-actual Spearman ranking with a seeded permutation p-value.
+- **Guardrail:** The held-out item is passed to predictors only as a target-free view; fitting sees
+  target-bearing train items only, excluding the held-out item. This prevents fitting
+  normalization/threshold/model parameters on the held-out target. n<3 is flagged degenerate.
+- **Paper implication:** Locks the leakage-safe E3 harness mechanics without freezing τ or changing
+  the preregistration.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
