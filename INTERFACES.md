@@ -209,10 +209,17 @@ docs/{plans,research,handoff}/
   framing). **NEW (PR #8 — axis-1 multi-family pilot):** `ui_pair` now accepts tuple of 5 Bansal
   AI conditions (multi-condition support); `render_ui_condition()` handles all 5 Bansal AI conditions
   (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`, `Conf.+Adaptive (Expert)`) via
-  `_extract_lime_highlights()` helper (extracts LIME highlights from `system_highlights` HTML field,
-  supports top-N and adaptive selection); `TaskStimulus` dataclass updated with `system_highlights`
-  field (raw LIME HTML from Bansal task JSON). Multi-provider run loop in `axis1_pilot.py` iterates
-  model list, runs panel per model, System-1 frozen across all 5 conditions AND models (tested).
+  class-based extractors over raw Bansal HTML (`system_highlights` uses unquoted
+  `<span class=class0>` token spans; `expert_highlights_html` uses single-quoted
+  `<span class='class0'>` phrase spans). `Conf.+Single` shows ALL spans for the predicted label
+  (`class{ai_pred}`); `Conf.+Double` shows ALL class0 and class1 spans; both preserve document order
+  with direction labels (`class1` = supporting positive, `class0` = supporting negative).
+  `Conf.+Adaptive` and `Conf.+Adaptive (Expert)` use fixed domain median-confidence thresholds
+  (`beer`=0.892, `amzbook`=0.889): high confidence (`conf >= threshold`) uses Single, low confidence
+  uses Double; missing domains raise an error. `TaskStimulus` retains backward-compatible
+  `expert_explanation` and adds `expert_highlights_html` for raw class-tagged expert spans.
+  Multi-provider run loop in `axis1_pilot.py` iterates model list, runs panel per model, System-1
+  frozen across all 5 conditions AND models (tested).
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
   (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
@@ -243,9 +250,8 @@ docs/{plans,research,handoff}/
   no `model` in body) + Azure AI Foundry (`foundry` style: `{endpoint}/chat/completions`,
   `Authorization: Bearer`, `model` in body). Env creds `AZURE_OPENAI_ENDPOINT/KEY/API_VERSION/
   DEPLOYMENT`; replicated hashlib cache (deployment in key). Uncapped confirmatory path.
-- **UNMERGED (branch-only) additions to be reconciled on merge:** the 5 Bansal-condition
-  renderers in `bansal_tasks.py` (`Conf.`/`Conf.+Single`/`Conf.+Double`/`Conf.+Adaptive`/
-  `Conf.+Adaptive (Expert)`, LIME-based; Single/Double/Adaptive use documented HEURISTICS) and
-  the multi-provider run loop with **skip-on-cap** resilience live on `feature/axis1-pilot`
-  (PR #8, NOT merged). E4's placebo renderer (`Conf.+Placebo`) + 4-condition experiment live on
-  `feature/e4-compliance` (PR #7, NOT merged). Reconcile this AS-BUILT section when those merge.
+- **UNMERGED (branch-only) additions to be reconciled on merge:** E4's placebo renderer
+  (`Conf.+Placebo`) + 4-condition experiment live on `feature/e4-compliance` (PR #7, NOT merged).
+  The 5 Bansal-condition renderers and the multi-provider run loop with **skip-on-cap** resilience
+  were merged via PR #8 and corrected on PR #10 from token-count heuristics to the class-based
+  semantics described above.

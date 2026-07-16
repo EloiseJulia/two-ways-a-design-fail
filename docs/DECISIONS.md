@@ -210,6 +210,25 @@
   Non-blocking test-quality nits (cross-*model* freeze test trivial via constant mock; the
   "cross-process" determinism test runs in-process) logged for firm-up before the confirmatory run.
 
+### D5.1 — Bansal renderer fidelity corrected before confirmatory H1a (PR #10)
+- **From → To:** token-count heuristics (`Single`=first 1 span, `Double`=first 2 spans,
+  `Adaptive`=ad hoc `conf > 0.8`/top-N) → faithful Bansal label-explanation semantics:
+  `class1` is POSITIVE evidence, `class0` is NEGATIVE evidence, and `class{pred}` is the
+  predicted-class explanation. `Conf.+Single` now shows ALL predicted-label LIME spans;
+  `Conf.+Double` shows ALL class0+class1 LIME spans; adaptive conditions use fixed dataset
+  median-confidence thresholds (`beer`=0.892, `amzbook`=0.889), with high confidence showing
+  Single and low confidence showing Double. Expert adaptive now parses the raw single-quoted
+  expert phrase spans rather than classless cleaned text.
+- **Why:** `research-bansal-conditions` + paper quotes established that the old top-N/token-count
+  reading was a misinterpretation: Bansal's conditions vary which LABELS' evidence is shown, not
+  how many highlighted tokens are shown. The fixed thresholds come from paper §4.2 and Manager's
+  data inspection (Beer median confidence 0.892 on the 50-item stimulus set).
+- **Paper implication:** The confirmatory cross-condition rank test now renders the Bansal UI
+  conditions faithfully before H1a. **Cache implication:** this changes the rendered prompt for
+  `Conf.+Adaptive (Expert)`, so E4's 193-call cache is INVALIDATED and E4 must re-run fresh on the
+  corrected renderer. PR #4's exploratory numbers used the old renderer and must be described as
+  exploratory/old-renderer results, not as corrected-renderer evidence.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
