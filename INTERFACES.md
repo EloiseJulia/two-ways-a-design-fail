@@ -249,6 +249,21 @@ docs/{plans,research,handoff}/
   `Conf.+Adaptive (Expert)` is flagged as a near-ceiling/low-variance human target when the
   committed E1 JSON is used; `ceiling_excluded` recomputes the same readout without flagged
   conditions.
+- **features** — `twdf/features/ui_features.py`: §4.3 atomic UI feature space for the 7 rendered
+  Bansal/panel conditions (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`,
+  `Conf.+Adaptive (Expert)`, `Conf.+Placebo`, `Wrong-AI (dark)`). Exposes
+  `@dataclass(frozen=True) UIFeatureVector` with documented JSON `to_dict()`;
+  `extract_ui_features(task: TaskStimulus, ui_condition: str) -> UIFeatureVector`;
+  `FEATURE_NAMES: tuple[str, ...]`; `feature_vector_to_array(v: UIFeatureVector) -> np.ndarray`;
+  and `feature_distance(a: UIFeatureVector, b: UIFeatureVector, *, weights=None) -> float`.
+  `FEATURE_NAMES` order is stable:
+  `has_explanation`, `explanation_source_none`, `explanation_source_lime`,
+  `explanation_source_expert`, `explanation_source_placebo`, `explanation_faithfulness`,
+  `n_highlight_spans`, `info_density`, `shows_predicted_class_only`, `shows_both_classes`,
+  `is_adaptive`, `confidence_shown`, `confidence_value`, `authority_cue`, `wrong_ai`,
+  `explanation_char_len`. Extraction is deterministic, renderer-faithful, and non-leaky
+  (visible prediction/confidence/explanation/framing only; never `ground_truth`). This PR builds
+  feature space and OOD distance only; it does NOT learn or freeze τ.
 - **analysis (PR #12 — confirmatory Axis-1 BLIND pipeline)** —
   `twdf/analysis/confirmatory_axis1.py`: pure offline H1a analysis accepting panel-response
   records (`persona_id`, `model`, `task_id`, `ui_condition`, `seed`, `system1_decision`,
@@ -267,8 +282,7 @@ docs/{plans,research,handoff}/
   model set `{openai/gpt-4o, openai/gpt-4.1-mini}` and five Bansal AI conditions. The runner only
   collects responses with `real_panel.run_panel()` and calls the pure analysis; tests exercise this
   path with mock providers only (no live/networked calls during the BLIND build).
-- **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
-  `extract_features`/`UIFeatureVector` are still designs above).
+- **calibration** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage` are still designs above).
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
   **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical

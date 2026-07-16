@@ -284,6 +284,19 @@
 - **Paper implication:** Implements H1a/prereg without changing it. τ_disp/τ_level remain UNFROZEN;
   null or wrong-signed outcomes remain valid fully populated confirmatory results.
 
+### D5.6 — Atomic UI feature space implemented for Module D calibration (PR #13)
+- **What:** Added `twdf.features.ui_features` with a frozen `UIFeatureVector`, deterministic
+  extraction for all 7 Bansal/panel UI conditions, stable `FEATURE_NAMES`, numeric array encoding,
+  and standardized feature-space distance.
+- **Why:** SPEC §4.3 requires UI designs to be represented as atomic, interpretable
+  cognitive-interaction features so Module D can later learn τ_disp/τ_level and E5 can measure OOD
+  distance in feature space rather than over whole rendered UI surfaces.
+- **Guardrail:** This does **not** learn, freeze, or tune τ. Features are computed only from visible
+  prediction/confidence/explanation/framing and condition semantics, never from `ground_truth`.
+- **Paper implication:** Enables §5/E5 feature-distance analyses and the §6 dual-threshold
+  calibration/abstention protocol while preserving the preregistration discipline that thresholds
+  remain unfrozen until the calibration step.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
