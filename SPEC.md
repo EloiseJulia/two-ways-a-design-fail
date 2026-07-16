@@ -25,11 +25,25 @@ OUT (→ abstain / send to human study): pure perceptual-motor visual mechanisms
 (font size, color, button size, Fitts-law effects, pure visual fatigue).
 
 ## 2. Contributions
+
+> **POSITIONING LOCKED 2026-07-16T06:15:38Z (PI; see DECISIONS D5.4), BEFORE the confirmatory
+> axis-1 run so the result cannot bias the framing.** The HEADLINE is a **methodological reframe,
+> not an effect-size claim**: (i) treat cross-user **variance / over-dispersion** in reliance as the
+> *safety-relevant* DV (vs the prior literature's mean over-reliance effect); (ii) a **two-axis
+> pre-deployment triage protocol** that SCREENS human–AI decision interfaces before an expensive
+> human study, **validated by panel↔human correspondence on two real datasets + preregistration.**
+> The empirical signal (e.g. ρ≈0.067) is the **TARGET the method detects, NOT a boast** — a small ρ
+> motivates the calibrated threshold/abstention rule. Head-on defense vs "LLM-simulated users are
+> unreliable proxies" (Seshadri ICLR'26; Santurkar; CoMPosT): we **triage designs that need a human
+> study; we do NOT claim to predict individual humans.**
+
 - **C1 (PRIMARY / core, elevated 2026-07-15 PR #6):** propose + validate the two-axis
   triage signal (panel-disagreement over-dispersion axis + systematic wrong-AI
   over-reliance axis). This is the paper's load-bearing contribution. Preliminary
   real-panel evidence: PR #4 shows the redesigned panel produces genuine heterogeneity
   (conflict rate 43%, personas diverge) and a first axis-2 wrong-AI signal (0.325).
+  Axis-2 dark-pattern **backfire** stays a tentative SUPPORTING lead — promoted only if E4 on the
+  faithful renderer (D5.1/D5.2) reaches significance.
 - C2 (support): "counterfactual reliance elasticity" — difficulty-controlled
   sensitivity estimate via frozen-persona paired UI swap.
 - **C0 (DEMOTED to a Bansal-specific SUPPORTING finding, 2026-07-15 PR #6 —
@@ -167,6 +181,11 @@ difficulty as control covariate (partial correlation / mixed-effects);
   merged (PR #9) as the uncapped fallback (per-model DAILY cap is tier-dependent
   ~200 strong / ~500 mini).
 - Gate 3 = PI owns correctness; independent audit + Manager numeric re-derivation is the merge gate.
+- **POSITIONING LOCKED (2026-07-16T06:15:38Z, PI; DECISIONS D5.4): headline = methodological reframe
+  (over-dispersion as a safety DV + two-axis pre-deployment triage), validated by panel↔human
+  correspondence on two datasets + prereg; the empirical signal is the DETECTION TARGET, not an
+  effect-size boast; axis-2 backfire = tentative lead pending powered E4; locked BEFORE the
+  confirmatory so the result can't bias framing. Novelty gap verified in docs/research/2026-07-16-novelty-positioning.md.**
 - H1a refined: axis-1 over-dispersion is user×task under AI ON BANSAL (2026-07-15, b48ab2b).
 - **CONTRIBUTION STRUCTURE (2026-07-15, PR #6): C1 (panel two-axis) = PRIMARY; C0
   (trait→user×task) = DEMOTED to a Bansal-specific supporting finding (Lu&Yin PR#5

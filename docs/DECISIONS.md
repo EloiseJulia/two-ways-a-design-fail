@@ -244,6 +244,36 @@
 
 ---
 
+## Phase 5 — Positioning lock (2026-07-16)
+
+### D5.4 — PAPER POSITIONING LOCKED (PI decision, timestamp 2026-07-16T06:15:38Z)
+- **Locked BEFORE the confirmatory axis-1 run** — precisely so the confirmatory RESULT cannot bias
+  the positioning (a preregistration-of-framing move; parallels the τ/N freeze discipline).
+- **Headline contribution = a METHODOLOGICAL REFRAME, not an effect-size claim:**
+  (1) treat cross-user **variance / over-dispersion** in reliance as the *safety-relevant* dependent
+  variable (vs the prior literature's mean over-reliance effect); (2) a **two-axis pre-deployment
+  triage protocol** — axis-1 (UI design → user-sensitive reliance over-dispersion) + axis-2
+  (systematic over-reliance on a WRONG AI) — that SCREENS human–AI decision interfaces before an
+  expensive human study; **validated by panel↔human correspondence on two real datasets (Bansal,
+  Lu&Yin) + preregistration.**
+- **The empirical signal is the TARGET the method detects, NOT a boast.** Do NOT overclaim the small
+  magnitude (e.g. ρ≈0.067); a small ρ motivates the calibrated threshold / abstention rule, it does
+  not undermine the method. Report confirmatory results regardless of outcome.
+- **Axis-2 dark-pattern BACKFIRE stays a tentative SUPPORTING lead** — promoted to a lead claim ONLY
+  if E4 on the FAITHFUL renderer (D5.1/D5.2) reaches significance.
+- **Head-on defense against the "LLM-simulated users are unreliable proxies" attack** (Seshadri et
+  al., ICLR'26; Santurkar; CoMPosT homogeneity critiques): we TRIAGE designs that need a human study;
+  we do NOT claim to PREDICT individual humans. Calibration + the conflict-conditioned DV
+  (System-1≠AI only) + cross-model triangulation are the technical defenses.
+- **Why:** Verified novelty analysis (`docs/research/2026-07-16-novelty-positioning.md`, 22 primary
+  cites): the dual-axis pre-deployment triage via a real-log-calibrated synthetic panel has no direct
+  prior art (closest neighbor Rastogi 2022/23 optimizes routing, not UI-safety triage).
+- **Paper implication:** Sets the framing of the whole paper (SPEC §2 title/abstract/intro spine).
+  Consistent with the existing C1-PRIMARY structure — a sharpening, not an upheaval. C0 stays a
+  Bansal-specific supporting finding; sequential-feedback stays an open question.
+
+---
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
