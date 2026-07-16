@@ -299,6 +299,25 @@ docs/{plans,research,handoff}/
   `triage` returns `RELEASE`, `HUMAN_STUDY`, or `ABSTAIN` with abstention for feature-space OOD,
   novel/uncalibrated dimensions, ECE, or reversal flags. **τ_disp/τ_level remain UNFROZEN on
   fresh fits (`timestamp is None`); no frozen τ artifact is committed in this PR.**
+- **analysis (PR #16 — E5 reliability/abstention layer)** —
+  `twdf/analysis/reliability.py`: pure offline reliability metrics for SPEC §5/E5 and §6.3–6.4.
+  Exposes
+  `expected_calibration_error(pred_probs, outcomes, *, n_bins=10) -> ECEResult`
+  with weighted equal-width-bin ECE, MCE, and per-bin reliability rows
+  (`bin_index`, `lower`, `upper`, `count`, `mean_confidence`, `empirical_accuracy`,
+  `calibration_error`);
+  `generalization_gradient(records, *, by: str, n_bins: int = 5) -> GradientResult`
+  over `feature_distance`, `difficulty`, `persona`, or another supplied covariate, returning
+  ordered gradient bins with `mean_absolute_error`, ECE/MCE, counts, and a worst-bin
+  `failure_region`;
+  `reliable_radius(records, *, ece_bound, distance_key="feature_distance") -> float`, the largest
+  observed in-radius feature distance whose prefix ECE is within the bound; and
+  `measured_abstention_rate(designs, threshold_model, *, signals) -> AbstentionReport`, which
+  calls Module D `triage` for each design and reports counts/fractions for `ABSTAIN`,
+  `HUMAN_STUDY`, and `RELEASE`. Result dataclasses (`ECEResult`, `GradientResult`,
+  `AbstentionReport`) provide deterministic JSON `to_dict()` shapes. Feature-distance analyses
+  reuse `twdf.features.ui_features.feature_distance`; abstention reuses
+  `twdf.calibration.thresholds.triage`/`ThresholdModel`; this layer does **not** freeze τ.
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
   **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical
