@@ -272,9 +272,19 @@
   Consistent with the existing C1-PRIMARY structure — a sharpening, not an upheaval. C0 stays a
   Bansal-specific supporting finding; sequential-feedback stays an open question.
 
+### D5.5 — BLIND confirmatory Axis-1 analysis pipeline implemented (PR #12)
+- **What:** Added the pure offline `twdf.analysis.confirmatory_axis1` pipeline and thin
+  `twdf.experiments.confirmatory_axis1` runner/config for the powered H1a run, before any
+  confirmatory panel data exists.
+- **Why:** Locks the analysis mechanics blind: conflict-conditioned DV, beta-binomial
+  over-dispersion, within-task paired estimator, PR #11 panel↔human correspondence, bootstrap CIs,
+  permutation p-values, BH α=0.05, and per-model reporting for `{openai/gpt-4o, openai/gpt-4.1-mini}`.
+- **Baselines:** Adds random, prompt-only, single-model, and rational-Bayesian null baselines while
+  reusing the existing mean-predictor baseline and over-dispersion/statistical helpers.
+- **Paper implication:** Implements H1a/prereg without changing it. τ_disp/τ_level remain UNFROZEN;
+  null or wrong-signed outcomes remain valid fully populated confirmatory results.
+
 ### D5.6 — Atomic UI feature space implemented for Module D calibration (PR #13)
-- **Ordering note:** D5.5 lives on the confirmatory branch and is not yet on `main`; this branch uses
-  D5.6 to avoid renumbering that branch-only decision when histories reconcile.
 - **What:** Added `twdf.features.ui_features` with a frozen `UIFeatureVector`, deterministic
   extraction for all 7 Bansal/panel UI conditions, stable `FEATURE_NAMES`, numeric array encoding,
   and standardized feature-space distance.

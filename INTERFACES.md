@@ -264,6 +264,24 @@ docs/{plans,research,handoff}/
   `explanation_char_len`. Extraction is deterministic, renderer-faithful, and non-leaky
   (visible prediction/confidence/explanation/framing only; never `ground_truth`). This PR builds
   feature space and OOD distance only; it does NOT learn or freeze τ.
+- **analysis (PR #12 — confirmatory Axis-1 BLIND pipeline)** —
+  `twdf/analysis/confirmatory_axis1.py`: pure offline H1a analysis accepting panel-response
+  records (`persona_id`, `model`, `task_id`, `ui_condition`, `seed`, `system1_decision`,
+  `final_decision`, `ai_advice`, `relied`, plus AI-correct/task metadata) and a fixed human target
+  path. Returns `ConfirmatoryAxis1Result.to_dict()` with `per_model` results (no pooled primary
+  model-mix estimate), conflict-conditioned beta-binomial over-dispersion + bootstrap CI,
+  difficulty-controlled within-task estimator + CI + paired permutation p, PR #11
+  `panel_human_condition_correspondence`, baseline comparisons, BH-adjusted p-values,
+  aligned per-condition table, cross-model agreement summary, `n`, and
+  `exploratory_vs_confirmatory="CONFIRMATORY"`. Reuses `conflict_conditioned_reliance`,
+  `betabinom_overdispersion`, `baseline_mean_predictor`, `within_task_diff`,
+  `paired_permutation_test`, and `bootstrap_ci`; adds the missing random, prompt-only,
+  single-model, and rational-Bayesian null baselines.
+- **experiments (PR #12 — confirmatory runner)** — `twdf/experiments/confirmatory_axis1.py`
+  plus `configs/confirmatory_axis1.yaml`: thin multi-provider runner over the frozen confirmatory
+  model set `{openai/gpt-4o, openai/gpt-4.1-mini}` and five Bansal AI conditions. The runner only
+  collects responses with `real_panel.run_panel()` and calls the pure analysis; tests exercise this
+  path with mock providers only (no live/networked calls during the BLIND build).
 - **calibration** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage` are still designs above).
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
