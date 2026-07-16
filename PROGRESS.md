@@ -490,7 +490,21 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
-- **✅ COMPUTE-FREE ANALYSIS STACK COMPLETE (2026-07-16, built BLIND before any confirmatory data):**
+- **✅ MERGED PR #7 E4 axis-2 (62d7242, DECISIONS D5.2 + D5.10):** 4-condition panel on the faithful
+  renderer. A prior audit CAUGHT an axis-2 SIGN-INVERSION bug (real_panel scored reliance vs the
+  UNFLIPPED ai_pred while the dark UI displays 1-ai_pred; my own first re-derivation was fooled too);
+  fixed via `displayed_ai_advice()` single source of truth + a run_panel regression test + an
+  `over_reliance_on_wrong` metric; re-audit PASS. **Corrected result:** H3 compliance floor
+  null/underpowered (control 0.273 < placebo 0.291 = faithful 0.291, n.s.); **axis-2 = STRONG
+  over-reliance on a coercive WRONG AI — clean 0.690 (29/42 genuinely-wrong trials, binomial p=0.0098),
+  raw coercive-label adoption 0.844, p5=100%, near-uniform.** Reverses the earlier buggy "backfire."
+  Caveats: underpowered (mini, 6×15, single domain); dark condition flips ai_pred not 1-gt (design
+  refinement noted). PR#4's exploratory 0.325 superseded. **ALL feature branches now merged/closed.**
+- **⏸ AWAITING PI DECISIONS (compute-gated track):** (1) axis-2 framing — per D5.4 axis-2 was tentative
+  pending a significant E4; it is now significant (promote to a stronger supporting result? optional
+  powered one-shot axis-2 with the 1-gt fix?); (2) confirmatory-compute path (power-N → confirmatory
+  axis-1 — the primary C1 deliverable, deferred by PI); (3) align the "two ways a design fail" title
+  with the evidence (validated axis-1 + strong-but-preliminary axis-2). Schedule #1 STOPPED (E4 done).
   the full pre-registered pipeline is merged to main and green (34 offline tests across the 6 new
   modules pass together): **#10** renderer fidelity (D5.1) · **#11** panel↔human correspondence /
   H1a secondary (D5.3) · **#12** confirmatory axis-1 pipeline / H1a primary (D5.5) · **#13** §4.3
