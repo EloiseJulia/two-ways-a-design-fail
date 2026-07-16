@@ -490,6 +490,18 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **⚙️ AUTO-RESUME SCHEDULE #1 ACTIVE (cron `5 */4 * * *`, 2026-07-16):** every 4h a tick wakes the
+  Manager to probe per-model daily quota; if budget → auto-advance the top compute-gated task below
+  (E4 first) through audit+merge; if capped → silently wait. HOLDS for a PI checkpoint before the
+  CONFIRMATORY launch. Fires automatically only while the Copilot CLI session is running; stop via
+  `manage_schedule stop id=1`.
+- **✅ MERGED PR #11 panel↔human correspondence (08a4121, 2026-07-16, DECISIONS D5.3):** pre-registered
+  H1a secondary readout built BLIND — `twdf.analysis.panel_human_condition_correspondence` cross-condition
+  Spearman of panel disagreement vs REAL human over-dispersion (target = results/e1_multicond.json:
+  Conf.=0.0206, Single=0.0109, Double=0.0263, Adaptive=0.0139, Adaptive(Expert)=0.0000), permutation +
+  bootstrap over 5 conditions, n<3 guard, ceiling flag (Adaptive(Expert) excess_var≈0) + 4-condition
+  sensitivity. Independent audit PASS + Manager verify (perfect→ρ=1 p<0.05; true reversal→ρ=−1; n=2
+  degenerate). Confirmatory just plugs panel disagreement in.
 - **✅ MERGED PR #10 renderer fidelity (2e8935b, 2026-07-16, DECISIONS D5.1):** corrected
   render_ui_condition to FAITHFUL Bansal semantics — `Conf.+Single`=predicted-class LIME spans only,
   `Conf.+Double`=both classes, `Conf.+Adaptive`=fixed median-conf threshold (beer 0.892 / amzbook
