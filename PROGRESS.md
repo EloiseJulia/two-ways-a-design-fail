@@ -490,6 +490,15 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **✅ COMPUTE-FREE ANALYSIS STACK COMPLETE (2026-07-16, built BLIND before any confirmatory data):**
+  the full pre-registered pipeline is merged to main and green (34 offline tests across the 6 new
+  modules pass together): **#10** renderer fidelity (D5.1) · **#11** panel↔human correspondence /
+  H1a secondary (D5.3) · **#12** confirmatory axis-1 pipeline / H1a primary (D5.5) · **#13** §4.3
+  atomic UI feature space (D5.6) · **#14** Module D τ-calibration + triage + abstention (D5.7,
+  τ UNFROZEN) · **#15** E3 LOIO generalization harness (D5.8) · **#16** E5 ECE/reliable-radius/
+  abstention-rate (D5.9). τ_disp/τ_level remain UNFROZEN throughout (freeze is a later timestamped
+  step needing E4 axis-2 data). Positioning LOCKED (D5.4). **Remaining work is all COMPUTE-GATED**
+  (E4 run, power-N, confirmatory, τ freeze, cross-vendor) — driven by Schedule #1.
 - **✅ MERGED PR #13 §4.3 atomic UI feature space (b6d8435, DECISIONS D5.6):** `twdf.features.ui_features`
   (`UIFeatureVector` + `extract_ui_features` + `FEATURE_NAMES` + `feature_vector_to_array` +
   `feature_distance`) for all 7 conditions — the feature space where τ is LATER learned (Module D).
