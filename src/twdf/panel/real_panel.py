@@ -28,7 +28,7 @@ from typing import Optional
 
 from twdf.panel.stub import Persona, AgentResponse
 from twdf.panel.provider import ModelProvider
-from twdf.data.bansal_tasks import TaskStimulus, render_ui_condition
+from twdf.data.bansal_tasks import TaskStimulus, render_ui_condition, displayed_ai_advice
 
 
 def run_panel(
@@ -120,18 +120,23 @@ def run_panel(
                     seed=seed
                 )
                 
+                # AI advice ACTUALLY DISPLAYED to the agent for this condition
+                # (Wrong-AI shows the flipped label; all others show task.ai_pred).
+                # Reliance/over-reliance MUST be scored against what was shown.
+                shown_advice = displayed_ai_advice(task, ui_condition)
+
                 # Compute reliance (aligned with Bansal adoption definition)
                 relied = _compute_reliance(
                     system1_decision=system1_decision,
                     final_decision=final_decision,
-                    ai_advice=task.ai_pred
+                    ai_advice=shown_advice
                 )
                 
                 # Record response with task metadata for metrics
-                # Store ai_advice, ground_truth in trace for axis-2 metrics
-                trace['ai_advice'] = task.ai_pred
+                # Store the DISPLAYED ai_advice, ground_truth in trace for axis-2 metrics
+                trace['ai_advice'] = shown_advice
                 trace['ground_truth'] = task.ground_truth
-                trace['ai_correct'] = (task.ai_pred == task.ground_truth)
+                trace['ai_correct'] = (shown_advice == task.ground_truth)
                 
                 response = AgentResponse(
                     persona_id=persona.persona_id,

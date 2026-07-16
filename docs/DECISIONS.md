@@ -229,6 +229,20 @@
   corrected renderer. PR #4's exploratory numbers used the old renderer and must be described as
   exploratory/old-renderer results, not as corrected-renderer evidence.
 
+### D5.2 — E4 placebo re-matched to the (shorter) faithful explanation (PR #7, on E4 branch)
+- **From → To:** E4's fixed ~390-char, 5-sentence placebo (matched to the OLD long full-expert-text
+  faithful) → a single generic content-free sentence (~140 chars) length-matched to the NEW faithful
+  `Conf.+Adaptive (Expert)` render (beer expert phrase ~84-186 chars, median ~128, measured on the
+  50-item stimulus set).
+- **Why:** The D5.1 fidelity fix shortened the faithful Expert explanation to a class-filtered phrase.
+  The compliance-floor control (H3: control < placebo < faithful) must isolate PRESENCE-of-explanation
+  from a text-LENGTH confound, so the placebo has to track the faithful length. The old 390-char
+  placebo was 2-3× longer than the corrected faithful (a length confound). The new placebo stays
+  content-free (no task-specific/decision-relevant content, identical across all items → no leakage).
+  `test_placebo_length_matched` tightened (fixture now populates `expert_highlights_html`; ratio < 2.5).
+- **Paper implication:** Keeps the E4 axis-2 / H3 compliance-floor measurement clean under the
+  corrected renderer. To be re-validated by the fresh E4 run + independent §4.5 methodology audit
+  (the placebo design is a documented researcher DoF; length-matched-to-median is the stated choice).
 ### D5.3 — BLIND panel↔human correspondence readout implemented before confirmatory panel (PR #11)
 - **What:** Added the pre-specified H1a secondary readout: cross-condition Spearman correlation
   between panel disagreement per Bansal AI condition and the fixed real-human over-dispersion target
@@ -335,6 +349,39 @@
 - **Paper implication:** E5 can now report calibrated reliability, an applicability radius, and the
   measured ABSTAIN/HUMAN_STUDY/RELEASE mix supporting the §6.3 abstention rule without changing the
   preregistered dual-threshold protocol.
+
+### D5.10 — E4 axis-2 SIGN-INVERSION bug caught + fixed; corrected result REVERSES the earlier read (PR #7)
+- **What (bug):** The `Wrong-AI (dark)` renderer DISPLAYS `1 - ai_pred` (the flipped/wrong label), but
+  `real_panel.py` stored `trace['ai_advice'] = ai_pred` (UN-flipped) and `_compute_reliance` scored
+  against it; `over_reliance_level` then measured `final == ai_pred`. Because displayed = 1 − stored,
+  the axis-2 adoption score was the exact COMPLEMENT of the truth.
+- **How caught:** The independent audit of the E4 run reproduced adoption against the DISPLAYED prompt
+  label (not the stored field) and flagged the inversion; the Manager's own first re-derivation had
+  been fooled by trusting the same stored field. **The two-layer gate (independent audit + Manager
+  re-derivation) worked** — logged as the 3rd caught rigor event (cf. D2.1, D3.2).
+- **Fix:** added `bansal_tasks.displayed_ai_advice(task, ui_condition)` as the single source of truth
+  (Wrong-AI → `1 - ai_pred`, else `ai_pred`), used by BOTH the renderer and `real_panel` for `relied`
+  + `trace['ai_advice']` + `ai_correct`; added a REGRESSION test that drives the real `run_panel` path
+  with a compliance-following provider and asserts `over_reliance_level == 1.0` (bug gave 0.0). No new
+  API calls — prompts unchanged, so re-run is cache-backed; the agents' recorded decisions were always
+  against the correctly-displayed label, only the scoring reference was wrong.
+- **Corrected result (from → to):** axis-2 wrong-AI over-reliance **0.156 (buggy "backfire") →
+  0.844 raw adoption of the coercive label**. Disentangling the manipulation (the flipped label
+  coincides with ground truth in 48/90 trials): the CLEAN axis-2 signal — adoption of a GENUINELY
+  wrong coercive AI (`displayed != ground_truth`, n=42) — is **0.690 (29/42), binomial vs 0.5 p=0.0098**;
+  p5 = 100%; low between-persona spread (0.012) ⇒ near-uniform ("uniformly lethal") over-reliance. Added
+  `over_reliance_on_wrong` / `n_truly_wrong` to the metric so we report the clean number, not the
+  inflated raw one. **H3 compliance floor is UNAFFECTED** (only the Wrong-AI condition had the flip):
+  control 0.273 < placebo 0.291 = faithful 0.291, both permutation tests non-significant (null/underpowered).
+- **Paper implication:** The axis-2 empirical read REVERSES — from a (buggy) backfire to a **strong,
+  significant over-reliance on a coercive wrong AI**. Per D5.4, axis-2 backfire was tentative pending a
+  significant E4; the corrected E4 instead shows significant over-RELIANCE (clean 0.69, p<0.01), which
+  strengthens the two-axis claim (to be re-decided with the PI). CAVEATS (honest boundary): underpowered
+  (gpt-4.1-mini, 6 personas × 15 items, 42 truly-wrong trials, single beer domain); the dark manipulation
+  flips `ai_pred` rather than showing a guaranteed-wrong `1 - ground_truth`, so ~half the displayed labels
+  were coincidentally correct — a documented design refinement for any future preregistered one-shot
+  axis-2 test. PR#4's exploratory old-renderer axis-2 (0.325) used the same buggy scoring and is
+  superseded.
 
 ---
 

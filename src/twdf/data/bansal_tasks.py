@@ -296,6 +296,20 @@ def load_beer_tasks(data_dir: Optional[Path] = None,
     return selected_tasks
 
 
+def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
+    """Return the AI recommendation ACTUALLY SHOWN to the agent for this condition.
+
+    Every condition displays the model prediction (`task.ai_pred`) EXCEPT the
+    "Wrong-AI (dark)" condition, which deliberately shows the FLIPPED (wrong)
+    label `1 - task.ai_pred`. Reliance / over-reliance metrics MUST be scored
+    against this displayed value (what the agent saw), never the raw
+    `task.ai_pred` — otherwise the Wrong-AI adoption score is sign-inverted.
+    """
+    if ui_condition == "Wrong-AI (dark)":
+        return 1 - task.ai_pred
+    return task.ai_pred
+
+
 def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     """
     Render task stimulus for a specific UI condition.
@@ -307,7 +321,7 @@ def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     - "Conf.+Adaptive": high confidence uses Single; low confidence uses Double
     - "Conf.+Adaptive (Expert)": same adaptive class rule on expert phrase spans
     - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (NEW, Fix D)
-    - "Conf.+Placebo": AI prediction + confidence + placebo explanation (if exists)
+    - "Conf.+Placebo": AI prediction + confidence + content-free placebo (E4 H3 compliance floor)
     
     Bansal label-explanation semantics:
         class1 = positive evidence; class0 = negative evidence; class{ai_pred}
@@ -376,9 +390,23 @@ Task:
 {task.text}"""
     
     elif ui_condition == "Conf.+Placebo":
-        # Placebo explanation (if implemented) — generic uninformative text
-        placebo_text = "The AI system has processed this input using advanced algorithms."
-        return f"""{base_content}
+        # Placebo (E4, H3): prediction + confidence + NON-INFORMATIVE explanation
+        # CRITICAL: Must be present, matched in length/format to faithful, but content-free.
+        # Carries NO task-specific decision-relevant content. Generic boilerplate only.
+        # By construction: does NOT leak the task's actual features or decision logic.
+        
+        # Placebo matched in LENGTH/FORMAT to the (faithful) expert explanation but
+        # content-free: after the PR #10 renderer-fidelity fix the faithful Expert
+        # explanation is a short class-filtered phrase (beer: ~84-186 chars, median ~128),
+        # so the placebo is a single generic sentence of comparable length. It carries NO
+        # task-specific decision-relevant content and is IDENTICAL across all tasks/items.
+        placebo_text = (
+            "The AI model analyzed the input using its trained parameters and generated "
+            "this recommendation based on its internal confidence evaluation."
+        )
+        
+        return f"""AI Prediction: {task.ai_pred}
+AI Confidence: {task.ai_conf:.2%}
 
 Explanation:
 {placebo_text}
@@ -388,8 +416,8 @@ Task:
     
     elif ui_condition == "Wrong-AI (dark)":
         # Axis-2 dark condition (Fix D): WRONG AI + pseudo-high conf + oppressive framing
-        # Flip the AI prediction to be WRONG
-        wrong_pred = 1 - task.ai_pred  # Binary flip: 0→1, 1→0
+        # Flip the AI prediction to be WRONG (single source of truth: displayed_ai_advice)
+        wrong_pred = displayed_ai_advice(task, ui_condition)  # == 1 - task.ai_pred
         
         # Pseudo-high confidence (to pressure compliance)
         pseudo_high_conf = 0.92

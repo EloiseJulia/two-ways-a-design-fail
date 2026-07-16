@@ -752,14 +752,20 @@ def conflict_conditioned_reliance(responses: list) -> ConflictConditionedRelianc
 @dataclass
 class OverRelianceLevelResult:
     """Result of axis-2 over-reliance level analysis (Fix D)."""
-    over_reliance_level: float  # Fraction adopting WRONG AI advice across panel
-    per_persona_adoption: dict  # persona_id -> adoption rate of wrong AI
+    over_reliance_level: float  # Fraction adopting the DISPLAYED coercive label across panel
+    per_persona_adoption: dict  # persona_id -> adoption rate of the displayed coercive label
     n_trials: int  # Total trials in Wrong-AI condition
     between_persona_spread: float  # Variance in per-persona adoption (uniformity check)
+    # CLEAN axis-2 signal: adoption restricted to trials where the displayed advice is
+    # GENUINELY WRONG (ai_advice != ground_truth). The raw level above can be inflated by
+    # trials where the flipped label coincidentally equals the ground truth.
+    over_reliance_on_wrong: float = 0.0  # adoption among truly-wrong-advice trials
+    n_truly_wrong: int = 0  # number of trials where displayed advice != ground_truth
     
     def __repr__(self) -> str:
         return (f"OverRelianceLevelResult("
                 f"level={self.over_reliance_level:.3f}, "
+                f"on_wrong={self.over_reliance_on_wrong:.3f}, "
                 f"spread={self.between_persona_spread:.4f}, "
                 f"n={self.n_trials})")
 
@@ -807,6 +813,7 @@ def over_reliance_level(responses: list) -> OverRelianceLevelResult:
     
     # Group by persona
     persona_trials = {}
+    truly_wrong_trials = []  # (displayed_advice_is_wrong, adopted) per trial
     for resp in responses:
         # Extract ground_truth and ai_advice
         # For panel responses with task objects
@@ -828,13 +835,15 @@ def over_reliance_level(responses: list) -> OverRelianceLevelResult:
         
         final = str(resp.final_decision)
         
-        # Adopted wrong AI? (final == ai_advice AND ai_advice != ground_truth)
-        # In Wrong-AI condition, ai_advice IS WRONG by design
+        # Adopted the displayed coercive label? (final == displayed ai_advice)
         adopted_wrong_ai = (final == ai_advice)
+        # Is the displayed advice GENUINELY wrong (!= ground truth)?
+        truly_wrong = (ai_advice != ground_truth)
         
         if resp.persona_id not in persona_trials:
             persona_trials[resp.persona_id] = []
         persona_trials[resp.persona_id].append(adopted_wrong_ai)
+        truly_wrong_trials.append((truly_wrong, adopted_wrong_ai))
     
     # Compute per-persona adoption rates
     per_persona_adoption = {
@@ -846,6 +855,10 @@ def over_reliance_level(responses: list) -> OverRelianceLevelResult:
     all_trials = [trial for trials in persona_trials.values() for trial in trials]
     over_reliance_level = np.mean(all_trials) if all_trials else 0.0
     
+    # CLEAN axis-2: adoption restricted to genuinely-wrong-advice trials
+    wrong_only = [adopted for (tw, adopted) in truly_wrong_trials if tw]
+    over_reliance_on_wrong = float(np.mean(wrong_only)) if wrong_only else 0.0
+    
     # Between-persona spread (variance)
     persona_rates = list(per_persona_adoption.values())
     between_persona_spread = float(np.var(persona_rates, ddof=1) if len(persona_rates) > 1 else 0.0)
@@ -854,6 +867,8 @@ def over_reliance_level(responses: list) -> OverRelianceLevelResult:
         over_reliance_level=float(over_reliance_level),
         per_persona_adoption=per_persona_adoption,
         n_trials=len(all_trials),
-        between_persona_spread=between_persona_spread
+        between_persona_spread=between_persona_spread,
+        over_reliance_on_wrong=over_reliance_on_wrong,
+        n_truly_wrong=len(wrong_only),
     )
 

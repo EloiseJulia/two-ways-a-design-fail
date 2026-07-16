@@ -219,7 +219,10 @@ docs/{plans,research,handoff}/
   uses Double; missing domains raise an error. `TaskStimulus` retains backward-compatible
   `expert_explanation` and adds `expert_highlights_html` for raw class-tagged expert spans.
   Multi-provider run loop in `axis1_pilot.py` iterates model list, runs panel per model, System-1
-  frozen across all 5 conditions AND models (tested).
+  frozen across all 5 conditions AND models (tested). **NEW (E4 — 4-condition support + placebo):**
+  `ui_pair` now accepts a 4-tuple; `render_ui_condition()` also handles "Conf.+Placebo" (content-free
+  explanation: present, matched in format to faithful, but NO task-specific decision-relevant content;
+  generic boilerplate, identical across tasks by construction).
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
   (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
@@ -232,6 +235,10 @@ docs/{plans,research,handoff}/
   homogeneity; config `configs/bansal_discriminator.yaml`; subset filters: domain, AI-accuracy
   band, tasks-per-user subsampling, joint domain+accuracy; `filter_subset()` + `compute_subset_structure()`
   functions; PI-directed verdict decision rule with thresholds PERSIST ≤ 0.50, COLLAPSE ≥ 0.70).
+  **NEW (E4 — PR #7):** `e4_compliance` (4-condition panel: control, faithful, placebo, dark; 
+  formalizes H3 compliance floor + axis-2 sensor; config `configs/e4_compliance.yaml`; 
+  compliance-adjusted axis-2 = over_reliance_level − placebo_floor; System-1 frozen across all 4 
+  conditions; 15 items, 6 personas, gpt-4.1-mini; full response serialization).
   **NEW (PR #8):** `axis1_pilot` (EXPLORATORY multi-family axis-1 pilot, 5 Bansal AI conditions,
   multi-provider run loop iterates models, System-1 frozen across conditions AND models; config
   `configs/axis1_pilot.yaml`; metrics: cross-condition correlation Spearman + permutation + bootstrap,
