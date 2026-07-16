@@ -195,6 +195,21 @@
 - **Paper implication:** Confirmatory becomes capability-tier diversity WITHIN OpenAI (strong vs
   small); multi-VENDOR triangulation deferred to Azure. Must report per-model (model-mix confound).
 
+### D4.8 — Pilot MERGED as exploratory infra (PR #8, ff69ce0) — Manager #3
+- **What:** Merged the axis-1 multi-family pilot (5-condition LIME renderers + multi-provider
+  skip-on-cap loop + power-analysis readout) as **EXPLORATORY infrastructure only**. The stale
+  branch (merge-base predated PR #9) was first brought up to date with `main` — a squash-merge of
+  the raw branch would have DELETED `azure_provider.py`, `DECISIONS.md`, the handoff docs, and the
+  prereg doc (caught before merge). Independent audit PASS; Manager verified additive-only diff, no
+  ground-truth leakage in any renderer or the System-1 prompt, hashlib-only, System-1 frozen, 9/9
+  offline tests, `results/axis1_pilot.json` correctly ABSENT.
+- **Why:** Preserve the reusable renderers + resilient multi-provider loop and the documented
+  provider-stability limitation (D4.6) without asserting any axis-1 effect.
+- **Paper implication:** §5 methods/infra + the provider-stability limitation are now on `main`.
+  Power-N (prereg §8) remains PENDING — to be filled from a CLEAN pass on the stable OpenAI set.
+  Non-blocking test-quality nits (cross-*model* freeze test trivial via constant mock; the
+  "cross-process" determinism test runs in-process) logged for firm-up before the confirmatory run.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)

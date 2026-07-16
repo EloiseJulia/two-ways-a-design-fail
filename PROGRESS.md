@@ -489,27 +489,29 @@ and timestamp for every change.
     * Provider model_name param + 120s cooldown cap improves robustness
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
-## Doing (handoff snapshot 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **✅ MERGED PR #8 axis1-pilot EXPLORATORY infra (ff69ce0, 2026-07-16):** stale branch first
+  brought up to date with `main` (a raw squash would have DELETED azure_provider.py / DECISIONS.md /
+  handoff / prereg — caught). Independent audit PASS + Manager verify (additive-only diff, no
+  leakage, System-1 frozen, hashlib-only, 9/9 offline tests, no results JSON). Kept: 5-condition LIME
+  renderers (Single/Double/Adaptive HEURISTICS — firm up before confirmatory), skip-on-cap
+  multi-provider loop, power-analysis readout. Provider-stability limitation documented (D4.6/D4.8).
+  Power-N (prereg §8) still PENDING. Non-blocking nits to firm up: cross-*model* freeze test trivial
+  (constant mock); "cross-process" determinism test runs in-process.
 - **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ f670b97, DRAFT — NOT merged):**
   - Code COMPLETE + 8/8 offline tests (placebo content-free-tested; System-1 frozen across all 4
     conditions control/faithful/placebo/wrong-AI; compliance-floor + compliance-adjusted axis-2).
-  - REAL RUN PARTIAL: **193/450 cached on gpt-4.1-mini** (its daily bucket was shared with the pilot
-    and exhausted). Provider failed fast + cached.
-  - **RESUME:** after gpt-4.1-mini daily reset, bridge token + `python -u -m twdf.experiments.e4_compliance
-    --config configs/e4_compliance.yaml` (cache covers 193; ~257 remain). Then audit
-    (`.prompts/audit-e4-compliance.md` written) → Manager verify → merge. (Auto-resume schedule was
-    STOPPED at retirement; resume manually.)
+  - REAL RUN PARTIAL: **193/450 cached on gpt-4.1-mini** (verified in worktree). Provider failed fast + cached.
+  - **RESUME (manual — no auto-schedule):** after gpt-4.1-mini daily reset (~15:50 local 2026-07-16;
+    both gpt-4o+gpt-4.1-mini verified 429 UserByModelByDay, Retry-After ~18585s), bridge token +
+    `python -u -m twdf.experiments.e4_compliance --config configs/e4_compliance.yaml` from the
+    e4-compliance worktree (cache covers 193; ~257 remain). Then audit
+    (`.prompts/audit-e4-compliance.md`) → Manager verify → merge.
   - READ OUT: H3 compliance floor (control < placebo < faithful, conflict-conditioned) + formal axis-2
     over_reliance_level on wrong-AI (+ compliance-adjusted).
-- **⏸ PR #8 axis1-pilot EXPLORATORY (branch `feature/axis1-pilot` @ bba48dc, DRAFT — NOT merged):**
-  - Code COMPLETE + 9 offline tests: 5 Bansal condition renderers (LIME-based; Single/Double/Adaptive
-    use documented HEURISTICS — firm up before confirmatory), multi-provider loop with **skip-on-cap
-    resilience**, cross-family + power-analysis readout.
-  - REAL RUN did NOT yield a usable power/effect estimate: gpt-4.1-mini skipped (capped);
-    **Llama-3.3-70B / Phi-4 unstable on GitHub Models (60s timeouts, 500s, unparseable→0)**. No
-    `results/axis1_pilot.json`. => PROVIDER-STABILITY LIMITATION (documented). Power-N UNMET.
-  - NEXT: merge as EXPLORATORY infra + limitation; get power-N from a CLEAN pass on {gpt-4o, gpt-4.1-mini}.
 - **CONFIRMATORY axis-1 (H1a) — the PRIMARY (C1) deliverable, NOT yet run.** Per prereg amendment
+  2026-07-16T02:29:50Z: run on STABLE OpenAI family **{gpt-4o, gpt-4.1-mini}**, DAY-BATCHED across
+  their separate daily buckets (free; no Azure dependency). Steps: clean power-N pass → fill prereg §8
   2026-07-16T02:29:50Z: run on STABLE OpenAI family **{gpt-4o, gpt-4.1-mini}**, DAY-BATCHED across
   their separate daily buckets (free; no Azure dependency). Steps: clean power-N pass → fill prereg §8
   + freeze N + τ discipline BEFORE results → confirmatory (beta-binomial over-dispersion on conflict DV
