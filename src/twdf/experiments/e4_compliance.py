@@ -439,6 +439,8 @@ def main():
         },
         'axis2_over_reliance': {
             'raw_over_reliance_level': dark_over_reliance.over_reliance_level,
+            'over_reliance_on_wrong': dark_over_reliance.over_reliance_on_wrong,
+            'n_truly_wrong': dark_over_reliance.n_truly_wrong,
             'compliance_adjusted_level': compliance_adjusted,
             'placebo_floor': placebo_conflict.reliance_rate,
             'between_persona_spread': dark_over_reliance.between_persona_spread,

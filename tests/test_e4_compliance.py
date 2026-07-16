@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Optional
 from dataclasses import dataclass
 
+import re
 import numpy as np
 
 from twdf.panel.stub import Persona, AgentResponse
@@ -642,6 +643,75 @@ def test_placebo_in_panel_flow():
     assert placebo_resp.trace is not None
     
     print(f"✓ Placebo integrates correctly into panel flow")
+
+
+class ComplyProvider(ModelProvider):
+    """Mock provider whose agent ALWAYS complies with the displayed recommendation.
+
+    Parses the AI recommendation actually shown in the System-2 prompt
+    ("AI Prediction: X" or "AI Expert System Recommendation: X") and returns it
+    as the decision. For the System-1 (no-AI) prompt there is no recommendation,
+    so it returns 0. This lets us assert that reliance/over-reliance is scored
+    against the DISPLAYED label, not the raw ai_pred.
+    """
+
+    name = "comply-provider"
+
+    def __init__(self):
+        self.calls = []
+
+    def generate(self, prompt: str, *, seed: int, max_tokens: int, temperature: float) -> str:
+        self.calls.append(prompt)
+        m = re.search(r"(?:AI Prediction|Recommendation):\s*(\d)", prompt)
+        decision = int(m.group(1)) if m else 0
+        return f'{{"decision": {decision}, "confidence": 0.90, "reasoning": "comply"}}'
+
+    def generate_messages(self, messages: list[dict], *, seed: int, max_tokens: int, temperature: float) -> str:
+        prompt = ' '.join(m['content'] for m in messages)
+        return self.generate(prompt, seed=seed, max_tokens=max_tokens, temperature=temperature)
+
+    def get_stats(self) -> dict:
+        return {'api_calls': len(self.calls), 'cache_hits': 0, 'total_requests': len(self.calls)}
+
+
+def test_wrongai_advice_scored_against_displayed_label():
+    """REGRESSION (axis-2 sign-inversion bug): reliance/over-reliance must be scored
+    against the label ACTUALLY DISPLAYED to the agent. The Wrong-AI condition displays
+    1 - ai_pred; a bug stored trace['ai_advice'] = ai_pred (unflipped), which sign-inverted
+    the axis-2 adoption score (reported 0.156 instead of the true 0.844).
+    """
+    personas = [Persona(persona_id="p1", domain_skill=0.5, ai_literacy=0.5,
+                        risk_sensitivity=0.5, caution=0.5, temperature=0.5, prior_mix=0.5)]
+    tasks = [
+        TaskStimulus(task_id="0", domain="beer", text="t0", ground_truth=1, ai_pred=1,
+                     ai_conf=0.85, expert_explanation="e0", system="m", testid="a"),
+        TaskStimulus(task_id="1", domain="beer", text="t1", ground_truth=0, ai_pred=0,
+                     ai_conf=0.72, expert_explanation="e1", system="m", testid="b"),
+    ]
+    ui_conditions = ("Conf.", "Conf.+Adaptive (Expert)", "Conf.+Placebo", "Wrong-AI (dark)")
+    responses = run_panel(personas=personas, tasks=tasks, ui_pair=ui_conditions,
+                          providers=[ComplyProvider()], seeds=[42], mode="static")
+
+    task_pred = {t.task_id: t.ai_pred for t in tasks}
+    for r in responses:
+        shown = int(r.trace["ai_advice"])
+        if r.ui_condition == "Wrong-AI (dark)":
+            # stored advice MUST be the flipped/displayed label, not ai_pred
+            assert shown == 1 - task_pred[r.task_id], \
+                f"Wrong-AI trace.ai_advice={shown} should be flipped 1-ai_pred={1-task_pred[r.task_id]}"
+            # a complying agent adopts the displayed wrong label -> relied True, final == shown
+            assert int(r.final_decision) == shown
+            assert r.relied is True
+        else:
+            assert shown == task_pred[r.task_id], \
+                f"{r.ui_condition} trace.ai_advice={shown} should equal ai_pred={task_pred[r.task_id]}"
+
+    # over_reliance_level on the Wrong-AI condition must be 1.0 (full compliance), NOT 0.0 (the bug)
+    dark = [r for r in responses if r.ui_condition == "Wrong-AI (dark)"]
+    res = over_reliance_level(dark)
+    assert abs(res.over_reliance_level - 1.0) < 1e-9, \
+        f"over_reliance_level={res.over_reliance_level} (bug would give 0.0); complying agent must score 1.0"
+    print("✓ axis-2 scored against DISPLAYED wrong label (regression guard)")
 
 
 if __name__ == "__main__":

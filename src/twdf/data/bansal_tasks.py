@@ -296,6 +296,20 @@ def load_beer_tasks(data_dir: Optional[Path] = None,
     return selected_tasks
 
 
+def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
+    """Return the AI recommendation ACTUALLY SHOWN to the agent for this condition.
+
+    Every condition displays the model prediction (`task.ai_pred`) EXCEPT the
+    "Wrong-AI (dark)" condition, which deliberately shows the FLIPPED (wrong)
+    label `1 - task.ai_pred`. Reliance / over-reliance metrics MUST be scored
+    against this displayed value (what the agent saw), never the raw
+    `task.ai_pred` — otherwise the Wrong-AI adoption score is sign-inverted.
+    """
+    if ui_condition == "Wrong-AI (dark)":
+        return 1 - task.ai_pred
+    return task.ai_pred
+
+
 def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     """
     Render task stimulus for a specific UI condition.
@@ -402,8 +416,8 @@ Task:
     
     elif ui_condition == "Wrong-AI (dark)":
         # Axis-2 dark condition (Fix D): WRONG AI + pseudo-high conf + oppressive framing
-        # Flip the AI prediction to be WRONG
-        wrong_pred = 1 - task.ai_pred  # Binary flip: 0→1, 1→0
+        # Flip the AI prediction to be WRONG (single source of truth: displayed_ai_advice)
+        wrong_pred = displayed_ai_advice(task, ui_condition)  # == 1 - task.ai_pred
         
         # Pseudo-high confidence (to pressure compliance)
         pseudo_high_conf = 0.92
