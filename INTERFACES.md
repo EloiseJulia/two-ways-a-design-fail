@@ -277,6 +277,15 @@ docs/{plans,research,handoff}/
   `betabinom_overdispersion`, `baseline_mean_predictor`, `within_task_diff`,
   `paired_permutation_test`, and `bootstrap_ci`; adds the missing random, prompt-only,
   single-model, and rational-Bayesian null baselines.
+- **analysis / experiments (PR #15 — E3 LOIO generalization)** —
+  `twdf/analysis/loio.py`: pure offline leave-one-item-out core
+  `loio_generalization(items: Sequence[LOIOItem], predict_fn, *, seed: int = 42,
+  n_perm: int = 10000) -> LOIOResult`. `LOIOItem(item_id, target, features)` carries the
+  observed axis-1 target for train folds; each held-out fold is exposed to `predict_fn` only as
+  `LOIOHeldoutItem(item_id, features)` with no target. `LOIOResult.to_dict()` reports `n`,
+  `hit_rate`, one-sided binomial `hit_p` vs 0.5, `spearman_rho`, one-sided seeded permutation
+  `spearman_p`, `degenerate`, and a per-item prediction table. n<3 is degenerate plumbing only.
+  `twdf/experiments/e3_loio.py` re-exports these entry points; no τ is learned or frozen here.
 - **experiments (PR #12 — confirmatory runner)** — `twdf/experiments/confirmatory_axis1.py`
   plus `configs/confirmatory_axis1.yaml`: thin multi-provider runner over the frozen confirmatory
   model set `{openai/gpt-4o, openai/gpt-4.1-mini}` and five Bansal AI conditions. The runner only
