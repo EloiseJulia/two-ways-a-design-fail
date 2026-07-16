@@ -506,6 +506,48 @@ and timestamp for every change.
 - **QUOTA STRATEGY needed for axis-1 scaling / full E1:** per-model daily cap ~500; plan
   family-spreading (gpt-4o / Llama-3.3-70B / Phi-4 all had budget) + day-batching + Azure
   fallback BEFORE any large run. Do NOT burn scarce quota on speculative work.
+- **2026-07-16: PR #9 — AzureFoundryProvider (feature/azure-provider branch, CODE + OFFLINE TESTS DONE)**
+  - **Context:** GitHub Models' per-model daily cap (~500/day) blocks powered axis-1 runs. Lever C
+    (quota-strategy.md): Azure AI Foundry / Azure OpenAI have NO daily cap, enabling single-session
+    confirmatory runs.
+  - **Implementation:** `src/twdf/panel/azure_provider.py` — `AzureFoundryProvider` implementing
+    the SAME `ModelProvider` protocol as `GitHubModelsProvider`, making it a DROP-IN replacement.
+    - Two API styles supported (constructor `api_style` parameter):
+      1. `"azure_openai"` (default, Azure OpenAI Service): POST
+         `{endpoint}/openai/deployments/{deployment}/chat/completions?api-version={version}`,
+         header `api-key: {key}`, body has NO `model` field (deployment is in URL).
+      2. `"foundry"` (Azure AI Foundry models-as-a-service): POST `{endpoint}/chat/completions`
+         (or custom `foundry_path`), header `Authorization: Bearer {key}`, body includes `model`.
+    - **Cache mechanism:** Reuses the SAME hashlib-based response cache as `GitHubModelsProvider`
+      (`data/cache/panel/`); cache keys include deployment name to prevent cross-provider collisions.
+      Cross-process determinism verified. hashlib only; builtin `hash()` banned (grep test passes).
+    - **Environment variables (REQUIRED, PI must provision):**
+      - `AZURE_OPENAI_ENDPOINT` (e.g., `https://<resource>.openai.azure.com` or Foundry endpoint)
+      - `AZURE_OPENAI_KEY` (NEVER logged/printed/committed; clear error if missing)
+      - `AZURE_OPENAI_API_VERSION` (defaults to `"2024-10-21"` if not set)
+      - `AZURE_OPENAI_DEPLOYMENT` (optional override; falls back to constructor `deployment` arg)
+    - **Retry logic:** 429/5xx with backoff; NO daily-cap special-case (Azure has no such cap).
+      Optional `inter_call_sleep` (default 0.2s) and `max_retries` (default 5).
+    - **Protocol compliance:** Implements `name`, `generate()`, `generate_messages()`, `get_stats()`
+      exactly per INTERFACES §3. Drop-in replacement for `run_panel`.
+  - **Tests:** `tests/test_azure_provider.py` — 22 offline tests (mocked HTTP, NO real network):
+    - Env var validation (missing vars → clear errors)
+    - `azure_openai` style: URL format (`/deployments/{deployment}/...`), `api-key` header, NO
+      `model` in body, response parsing
+    - `foundry` style: URL format (`/chat/completions`), `Bearer` header, `model` in body, response parsing
+    - Cache determinism: hashlib cache reuse + cross-process subprocess test (byte-identical)
+    - Security: key never in cache files / repr / logs
+    - Protocol compliance: satisfies `ModelProvider` + `run_panel` smoke test
+    - Retry: 429/5xx handling with backoff
+    - hashlib-only: grep `\bhash\(` in code (excluding comments) = 0 violations
+  - **Result:** `pytest -m "not live" tests/test_azure_provider.py` → **22/22 PASSED** (offline).
+    Existing `test_panel_real.py` → **5/5 PASSED** (no regressions).
+  - **Documentation:**
+    - `INTERFACES.md` §8 AS-BUILT updated: AzureFoundryProvider added; env vars; both api styles.
+    - `PROGRESS.md` (this entry): exact env vars PI must set; confirmatory run switches provider.
+    - `docs/plans/azure-setup.md` (NEW): PI provisioning steps (endpoint, key, api-version, deployment names).
+  - **Status:** Code-complete, offline tests GREEN, awaiting PI-provisioned Azure credentials for
+    the confirmatory axis-1 run. NO real API calls made (offline tests only). Ready for audit.
 
 ## Todo (post-gate)
 - [x] S0 code scaffold: package `twdf`, config, logging, run_manifest.
