@@ -243,6 +243,112 @@
 - **Paper implication:** Keeps the E4 axis-2 / H3 compliance-floor measurement clean under the
   corrected renderer. To be re-validated by the fresh E4 run + independent §4.5 methodology audit
   (the placebo design is a documented researcher DoF; length-matched-to-median is the stated choice).
+### D5.3 — BLIND panel↔human correspondence readout implemented before confirmatory panel (PR #11)
+- **What:** Added the pre-specified H1a secondary readout: cross-condition Spearman correlation
+  between panel disagreement per Bansal AI condition and the fixed real-human over-dispersion target
+  in `results/e1_multicond.json`, with permutation p-value, bootstrap CI, Pearson secondary readout,
+  n<3 degenerate guard, and a ceiling-excluded sensitivity analysis.
+- **Why:** Operationalizes the preregistered §1/§4 panel-validity claim before any confirmatory
+  panel data exists. The `Conf.+Adaptive (Expert)` human target has near-zero excess variance at a
+  high mean reliance rate, so it is flagged as a likely ceiling artifact rather than treated as an
+  interpretable low-overdispersion condition.
+- **Paper implication:** The confirmatory run only plugs panel disagreement into a frozen analysis.
+  This does **not** change H1a or the preregistration; it implements an already-specified secondary
+  analysis and makes the ceiling-artifact sensitivity explicit.
+
+---
+
+## Phase 5 — Positioning lock (2026-07-16)
+
+### D5.4 — PAPER POSITIONING LOCKED (PI decision, timestamp 2026-07-16T06:15:38Z)
+- **Locked BEFORE the confirmatory axis-1 run** — precisely so the confirmatory RESULT cannot bias
+  the positioning (a preregistration-of-framing move; parallels the τ/N freeze discipline).
+- **Headline contribution = a METHODOLOGICAL REFRAME, not an effect-size claim:**
+  (1) treat cross-user **variance / over-dispersion** in reliance as the *safety-relevant* dependent
+  variable (vs the prior literature's mean over-reliance effect); (2) a **two-axis pre-deployment
+  triage protocol** — axis-1 (UI design → user-sensitive reliance over-dispersion) + axis-2
+  (systematic over-reliance on a WRONG AI) — that SCREENS human–AI decision interfaces before an
+  expensive human study; **validated by panel↔human correspondence on two real datasets (Bansal,
+  Lu&Yin) + preregistration.**
+- **The empirical signal is the TARGET the method detects, NOT a boast.** Do NOT overclaim the small
+  magnitude (e.g. ρ≈0.067); a small ρ motivates the calibrated threshold / abstention rule, it does
+  not undermine the method. Report confirmatory results regardless of outcome.
+- **Axis-2 dark-pattern BACKFIRE stays a tentative SUPPORTING lead** — promoted to a lead claim ONLY
+  if E4 on the FAITHFUL renderer (D5.1/D5.2) reaches significance.
+- **Head-on defense against the "LLM-simulated users are unreliable proxies" attack** (Seshadri et
+  al., ICLR'26; Santurkar; CoMPosT homogeneity critiques): we TRIAGE designs that need a human study;
+  we do NOT claim to PREDICT individual humans. Calibration + the conflict-conditioned DV
+  (System-1≠AI only) + cross-model triangulation are the technical defenses.
+- **Why:** Verified novelty analysis (`docs/research/2026-07-16-novelty-positioning.md`, 22 primary
+  cites): the dual-axis pre-deployment triage via a real-log-calibrated synthetic panel has no direct
+  prior art (closest neighbor Rastogi 2022/23 optimizes routing, not UI-safety triage).
+- **Paper implication:** Sets the framing of the whole paper (SPEC §2 title/abstract/intro spine).
+  Consistent with the existing C1-PRIMARY structure — a sharpening, not an upheaval. C0 stays a
+  Bansal-specific supporting finding; sequential-feedback stays an open question.
+
+### D5.5 — BLIND confirmatory Axis-1 analysis pipeline implemented (PR #12)
+- **What:** Added the pure offline `twdf.analysis.confirmatory_axis1` pipeline and thin
+  `twdf.experiments.confirmatory_axis1` runner/config for the powered H1a run, before any
+  confirmatory panel data exists.
+- **Why:** Locks the analysis mechanics blind: conflict-conditioned DV, beta-binomial
+  over-dispersion, within-task paired estimator, PR #11 panel↔human correspondence, bootstrap CIs,
+  permutation p-values, BH α=0.05, and per-model reporting for `{openai/gpt-4o, openai/gpt-4.1-mini}`.
+- **Baselines:** Adds random, prompt-only, single-model, and rational-Bayesian null baselines while
+  reusing the existing mean-predictor baseline and over-dispersion/statistical helpers.
+- **Paper implication:** Implements H1a/prereg without changing it. τ_disp/τ_level remain UNFROZEN;
+  null or wrong-signed outcomes remain valid fully populated confirmatory results.
+
+### D5.6 — Atomic UI feature space implemented for Module D calibration (PR #13)
+- **What:** Added `twdf.features.ui_features` with a frozen `UIFeatureVector`, deterministic
+  extraction for all 7 Bansal/panel UI conditions, stable `FEATURE_NAMES`, numeric array encoding,
+  and standardized feature-space distance.
+- **Why:** SPEC §4.3 requires UI designs to be represented as atomic, interpretable
+  cognitive-interaction features so Module D can later learn τ_disp/τ_level and E5 can measure OOD
+  distance in feature space rather than over whole rendered UI surfaces.
+- **Guardrail:** This does **not** learn, freeze, or tune τ. Features are computed only from visible
+  prediction/confidence/explanation/framing and condition semantics, never from `ground_truth`.
+- **Paper implication:** Enables §5/E5 feature-distance analyses and the §6 dual-threshold
+  calibration/abstention protocol while preserving the preregistration discipline that thresholds
+  remain unfrozen until the calibration step.
+
+### D5.7 — Module D calibration/triage machinery implemented; τ still UNFROZEN (PR #14)
+- **What:** Added `twdf.calibration.thresholds` with `fit_thresholds`, `triage`,
+  `ThresholdModel`, `TriageDecision`, precision-at-recall reporting, feature-space OOD/novel-dim
+  abstention, and a `freeze_thresholds` mechanism.
+- **Why:** Operationalizes SPEC §6's dual-threshold pre-deployment screen: either axis over
+  threshold sends a design to human study, both low can release, and uncertainty/OOD/reversal
+  regions abstain to the safe default. The fitting rule favors high recall because a miss means
+  releasing a dangerous design, which is worse than a false alarm.
+- **Guardrail:** τ VALUES remain **UNFROZEN** in this PR. Freshly fitted models have
+  `timestamp=None`; no frozen-τ artifact is written to `results/`. Real freezing is a later,
+  deliberate timestamped step after calibration data including E4 axis-2 are available.
+- **Paper implication:** The protocol machinery now exists for Module D/E5 without violating the
+  preregistered discipline that τ_disp/τ_level must be frozen only once, before threshold results.
+
+### D5.8 — E3 LOIO generalization harness implemented leakage-safe (PR #15)
+- **What:** Added the pure offline `twdf.analysis.loio.loio_generalization()` core plus the
+  `twdf.experiments.e3_loio` public entry points for leave-one-item-out axis-1 generalization.
+- **Why:** Implements SPEC §5 E3 pass criteria: held-out direction hit rate against a 0.5 binomial
+  baseline and predicted-vs-actual Spearman ranking with a seeded permutation p-value.
+- **Guardrail:** The held-out item is passed to predictors only as a target-free view; fitting sees
+  target-bearing train items only, excluding the held-out item. This prevents fitting
+  normalization/threshold/model parameters on the held-out target. n<3 is flagged degenerate.
+- **Paper implication:** Locks the leakage-safe E3 harness mechanics without freezing τ or changing
+  the preregistration.
+
+### D5.9 — E5 reliability layer implemented without freezing τ (PR #16)
+- **What:** Added `twdf.analysis.reliability` with ECE/MCE reliability bins, a generalization
+  gradient/failure-region map over feature distance, difficulty, or persona, a measured reliable
+  radius, and measured abstention-rate reporting.
+- **Why:** SPEC §5/E5 and §6.3–6.4 require the method to quantify where panel predictions are
+  trustworthy, identify high-error regions, and report how often the safe-default abstention rule
+  fires on a design sample.
+- **Guardrail:** The implementation reuses PR #13 `feature_distance` and PR #14
+  `triage`/`ThresholdModel`; it does **not** reinvent feature distance, learn a new triage rule, or
+  freeze τ. Fresh threshold models remain unfrozen until the later logged calibration step.
+- **Paper implication:** E5 can now report calibrated reliability, an applicability radius, and the
+  measured ABSTAIN/HUMAN_STUDY/RELEASE mix supporting the §6.3 abstention rule without changing the
+  preregistered dual-threshold protocol.
 
 ---
 

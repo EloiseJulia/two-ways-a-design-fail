@@ -244,8 +244,96 @@ docs/{plans,research,handoff}/
   `configs/axis1_pilot.yaml`; metrics: cross-condition correlation Spearman + permutation + bootstrap,
   cross-family agreement rank correlations, power-analysis readout; EXPLORATORY ONLY — not confirmatory).
   No single `run_experiment` dispatcher; each experiment is its own module.
-- **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
-  `extract_features`/`UIFeatureVector` are still designs above).
+- **analysis** — `twdf/analysis/panel_human_correspondence.py`: preregistered BLIND H1a secondary
+  readout. `panel_human_condition_correspondence(panel_disagreement_by_condition:
+  dict[str, float], human_overdispersion_path: str | Path = "results/e1_multicond.json", *,
+  seed: int = 42, n_boot: int = 10000, n_perm: int = 10000) -> CorrespondenceResult`.
+  Loads fixed `results.human_overdispersion`, excludes `"Human"`, aligns the five Bansal AI
+  conditions in canonical order, reuses `metrics.overdispersion.condition_correlation` for
+  Spearman + permutation + bootstrap, reports Pearson secondarily, and returns
+  `CorrespondenceResult(shared_conditions, aligned_pairs, spearman_rho, spearman_p, bootstrap_ci,
+  pearson_r, n_conditions, degenerate, ceiling_flags, ceiling_excluded, note)` with `to_dict()`.
+  `Conf.+Adaptive (Expert)` is flagged as a near-ceiling/low-variance human target when the
+  committed E1 JSON is used; `ceiling_excluded` recomputes the same readout without flagged
+  conditions.
+- **features** — `twdf/features/ui_features.py`: §4.3 atomic UI feature space for the 7 rendered
+  Bansal/panel conditions (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`,
+  `Conf.+Adaptive (Expert)`, `Conf.+Placebo`, `Wrong-AI (dark)`). Exposes
+  `@dataclass(frozen=True) UIFeatureVector` with documented JSON `to_dict()`;
+  `extract_ui_features(task: TaskStimulus, ui_condition: str) -> UIFeatureVector`;
+  `FEATURE_NAMES: tuple[str, ...]`; `feature_vector_to_array(v: UIFeatureVector) -> np.ndarray`;
+  and `feature_distance(a: UIFeatureVector, b: UIFeatureVector, *, weights=None) -> float`.
+  `FEATURE_NAMES` order is stable:
+  `has_explanation`, `explanation_source_none`, `explanation_source_lime`,
+  `explanation_source_expert`, `explanation_source_placebo`, `explanation_faithfulness`,
+  `n_highlight_spans`, `info_density`, `shows_predicted_class_only`, `shows_both_classes`,
+  `is_adaptive`, `confidence_shown`, `confidence_value`, `authority_cue`, `wrong_ai`,
+  `explanation_char_len`. Extraction is deterministic, renderer-faithful, and non-leaky
+  (visible prediction/confidence/explanation/framing only; never `ground_truth`). This PR builds
+  feature space and OOD distance only; it does NOT learn or freeze τ.
+- **analysis (PR #12 — confirmatory Axis-1 BLIND pipeline)** —
+  `twdf/analysis/confirmatory_axis1.py`: pure offline H1a analysis accepting panel-response
+  records (`persona_id`, `model`, `task_id`, `ui_condition`, `seed`, `system1_decision`,
+  `final_decision`, `ai_advice`, `relied`, plus AI-correct/task metadata) and a fixed human target
+  path. Returns `ConfirmatoryAxis1Result.to_dict()` with `per_model` results (no pooled primary
+  model-mix estimate), conflict-conditioned beta-binomial over-dispersion + bootstrap CI,
+  difficulty-controlled within-task estimator + CI + paired permutation p, PR #11
+  `panel_human_condition_correspondence`, baseline comparisons, BH-adjusted p-values,
+  aligned per-condition table, cross-model agreement summary, `n`, and
+  `exploratory_vs_confirmatory="CONFIRMATORY"`. Reuses `conflict_conditioned_reliance`,
+  `betabinom_overdispersion`, `baseline_mean_predictor`, `within_task_diff`,
+  `paired_permutation_test`, and `bootstrap_ci`; adds the missing random, prompt-only,
+  single-model, and rational-Bayesian null baselines.
+- **analysis / experiments (PR #15 — E3 LOIO generalization)** —
+  `twdf/analysis/loio.py`: pure offline leave-one-item-out core
+  `loio_generalization(items: Sequence[LOIOItem], predict_fn, *, seed: int = 42,
+  n_perm: int = 10000) -> LOIOResult`. `LOIOItem(item_id, target, features)` carries the
+  observed axis-1 target for train folds; each held-out fold is exposed to `predict_fn` only as
+  `LOIOHeldoutItem(item_id, features)` with no target. `LOIOResult.to_dict()` reports `n`,
+  `hit_rate`, one-sided binomial `hit_p` vs 0.5, `spearman_rho`, one-sided seeded permutation
+  `spearman_p`, `degenerate`, and a per-item prediction table. n<3 is degenerate plumbing only.
+  `twdf/experiments/e3_loio.py` re-exports these entry points; no τ is learned or frozen here.
+- **experiments (PR #12 — confirmatory runner)** — `twdf/experiments/confirmatory_axis1.py`
+  plus `configs/confirmatory_axis1.yaml`: thin multi-provider runner over the frozen confirmatory
+  model set `{openai/gpt-4o, openai/gpt-4.1-mini}` and five Bansal AI conditions. The runner only
+  collects responses with `real_panel.run_panel()` and calls the pure analysis; tests exercise this
+  path with mock providers only (no live/networked calls during the BLIND build).
+- **calibration** — `twdf/calibration/thresholds.py`: Module D dual-threshold machinery for
+  SPEC §6 is implemented. Exposes
+  `CalibrationExample(features: UIFeatureVector, axis1_overdispersion: float,
+  axis2_over_reliance: float, is_dangerous: bool)`,
+  `ThresholdModel(tau_disp, tau_level, calibration_features_ref, ood_radius,
+  target_recall, precision_at_target_recall, achieved_recall, feature_mins,
+  feature_maxs, seed=42, timestamp=None)`,
+  `fit_thresholds(calibration: list[CalibrationExample], *, target_recall: float = 0.9,
+  seed: int = 42) -> ThresholdModel`,
+  `triage(features: UIFeatureVector, axis1_signal: float, axis2_signal: float,
+  model: ThresholdModel, *, reversal_flag: bool = False, ece: float | None = None,
+  ece_threshold: float | None = None) -> TriageDecision`, and
+  `freeze_thresholds(model: ThresholdModel, *, timestamp: str) -> ThresholdModel`.
+  `fit_thresholds` scans dual-axis cutoffs for high recall and reports precision-at-recall;
+  `triage` returns `RELEASE`, `HUMAN_STUDY`, or `ABSTAIN` with abstention for feature-space OOD,
+  novel/uncalibrated dimensions, ECE, or reversal flags. **τ_disp/τ_level remain UNFROZEN on
+  fresh fits (`timestamp is None`); no frozen τ artifact is committed in this PR.**
+- **analysis (PR #16 — E5 reliability/abstention layer)** —
+  `twdf/analysis/reliability.py`: pure offline reliability metrics for SPEC §5/E5 and §6.3–6.4.
+  Exposes
+  `expected_calibration_error(pred_probs, outcomes, *, n_bins=10) -> ECEResult`
+  with weighted equal-width-bin ECE, MCE, and per-bin reliability rows
+  (`bin_index`, `lower`, `upper`, `count`, `mean_confidence`, `empirical_accuracy`,
+  `calibration_error`);
+  `generalization_gradient(records, *, by: str, n_bins: int = 5) -> GradientResult`
+  over `feature_distance`, `difficulty`, `persona`, or another supplied covariate, returning
+  ordered gradient bins with `mean_absolute_error`, ECE/MCE, counts, and a worst-bin
+  `failure_region`;
+  `reliable_radius(records, *, ece_bound, distance_key="feature_distance") -> float`, the largest
+  observed in-radius feature distance whose prefix ECE is within the bound; and
+  `measured_abstention_rate(designs, threshold_model, *, signals) -> AbstentionReport`, which
+  calls Module D `triage` for each design and reports counts/fractions for `ABSTAIN`,
+  `HUMAN_STUDY`, and `RELEASE`. Result dataclasses (`ECEResult`, `GradientResult`,
+  `AbstentionReport`) provide deterministic JSON `to_dict()` shapes. Feature-distance analyses
+  reuse `twdf.features.ui_features.feature_distance`; abstention reuses
+  `twdf.calibration.thresholds.triage`/`ThresholdModel`; this layer does **not** freeze τ.
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
   **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical

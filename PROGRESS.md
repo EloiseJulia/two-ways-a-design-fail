@@ -490,6 +490,37 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **✅ COMPUTE-FREE ANALYSIS STACK COMPLETE (2026-07-16, built BLIND before any confirmatory data):**
+  the full pre-registered pipeline is merged to main and green (34 offline tests across the 6 new
+  modules pass together): **#10** renderer fidelity (D5.1) · **#11** panel↔human correspondence /
+  H1a secondary (D5.3) · **#12** confirmatory axis-1 pipeline / H1a primary (D5.5) · **#13** §4.3
+  atomic UI feature space (D5.6) · **#14** Module D τ-calibration + triage + abstention (D5.7,
+  τ UNFROZEN) · **#15** E3 LOIO generalization harness (D5.8) · **#16** E5 ECE/reliable-radius/
+  abstention-rate (D5.9). τ_disp/τ_level remain UNFROZEN throughout (freeze is a later timestamped
+  step needing E4 axis-2 data). Positioning LOCKED (D5.4). **Remaining work is all COMPUTE-GATED**
+  (E4 run, power-N, confirmatory, τ freeze, cross-vendor) — driven by Schedule #1.
+- **✅ MERGED PR #13 §4.3 atomic UI feature space (b6d8435, DECISIONS D5.6):** `twdf.features.ui_features`
+  (`UIFeatureVector` + `extract_ui_features` + `FEATURE_NAMES` + `feature_vector_to_array` +
+  `feature_distance`) for all 7 conditions — the feature space where τ is LATER learned (Module D).
+  Does NOT freeze τ; no ground-truth leakage; renderer-faithful. Audit PASS + Manager verify.
+- **✅ MERGED PR #12 confirmatory axis-1 (H1a) pipeline (7a4cbdb, DECISIONS D5.5):** BLIND pre-specified
+  primary analysis — `twdf.analysis.confirmatory_axis1` (conflict-conditioned DV, beta-binomial
+  over-dispersion, within-task estimator, PR #11 correspondence, 4 baselines + rational-Bayes null each
+  beaten w/ bootstrap CI, permutation, BH α=0.05, PER-MODEL) + thin runner + `configs/confirmatory_axis1.yaml`
+  ({gpt-4o, gpt-4.1-mini}). Reports regardless of outcome; τ UNFROZEN. Audit PASS + Manager verify.
+  **⇒ the confirmatory analysis is READY; the run is one command once compute is available.**
+- **⚙️ AUTO-RESUME SCHEDULE #1 ACTIVE (cron `5 */4 * * *`, 2026-07-16):** every 4h a tick wakes the
+  Manager to probe per-model daily quota; if budget → auto-advance the top compute-gated task below
+  (E4 first) through audit+merge; if capped → silently wait. HOLDS for a PI checkpoint before the
+  CONFIRMATORY launch. Fires automatically only while the Copilot CLI session is running; stop via
+  `manage_schedule stop id=1`.
+- **✅ MERGED PR #11 panel↔human correspondence (08a4121, 2026-07-16, DECISIONS D5.3):** pre-registered
+  H1a secondary readout built BLIND — `twdf.analysis.panel_human_condition_correspondence` cross-condition
+  Spearman of panel disagreement vs REAL human over-dispersion (target = results/e1_multicond.json:
+  Conf.=0.0206, Single=0.0109, Double=0.0263, Adaptive=0.0139, Adaptive(Expert)=0.0000), permutation +
+  bootstrap over 5 conditions, n<3 guard, ceiling flag (Adaptive(Expert) excess_var≈0) + 4-condition
+  sensitivity. Independent audit PASS + Manager verify (perfect→ρ=1 p<0.05; true reversal→ρ=−1; n=2
+  degenerate). Confirmatory just plugs panel disagreement in.
 - **✅ MERGED PR #10 renderer fidelity (2e8935b, 2026-07-16, DECISIONS D5.1):** corrected
   render_ui_condition to FAITHFUL Bansal semantics — `Conf.+Single`=predicted-class LIME spans only,
   `Conf.+Double`=both classes, `Conf.+Adaptive`=fixed median-conf threshold (beer 0.892 / amzbook
@@ -511,18 +542,18 @@ and timestamp for every change.
   multi-provider loop, power-analysis readout. Provider-stability limitation documented (D4.6/D4.8).
   Power-N (prereg §8) still PENDING. Non-blocking nits to firm up: cross-*model* freeze test trivial
   (constant mock); "cross-process" determinism test runs in-process.
-- **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ f670b97, DRAFT — NOT merged):**
-  - Code COMPLETE + 8/8 offline tests (placebo content-free-tested; System-1 frozen across all 4
-    conditions control/faithful/placebo/wrong-AI; compliance-floor + compliance-adjusted axis-2).
-  - REAL RUN PARTIAL: 193/450 were cached on gpt-4.1-mini, but **that cache is now INVALID** —
-    PR #10 changed the `Conf.+Adaptive (Expert)` (faithful) prompt, so E4 must **RE-RUN FRESH** on
-    the corrected renderer (~450 calls on gpt-4.1-mini; fits one daily window).
-  - **RESUME (manual — no auto-schedule):** after gpt-4.1-mini daily reset (~15:50 local 2026-07-16;
-    both gpt-4o+gpt-4.1-mini verified 429 UserByModelByDay, Retry-After ~18585s), bridge token,
-    REBASE the e4-compliance branch onto current main (to pick up the faithful renderer), then
-    `python -u -m twdf.experiments.e4_compliance --config configs/e4_compliance.yaml` from the
-    e4-compliance worktree (full fresh run). Then audit
-    (`.prompts/audit-e4-compliance.md`) → Manager verify → merge.
+- **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ ac6015f — PREPPED, awaiting compute):**
+  - Code COMPLETE + **8/8 offline tests pass on the faithful renderer** (placebo content-free; System-1
+    frozen across all 4 conditions control/faithful/placebo/wrong-AI; compliance-floor + adjusted axis-2).
+  - **PREPPED 2026-07-16 (Manager #3):** merged `main` into the branch → now uses the PR #10 FAITHFUL
+    renderer; resolved bansal_tasks.py conflict (kept faithful Single/Double/Adaptive + E4's detailed
+    placebo, deduped); **re-matched the placebo length to the shorter faithful expert render (D5.2)**;
+    55/57 blast-radius offline tests pass (2 skipped live). Old 193-call cache is stale (harmless).
+  - **RUN FRESH when gpt-4.1-mini daily bucket resets (~15:50 local 2026-07-16 est; both gpt-4o+
+    gpt-4.1-mini were 429 UserByModelByDay, Retry-After ~18585s at 10:40):** bridge token, then from the
+    e4-compliance worktree `python -u -m twdf.experiments.e4_compliance --config configs/e4_compliance.yaml`
+    (~450 calls, gpt-4.1-mini). Then independent audit (`.prompts/audit-e4-compliance.md`, incl. §4.5 +
+    the placebo-length DoF) → Manager verify → merge.
   - READ OUT: H3 compliance floor (control < placebo < faithful, conflict-conditioned) + formal axis-2
     over_reliance_level on wrong-AI (+ compliance-adjusted).
 - **CONFIRMATORY axis-1 (H1a) — the PRIMARY (C1) deliverable, NOT yet run.** Per prereg amendment
