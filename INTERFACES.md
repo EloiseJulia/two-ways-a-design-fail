@@ -187,6 +187,17 @@ docs/{plans,research,handoff}/
   retry with exponential backoff, call budget. **NEW (E2):** `model_name` parameter added
   to `GitHubModelsProvider.__init__()` (supports per-model caching + model switching on quota);
   429 cooldown capped at 120s (fails fast on daily quota exhaustion instead of sleeping ~13h).
+  **NEW (PR #9 — Azure provider):** `twdf/panel/azure_provider.py`: `AzureFoundryProvider`
+  implementing the SAME `ModelProvider` protocol, making it a DROP-IN replacement for
+  `GitHubModelsProvider`. Supports two API styles: (1) `"azure_openai"` (Azure OpenAI Service,
+  deployment in URL, api-key header, NO model field in body); (2) `"foundry"` (Azure AI Foundry
+  models-as-a-service, model in body, Bearer token). Reuses the SAME hashlib-based cache
+  mechanism as GitHub provider (cache keys include deployment name to prevent collisions).
+  Azure has NO per-model daily cap (Lever C, quota-strategy.md), enabling powered single-session
+  axis-1 runs. Environment variables: `AZURE_OPENAI_ENDPOINT` (required, endpoint URL),
+  `AZURE_OPENAI_KEY` (required, NEVER logged/committed), `AZURE_OPENAI_API_VERSION` (defaults
+  to `"2024-10-21"`), `AZURE_OPENAI_DEPLOYMENT` (optional override). Offline tests pass (22/22);
+  cross-process cache determinism verified. See `docs/plans/azure-setup.md` for PI provisioning steps.
   `twdf/panel/real_panel.py`: `run_panel()` implementing INTERFACES §3 exactly, dual-system
   flow (System-1 no-AI anchor → System-2 with AI + UI intervention), counterfactual pairing
   (System-1 frozen across UI arms), reliance definition aligned with Bansal adoption.
@@ -195,10 +206,23 @@ docs/{plans,research,handoff}/
   (control, treatment, dark); dual-system flow runs for ALL conditions; System-1 frozen invariant
   tested across all 3. **NEW (E2 — Fix D):** `render_ui_condition()` in bansal_tasks.py handles
   "Wrong-AI (dark)" condition (renders WRONG label: 1 - ai_pred, with pseudo-high conf + oppressive
-  framing). **NEW (E4 — 4-condition support + placebo):** `ui_pair` now accepts 4-tuple; 
-  `render_ui_condition()` handles "Conf.+Placebo" condition (content-free explanation: present, 
-  matched in format to faithful, but NO task-specific decision-relevant content; generic boilerplate 
-  only, identical across tasks by construction).
+  framing). **NEW (PR #8 — axis-1 multi-family pilot):** `ui_pair` now accepts tuple of 5 Bansal
+  AI conditions (multi-condition support); `render_ui_condition()` handles all 5 Bansal AI conditions
+  (`Conf.`, `Conf.+Single`, `Conf.+Double`, `Conf.+Adaptive`, `Conf.+Adaptive (Expert)`) via
+  class-based extractors over raw Bansal HTML (`system_highlights` uses unquoted
+  `<span class=class0>` token spans; `expert_highlights_html` uses single-quoted
+  `<span class='class0'>` phrase spans). `Conf.+Single` shows ALL spans for the predicted label
+  (`class{ai_pred}`); `Conf.+Double` shows ALL class0 and class1 spans; both preserve document order
+  with direction labels (`class1` = supporting positive, `class0` = supporting negative).
+  `Conf.+Adaptive` and `Conf.+Adaptive (Expert)` use fixed domain median-confidence thresholds
+  (`beer`=0.892, `amzbook`=0.889): high confidence (`conf >= threshold`) uses Single, low confidence
+  uses Double; missing domains raise an error. `TaskStimulus` retains backward-compatible
+  `expert_explanation` and adds `expert_highlights_html` for raw class-tagged expert spans.
+  Multi-provider run loop in `axis1_pilot.py` iterates model list, runs panel per model, System-1
+  frozen across all 5 conditions AND models (tested). **NEW (E4 — 4-condition support + placebo):**
+  `ui_pair` now accepts a 4-tuple; `render_ui_condition()` also handles "Conf.+Placebo" (content-free
+  explanation: present, matched in format to faithful, but NO task-specific decision-relevant content;
+  generic boilerplate, identical across tasks by construction).
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
   (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
@@ -215,6 +239,10 @@ docs/{plans,research,handoff}/
   formalizes H3 compliance floor + axis-2 sensor; config `configs/e4_compliance.yaml`; 
   compliance-adjusted axis-2 = over_reliance_level − placebo_floor; System-1 frozen across all 4 
   conditions; 15 items, 6 personas, gpt-4.1-mini; full response serialization).
+  **NEW (PR #8):** `axis1_pilot` (EXPLORATORY multi-family axis-1 pilot, 5 Bansal AI conditions,
+  multi-provider run loop iterates models, System-1 frozen across conditions AND models; config
+  `configs/axis1_pilot.yaml`; metrics: cross-condition correlation Spearman + permutation + bootstrap,
+  cross-family agreement rank correlations, power-analysis readout; EXPLORATORY ONLY — not confirmatory).
   No single `run_experiment` dispatcher; each experiment is its own module.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).
@@ -224,3 +252,13 @@ docs/{plans,research,handoff}/
   responses excluding manifest timestamp).
   **PR #6 verified:** Cross-process determinism for bansal_discriminator (bit-identical
   stable_user_share across separate runs, excluding timestamp; tested via subprocess rerun).
+- **AzureFoundryProvider (PR #9, MERGED):** `twdf/panel/azure_provider.py` — drop-in
+  `ModelProvider` for Azure OpenAI (`azure_openai` style: deployment in URL, `api-key` header,
+  no `model` in body) + Azure AI Foundry (`foundry` style: `{endpoint}/chat/completions`,
+  `Authorization: Bearer`, `model` in body). Env creds `AZURE_OPENAI_ENDPOINT/KEY/API_VERSION/
+  DEPLOYMENT`; replicated hashlib cache (deployment in key). Uncapped confirmatory path.
+- **UNMERGED (branch-only) additions to be reconciled on merge:** E4's placebo renderer
+  (`Conf.+Placebo`) + 4-condition experiment live on `feature/e4-compliance` (PR #7, NOT merged).
+  The 5 Bansal-condition renderers and the multi-provider run loop with **skip-on-cap** resilience
+  were merged via PR #8 and corrected on PR #10 from token-count heuristics to the class-based
+  semantics described above.

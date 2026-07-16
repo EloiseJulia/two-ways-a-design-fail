@@ -11,6 +11,7 @@ Verifies testid→questionId join with Bansal decision CSV.
 import json
 import re
 import urllib.request
+from html import unescape
 from pathlib import Path
 from typing import Optional
 from dataclasses import dataclass
@@ -27,11 +28,17 @@ class TaskStimulus:
     ground_truth: int  # Correct answer (Y)
     ai_pred: int  # AI prediction
     ai_conf: float  # AI confidence
-    expert_explanation: str  # Expert-highlighted explanation HTML
-    system: str  # AI system name
+    expert_explanation: str  # Expert-highlighted explanation (clean text with **bold**)
+    system_highlights: str = ""  # LIME system highlights HTML (raw, for rendering)
     
     # Original fields for reference
-    testid: str  # Original test ID from task JSON
+    testid: str = ""  # Original test ID from task JSON
+    expert_highlights_html: str = ""  # Expert highlights HTML (raw, preserves class tags)
+    system: str = ""  # Backward-compatible alias for old test fixtures
+
+    def __post_init__(self) -> None:
+        if self.system and not self.system_highlights:
+            self.system_highlights = self.system
 
 
 # Task stimulus URLs (verified 2026-07-15)
@@ -39,6 +46,12 @@ TASK_URLS = {
     'beer': 'https://raw.githubusercontent.com/uw-hai/Complementary-Performance/main/task-examples/task-sentiment-beer.json',
     'amzbook': 'https://raw.githubusercontent.com/uw-hai/Complementary-Performance/main/task-examples/task-sentiment-amzbook.json',
     'lsat': 'https://raw.githubusercontent.com/uw-hai/Complementary-Performance/main/task-examples/task-lsat.json',
+}
+
+
+ADAPTIVE_CONF_THRESHOLD = {
+    "beer": 0.892,
+    "amzbook": 0.889,
 }
 
 
@@ -80,6 +93,71 @@ def _extract_text_from_html(html: str) -> str:
     text = text.strip()
     
     return text
+
+
+def adaptive_conf_threshold(domain: str) -> float:
+    """Return the fixed Bansal median-confidence threshold for a task domain."""
+    try:
+        return ADAPTIVE_CONF_THRESHOLD[domain]
+    except KeyError as exc:
+        raise ValueError(
+            f"No adaptive confidence threshold configured for domain '{domain}'. "
+            f"Known domains: {sorted(ADAPTIVE_CONF_THRESHOLD)}"
+        ) from exc
+
+
+def _format_highlights(matches: list[tuple[str, str]], unavailable: str) -> str:
+    if not matches:
+        return unavailable
+
+    highlight_texts = []
+    for cls, text in matches:
+        direction = "supporting positive" if cls == "class1" else "supporting negative"
+        clean_text = re.sub(r"\s+", " ", unescape(text)).strip()
+        highlight_texts.append(f'  - "{clean_text}" ({direction})')
+
+    return "Key phrases identified by the AI model:\n" + "\n".join(highlight_texts)
+
+
+def _extract_lime_highlights(system_html: str, target_classes: set[str]) -> str:
+    """
+    Extract all LIME system highlights for the requested label classes.
+    
+    LIME highlights are token-level: `<span class=class0>` (negative) or `<span class=class1>` (positive).
+    Selection is by class label, not by token count: Single shows all predicted-class
+    spans; Double shows all class0 and class1 spans, preserving document order.
+    """
+    if not system_html:
+        return "(No explanation available)"
+    
+    highlight_pattern = r"<span class=(class[01])>([^<]+)</span>"
+    matches = [
+        (cls, text)
+        for cls, text in re.findall(highlight_pattern, system_html)
+        if cls in target_classes
+    ]
+    
+    return _format_highlights(matches, "(No matching LIME highlights available)")
+
+
+def _extract_expert_highlights(expert_html: str, target_classes: set[str]) -> str:
+    """
+    Extract expert phrase spans for the requested classes from raw expert HTML.
+
+    Expert highlights use single-quoted class attributes, e.g.
+    `<span class='class0'>phrase</span>`.
+    """
+    if not expert_html:
+        return "(No expert explanation available)"
+
+    highlight_pattern = r"<span class='(class[01])'>([^<]+)</span>"
+    matches = [
+        (cls, text)
+        for cls, text in re.findall(highlight_pattern, expert_html)
+        if cls in target_classes
+    ]
+
+    return _format_highlights(matches, "(No matching expert highlights available)")
 
 
 def load_beer_tasks(data_dir: Optional[Path] = None,
@@ -128,8 +206,9 @@ def load_beer_tasks(data_dir: Optional[Path] = None,
             ai_pred=int(item['pred']),
             ai_conf=float(item['conf']),
             expert_explanation=_extract_text_from_html(item['expert']),
-            system=item['system'],
+            system_highlights=item['system'],  # Raw LIME HTML
             testid=testid,
+            expert_highlights_html=item['expert'],
         )
         
         tasks[task_id] = task
@@ -221,34 +300,77 @@ def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     """
     Render task stimulus for a specific UI condition.
     
-    UI Conditions:
+    UI Conditions (5 Bansal AI conditions + 2 control/dark):
     - "Conf.": AI prediction + confidence, NO explanation (Bansal exact string)
-    - "Conf.+Adaptive (Expert)": AI prediction + confidence + expert explanation (Bansal exact)
-    - "Conf.+Placebo": AI prediction + confidence + PLACEBO explanation (NEW E4, H3 compliance floor)
-    - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (Fix D)
+    - "Conf.+Single": AI prediction + confidence + all predicted-class LIME spans
+    - "Conf.+Double": AI prediction + confidence + all class0 and class1 LIME spans
+    - "Conf.+Adaptive": high confidence uses Single; low confidence uses Double
+    - "Conf.+Adaptive (Expert)": same adaptive class rule on expert phrase spans
+    - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (NEW, Fix D)
+    - "Conf.+Placebo": AI prediction + confidence + content-free placebo (E4 H3 compliance floor)
+    
+    Bansal label-explanation semantics:
+        class1 = positive evidence; class0 = negative evidence; class{ai_pred}
+        is the predicted-class explanation. Adaptive threshold is the fixed
+        domain median classifier confidence (beer=0.892, amzbook=0.889).
     
     Args:
         task: Task stimulus
-        ui_condition: UI condition name
+        ui_condition: UI condition name (exact Bansal string)
     
     Returns:
         Rendered UI content string
     """
+    # All conditions start with AI prediction + confidence
+    base_content = f"""AI Prediction: {task.ai_pred}
+AI Confidence: {task.ai_conf:.2%}"""
+    
     if ui_condition == "Conf.":
-        # Control: prediction + confidence only
-        return f"""AI Prediction: {task.ai_pred}
-AI Confidence: {task.ai_conf:.2%}
+        # Control: prediction + confidence only, NO explanation
+        return f"""{base_content}
+
+Task:
+{task.text}"""
+    
+    elif ui_condition == "Conf.+Single":
+        target_classes = {f"class{task.ai_pred}"}
+        highlights = _extract_lime_highlights(task.system_highlights, target_classes)
+        return f"""{base_content}
+
+{highlights}
+
+Task:
+{task.text}"""
+    
+    elif ui_condition == "Conf.+Double":
+        highlights = _extract_lime_highlights(task.system_highlights, {"class0", "class1"})
+        return f"""{base_content}
+
+{highlights}
+
+Task:
+{task.text}"""
+    
+    elif ui_condition == "Conf.+Adaptive":
+        threshold = adaptive_conf_threshold(task.domain)
+        target_classes = {f"class{task.ai_pred}"} if task.ai_conf >= threshold else {"class0", "class1"}
+        highlights = _extract_lime_highlights(task.system_highlights, target_classes)
+        return f"""{base_content}
+
+{highlights}
 
 Task:
 {task.text}"""
     
     elif ui_condition == "Conf.+Adaptive (Expert)":
-        # Faithful: prediction + confidence + expert explanation
-        return f"""AI Prediction: {task.ai_pred}
-AI Confidence: {task.ai_conf:.2%}
+        threshold = adaptive_conf_threshold(task.domain)
+        target_classes = {f"class{task.ai_pred}"} if task.ai_conf >= threshold else {"class0", "class1"}
+        expert_html = task.expert_highlights_html or task.expert_explanation
+        highlights = _extract_expert_highlights(expert_html, target_classes)
+        return f"""{base_content}
 
 Explanation (Expert highlights):
-{task.expert_explanation}
+{highlights}
 
 Task:
 {task.text}"""
@@ -305,4 +427,5 @@ Your decision carries full responsibility. Choose wisely."""
     
     else:
         raise ValueError(f"Unknown UI condition: {ui_condition}. "
-                        f"Valid: 'Conf.', 'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)'")
+                        f"Valid: 'Conf.', 'Conf.+Single', 'Conf.+Double', 'Conf.+Adaptive', "
+                        f"'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)'")

@@ -17,7 +17,9 @@ relied = (final_decision == ai_advice) AND
 
 UI CONDITIONS (Bansal exact strings):
 - "Conf.": AI pred + conf, NO explanation
-- "Conf.+Adaptive (Expert)": AI pred + conf + expert explanation (highlights)
+- "Conf.+Single"/"Conf.+Double": AI pred + conf + predicted-label/all-label LIME spans
+- "Conf.+Adaptive"/"Conf.+Adaptive (Expert)": median-confidence threshold chooses
+  predicted-label-only vs both-label highlights
 """
 
 import re
