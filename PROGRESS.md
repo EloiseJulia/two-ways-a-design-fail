@@ -511,18 +511,18 @@ and timestamp for every change.
   multi-provider loop, power-analysis readout. Provider-stability limitation documented (D4.6/D4.8).
   Power-N (prereg §8) still PENDING. Non-blocking nits to firm up: cross-*model* freeze test trivial
   (constant mock); "cross-process" determinism test runs in-process.
-- **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ f670b97, DRAFT — NOT merged):**
-  - Code COMPLETE + 8/8 offline tests (placebo content-free-tested; System-1 frozen across all 4
-    conditions control/faithful/placebo/wrong-AI; compliance-floor + compliance-adjusted axis-2).
-  - REAL RUN PARTIAL: 193/450 were cached on gpt-4.1-mini, but **that cache is now INVALID** —
-    PR #10 changed the `Conf.+Adaptive (Expert)` (faithful) prompt, so E4 must **RE-RUN FRESH** on
-    the corrected renderer (~450 calls on gpt-4.1-mini; fits one daily window).
-  - **RESUME (manual — no auto-schedule):** after gpt-4.1-mini daily reset (~15:50 local 2026-07-16;
-    both gpt-4o+gpt-4.1-mini verified 429 UserByModelByDay, Retry-After ~18585s), bridge token,
-    REBASE the e4-compliance branch onto current main (to pick up the faithful renderer), then
-    `python -u -m twdf.experiments.e4_compliance --config configs/e4_compliance.yaml` from the
-    e4-compliance worktree (full fresh run). Then audit
-    (`.prompts/audit-e4-compliance.md`) → Manager verify → merge.
+- **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ ac6015f — PREPPED, awaiting compute):**
+  - Code COMPLETE + **8/8 offline tests pass on the faithful renderer** (placebo content-free; System-1
+    frozen across all 4 conditions control/faithful/placebo/wrong-AI; compliance-floor + adjusted axis-2).
+  - **PREPPED 2026-07-16 (Manager #3):** merged `main` into the branch → now uses the PR #10 FAITHFUL
+    renderer; resolved bansal_tasks.py conflict (kept faithful Single/Double/Adaptive + E4's detailed
+    placebo, deduped); **re-matched the placebo length to the shorter faithful expert render (D5.2)**;
+    55/57 blast-radius offline tests pass (2 skipped live). Old 193-call cache is stale (harmless).
+  - **RUN FRESH when gpt-4.1-mini daily bucket resets (~15:50 local 2026-07-16 est; both gpt-4o+
+    gpt-4.1-mini were 429 UserByModelByDay, Retry-After ~18585s at 10:40):** bridge token, then from the
+    e4-compliance worktree `python -u -m twdf.experiments.e4_compliance --config configs/e4_compliance.yaml`
+    (~450 calls, gpt-4.1-mini). Then independent audit (`.prompts/audit-e4-compliance.md`, incl. §4.5 +
+    the placebo-length DoF) → Manager verify → merge.
   - READ OUT: H3 compliance floor (control < placebo < faithful, conflict-conditioned) + formal axis-2
     over_reliance_level on wrong-AI (+ compliance-adjusted).
 - **CONFIRMATORY axis-1 (H1a) — the PRIMARY (C1) deliverable, NOT yet run.** Per prereg amendment
