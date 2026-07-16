@@ -284,29 +284,46 @@ def main():
             inter_call_sleep=inter_call_sleep
         )
         
-        # Run panel (System-1 frozen across all conditions)
-        # ui_pair is actually a list/tuple of all conditions
-        model_responses = run_panel(
-            personas=personas,
-            tasks=task_list,
-            ui_pair=tuple(ui_conditions),  # All 5 conditions
-            providers=[provider],
-            seeds=seeds,
-            mode="static"
-        )
-        
+        # Run panel (System-1 frozen across all conditions).
+        # RESILIENCE: if this model hits its per-model DAILY cap, SKIP it (log +
+        # record as incomplete) and continue to the next model. The response cache
+        # preserves any completed calls, so a later day-batched rerun resumes for
+        # free. Only a daily-cap RuntimeError is swallowed; other errors re-raise.
+        try:
+            model_responses = run_panel(
+                personas=personas,
+                tasks=task_list,
+                ui_pair=tuple(ui_conditions),  # All 5 conditions
+                providers=[provider],
+                seeds=seeds,
+                mode="static"
+            )
+        except RuntimeError as e:
+            msg = str(e)
+            if ("daily quota" in msg) or ("UserByModelByDay" in msg) or ("cooldown" in msg):
+                stats = provider.get_stats()
+                provider_stats[model_name] = {**stats, "capped": True, "complete": False}
+                print(f"\n⚠️  Model {model_name} hit its DAILY cap "
+                      f"(api_calls={stats['api_calls']}, cache_hits={stats['cache_hits']}). "
+                      f"SKIPPING this model; cache preserves progress for a later rerun.")
+                continue
+            raise
+
         all_responses.extend(model_responses)
         
         # Collect stats
         stats = provider.get_stats()
-        provider_stats[model_name] = stats
+        provider_stats[model_name] = {**stats, "capped": False, "complete": True}
         print(f"\nModel {model_name} stats:")
         print(f"  API calls: {stats['api_calls']}")
         print(f"  Cache hits: {stats['cache_hits']}")
         print(f"  Total requests: {stats['total_requests']}")
-    
+
+    completed_models = [m for m, s in provider_stats.items() if s.get("complete")]
+    capped_models = [m for m, s in provider_stats.items() if s.get("capped")]
     print(f"\n{'='*60}")
-    print(f"All models complete. Total responses: {len(all_responses)}")
+    print(f"Models complete: {completed_models} | capped/skipped: {capped_models}")
+    print(f"Total responses: {len(all_responses)}")
     print(f"{'='*60}\n")
     
     # Compute metrics

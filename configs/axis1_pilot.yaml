@@ -18,10 +18,14 @@
 experiment_name: "axis1_pilot"
 description: "EXPLORATORY multi-family axis-1 pilot (5 Bansal AI conditions, 3 model families)"
 
-# Model families (fresh daily budget as of 2026-07-15)
-# Each model has its OWN per-user-per-model-per-day budget ~500
+# Model families (EXPLORATORY choice; fresh daily budget as of 2026-07-16).
+# NOTE: gpt-4o is swapped out for gpt-4.1-mini here ONLY because gpt-4o's per-model
+# DAILY cap is tier-small (~200) and was exhausted; this is the EXPLORATORY pilot, so
+# the model set is flexible and does NOT touch the FROZEN confirmatory model set
+# (gpt-4o/Llama-3.3-70B/Phi-4 in docs/plans/preregistration-axis1.md). Skip-on-cap
+# resilience means any model that hits its daily cap is skipped, not crashed.
 models:
-  - "openai/gpt-4o"
+  - "openai/gpt-4.1-mini"
   - "meta/Llama-3.3-70B-Instruct"
   - "microsoft/Phi-4"
 
