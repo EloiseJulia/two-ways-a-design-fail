@@ -2,7 +2,7 @@
 Tests for Axis-1 Multi-Family EXPLORATORY Pilot (Module E5).
 
 CRITICAL TESTS (OFFLINE ONLY, MOCK PROVIDERS):
-1. 5-condition renderer tests (each produces DISTINCT content)
+1. 5-condition renderer tests (faithful Bansal class/threshold semantics)
 2. Multi-provider loop with 2-3 MOCK providers (System-1 FROZEN across conditions AND models)
 3. Cross-condition correlation + cross-family agreement on synthetic data (STRONG thresholds)
 4. Cross-process determinism (subprocess pattern)
@@ -29,7 +29,12 @@ import numpy as np
 from twdf.panel.stub import Persona, AgentResponse
 from twdf.panel.provider import ModelProvider, GitHubModelsProvider
 from twdf.panel.real_panel import run_panel
-from twdf.data.bansal_tasks import TaskStimulus, render_ui_condition
+from twdf.data.bansal_tasks import (
+    ADAPTIVE_CONF_THRESHOLD,
+    TaskStimulus,
+    adaptive_conf_threshold,
+    render_ui_condition,
+)
 from twdf.metrics.overdispersion import condition_correlation, bootstrap_ci
 
 
@@ -83,24 +88,28 @@ class MockProvider(ModelProvider):
 
 # ===== TEST 1: 5-CONDITION RENDERERS =====
 
-def test_5_condition_renderers_distinct():
+def test_5_condition_renderers_faithful():
     """
-    Test that all 5 Bansal AI condition renderers produce DISTINCT content.
-    
-    CRITICAL: Each condition MUST render differently to isolate the UI effect.
+    Test that all 5 Bansal AI renderers implement faithful class-based semantics.
     """
-    # Create mock task with all fields
-    # Use conf < 0.8 to ensure Adaptive doesn't show all highlights
     task = TaskStimulus(
         task_id="test_1",
         domain="beer",
         text="This is a test review.",
         ground_truth=1,
         ai_pred=0,
-        ai_conf=0.75,  # Lower than 0.8 to test adaptive logic
-        expert_explanation="Expert says **this is good**.",
-        system_highlights="<span class=class1>test</span> <span class=class0>review</span> <span class=class1>good</span>",
-        testid="123"
+        ai_conf=0.75,
+        expert_explanation="Expert says negative and positive.",
+        system_highlights=(
+            "<span class=class1>positive-token</span> "
+            "<span class=class0>negative-token-a</span> "
+            "<span class=class0>negative-token-b</span>"
+        ),
+        testid="123",
+        expert_highlights_html=(
+            "<span class='class0'>negative expert phrase</span> "
+            "<span class='class1'>positive expert phrase</span>"
+        ),
     )
     
     # Render all 5 conditions
@@ -114,11 +123,6 @@ def test_5_condition_renderers_distinct():
     
     renderings = {cond: render_ui_condition(task, cond) for cond in conditions}
     
-    # Check: all distinct
-    unique_renderings = set(renderings.values())
-    assert len(unique_renderings) == 5, \
-        f"Expected 5 distinct renderings, got {len(unique_renderings)}"
-    
     # Check: Conf. has NO explanation (just pred + conf + task)
     conf_rendering = renderings["Conf."]
     assert "AI Prediction:" in conf_rendering
@@ -128,36 +132,30 @@ def test_5_condition_renderers_distinct():
     assert "Key phrases" not in conf_rendering
     assert "Explanation" not in conf_rendering
     
-    # Check: Conf.+Single has ONE highlight
+    # Check: Conf.+Single has ALL predicted-class spans and no counter-class span.
     single_rendering = renderings["Conf.+Single"]
     assert "Key phrases" in single_rendering
-    # Count bullet points (proxy for number of highlights)
-    # Should have exactly 1
-    assert single_rendering.count("  - ") == 1
+    assert "negative-token-a" in single_rendering
+    assert "negative-token-b" in single_rendering
+    assert "positive-token" not in single_rendering
     
-    # Check: Conf.+Double has TWO highlights
+    # Check: Conf.+Double has both classes.
     double_rendering = renderings["Conf.+Double"]
     assert "Key phrases" in double_rendering
-    assert double_rendering.count("  - ") == 2
+    assert "negative-token-a" in double_rendering
+    assert "positive-token" in double_rendering
     
-    # Check: Conf.+Adaptive has highlights (adaptive-N, could be all or subset)
+    # Low-confidence adaptive is identical to Double.
     adaptive_rendering = renderings["Conf.+Adaptive"]
-    assert "Key phrases" in adaptive_rendering
-    # At least 1 highlight, and should be different from Double
-    assert adaptive_rendering.count("  - ") >= 1
-    # Should be DIFFERENT from Double
-    assert adaptive_rendering != double_rendering
+    assert adaptive_rendering == double_rendering
     
-    # Check: Conf.+Adaptive (Expert) uses expert_explanation
+    # Low-confidence expert adaptive shows both expert phrases.
     expert_rendering = renderings["Conf.+Adaptive (Expert)"]
     assert "Explanation (Expert highlights):" in expert_rendering
-    assert "Expert says" in expert_rendering  # From expert_explanation field
+    assert "negative expert phrase" in expert_rendering
+    assert "positive expert phrase" in expert_rendering
     
-    # Check: Single ⊂ Double in highlight count (or documented ordering)
-    # Single should have 1, Double should have 2
-    assert single_rendering.count("  - ") < double_rendering.count("  - ")
-    
-    print("✅ All 5 condition renderers produce DISTINCT content")
+    print("✅ All 5 condition renderers implement faithful class semantics")
 
 
 def test_no_ground_truth_leakage_in_explanations():
@@ -175,7 +173,8 @@ def test_no_ground_truth_leakage_in_explanations():
         ai_conf=0.90,
         expert_explanation="This is negative.",
         system_highlights="<span class=class0>negative</span>",
-        testid="456"
+        testid="456",
+        expert_highlights_html="<span class='class0'>negative expert phrase</span>",
     )
     
     conditions = [
@@ -212,8 +211,8 @@ def test_no_ground_truth_leakage_in_explanations():
 
 
 def test_lime_highlight_extraction():
-    """Test LIME highlight extraction via renderer."""
-    task_single = TaskStimulus(
+    """Test class-based LIME highlight extraction via renderer."""
+    task_pred0 = TaskStimulus(
         task_id="lime_test",
         domain="beer",
         text="Test",
@@ -221,27 +220,117 @@ def test_lime_highlight_extraction():
         ai_pred=0,
         ai_conf=0.80,
         expert_explanation="Expert",
-        system_highlights='<span class=class1>good</span> and <span class=class0>bad</span> parts',
-        testid="123"
+        system_highlights=(
+            '<span class=class1>good</span> and '
+            '<span class=class0>bad</span> parts '
+            '<span class=class0>skunky</span>'
+        ),
+        testid="123",
     )
     
-    # Top-1 (Conf.+Single)
-    top1 = render_ui_condition(task_single, "Conf.+Single")
-    assert "good" in top1
-    # Should only show first highlight
-    assert top1.count("  - ") == 1
+    # Single selects all predicted-class spans (class0) and suppresses class1.
+    single_pred0 = render_ui_condition(task_pred0, "Conf.+Single")
+    assert "bad" in single_pred0
+    assert "skunky" in single_pred0
+    assert "good" not in single_pred0
     
-    # Top-2 (Conf.+Double)
-    top2 = render_ui_condition(task_single, "Conf.+Double")
-    assert "good" in top2
-    assert "bad" in top2
-    assert top2.count("  - ") == 2
+    # Flipping pred flips selected class.
+    task_pred1 = TaskStimulus(
+        task_id="lime_test_flip",
+        domain="beer",
+        text="Test",
+        ground_truth=0,
+        ai_pred=1,
+        ai_conf=0.80,
+        expert_explanation="Expert",
+        system_highlights=task_pred0.system_highlights,
+        testid="124",
+    )
+    single_pred1 = render_ui_condition(task_pred1, "Conf.+Single")
+    assert "good" in single_pred1
+    assert "bad" not in single_pred1
     
-    # Adaptive (Conf.+Adaptive)
-    adaptive = render_ui_condition(task_single, "Conf.+Adaptive")
-    assert "good" in adaptive or "bad" in adaptive
+    # Double selects both classes.
+    double = render_ui_condition(task_pred0, "Conf.+Double")
+    assert "good" in double
+    assert "bad" in double
+    assert "skunky" in double
     
-    print("✅ LIME highlight extraction works correctly")
+    print("✅ Class-based LIME highlight extraction works correctly")
+
+
+def test_adaptive_thresholds_and_missing_domain():
+    """Test fixed adaptive median-confidence thresholds."""
+    assert ADAPTIVE_CONF_THRESHOLD["beer"] == 0.892
+    assert ADAPTIVE_CONF_THRESHOLD["amzbook"] == 0.889
+    assert adaptive_conf_threshold("beer") == 0.892
+    assert adaptive_conf_threshold("amzbook") == 0.889
+
+    task = TaskStimulus(
+        task_id="unknown_domain",
+        domain="lsat",
+        text="Test",
+        ground_truth=0,
+        ai_pred=0,
+        ai_conf=0.90,
+        expert_explanation="Expert",
+        system_highlights="<span class=class0>neg</span>",
+        testid="u",
+    )
+
+    with pytest.raises(ValueError, match="No adaptive confidence threshold"):
+        render_ui_condition(task, "Conf.+Adaptive")
+
+
+def test_adaptive_lime_high_conf_single_low_conf_double():
+    """Adaptive LIME uses Single for high confidence and Double for low confidence."""
+    base_kwargs = dict(
+        task_id="adaptive_lime",
+        domain="beer",
+        text="Test",
+        ground_truth=0,
+        ai_pred=1,
+        expert_explanation="Expert",
+        system_highlights=(
+            "<span class=class0>negative-token</span> "
+            "<span class=class1>positive-token-a</span> "
+            "<span class=class1>positive-token-b</span>"
+        ),
+        testid="a",
+    )
+    high = TaskStimulus(ai_conf=0.95, **base_kwargs)
+    low = TaskStimulus(ai_conf=0.80, **base_kwargs)
+
+    assert render_ui_condition(high, "Conf.+Adaptive") == render_ui_condition(high, "Conf.+Single")
+    assert render_ui_condition(low, "Conf.+Adaptive") == render_ui_condition(low, "Conf.+Double")
+
+
+def test_adaptive_expert_single_quoted_span_parsing():
+    """Adaptive Expert parses single-quoted class spans and applies the same threshold rule."""
+    base_kwargs = dict(
+        task_id="adaptive_expert",
+        domain="beer",
+        text="Test",
+        ground_truth=0,
+        ai_pred=1,
+        expert_explanation="Clean expert text",
+        system_highlights="<span class=class1>positive-token</span>",
+        testid="e",
+        expert_highlights_html=(
+            "<p>Review <span class='class0'>negative expert phrase</span> "
+            "and <span class='class1'>positive expert phrase</span>.</p>"
+        ),
+    )
+    high = TaskStimulus(ai_conf=0.95, **base_kwargs)
+    low = TaskStimulus(ai_conf=0.80, **base_kwargs)
+
+    high_rendering = render_ui_condition(high, "Conf.+Adaptive (Expert)")
+    assert "positive expert phrase" in high_rendering
+    assert "negative expert phrase" not in high_rendering
+
+    low_rendering = render_ui_condition(low, "Conf.+Adaptive (Expert)")
+    assert "positive expert phrase" in low_rendering
+    assert "negative expert phrase" in low_rendering
 
 
 # ===== TEST 2: MULTI-PROVIDER LOOP =====
