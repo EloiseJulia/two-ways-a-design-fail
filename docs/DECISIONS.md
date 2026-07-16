@@ -322,6 +322,20 @@
 - **Paper implication:** Locks the leakage-safe E3 harness mechanics without freezing τ or changing
   the preregistration.
 
+### D5.9 — E5 reliability layer implemented without freezing τ (PR #16)
+- **What:** Added `twdf.analysis.reliability` with ECE/MCE reliability bins, a generalization
+  gradient/failure-region map over feature distance, difficulty, or persona, a measured reliable
+  radius, and measured abstention-rate reporting.
+- **Why:** SPEC §5/E5 and §6.3–6.4 require the method to quantify where panel predictions are
+  trustworthy, identify high-error regions, and report how often the safe-default abstention rule
+  fires on a design sample.
+- **Guardrail:** The implementation reuses PR #13 `feature_distance` and PR #14
+  `triage`/`ThresholdModel`; it does **not** reinvent feature distance, learn a new triage rule, or
+  freeze τ. Fresh threshold models remain unfrozen until the later logged calibration step.
+- **Paper implication:** E5 can now report calibrated reliability, an applicability radius, and the
+  measured ABSTAIN/HUMAN_STUDY/RELEASE mix supporting the §6.3 abstention rule without changing the
+  preregistered dual-threshold protocol.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
