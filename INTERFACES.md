@@ -237,6 +237,18 @@ docs/{plans,research,handoff}/
   `configs/axis1_pilot.yaml`; metrics: cross-condition correlation Spearman + permutation + bootstrap,
   cross-family agreement rank correlations, power-analysis readout; EXPLORATORY ONLY — not confirmatory).
   No single `run_experiment` dispatcher; each experiment is its own module.
+- **analysis** — `twdf/analysis/panel_human_correspondence.py`: preregistered BLIND H1a secondary
+  readout. `panel_human_condition_correspondence(panel_disagreement_by_condition:
+  dict[str, float], human_overdispersion_path: str | Path = "results/e1_multicond.json", *,
+  seed: int = 42, n_boot: int = 10000, n_perm: int = 10000) -> CorrespondenceResult`.
+  Loads fixed `results.human_overdispersion`, excludes `"Human"`, aligns the five Bansal AI
+  conditions in canonical order, reuses `metrics.overdispersion.condition_correlation` for
+  Spearman + permutation + bootstrap, reports Pearson secondarily, and returns
+  `CorrespondenceResult(shared_conditions, aligned_pairs, spearman_rho, spearman_p, bootstrap_ci,
+  pearson_r, n_conditions, degenerate, ceiling_flags, ceiling_excluded, note)` with `to_dict()`.
+  `Conf.+Adaptive (Expert)` is flagged as a near-ceiling/low-variance human target when the
+  committed E1 JSON is used; `ceiling_excluded` recomputes the same readout without flagged
+  conditions.
 - **calibration / features** — NOT YET IMPLEMENTED (`fit_thresholds`, `triage`,
   `extract_features`/`UIFeatureVector` are still designs above).
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
