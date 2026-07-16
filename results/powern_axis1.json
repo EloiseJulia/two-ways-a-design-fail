@@ -1,0 +1,846 @@
+{
+  "aligned_per_condition_table": [
+    {
+      "condition": "Conf.",
+      "conflict_conditioned_reliance": 0.3870967741935484,
+      "conflict_fraction": 0.8611111111111112,
+      "model": "openai/gpt-4.1-mini",
+      "n_conflict": 31,
+      "n_total": 36,
+      "overdispersion_excess_variance": -0.042179167956516814,
+      "overdispersion_mean_p": 0.3870967741935484,
+      "overdispersion_rho": 1.0037305930631128e-06,
+      "panel_disagreement": 0.0037407407407407424,
+      "per_cell_counts": {
+        "expert_cautious|Conf.": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "expert_confident|Conf.": {
+          "conflict_fraction": 0.6666666666666666,
+          "n_conflict": 4,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=999": 0.3333333333333333,
+        "expert_confident|seed=999": 0.5,
+        "moderate_ai_literate|seed=999": 0.4,
+        "moderate_balanced|seed=999": 0.3333333333333333,
+        "novice_skeptical|seed=999": 0.4,
+        "novice_trusting|seed=999": 0.4
+      },
+      "unconditional_reliance": 0.4722222222222222
+    },
+    {
+      "condition": "Conf.+Adaptive",
+      "conflict_conditioned_reliance": 0.3548387096774194,
+      "conflict_fraction": 0.8611111111111112,
+      "model": "openai/gpt-4.1-mini",
+      "n_conflict": 31,
+      "n_total": 36,
+      "overdispersion_excess_variance": -0.03434572086772415,
+      "overdispersion_mean_p": 0.3548387096774194,
+      "overdispersion_rho": 1.0037305930631128e-06,
+      "panel_disagreement": 0.009962962962962962,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive": {
+          "conflict_fraction": 0.6666666666666666,
+          "n_conflict": 4,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=999": 0.3333333333333333,
+        "expert_confident|seed=999": 0.5,
+        "moderate_ai_literate|seed=999": 0.2,
+        "moderate_balanced|seed=999": 0.3333333333333333,
+        "novice_skeptical|seed=999": 0.4,
+        "novice_trusting|seed=999": 0.4
+      },
+      "unconditional_reliance": 0.4444444444444444
+    },
+    {
+      "condition": "Conf.+Adaptive (Expert)",
+      "conflict_conditioned_reliance": 0.3548387096774194,
+      "conflict_fraction": 0.8611111111111112,
+      "model": "openai/gpt-4.1-mini",
+      "n_conflict": 31,
+      "n_total": 36,
+      "overdispersion_excess_variance": -0.03434572086772415,
+      "overdispersion_mean_p": 0.3548387096774194,
+      "overdispersion_rho": 1.0037305930631128e-06,
+      "panel_disagreement": 0.009962962962962962,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.6666666666666666,
+          "n_conflict": 4,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=999": 0.3333333333333333,
+        "expert_confident|seed=999": 0.5,
+        "moderate_ai_literate|seed=999": 0.2,
+        "moderate_balanced|seed=999": 0.3333333333333333,
+        "novice_skeptical|seed=999": 0.4,
+        "novice_trusting|seed=999": 0.4
+      },
+      "unconditional_reliance": 0.4444444444444444
+    },
+    {
+      "condition": "Conf.+Double",
+      "conflict_conditioned_reliance": 0.3548387096774194,
+      "conflict_fraction": 0.8611111111111112,
+      "model": "openai/gpt-4.1-mini",
+      "n_conflict": 31,
+      "n_total": 36,
+      "overdispersion_excess_variance": -0.03434572086772415,
+      "overdispersion_mean_p": 0.3548387096774194,
+      "overdispersion_rho": 1.0037305930631128e-06,
+      "panel_disagreement": 0.009962962962962962,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Double": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Double": {
+          "conflict_fraction": 0.6666666666666666,
+          "n_conflict": 4,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Double": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Double": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Double": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Double": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=999": 0.3333333333333333,
+        "expert_confident|seed=999": 0.5,
+        "moderate_ai_literate|seed=999": 0.2,
+        "moderate_balanced|seed=999": 0.3333333333333333,
+        "novice_skeptical|seed=999": 0.4,
+        "novice_trusting|seed=999": 0.4
+      },
+      "unconditional_reliance": 0.4444444444444444
+    },
+    {
+      "condition": "Conf.+Single",
+      "conflict_conditioned_reliance": 0.3548387096774194,
+      "conflict_fraction": 0.8611111111111112,
+      "model": "openai/gpt-4.1-mini",
+      "n_conflict": 31,
+      "n_total": 36,
+      "overdispersion_excess_variance": -0.03434572086772415,
+      "overdispersion_mean_p": 0.3548387096774194,
+      "overdispersion_rho": 1.0037305930631128e-06,
+      "panel_disagreement": 0.009962962962962962,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Single": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Single": {
+          "conflict_fraction": 0.6666666666666666,
+          "n_conflict": 4,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Single": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Single": {
+          "conflict_fraction": 1.0,
+          "n_conflict": 6,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Single": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Single": {
+          "conflict_fraction": 0.8333333333333334,
+          "n_conflict": 5,
+          "n_total": 6,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=999": 0.3333333333333333,
+        "expert_confident|seed=999": 0.5,
+        "moderate_ai_literate|seed=999": 0.2,
+        "moderate_balanced|seed=999": 0.3333333333333333,
+        "novice_skeptical|seed=999": 0.4,
+        "novice_trusting|seed=999": 0.4
+      },
+      "unconditional_reliance": 0.4444444444444444
+    }
+  ],
+  "cross_model_agreement": {
+    "mean_pairwise_correlation": null,
+    "note": "Cross-model agreement is descriptive only; primary H1a numbers are per-model, not pooled.",
+    "pairwise_rank_correlations": {}
+  },
+  "exploratory_vs_confirmatory": "CONFIRMATORY",
+  "n": {
+    "conditions": 5,
+    "items": 6,
+    "models": 1,
+    "personas": 6,
+    "responses": 180,
+    "seeds": 1
+  },
+  "per_model": {
+    "openai/gpt-4.1-mini": {
+      "aligned_per_condition_table": [
+        {
+          "condition": "Conf.",
+          "conflict_conditioned_reliance": 0.3870967741935484,
+          "conflict_fraction": 0.8611111111111112,
+          "model": "openai/gpt-4.1-mini",
+          "n_conflict": 31,
+          "n_total": 36,
+          "overdispersion_excess_variance": -0.042179167956516814,
+          "overdispersion_mean_p": 0.3870967741935484,
+          "overdispersion_rho": 1.0037305930631128e-06,
+          "panel_disagreement": 0.0037407407407407424,
+          "per_cell_counts": {
+            "expert_cautious|Conf.": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "expert_confident|Conf.": {
+              "conflict_fraction": 0.6666666666666666,
+              "n_conflict": 4,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=999": 0.3333333333333333,
+            "expert_confident|seed=999": 0.5,
+            "moderate_ai_literate|seed=999": 0.4,
+            "moderate_balanced|seed=999": 0.3333333333333333,
+            "novice_skeptical|seed=999": 0.4,
+            "novice_trusting|seed=999": 0.4
+          },
+          "unconditional_reliance": 0.4722222222222222
+        },
+        {
+          "condition": "Conf.+Adaptive",
+          "conflict_conditioned_reliance": 0.3548387096774194,
+          "conflict_fraction": 0.8611111111111112,
+          "model": "openai/gpt-4.1-mini",
+          "n_conflict": 31,
+          "n_total": 36,
+          "overdispersion_excess_variance": -0.03434572086772415,
+          "overdispersion_mean_p": 0.3548387096774194,
+          "overdispersion_rho": 1.0037305930631128e-06,
+          "panel_disagreement": 0.009962962962962962,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive": {
+              "conflict_fraction": 0.6666666666666666,
+              "n_conflict": 4,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=999": 0.3333333333333333,
+            "expert_confident|seed=999": 0.5,
+            "moderate_ai_literate|seed=999": 0.2,
+            "moderate_balanced|seed=999": 0.3333333333333333,
+            "novice_skeptical|seed=999": 0.4,
+            "novice_trusting|seed=999": 0.4
+          },
+          "unconditional_reliance": 0.4444444444444444
+        },
+        {
+          "condition": "Conf.+Adaptive (Expert)",
+          "conflict_conditioned_reliance": 0.3548387096774194,
+          "conflict_fraction": 0.8611111111111112,
+          "model": "openai/gpt-4.1-mini",
+          "n_conflict": 31,
+          "n_total": 36,
+          "overdispersion_excess_variance": -0.03434572086772415,
+          "overdispersion_mean_p": 0.3548387096774194,
+          "overdispersion_rho": 1.0037305930631128e-06,
+          "panel_disagreement": 0.009962962962962962,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.6666666666666666,
+              "n_conflict": 4,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=999": 0.3333333333333333,
+            "expert_confident|seed=999": 0.5,
+            "moderate_ai_literate|seed=999": 0.2,
+            "moderate_balanced|seed=999": 0.3333333333333333,
+            "novice_skeptical|seed=999": 0.4,
+            "novice_trusting|seed=999": 0.4
+          },
+          "unconditional_reliance": 0.4444444444444444
+        },
+        {
+          "condition": "Conf.+Double",
+          "conflict_conditioned_reliance": 0.3548387096774194,
+          "conflict_fraction": 0.8611111111111112,
+          "model": "openai/gpt-4.1-mini",
+          "n_conflict": 31,
+          "n_total": 36,
+          "overdispersion_excess_variance": -0.03434572086772415,
+          "overdispersion_mean_p": 0.3548387096774194,
+          "overdispersion_rho": 1.0037305930631128e-06,
+          "panel_disagreement": 0.009962962962962962,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Double": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Double": {
+              "conflict_fraction": 0.6666666666666666,
+              "n_conflict": 4,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Double": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Double": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Double": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Double": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=999": 0.3333333333333333,
+            "expert_confident|seed=999": 0.5,
+            "moderate_ai_literate|seed=999": 0.2,
+            "moderate_balanced|seed=999": 0.3333333333333333,
+            "novice_skeptical|seed=999": 0.4,
+            "novice_trusting|seed=999": 0.4
+          },
+          "unconditional_reliance": 0.4444444444444444
+        },
+        {
+          "condition": "Conf.+Single",
+          "conflict_conditioned_reliance": 0.3548387096774194,
+          "conflict_fraction": 0.8611111111111112,
+          "model": "openai/gpt-4.1-mini",
+          "n_conflict": 31,
+          "n_total": 36,
+          "overdispersion_excess_variance": -0.03434572086772415,
+          "overdispersion_mean_p": 0.3548387096774194,
+          "overdispersion_rho": 1.0037305930631128e-06,
+          "panel_disagreement": 0.009962962962962962,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Single": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Single": {
+              "conflict_fraction": 0.6666666666666666,
+              "n_conflict": 4,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Single": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Single": {
+              "conflict_fraction": 1.0,
+              "n_conflict": 6,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Single": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Single": {
+              "conflict_fraction": 0.8333333333333334,
+              "n_conflict": 5,
+              "n_total": 6,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=999": 0.3333333333333333,
+            "expert_confident|seed=999": 0.5,
+            "moderate_ai_literate|seed=999": 0.2,
+            "moderate_balanced|seed=999": 0.3333333333333333,
+            "novice_skeptical|seed=999": 0.4,
+            "novice_trusting|seed=999": 0.4
+          },
+          "unconditional_reliance": 0.4444444444444444
+        }
+      ],
+      "baseline_comparisons": {
+        "mean_predictor": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.053333333333333344,
+          "name": "mean_predictor",
+          "note": "Reuses baseline_mean_predictor; rho=0 by construction.",
+          "signal_estimate": 0.02777777777777778,
+          "value": 0.0
+        },
+        "prompt_only": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.053333333333333344,
+          "name": "prompt_only",
+          "note": "Single prompt/no persona panel has no between-persona disagreement axis.",
+          "signal_estimate": 0.02777777777777778,
+          "value": 0.0
+        },
+        "random": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.053333333333333344,
+          "name": "random",
+          "note": "Deterministic zero-effect random-label null for within-task paired disagreement.",
+          "signal_estimate": 0.02777777777777778,
+          "value": 0.0
+        },
+        "rational_bayes_null": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.053333333333333344,
+          "name": "rational_bayes_null",
+          "note": "Appropriate-reliance anchor: rely iff AI advice is correct; no human-outcome predictor.",
+          "signal_estimate": 0.02777777777777778,
+          "value": 0.0
+        },
+        "single_model": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.053333333333333344,
+          "name": "single_model",
+          "note": "No cross-model triangulation null; primary estimates are still reported per model.",
+          "signal_estimate": 0.02777777777777778,
+          "value": 0.0
+        }
+      },
+      "bh_adjusted_pvalues": {
+        "cross_condition_correspondence": {
+          "adjusted_p": 1.0,
+          "raw_p": 0.7982,
+          "reject_alpha_0_05": false
+        },
+        "within_task_permutation": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        }
+      },
+      "conflict_conditioned_overdispersion": {
+        "ci_lower": 1.0037305930631128e-06,
+        "ci_upper": 1.004763000551251e-06,
+        "estimate": 1.0037305930631128e-06,
+        "se": 2.447299192802487e-10
+      },
+      "cross_condition_correspondence": {
+        "aligned_pairs": [
+          {
+            "condition": "Conf.",
+            "human_rho": 0.020583163509343493,
+            "panel_disagreement": 0.0037407407407407424
+          },
+          {
+            "condition": "Conf.+Single",
+            "human_rho": 0.010937384512127986,
+            "panel_disagreement": 0.009962962962962962
+          },
+          {
+            "condition": "Conf.+Double",
+            "human_rho": 0.02631770361415474,
+            "panel_disagreement": 0.009962962962962962
+          },
+          {
+            "condition": "Conf.+Adaptive",
+            "human_rho": 0.013900013992197854,
+            "panel_disagreement": 0.009962962962962962
+          },
+          {
+            "condition": "Conf.+Adaptive (Expert)",
+            "human_rho": 1.0184936385059485e-06,
+            "panel_disagreement": 0.009962962962962962
+          }
+        ],
+        "bootstrap_ci": [
+          -1.0,
+          0.3952847075210474
+        ],
+        "ceiling_excluded": {
+          "aligned_pairs": [
+            {
+              "condition": "Conf.",
+              "human_rho": 0.020583163509343493,
+              "panel_disagreement": 0.0037407407407407424
+            },
+            {
+              "condition": "Conf.+Single",
+              "human_rho": 0.010937384512127986,
+              "panel_disagreement": 0.009962962962962962
+            },
+            {
+              "condition": "Conf.+Double",
+              "human_rho": 0.02631770361415474,
+              "panel_disagreement": 0.009962962962962962
+            },
+            {
+              "condition": "Conf.+Adaptive",
+              "human_rho": 0.013900013992197854,
+              "panel_disagreement": 0.009962962962962962
+            }
+          ],
+          "bootstrap_ci": [
+            -1.0,
+            1.0
+          ],
+          "ceiling_excluded": null,
+          "ceiling_flags": {
+            "Conf.": {
+              "empirical_var": 0.012899246718194085,
+              "excess_var": 0.009042681749574278,
+              "flagged": false,
+              "mean_p": 0.812666076173605,
+              "reason": null
+            },
+            "Conf.+Adaptive": {
+              "empirical_var": 0.011497467401026218,
+              "excess_var": 0.007555983797902837,
+              "flagged": false,
+              "mean_p": 0.8063094209161625,
+              "reason": null
+            },
+            "Conf.+Double": {
+              "empirical_var": 0.01336372127501853,
+              "excess_var": 0.009290484819894602,
+              "flagged": false,
+              "mean_p": 0.79964317573595,
+              "reason": null
+            },
+            "Conf.+Single": {
+              "empirical_var": 0.010167516641065029,
+              "excess_var": 0.006383202888379256,
+              "flagged": false,
+              "mean_p": 0.8189608021877849,
+              "reason": null
+            }
+          },
+          "degenerate": false,
+          "n_conditions": 4,
+          "note": null,
+          "pearson_r": -0.25617207406987186,
+          "shared_conditions": [
+            "Conf.",
+            "Conf.+Single",
+            "Conf.+Double",
+            "Conf.+Adaptive"
+          ],
+          "spearman_p": 1.0,
+          "spearman_rho": -0.2581988897471611
+        },
+        "ceiling_flags": {
+          "Conf.": {
+            "empirical_var": 0.012899246718194085,
+            "excess_var": 0.009042681749574278,
+            "flagged": false,
+            "mean_p": 0.812666076173605,
+            "reason": null
+          },
+          "Conf.+Adaptive": {
+            "empirical_var": 0.011497467401026218,
+            "excess_var": 0.007555983797902837,
+            "flagged": false,
+            "mean_p": 0.8063094209161625,
+            "reason": null
+          },
+          "Conf.+Adaptive (Expert)": {
+            "empirical_var": 0.002877689664287602,
+            "excess_var": 3.6022517299096057e-06,
+            "flagged": true,
+            "mean_p": 0.8248979591836735,
+            "reason": "excess_var<0.0001; mean_p near boundary with tiny empirical_var (|mean_p-0.5|>=0.3, empirical_var<0.005)"
+          },
+          "Conf.+Double": {
+            "empirical_var": 0.01336372127501853,
+            "excess_var": 0.009290484819894602,
+            "flagged": false,
+            "mean_p": 0.79964317573595,
+            "reason": null
+          },
+          "Conf.+Single": {
+            "empirical_var": 0.010167516641065029,
+            "excess_var": 0.006383202888379256,
+            "flagged": false,
+            "mean_p": 0.8189608021877849,
+            "reason": null
+          }
+        },
+        "degenerate": false,
+        "n_conditions": 5,
+        "note": null,
+        "pearson_r": -0.34864272141036823,
+        "shared_conditions": [
+          "Conf.",
+          "Conf.+Single",
+          "Conf.+Double",
+          "Conf.+Adaptive",
+          "Conf.+Adaptive (Expert)"
+        ],
+        "spearman_p": 0.7982,
+        "spearman_rho": -0.35355339059327373
+      },
+      "model": "openai/gpt-4.1-mini",
+      "within_task_estimator": {
+        "ci_lower": 0.0,
+        "ci_upper": 0.053333333333333344,
+        "estimate": 0.02777777777777778,
+        "permutation": {
+          "n_pairs": 6,
+          "n_permutations": 10000,
+          "observed_diff": 0.02777777777777778,
+          "pvalue": 1.0
+        },
+        "se": 0.018578128281345523
+      }
+    }
+  }
+}

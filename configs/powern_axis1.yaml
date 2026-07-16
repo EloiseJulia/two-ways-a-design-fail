@@ -1,0 +1,89 @@
+# EXPLORATORY power-N pass for the confirmatory Axis-1 (H1a).
+# PURPOSE: estimate effect size + variance ONLY, to size the confirmatory N (prereg §8).
+# NOT confirmatory. Kept SEPARATE from the confirmatory run: single stable model (fits one
+# daily bucket), SEPARATE item-selection seed (999) and run seed (999) so its items/data do
+# NOT overlap the confirmatory (seed 42). Faithful renderer (D5.1) is automatic on main.
+
+experiment_name: "powern_axis1"
+description: "EXPLORATORY power-N pass (effect+variance estimate to size confirmatory H1a) — NOT confirmatory"
+
+models:
+  - "openai/gpt-4.1-mini"
+
+ui_conditions:
+  - "Conf."
+  - "Conf.+Single"
+  - "Conf.+Double"
+  - "Conf.+Adaptive"
+  - "Conf.+Adaptive (Expert)"
+
+control_condition: "Conf."
+treatment_condition: "Conf.+Adaptive (Expert)"
+human_overdispersion_path: "results/e1_multicond.json"
+
+n_items: 6
+item_selection:
+  n_items: 6
+  prefer_ai_wrong: 0.5
+  prefer_low_conf: 0.3
+  prefer_high_variance: 0.2
+  seed: 999
+
+personas:
+  - persona_id: "novice_trusting"
+    domain_skill: 0.2
+    ai_literacy: 0.8
+    risk_sensitivity: 0.3
+    caution: 0.7
+    temperature: 0.7
+    prior_mix: 0.5
+  - persona_id: "novice_skeptical"
+    domain_skill: 0.2
+    ai_literacy: 0.3
+    risk_sensitivity: 0.3
+    caution: 0.7
+    temperature: 0.7
+    prior_mix: 0.5
+  - persona_id: "expert_cautious"
+    domain_skill: 0.8
+    ai_literacy: 0.5
+    risk_sensitivity: 0.8
+    caution: 0.8
+    temperature: 0.5
+    prior_mix: 0.3
+  - persona_id: "expert_confident"
+    domain_skill: 0.8
+    ai_literacy: 0.5
+    risk_sensitivity: 0.2
+    caution: 0.3
+    temperature: 0.5
+    prior_mix: 0.3
+  - persona_id: "moderate_balanced"
+    domain_skill: 0.5
+    ai_literacy: 0.5
+    risk_sensitivity: 0.5
+    caution: 0.5
+    temperature: 0.6
+    prior_mix: 0.5
+  - persona_id: "moderate_ai_literate"
+    domain_skill: 0.5
+    ai_literacy: 0.8
+    risk_sensitivity: 0.5
+    caution: 0.5
+    temperature: 0.6
+    prior_mix: 0.5
+
+seeds: [999]
+mode: "static"
+cache_dir: "data/cache/panel"
+provider:
+  call_budget: 300
+  inter_call_sleep: 0.8
+  max_retries: 5
+
+analysis:
+  seed: 999
+  n_boot: 10000
+  n_perm: 10000
+
+output_file: "results/powern_axis1.json"
