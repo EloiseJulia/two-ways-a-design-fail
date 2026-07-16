@@ -490,6 +490,19 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **✅ MERGED PR #10 renderer fidelity (2e8935b, 2026-07-16, DECISIONS D5.1):** corrected
+  render_ui_condition to FAITHFUL Bansal semantics — `Conf.+Single`=predicted-class LIME spans only,
+  `Conf.+Double`=both classes, `Conf.+Adaptive`=fixed median-conf threshold (beer 0.892 / amzbook
+  0.889) gating Single↔Double, `Conf.+Adaptive (Expert)`=same rule on single-quoted expert
+  phrase-spans; class1=positive/class0=negative; added `expert_highlights_html`. Replaces the prior
+  token-COUNT misinterpretation BEFORE the confirmatory H1a run (prereg §3). Research
+  `research-bansal-conditions` (paper quotes) + Manager verified beer median conf=0.892. Independent
+  audit PASS + real-data verify; blast-radius tests 47/47. **⇒ the PR #8 "firm up renderer
+  heuristics before confirmatory" item is now DONE.** Open cosmetic nit: expert-condition reuses the
+  "identified by the AI model" header (wording only; no science/leakage impact).
+  **⚠️ CACHE IMPACT:** the `Conf.+Adaptive (Expert)` prompt changed ⇒ E4's 193-call cache is
+  INVALIDATED; E4 must RE-RUN FRESH (~450 calls) on the corrected renderer. PR#4 numbers were
+  old-renderer exploratory.
 - **✅ MERGED PR #8 axis1-pilot EXPLORATORY infra (ff69ce0, 2026-07-16):** stale branch first
   brought up to date with `main` (a raw squash would have DELETED azure_provider.py / DECISIONS.md /
   handoff / prereg — caught). Independent audit PASS + Manager verify (additive-only diff, no
@@ -501,17 +514,18 @@ and timestamp for every change.
 - **⏸ PR #7 E4 axis-2 sensor + placebo (branch `feature/e4-compliance` @ f670b97, DRAFT — NOT merged):**
   - Code COMPLETE + 8/8 offline tests (placebo content-free-tested; System-1 frozen across all 4
     conditions control/faithful/placebo/wrong-AI; compliance-floor + compliance-adjusted axis-2).
-  - REAL RUN PARTIAL: **193/450 cached on gpt-4.1-mini** (verified in worktree). Provider failed fast + cached.
+  - REAL RUN PARTIAL: 193/450 were cached on gpt-4.1-mini, but **that cache is now INVALID** —
+    PR #10 changed the `Conf.+Adaptive (Expert)` (faithful) prompt, so E4 must **RE-RUN FRESH** on
+    the corrected renderer (~450 calls on gpt-4.1-mini; fits one daily window).
   - **RESUME (manual — no auto-schedule):** after gpt-4.1-mini daily reset (~15:50 local 2026-07-16;
-    both gpt-4o+gpt-4.1-mini verified 429 UserByModelByDay, Retry-After ~18585s), bridge token +
+    both gpt-4o+gpt-4.1-mini verified 429 UserByModelByDay, Retry-After ~18585s), bridge token,
+    REBASE the e4-compliance branch onto current main (to pick up the faithful renderer), then
     `python -u -m twdf.experiments.e4_compliance --config configs/e4_compliance.yaml` from the
-    e4-compliance worktree (cache covers 193; ~257 remain). Then audit
+    e4-compliance worktree (full fresh run). Then audit
     (`.prompts/audit-e4-compliance.md`) → Manager verify → merge.
   - READ OUT: H3 compliance floor (control < placebo < faithful, conflict-conditioned) + formal axis-2
     over_reliance_level on wrong-AI (+ compliance-adjusted).
 - **CONFIRMATORY axis-1 (H1a) — the PRIMARY (C1) deliverable, NOT yet run.** Per prereg amendment
-  2026-07-16T02:29:50Z: run on STABLE OpenAI family **{gpt-4o, gpt-4.1-mini}**, DAY-BATCHED across
-  their separate daily buckets (free; no Azure dependency). Steps: clean power-N pass → fill prereg §8
   2026-07-16T02:29:50Z: run on STABLE OpenAI family **{gpt-4o, gpt-4.1-mini}**, DAY-BATCHED across
   their separate daily buckets (free; no Azure dependency). Steps: clean power-N pass → fill prereg §8
   + freeze N + τ discipline BEFORE results → confirmatory (beta-binomial over-dispersion on conflict DV
