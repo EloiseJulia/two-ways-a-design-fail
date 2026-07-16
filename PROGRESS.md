@@ -584,6 +584,18 @@ and timestamp for every change.
 - AI hallucinated numbers: trust only re-run raw output.
 
 ## Merge log
+- **2026-07-16 — PR #9 `azure-provider` (AzureFoundryProvider) SQUASH-MERGED to main
+  (commit 5cd179b).**
+  - Flow: impl-azure-provider (no API; drop-in ModelProvider vs Azure OpenAI + Foundry api
+    styles, env creds, replicated hashlib cache w/ deployment in key, 22 offline mock tests,
+    docs/plans/azure-setup.md) → independent audit **PASS** (8/8, no blockers; verified both
+    api styles, key never leaked, cache no-collision, GitHubModelsProvider untouched) →
+    Manager verify (22/22 azure + 5/5 GitHub regression, worktree clean) → merged.
+  - UNLOCKS: the confirmatory axis-1 run WITHOUT the GitHub Models daily cap. PI must set
+    AZURE_OPENAI_ENDPOINT / AZURE_OPENAI_KEY / AZURE_OPENAI_API_VERSION + deployment names
+    (see docs/plans/azure-setup.md); recommend one `pytest -m live` cred check (~$0.001)
+    before the confirmatory run. Non-blocking note: cache logic is replicated (future
+    refactor to a shared base class).
 - **2026-07-15 — PR #6 `bansal-discriminator` (C0 mechanism test) SQUASH-MERGED to main
   (commit 50250e6).**
   - Flow: impl-bansal-discriminator (zero-API; matched-subset split-half; produced an
