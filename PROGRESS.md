@@ -490,6 +490,16 @@ and timestamp for every change.
   - **MERGE STATUS:** Ready for independent audit + Manager verification. Tests pass, determinism verified, docs updated.
 
 ## Doing (Manager #3 takeover 2026-07-16 — see docs/handoff/2026-07-16-manager-handoff.md + docs/DECISIONS.md)
+- **✅ MERGED PR #13 §4.3 atomic UI feature space (b6d8435, DECISIONS D5.6):** `twdf.features.ui_features`
+  (`UIFeatureVector` + `extract_ui_features` + `FEATURE_NAMES` + `feature_vector_to_array` +
+  `feature_distance`) for all 7 conditions — the feature space where τ is LATER learned (Module D).
+  Does NOT freeze τ; no ground-truth leakage; renderer-faithful. Audit PASS + Manager verify.
+- **✅ MERGED PR #12 confirmatory axis-1 (H1a) pipeline (7a4cbdb, DECISIONS D5.5):** BLIND pre-specified
+  primary analysis — `twdf.analysis.confirmatory_axis1` (conflict-conditioned DV, beta-binomial
+  over-dispersion, within-task estimator, PR #11 correspondence, 4 baselines + rational-Bayes null each
+  beaten w/ bootstrap CI, permutation, BH α=0.05, PER-MODEL) + thin runner + `configs/confirmatory_axis1.yaml`
+  ({gpt-4o, gpt-4.1-mini}). Reports regardless of outcome; τ UNFROZEN. Audit PASS + Manager verify.
+  **⇒ the confirmatory analysis is READY; the run is one command once compute is available.**
 - **⚙️ AUTO-RESUME SCHEDULE #1 ACTIVE (cron `5 */4 * * *`, 2026-07-16):** every 4h a tick wakes the
   Manager to probe per-model daily quota; if budget → auto-advance the top compute-gated task below
   (E4 first) through audit+merge; if capped → silently wait. HOLDS for a PI checkpoint before the
