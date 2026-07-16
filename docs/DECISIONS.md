@@ -229,6 +229,19 @@
   corrected renderer. PR #4's exploratory numbers used the old renderer and must be described as
   exploratory/old-renderer results, not as corrected-renderer evidence.
 
+### D5.3 — BLIND panel↔human correspondence readout implemented before confirmatory panel (PR #11)
+- **What:** Added the pre-specified H1a secondary readout: cross-condition Spearman correlation
+  between panel disagreement per Bansal AI condition and the fixed real-human over-dispersion target
+  in `results/e1_multicond.json`, with permutation p-value, bootstrap CI, Pearson secondary readout,
+  n<3 degenerate guard, and a ceiling-excluded sensitivity analysis.
+- **Why:** Operationalizes the preregistered §1/§4 panel-validity claim before any confirmatory
+  panel data exists. The `Conf.+Adaptive (Expert)` human target has near-zero excess variance at a
+  high mean reliance rate, so it is flagged as a likely ceiling artifact rather than treated as an
+  interpretable low-overdispersion condition.
+- **Paper implication:** The confirmatory run only plugs panel disagreement into a frozen analysis.
+  This does **not** change H1a or the preregistration; it implements an already-specified secondary
+  analysis and makes the ceiling-artifact sensitivity explicit.
+
 ---
 
 ## Cross-cutting rigor commitments (standing)
