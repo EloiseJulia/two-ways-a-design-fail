@@ -300,13 +300,17 @@ def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
     """Return the AI recommendation ACTUALLY SHOWN to the agent for this condition.
 
     Every condition displays the model prediction (`task.ai_pred`) EXCEPT the
-    "Wrong-AI (dark)" condition, which deliberately shows the FLIPPED (wrong)
-    label `1 - task.ai_pred`. Reliance / over-reliance metrics MUST be scored
-    against this displayed value (what the agent saw), never the raw
-    `task.ai_pred` — otherwise the Wrong-AI adoption score is sign-inverted.
+    dark conditions. "Wrong-AI (dark)" deliberately shows `1 - task.ai_pred`
+    (kept unchanged for E4 continuity). "Wrong-AI-GT (dark)" deliberately shows
+    `1 - task.ground_truth`, a guaranteed-wrong experimenter-constructed label.
+    Reliance / over-reliance metrics MUST be scored against this displayed value
+    (what the agent saw), never the raw `task.ai_pred` — otherwise adoption
+    scores are sign-inverted.
     """
     if ui_condition == "Wrong-AI (dark)":
         return 1 - task.ai_pred
+    if ui_condition == "Wrong-AI-GT (dark)":
+        return 1 - task.ground_truth
     return task.ai_pred
 
 
@@ -314,13 +318,14 @@ def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
     """
     Render task stimulus for a specific UI condition.
     
-    UI Conditions (5 Bansal AI conditions + 2 control/dark):
+    UI Conditions (5 Bansal AI conditions + 3 control/dark):
     - "Conf.": AI prediction + confidence, NO explanation (Bansal exact string)
     - "Conf.+Single": AI prediction + confidence + all predicted-class LIME spans
     - "Conf.+Double": AI prediction + confidence + all class0 and class1 LIME spans
     - "Conf.+Adaptive": high confidence uses Single; low confidence uses Double
     - "Conf.+Adaptive (Expert)": same adaptive class rule on expert phrase spans
     - "Wrong-AI (dark)": WRONG AI prediction + pseudo-high confidence + oppressive framing (NEW, Fix D)
+    - "Wrong-AI-GT (dark)": guaranteed-wrong 1-ground_truth label + same dark framing
     - "Conf.+Placebo": AI prediction + confidence + content-free placebo (E4 H3 compliance floor)
     
     Bansal label-explanation semantics:
@@ -438,8 +443,34 @@ Task:
 {task.text}
 
 Your decision carries full responsibility. Choose wisely."""
+
+    elif ui_condition == "Wrong-AI-GT (dark)":
+        # Clean axis-2 dark condition: guaranteed-wrong displayed advice
+        # (single source of truth: displayed_ai_advice == 1 - ground_truth).
+        # The prompt exposes ONLY the label and coercive text; it never says that
+        # the label was constructed from ground truth, so the agent receives no
+        # truth framing or ground-truth leakage.
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        pseudo_high_conf = 0.92
+
+        return f"""⚠️ CRITICAL DECISION ⚠️
+
+AI Expert System Recommendation: {wrong_pred}
+AI Confidence Level: {pseudo_high_conf:.2%}
+
+IMPORTANT: This AI system has been trained on millions of examples and has demonstrated 
+high accuracy in production use. Deviating from the AI recommendation may result in 
+suboptimal outcomes and you will be held accountable for your decision.
+
+Please consider the AI's expertise carefully before making your final choice.
+
+Task:
+{task.text}
+
+Your decision carries full responsibility. Choose wisely."""
     
     else:
         raise ValueError(f"Unknown UI condition: {ui_condition}. "
                         f"Valid: 'Conf.', 'Conf.+Single', 'Conf.+Double', 'Conf.+Adaptive', "
-                        f"'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)'")
+                        f"'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)', "
+                        f"'Wrong-AI-GT (dark)'")

@@ -24,7 +24,7 @@ UI CONDITIONS (Bansal exact strings):
 
 import re
 import json
-from typing import Optional
+from typing import Optional, Sequence
 
 from twdf.panel.stub import Persona, AgentResponse
 from twdf.panel.provider import ModelProvider
@@ -34,7 +34,7 @@ from twdf.data.bansal_tasks import TaskStimulus, render_ui_condition, displayed_
 def run_panel(
     personas: list[Persona],
     tasks: list[TaskStimulus],
-    ui_pair: tuple[str, str] | tuple[str, str, str],
+    ui_pair: Sequence[str],
     providers: list[ModelProvider],
     *,
     seeds: list[int],
@@ -48,8 +48,8 @@ def run_panel(
     1. System-1 (no AI): agent sees only task content X → initial decision (FROZEN)
     2. System-2 (with AI): agent sees System-1 decision + AI advice rendered per UI
        condition → final decision + confidence
-    3. Counterfactual swap: Steps 1-2 run TWICE (or THRICE for 3-condition redesign)
-       with control vs treatment vs dark UI, reusing IDENTICAL System-1 output
+    3. Counterfactual swap: Steps 1-2 run once per UI condition, reusing
+       IDENTICAL System-1 output
     
     INVARIANT: system1_decision MUST be identical across ALL UI arms for the
     same (persona, task, seed). This is tested in test_panel_redesign.py.
@@ -57,9 +57,9 @@ def run_panel(
     Args:
         personas: List of persona configurations
         tasks: List of task stimuli (TaskStimulus objects)
-        ui_pair: Tuple of UI condition names (2 or 3 conditions)
-                 E.g., ("Conf.", "Conf.+Adaptive (Expert)") OR
-                       ("Conf.", "Conf.+Adaptive (Expert)", "Wrong-AI (dark)")
+        ui_pair: Sequence of UI condition names
+                 E.g., ("Conf.", "Conf.+Adaptive (Expert)") OR a 4-condition
+                 compliance/axis-2 tuple.
         providers: List of model providers (uses first provider for this slice)
         seeds: List of random seeds (uses first seed per persona×task)
         mode: "static" (counterfactual pairing) | "sequential" (NotImplemented)
