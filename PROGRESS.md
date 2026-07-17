@@ -500,8 +500,10 @@ and timestamp for every change.
   **RUNNING (Schedule #3, day-batched):** confirmatory axis-1 (~306/1440 cached, ~4 days free) → then
   the preregistered powered axis-2. On completion: Manager re-derivation + independent audit + merge +
   HONEST record (weak/null axis-1 expected, carried by significant axis-2 — do NOT spin, per D5.4/D5.11).
-  **PENDING PI:** Azure (collapses the ~8-day free queue to hours) · E6 human study (deferred to last) ·
-  optional multi-domain amzbook · housekeeping (provider cache refactor + minor test/cosmetic nits).
+  **PENDING PI:** **Azure gpt-5.x cross-generation robustness arm is CODE-READY (PR #19, prereg D5.15)** —
+  set the 4 `AZURE_OPENAI_*` env vars and I run `configs/{confirmatory_axis1,axis2_powered}_azure_gpt5.yaml`
+  (gpt-5.2+gpt-5.4, ~hours) after a live cred-check; primary free runs unaffected. · E6 human study (last) ·
+  optional multi-domain amzbook · housekeeping.
 - **✅ MERGED PR #7 E4 axis-2 (62d7242, DECISIONS D5.2 + D5.10):** 4-condition panel on the faithful
   renderer. A prior audit CAUGHT an axis-2 SIGN-INVERSION bug (real_panel scored reliance vs the
   UNFLIPPED ai_pred while the dark UI displays 1-ai_pred; my own first re-derivation was fooled too);
