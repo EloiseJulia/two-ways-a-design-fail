@@ -464,6 +464,30 @@
 - **Paper implication:** Adds a higher-power robustness view (≈ condition × tercile points) and an honest
   sensitivity readout around the confirmatory result while preserving the preregistration firewall.
 
+### D5.15 — CROSS-GENERATION robustness/triangulation ARM preregistered (Azure gpt-5.x), timestamp 2026-07-17T03:47:26Z
+- **What (PI decision, path A):** the PI's company Azure has only the gpt-5.x family (gpt-5.2, gpt-5.3-codex,
+  gpt-5.4, gpt-5.4-pro), NOT the frozen {gpt-4o, gpt-4.1-mini}. So the PRIMARY confirmatory axis-1 (D5.11)
+  + powered axis-2 (D5.13) STAY on the free GitHub {gpt-4o, gpt-4.1-mini} (unchanged, coherent with E4/PR#4
+  calibration). Azure gpt-5.x is used as a SECONDARY, preregistered **cross-generation robustness/
+  triangulation arm** — the SAME design/N/analysis run on **gpt-5.2 (small/strong) + gpt-5.4 (strong)**
+  (gpt-5.3-codex excluded = code model; gpt-5.4-pro excluded unless PI opts in = premium).
+- **Why:** directly answers the strongest reviewer attacks A2/A8 (is the two-axis panel signal just one
+  model's prompt noise? does it generalize across model generations?). If the signal holds on frontier
+  gpt-5.x too → strong cross-model evidence; if it collapses → an honest finding about model-capability
+  dependence.
+- **Preregistered BEFORE running** (no gpt-5.x panel result seen). Frozen: same 5 axis-1 conditions +
+  4 axis-2 conditions, 6 personas, N=20 items (SAME seeds as the primary so items match), same DV/
+  estimators/baselines/significance. This is a ROBUSTNESS arm, explicitly SECONDARY to the primary
+  (gpt-4o/mini) result — not a replacement.
+- **Honest risk (pre-registered):** frontier models on the easy beer-sentiment task may reach near-ceiling
+  System-1 accuracy → very low System-1↔AI conflict → the conflict-conditioned DV could have few trials /
+  collapse (echoing the PR#3 naive-panel collapse). Reported regardless.
+- **Provider substitution:** `AzureFoundryProvider` (PR #9), Azure OpenAI/Foundry; may need adaptation for
+  the gpt-5.x API (e.g. `max_completion_tokens`, no `temperature`, reasoning params) — a live cred/
+  connectivity check (~cents) precedes any run. Cost of the gpt-5.x arm is bounded by the fixed call
+  volume (~2,640) with a `call_budget` cap; per-token gpt-5.x pricing TBD from the Azure portal.
+- **τ stays UNFROZEN.** Config to be added: `configs/*_azure_gpt5.yaml`.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
