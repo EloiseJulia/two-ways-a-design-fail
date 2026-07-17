@@ -538,6 +538,42 @@
   evidence-gated decision to revisit the moment `results/confirmatory_axis1.json` lands. No claim/threshold
   changed. τ stays UNFROZEN.
 
+### D5.18 — CROSS-VENDOR robustness arm PREREGISTERED (ghc-api proxy), timestamp 2026-07-17T11:20:39Z
+- **Date:** 2026-07-17 · **What changed:** the cross-generation robustness arm (was D5.15 = Azure
+  gpt-5.x, blocked on creds) is **reframed and rescoped** to a **cross-VENDOR** arm run on the local
+  `ghc-api` GitHub Copilot API proxy (OpenAI-compatible, no token, effectively unlimited).
+- **From → to:** D5.15 planned OpenAI-only gpt-5.2/gpt-5.4 via Azure (single-vendor, single-generation,
+  never ran — no creds) → **FROZEN cross-vendor trio: `gpt-5.5` (OpenAI) + `claude-sonnet-4.5`
+  (Anthropic) + `gemini-2.5-pro` (Google)**, all via the proxy. This upgrades a single-vendor
+  robustness check into genuine **cross-vendor triangulation**.
+- **WHY / evidence:** (1) PI opened `ghc-api` (verified 2026-07-17: all three models return content;
+  gpt-5.5/gemini-2.5-pro are reasoning models needing `max_completion_tokens` + large budget), removing
+  the GitHub Models daily cap and the Azure dependency at zero cost. (2) The independent idea-eval-sota
+  assessment ranks cross-vendor agreement as the highest-credibility upgrade against reviewer attacks
+  **A2/A8** ("the panel just re-encodes GPT's priors" / silicon-sampling homogeneity). One vendor cannot
+  answer that; three can.
+- **FROZEN design (before any run):** mirror the primaries exactly — N=20 **matched** items (item
+  seed=42, same as `confirmatory_axis1.yaml`), 6 personas, same 5 UI conditions (axis-1) and the same
+  Wrong-AI-GT dark condition (axis-2). **Per-model, NO pooling.** Estimators unchanged: per-model
+  within-task reliance + beta-binomial over-dispersion + conflict-conditioned reliance DV (axis-1);
+  `over_reliance_on_wrong` via `displayed_ai_advice()` single-source-of-truth + binomial test on truly-
+  wrong trials (axis-2). **Axis-2 is the PRIMARY robustness target** (it is the anchor significant
+  result); axis-1 secondary.
+- **Decision rule (frozen):** robustness = does the sign/significance of each axis **replicate across
+  ≥2 of 3 vendors**? Report per-vendor; make NO meta-pooled claim beyond "replicates / does not."
+- **Preregistered honest risks:** (a) **frontier ceiling** — gpt-5.5/claude/gemini may near-ceiling
+  System-1 on easy beer → few conflict trials → axis-1 conflict-conditioned DV may be under-determined;
+  report per-model conflict-trial counts, do not hide a collapse. (b) **reasoning-model empties** —
+  mitigated by `min_completion_tokens=4096` + an empty-content retry/raise guard (never cache an empty
+  panel answer); residual empties reported as missing data. (c) **provider provenance** — proxy `gpt-*`
+  may differ from GitHub Models snapshots; that is exactly WHY this is a SEPARATE robustness arm, NOT a
+  top-up of the frozen primary D5.11 arm (which is still finished on GitHub Models via daily reset).
+- **Reporting:** REGARDLESS of outcome — replication strengthens A2/A8; a vendor-specific collapse is an
+  honest model-capability-sensitivity boundary finding (also publishable).
+- **Implication for the paper:** converts the single-vendor limitation (A5-adjacent credibility ceiling)
+  into a cross-vendor robustness claim; feeds §robustness + the reviewer-rebuttal A2/A8 evidence plan.
+  Does NOT alter any frozen primary (D5.11/D5.13). τ stays UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
