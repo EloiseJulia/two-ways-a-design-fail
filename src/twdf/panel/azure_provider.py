@@ -92,7 +92,9 @@ class AzureFoundryProvider:
                  call_budget: int = 10000,
                  inter_call_sleep: float = 0.2,
                  max_retries: int = 5,
-                 foundry_path: str = "/chat/completions"):
+                 foundry_path: str = "/chat/completions",
+                 token_param: str = "max_tokens",
+                 omit_temperature: bool = False):
         """
         Initialize Azure provider.
         
@@ -104,6 +106,9 @@ class AzureFoundryProvider:
             inter_call_sleep: Sleep seconds between API calls (rate limit courtesy)
             max_retries: Maximum retry attempts on 429/5xx errors
             foundry_path: Path for foundry style (default: "/chat/completions")
+            token_param: Token-limit request field. Default preserves existing
+                Azure OpenAI behavior; gpt-5.x configs may set "max_completion_tokens".
+            omit_temperature: If true, omit temperature from request payload.
         
         Raises:
             RuntimeError: If required environment variables are missing
@@ -141,6 +146,12 @@ class AzureFoundryProvider:
             self.name = deployment_env
         
         self.foundry_path = foundry_path
+        if token_param not in {"max_tokens", "max_completion_tokens"}:
+            raise ValueError("token_param must be 'max_tokens' or 'max_completion_tokens'")
+        # gpt-5.x Azure deployments may require these non-default knobs; the
+        # Manager will confirm/adjust the exact contract during live cred-check.
+        self.token_param = token_param
+        self.omit_temperature = omit_temperature
         
         # Cache directory (SHARED with GitHubModelsProvider)
         if cache_dir is None:
@@ -171,13 +182,18 @@ class AzureFoundryProvider:
         Cache key includes deployment/model name to prevent cross-provider collisions.
         """
         # Normalize messages to canonical JSON (sorted keys for determinism)
-        canonical = json.dumps({
+        canonical_payload = {
             "model": self.name,
             "messages": messages,
             "temperature": temperature,
             "max_tokens": max_tokens,
             "seed": seed,
-        }, sort_keys=True)
+        }
+        if self.token_param != "max_tokens":
+            canonical_payload["token_param"] = self.token_param
+        if self.omit_temperature:
+            canonical_payload["omit_temperature"] = True
+        canonical = json.dumps(canonical_payload, sort_keys=True)
         
         # Hash with hashlib (deterministic)
         hash_obj = hashlib.sha256(canonical.encode('utf-8'))
@@ -265,10 +281,11 @@ class AzureFoundryProvider:
         """Build request payload based on api_style."""
         payload = {
             "messages": messages,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
             "seed": seed,
         }
+        if not self.omit_temperature:
+            payload["temperature"] = temperature
+        payload[self.token_param] = max_tokens
         
         # Foundry style includes model in body; azure_openai does NOT
         if self.api_style == "foundry":

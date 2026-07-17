@@ -486,7 +486,13 @@
   the gpt-5.x API (e.g. `max_completion_tokens`, no `temperature`, reasoning params) — a live cred/
   connectivity check (~cents) precedes any run. Cost of the gpt-5.x arm is bounded by the fixed call
   volume (~2,640) with a `call_budget` cap; per-token gpt-5.x pricing TBD from the Azure portal.
-- **τ stays UNFROZEN.** Config to be added: `configs/*_azure_gpt5.yaml`.
+- **Implementation note (PR #19):** both confirmatory runners now select the provider by config:
+  absent/default remains `GitHubModelsProvider`; `provider.type: "azure"` builds
+  `AzureFoundryProvider` per model/deployment. Added `configs/confirmatory_axis1_azure_gpt5.yaml`
+  and `configs/axis2_powered_azure_gpt5.yaml` with matched item seeds and distinct `_gpt5` outputs.
+  Offline mocked tests cover wiring and existing Azure provider behavior; live gpt-5.x execution still
+  awaits PI Azure creds plus the planned connectivity/contract check.
+- **τ stays UNFROZEN.**
 
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent

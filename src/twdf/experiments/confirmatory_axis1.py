@@ -17,7 +17,8 @@ import yaml
 
 from twdf.analysis.confirmatory_axis1 import analyze_confirmatory_axis1
 from twdf.data.item_selector import ItemSelectionCriteria, select_hard_items
-from twdf.panel.provider import GitHubModelsProvider, ModelProvider
+from twdf.experiments.provider_factory import build_provider_from_config, model_names_from_config
+from twdf.panel.provider import ModelProvider
 from twdf.panel.real_panel import run_panel
 from twdf.panel.stub import Persona
 
@@ -55,14 +56,7 @@ def build_tasks(config: dict[str, Any]) -> list[Any]:
 
 
 def build_provider(config: dict[str, Any], model_name: str) -> ModelProvider:
-    provider_cfg = config.get("provider", {})
-    return GitHubModelsProvider(
-        model_name=model_name,
-        cache_dir=Path(config.get("cache_dir", "data/cache/panel")),
-        call_budget=int(provider_cfg.get("call_budget", config.get("call_budget", 450))),
-        inter_call_sleep=float(provider_cfg.get("inter_call_sleep", config.get("inter_call_sleep", 0.8))),
-        max_retries=int(provider_cfg.get("max_retries", config.get("max_retries", 5))),
-    )
+    return build_provider_from_config(config, model_name)
 
 
 def collect_panel_responses(
@@ -79,7 +73,7 @@ def collect_panel_responses(
 
     if providers is None:
         factory = provider_factory or (lambda model: build_provider(config, model))
-        providers = [factory(model) for model in config.get("models", [])]
+        providers = [factory(model) for model in model_names_from_config(config)]
 
     responses: list[Any] = []
     for provider in providers:

@@ -197,7 +197,9 @@ docs/{plans,research,handoff}/
   axis-1 runs. Environment variables: `AZURE_OPENAI_ENDPOINT` (required, endpoint URL),
   `AZURE_OPENAI_KEY` (required, NEVER logged/committed), `AZURE_OPENAI_API_VERSION` (defaults
   to `"2024-10-21"`), `AZURE_OPENAI_DEPLOYMENT` (optional override). Offline tests pass (22/22);
-  cross-process cache determinism verified. See `docs/plans/azure-setup.md` for PI provisioning steps.
+  cross-process cache determinism verified. PR #19 adds constructor-gated gpt-5.x request knobs
+  (`token_param`, `omit_temperature`) without changing defaults. See `docs/plans/azure-setup.md`
+  for PI provisioning steps.
   `twdf/panel/real_panel.py`: `run_panel()` implementing INTERFACES §3 exactly, dual-system
   flow (System-1 no-AI anchor → System-2 with AI + UI intervention), counterfactual pairing
   (System-1 frozen across UI arms), reliance definition aligned with Bansal adoption.
@@ -308,7 +310,12 @@ docs/{plans,research,handoff}/
   plus `configs/confirmatory_axis1.yaml`: thin multi-provider runner over the frozen confirmatory
   model set `{openai/gpt-4o, openai/gpt-4.1-mini}` and five Bansal AI conditions. The runner only
   collects responses with `real_panel.run_panel()` and calls the pure analysis; tests exercise this
-  path with mock providers only (no live/networked calls during the BLIND build).
+  path with mock providers only (no live/networked calls during the BLIND build). **NEW (PR #19):**
+  `confirmatory_axis1` and `axis2_powered` share `experiments.provider_factory`; absent/default
+  `provider.type` still builds `GitHubModelsProvider`, while `provider.type: "azure"` builds
+  `AzureFoundryProvider` per model/deployment. Added secondary D5.15 configs
+  `configs/confirmatory_axis1_azure_gpt5.yaml` and `configs/axis2_powered_azure_gpt5.yaml`
+  for Azure `gpt-5.2`/`gpt-5.4` with matched item seeds and distinct `_gpt5` outputs.
 - **calibration** — `twdf/calibration/thresholds.py`: Module D dual-threshold machinery for
   SPEC §6 is implemented. Exposes
   `CalibrationExample(features: UIFeatureVector, axis1_overdispersion: float,
