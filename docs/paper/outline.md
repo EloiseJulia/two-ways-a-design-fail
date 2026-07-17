@@ -103,6 +103,19 @@ predict individual humans — we triage designs that need human study.
 - Dark-pattern deception (guaranteed-wrong coercive AI) → debrief; IRB for E6; no deployment of dark
   designs; the method's PURPOSE is to PREVENT shipping such designs.
 
+## 9. Two nearly-free acceptance-movers (from docs/paper/reviewer-rebuttals.md)
+- **Cost/ROI argument (answers A7):** the screen's value is asymmetric-cost triage. A panel run is
+  ~$15–45 / hours; a human study is ~$5k–50k / weeks. A false alarm just means "run the human study you
+  would have run anyway"; a MISS means shipping a design that endangers a subgroup or weaponizes a wrong
+  AI. Optimizing for RECALL (SPEC §6.2) is therefore the right operating point, and even a modest-
+  precision screen that reduces the *denominator* of required human studies pays for itself. Frame the
+  method as a filter that makes human studies cheaper to target, not a replacement.
+- **Process-rigor as a credibility asset (answers A10):** preregistration frozen before results (D5.11,
+  D5.13), analysis coded BLIND, audit-gated merges, and — notably — we CAUGHT AND FIXED our own axis-2
+  sign-inversion bug (D5.10) via a two-layer independent-audit + numeric-re-derivation gate, and we
+  report it. In a field worried about irreproducible human-AI results, demonstrable process integrity is
+  itself a contribution; methods venues reward it.
+
 ## Open decisions for the PI (paper-level)
 - Venue + framing depth (methods-led vs empirical-led) — revisit once confirmatory + powered axis-2 land.
 - Whether to include C0 (Bansal-specific) as a supporting section or cut to tighten the story.
