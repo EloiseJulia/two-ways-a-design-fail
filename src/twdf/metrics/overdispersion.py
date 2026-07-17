@@ -85,6 +85,24 @@ def betabinom_overdispersion(relied_by_user: dict[str, tuple[int, int]]) -> Over
     empirical_p = k / n  # per-user reliance rates
     empirical_variance = np.var(empirical_p, ddof=1)
     binomial_variance = mean_p * (1 - mean_p)
+
+    # BOUNDARY GUARD (bug fix): if mean_p is at the reliance boundary {0,1} then
+    # binomial_variance == 0, and the method-of-moments / clamp below divides by 0
+    # -> NaN -> clamps to 0.999, i.e. it INVERTS "everyone identical, no over-dispersion"
+    # into "maximal over-dispersion". At the boundary there is NO estimable between-user
+    # over-dispersion, so return rho = 0.
+    if binomial_variance <= 0.0:
+        n_avg_b = float(np.mean(n))
+        return OverdispersionResult(
+            rho=0.0,
+            mean_p=float(mean_p),
+            binomial_variance=float(binomial_variance),
+            empirical_variance=float(empirical_variance),
+            excess_variance=float(empirical_variance - (binomial_variance / n_avg_b)),
+            n_users=len(users),
+            total_trials=int(n.sum()),
+            converged=True,
+        )
     
     # Fit beta-binomial via maximum likelihood
     # Parameterize as (mu, rho) where mu = mean_p, rho = dispersion
@@ -568,7 +586,30 @@ def condition_correlation(
     # Extract aligned arrays
     disagreement = np.array([disagreement_by_condition[c] for c in conditions])
     overdispersion = np.array([overdispersion_by_condition[c] for c in conditions])
-    
+
+    # EARLY GUARD (bug fix): with n<3 conditions OR a constant input array, Spearman is
+    # undefined and the permutation/bootstrap below can CRASH (empty-array percentile) or
+    # emit meaningless values. Return a degenerate result with null stats BEFORE resampling.
+    constant_input = bool(
+        np.all(disagreement == disagreement[0]) or np.all(overdispersion == overdispersion[0])
+    )
+    if degenerate or constant_input:
+        reason = f"n={n_conditions} conditions" + (" (constant input array)" if constant_input else "")
+        return ConditionCorrelationResult(
+            spearman_rho=0.0,
+            spearman_pvalue=1.0,
+            permutation_pvalue=1.0,
+            bootstrap_ci_lower=0.0,
+            bootstrap_ci_upper=0.0,
+            n_conditions=n_conditions,
+            degenerate=True,
+            note=(
+                f"DEGENERATE/CONSTANT CORRELATION: {reason}. Spearman rho is undefined here; "
+                f"PLUMBING CHECK ONLY, NOT a scientific result (n<3 always gives ±1; a constant "
+                f"input has no rank variation)."
+            ),
+        )
+
     # Compute Spearman rank correlation
     spearman_result = scipy_stats.spearmanr(disagreement, overdispersion)
     spearman_rho = spearman_result.correlation
