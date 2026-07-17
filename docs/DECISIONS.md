@@ -450,6 +450,20 @@
   diluted "wrong AI"; this powered, clean, multi-model, preregistered test is the honest way to
   solidify it (per PI directive: maximize panel/method rigor before the E6 human study).
 
+
+### D5.14 — EXPLORATORY stratified correspondence + confirmatory robustness readout (PR #18)
+- **What:** Added `twdf.analysis.stratified_correspondence` for condition × AI-side difficulty-stratum
+  correspondence: human beta-binomial over-dispersion vs panel disagreement, Spearman with permutation
+  p and bootstrap CI, per-cell low-variance/ceiling flags, and n<3 guards. Also added a pure JSON
+  `confirmatory_robustness()` readout for per-model stability and leave-one-condition-out sensitivity.
+- **No prereg change:** This is explicitly **EXPLORATORY** and does **not** change frozen D5.11's
+  confirmatory five-condition design. It answers reviewer-power/fragility attacks (A3/A4) without
+  moving the confirmatory goalposts.
+- **Leakage guard:** strata use AI-side exogenous properties only (default `ai_conf`; low confidence =
+  harder). Human outcomes, human reliance, and ground truth are forbidden as stratifiers.
+- **Paper implication:** Adds a higher-power robustness view (≈ condition × tercile points) and an honest
+  sensitivity readout around the confirmatory result while preserving the preregistration firewall.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
