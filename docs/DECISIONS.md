@@ -632,6 +632,29 @@
   resisted by frontier models on easy tasks), while **persona-level susceptibility is robust across
   vendors**. Escalated to PI as a framing decision. Does NOT alter any frozen primary. τ UNFROZEN.
 
+### D5.21 — CROSS-VENDOR AXIS-1 result: panel↔human over-dispersion correspondence NULL/weak across all vendors
+- **Date:** 2026-07-17 · **What changed:** second D5.18 readout (axis-1) is in. The panel↔human
+  per-condition over-dispersion correspondence does NOT hold on any of the three vendors.
+- **Numbers (Manager independent re-derivation, Spearman over the 5 UI conditions; matches reported
+  exactly):** claude-sonnet-4.5 rho = **-0.20** (p≈0.75), gemini-2.5-pro **-0.31** (p≈0.61),
+  gpt-5.5 **+0.10** (p≈0.87). All non-significant; two are NEGATIVE. n=5 conditions = essentially no
+  power (known A3/A4 limitation). Dropping one condition swings gpt-5.5 to +0.63 (n=4) — confirms the
+  A4 fragility, not a signal.
+- **Panel over-dispersion magnitudes (conflict-conditioned):** claude 0.178, gemini 0.221, gpt-5.5
+  **0.021** (near-zero). gpt-5.5 panel disagreement 0.003-0.019 = near-HOMOGENEOUS — the preregistered
+  frontier-ceiling risk materializing (a capable model gives near-identical reliance across personas on
+  easy beer). Cross-model rank agreement 0.775 (descriptive only, not a primary claim).
+- **Rigor:** post parser-fix (D5.19), 0 parse failures; both independent re-derivations (axis-1 Spearman,
+  axis-2 over-reliance) MATCH the pipeline exactly; no sign-inversion. Combined independent audit
+  dispatched (axis-1 + axis-2). Report REGARDLESS.
+- **Implication (combined cross-vendor picture, PI-level):** BOTH axes fail to show the hoped-for
+  cross-vendor signal — axis-2 over-reliance does not replicate on frontier (D5.20), axis-1
+  correspondence is null/weak/fragile here. The cross-vendor arm, intended to STRENGTHEN the
+  contribution vs reviewer A2/A8, instead shows the panel signals are **model-capability-dependent**.
+  This is a pivotal, honest, preregistered-risk-materializing result that reshapes the contribution
+  (see D5.20 escalation). Does NOT alter any frozen primary (D5.11 GH-Models confirmatory still pending
+  its gpt-4o daily-reset finish). τ stays UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
