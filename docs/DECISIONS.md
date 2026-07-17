@@ -385,6 +385,27 @@
 
 ---
 
+### D5.11 — CONFIRMATORY AXIS-1 PREREGISTRATION FROZEN (N=20), timestamp 2026-07-17T01:37:00Z
+- **Frozen BEFORE the confirmatory run** (the exploratory power-N pass — `results/powern_axis1.json`,
+  gpt-4.1-mini, 6 items, seed 999 — is SEPARATE and EXCLUDED from the confirmatory). What is frozen:
+  - **Model set:** `{openai/gpt-4o, openai/gpt-4.1-mini}` (prereg §2 amendment), per-model reported (no pooling).
+  - **Conditions:** the 5 Bansal AI conditions (Conf./Single/Double/Adaptive/Adaptive(Expert)).
+  - **DV + estimators:** conflict-conditioned reliance; beta-binomial between-user over-dispersion;
+    PRIMARY = difficulty-controlled within-task counterfactual difference; SECONDARY = cross-condition
+    Spearman (panel disagreement vs human over-dispersion, 5 points).
+  - **Baselines to beat:** random, mean-predictor, prompt-only, single-model, + rational-Bayes null (each
+    with a bootstrap CI). **Stats:** bootstrap over (personas×seeds×models), permutation, BH α=0.05.
+  - **N (power target):** **6 personas × 20 items × 5 conditions × 2 models × 1 seed (42)**; item seed 42
+    (distinct from power-N seed 999). Analysis code pre-implemented BLIND in PR #12.
+- **Why N=20:** the 6-item power-N was underpowered by construction (within-task d≈0.028, permutation
+  p=1.0, over-dispersion≈0); naive 80%-power projection at that effect ≈21 items/model, so N=20 is the
+  first fairly-powered pre-registered axis-1 test. PI: reject N=10 (underpowered → not a credible null).
+- **τ stays UNFROZEN** (Module-D calibration is a separate later timestamped step; §7).
+- **Commitment:** report REGARDLESS of outcome. Going in clear-eyed that the likely result is a weak/null
+  axis-1, carried honestly by the significant axis-2 (D5.10) + the two-axis protocol — NOT spun as a win.
+- **Compute:** free day-batched ({gpt-4o ~200/day, gpt-4.1-mini ~500/day} → ~4 days, auto-scheduled),
+  resumable via hashlib cache; may be routed through Azure (hours) if the PI provisions creds.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

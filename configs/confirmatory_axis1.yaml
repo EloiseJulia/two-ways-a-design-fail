@@ -19,9 +19,9 @@ control_condition: "Conf."
 treatment_condition: "Conf.+Adaptive (Expert)"
 human_overdispersion_path: "results/e1_multicond.json"
 
-n_items: 10
+n_items: 20
 item_selection:
-  n_items: 10
+  n_items: 20
   prefer_ai_wrong: 0.5
   prefer_low_conf: 0.3
   prefer_high_variance: 0.2

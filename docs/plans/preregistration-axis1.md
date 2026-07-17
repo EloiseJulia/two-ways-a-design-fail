@@ -87,8 +87,15 @@ NOT set τ. Post-hoc τ tuning = misconduct. (Freeze log lives in PROGRESS §Pre
 The exploratory pilot (PR #8) provides effect-size + variance-component estimates ONLY, used to
 set the confirmatory **personas × items × models × conditions × seeds** so the axis-1 test has
 adequate power (target ≈ 80%). No other pilot quantity feeds the confirmatory design.
-> N (personas / items / seeds per model; models; conditions): **[PENDING — fill after pilot,
-> then record the FINAL freeze timestamp in PROGRESS §Preregistration before the confirmatory run].**
+> N (personas / items / seeds per model; models; conditions): **FROZEN 2026-07-17T01:37:00Z
+> (BEFORE the confirmatory run; the exploratory power-N pass `results/powern_axis1.json` — gpt-4.1-mini,
+> 6 items, seed 999 — is SEPARATE and EXCLUDED from the confirmatory).** Confirmatory design:
+> **6 personas × 20 items × 5 conditions × 2 models (openai/gpt-4o, openai/gpt-4.1-mini) × 1 seed (42)**;
+> items selected by AI-side exogenous criteria (seed 42, distinct from the power-N seed 999). Rationale:
+> the 6-item power-N was underpowered by construction (within-task d≈0.028, p=1.0, over-dispersion≈0); a
+> naive 80%-power projection at that effect is ~21 items/model, so N=20 items/model is the first fairly
+> powered pre-registered axis-1 test. Reported REGARDLESS of outcome (a powered null is a credible result).
+> τ_disp/τ_level remain UNFROZEN (a separate Module-D calibration step, per §7).
 
 ## 9. Reporting commitment
 The confirmatory result is reported **regardless of outcome** (including a null or a
