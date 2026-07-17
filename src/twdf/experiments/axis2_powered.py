@@ -22,8 +22,9 @@ import yaml
 from scipy import stats
 
 from twdf.data.item_selector import ItemSelectionCriteria, select_hard_items
+from twdf.experiments.provider_factory import build_provider_from_config, model_names_from_config
 from twdf.metrics.overdispersion import conflict_conditioned_reliance, over_reliance_level
-from twdf.panel.provider import GitHubModelsProvider
+from twdf.panel.provider import ModelProvider
 from twdf.panel.real_panel import run_panel
 from twdf.panel.stub import AgentResponse, Persona
 
@@ -52,13 +53,11 @@ def _personas_from_config(config: dict) -> list[Persona]:
 
 
 def _model_names(config: dict) -> list[str]:
-    models = config.get("models")
-    if models is None and "model" in config:
-        models = [config["model"]]
-    names = [m["name"] if isinstance(m, dict) else str(m) for m in models]
-    if not names:
-        raise ValueError("axis2_powered requires at least one model")
-    return names
+    return model_names_from_config(config)
+
+
+def build_provider(config: dict, model_name: str) -> ModelProvider:
+    return build_provider_from_config(config, model_name)
 
 
 def _per_persona_adoption(responses: Iterable[AgentResponse]) -> dict[str, float]:
@@ -176,6 +175,31 @@ def analyze_axis2(responses: list[AgentResponse], ui_conditions: tuple[str, ...]
     }
 
 
+def collect_panel_responses(
+    config: dict,
+    *,
+    providers: Iterable[ModelProvider] | None = None,
+) -> list[AgentResponse]:
+    personas = _personas_from_config(config)
+    criteria = ItemSelectionCriteria(**config["item_selection"])
+    tasks = select_hard_items(criteria=criteria)
+    ui_conditions = tuple(config["ui_conditions"])
+
+    all_responses: list[AgentResponse] = []
+    provider_list = list(providers) if providers is not None else [build_provider(config, model) for model in _model_names(config)]
+    for provider in provider_list:
+        responses = run_panel(
+            personas=personas,
+            tasks=list(tasks.values()),
+            ui_pair=ui_conditions,
+            providers=[provider],
+            seeds=config["seeds"],
+            mode=config["mode"],
+        )
+        all_responses.extend(responses)
+    return all_responses
+
+
 def _serialize_response(r: AgentResponse) -> dict:
     return {
         "persona_id": r.persona_id,
@@ -211,13 +235,7 @@ def main() -> None:
     provider_stats_by_model = {}
     start = time.time()
     for model_name in _model_names(config):
-        provider = GitHubModelsProvider(
-            model_name=model_name,
-            cache_dir=Path(config["cache_dir"]),
-            call_budget=config["model_runtime"]["call_budget"],
-            inter_call_sleep=config["model_runtime"]["inter_call_sleep"],
-            max_retries=config["model_runtime"]["max_retries"],
-        )
+        provider = build_provider(config, model_name)
         responses = run_panel(
             personas=personas,
             tasks=list(tasks.values()),
@@ -228,7 +246,7 @@ def main() -> None:
         )
         all_responses.extend(responses)
         per_model_results[model_name] = analyze_axis2(responses, ui_conditions)
-        provider_stats_by_model[model_name] = provider.get_stats()
+        provider_stats_by_model[model_name] = provider.get_stats() if hasattr(provider, "get_stats") else {}
 
     wall_time = time.time() - start
     panel_results = analyze_axis2(all_responses, ui_conditions)
