@@ -494,6 +494,32 @@
   awaits PI Azure creds plus the planned connectivity/contract check.
 - **τ stays UNFROZEN.**
 
+### D5.16 — Whole-codebase bug hunt: three latent metric bugs fixed (no merged result changed)
+- **Date:** 2026-07-17 · **What changed:** fixed three latent bugs surfaced by an independent
+  hostile bug-hunt subagent, before any touched a confirmatory/merged result.
+- **From → to:**
+  1. `overdispersion.py::betabinom_overdispersion` — users all pinned at the reliance boundary
+     (mean_p∈{0,1}) hit a `0/0→NaN→clamp` path and returned **ρ≈0.999** ("maximal over-dispersion")
+     when the truth is **ρ=0** (no between-user variance). → Added a `binomial_variance<=0` boundary
+     guard returning ρ=0. This is the SAME failure family as the D5.10 sign-inversion (a boundary/NaN
+     that INVERTS the metric's meaning).
+  2. `ui_features.py` — `wrong_ai` and `_has_authority_cue` recognized only `"Wrong-AI (dark)"`, not the
+     preregistered `"Wrong-AI-GT (dark)"` condition (D5.13). → both now include `Wrong-AI-GT (dark)`.
+  3. `overdispersion.py::condition_correlation` — the degenerate/`n<3` check ran AFTER the
+     permutation+bootstrap loops, so a constant input or `n<3` could emit `np.percentile([])`
+     crashes / meaningless stats. → Added an EARLY degenerate/constant-input guard that returns null
+     stats + a "PLUMBING ONLY" note BEFORE any resampling.
+- **WHY / evidence:** reproduced each bug; betabinom all-(0,10)/all-(10,10) → 0.999 (wrong) vs
+  genuine half-0/half-10 → high (correct, kept); confirmed **no already-merged result is affected**:
+  no `rho:0.99x` artifact in any `results/*.json`, and no merged result depends on `Wrong-AI-GT`
+  ui-features or `condition_correlation` on degenerate input. 9 new regression tests
+  (`tests/test_metric_boundary_fixes.py`); 27 pass across boundary+metrics+ui_features suites.
+- **Implication for the paper:** strengthens the A10 "we caught our own bugs" rigor story (now a
+  SECOND self-caught class beyond D5.10) and adds a new **A11 limitation** (item-selection /
+  correspondence circularity — disclosed, NOT a code bug; mitigation = held-out item correspondence
+  + E6). Affects §methods rigor narrative + Limitations; changes NO reported number.
+- **τ stays UNFROZEN.**
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

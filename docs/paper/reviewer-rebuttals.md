@@ -72,6 +72,24 @@
 - **Rebuttal (a strength):** preregistration frozen before results; analysis coded BLIND; audit-gated
   merges; **we caught and fixed our own axis-2 sign-inversion bug** (D5.10) via the two-layer gate and
   report it. Turn process rigor into a credibility asset (methods venues reward this).
+- **Second self-caught class (D5.16):** a whole-codebase hostile bug-hunt found three latent metric
+  bugs BEFORE they touched a merged result — a beta-binomial boundary case that returned ρ≈0.999
+  ("maximal over-dispersion") for users pinned at the reliance floor/ceiling (a 0/0→NaN→clamp
+  inversion, the SAME failure family as D5.10), a `Wrong-AI-GT` condition not flagged in the UI
+  feature vector, and a degenerate-correlation guard that ran AFTER the resampling loop. All three
+  are fixed with regression tests; we verified no already-merged number changed. Report this as
+  evidence the two-layer gate catches its own errors.
+
+### A11 ★★★ (NEW) — "Item selection is circular: you pick items on human reliance variance, then validate against human reliance."
+- **The risk (disclosed, NOT a code bug):** `item_selector.py:10-17` selects the confirmatory item set
+  partly on human reliance signal; the panel↔human correspondence check then uses human reliance as the
+  criterion. A reviewer can call this circular / an optimistic bias on the correspondence estimate.
+- **Rebuttal / mitigation:** (1) selection is preregistered and frozen BEFORE any panel run, so it cannot
+  be tuned on a peeked panel↔human effect; (2) selection uses human data only — the panel never sees it —
+  so it cannot inflate the panel's *independent* prediction, only the difficulty of the benchmark; (3) the
+  honest fix is a **held-out / non-selected item correspondence check** (compute-free on existing Bansal
+  rows) reported alongside the primary — add to the confirmatory readout; (4) E6 on fresh items removes it
+  entirely. Log as an explicit Limitation, not a silent assumption.
 
 ## Synthesis — what actually moves acceptance (ranked)
 1. **E6 human validation** — the only thing that answers A1/A8 decisively (deferred to last, by design).
