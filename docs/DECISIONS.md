@@ -520,6 +520,24 @@
   + E6). Affects §methods rigor narrative + Limitations; changes NO reported number.
 - **τ stays UNFROZEN.**
 
+### D5.17 — Axis-2-anchor reframe formally CONSIDERED and DEFERRED (gated on confirmatory axis-1)
+- **Date:** 2026-07-17 · **What changed:** decision on paper framing — **NO change made** (deliberate hold).
+- **From → to:** current positioning (D5.4: axis-1 over-dispersion as the headline safety DV, axis-2
+  backfire tentative) → **considered** pivoting to an axis-2-anchored framing (axis-2 wrong-AI /
+  dark-pattern detector as the primary validated contribution, axis-1 demoted to boundary/secondary),
+  as recommended by the independent `idea-eval-sota` assessment → **DECIDED: keep current framing for
+  now; do NOT reframe until the preregistered confirmatory axis-1 (D5.11, N=20) has actually run.**
+- **WHY / evidence:** idea-eval-sota (docs/research/2026-07-17-idea-eval-sota-assessment.md) argues the
+  axis-2 preliminary result (clean truly-wrong 0.69, binomial p=0.0098) is the paper's strongest empirical
+  shot and axis-1 is likely weak/null, so an axis-2 anchor raises accept odds. **PI ruling:** reframing on
+  a *predicted* (peeked/expected) axis-1 null would violate our own preregistration discipline (never tune
+  framing on an un-run effect); the honest path is to run the confirmatory to completion, report it
+  regardless, THEN decide the anchor from the realized result. Sequencing > optics.
+- **Implication for the paper:** contribution structure stays as-is pending data; the axis-2-anchor option
+  (+ a stripped axis-2-only E6, + amzbook 2nd domain, + HCOMP-interim venue) is now an ON-THE-TABLE,
+  evidence-gated decision to revisit the moment `results/confirmatory_axis1.json` lands. No claim/threshold
+  changed. τ stays UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
