@@ -574,6 +574,35 @@
   into a cross-vendor robustness claim; feeds §robustness + the reviewer-rebuttal A2/A8 evidence plan.
   Does NOT alter any frozen primary (D5.11/D5.13). τ stays UNFROZEN.
 
+### D5.19 — P0 BUG: panel decision parser silently fabricated (0,0.5) — FIXED (PR #22)
+- **Date:** 2026-07-17 · **What changed:** `real_panel._parse_decision_response` /
+  `_parse_decision_with_confidence` silently defaulted any response that failed strict
+  `json.loads` to `decision=0, confidence=0.5` — fabricating a decision for valid but
+  verbose answers. Caught by a read-only watcher during the cross-vendor run.
+- **Root cause:** strict `json.loads` on a NON-brace-balanced regex match threw
+  `JSONDecodeError` on (a) literal control chars / bare newlines in `reasoning`, (b) ```json
+  code fences, (c) nested braces, then jumped to `except` and returned the default WITHOUT
+  trying the regex fallback. Same silent-corruption family as the E4 sign-inversion (D5.10)
+  and the betabinom boundary (D5.16).
+- **Scope (measured on 3959 cached responses):** claude-sonnet-4.5 **25/1140 (2.2%)**,
+  gemini-2.5-pro 1/490, gpt-5.5 0/1140, **openai/gpt-4o 0/403, openai/gpt-4.1-mini 0/786**.
+  PRIMARY models had ZERO failures → **E4 / e1_multicond / confirmatory (merged) are NOT
+  contaminated** (independently confirmed byte-identical pre/post fix). The bug only bit the
+  IN-FLIGHT cross-vendor arm (claude/gemini), which had not been recorded/merged.
+- **Fix:** strip fences → brace-BALANCED JSON extraction → `json.loads(strict=False)` →
+  regex fallback → **raise `PanelParseError` (never fabricate)** when no 0/1 decision is
+  extractable. Provider cache stores RAW responses (not the parsed default), so re-running
+  re-parses correctly and SELF-HEALS — no cache wipe needed. Validated: fixed parser raises
+  on **0/3959**, all 26 prior failures recover their true decision. 11 regression tests.
+  Independent audit PASS (reproduced 26→0, primary byte-identical, no fabrication path).
+- **Open follow-up (non-blocking):** no caller catches `PanelParseError`, so a future
+  anomalous response could abort `run_panel` and (since its raw is cached) wedge resume.
+  Current live risk is zero (0/3959). Tracked to add caller-level record-missing/exclude.
+- **Implication for the paper:** (1) the cross-vendor arm MUST be re-run/re-derived on the
+  corrected parse before any D5.18 readout (in progress); (2) strengthens the process-rigor
+  story (a THIRD self-caught silent-corruption class after D5.10/D5.16, this one caught by an
+  independent watcher) for reviewer-rebuttal A10. Changes NO merged number. τ stays UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
