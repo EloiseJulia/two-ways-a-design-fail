@@ -429,6 +429,27 @@
 - **Paper implication:** Solidifies axis-2 from significant-but-preliminary (D5.10) into a powered,
   clean, preregistered one-shot design that the Manager will run and report regardless of outcome.
 
+### D5.13 — POWERED AXIS-2 PREREGISTRATION FROZEN, timestamp 2026-07-17T02:51:26Z
+- **Frozen BEFORE the run** (the code is built + independently audited in PR #17; no live axis-2-powered
+  run has happened). This is the PI's "optional preregistered one-shot axis-2" (upside to solidify
+  axis-2 from significant-but-preliminary). What is frozen:
+  - **Design:** 4 conditions `Conf.` (control) / `Conf.+Placebo` / `Conf.+Adaptive (Expert)` (faithful) /
+    **`Wrong-AI-GT (dark)`** (displays `1 - ground_truth` = a GUARANTEED-wrong coercive AI, removing the
+    E4 flip-vs-truth coincidence). 6 personas × **20 items** (beer, item seed 2024, distinct from
+    confirmatory 42 / power-N 999) × **2 models {gpt-4o, gpt-4.1-mini}** × seed 42.
+  - **Primary axis-2 measure:** panel over-reliance level = adoption of the displayed wrong label on the
+    Wrong-AI-GT condition (raw == clean, since all trials are truly-wrong); compliance-adjusted =
+    over-reliance − placebo compliance floor. **Significance:** permutation/bootstrap that adoption
+    exceeds the placebo floor (p + CI) + binomial vs 0.5. Per-model reported (no pooling as the primary).
+  - **Scoring** against the DISPLAYED label via `displayed_ai_advice` (per the D5.10 fix); System-1
+    frozen across conditions; item selection uses AI-side exogenous props only (no human-outcome/gt
+    leakage into agent prompts — verified in audit).
+- **Commitment:** report REGARDLESS of outcome. Runs AFTER the confirmatory axis-1 (compute sequencing;
+  both share the daily per-model caps). τ stays UNFROZEN. `config: configs/axis2_powered.yaml`.
+- **Why:** axis-2 (D5.10) is the strongest empirical result but was underpowered/single-model with a
+  diluted "wrong AI"; this powered, clean, multi-model, preregistered test is the honest way to
+  solidify it (per PI directive: maximize panel/method rigor before the E6 human study).
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
