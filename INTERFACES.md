@@ -222,7 +222,11 @@ docs/{plans,research,handoff}/
   frozen across all 5 conditions AND models (tested). **NEW (E4 — 4-condition support + placebo):**
   `ui_pair` now accepts a 4-tuple; `render_ui_condition()` also handles "Conf.+Placebo" (content-free
   explanation: present, matched in format to faithful, but NO task-specific decision-relevant content;
-  generic boilerplate, identical across tasks by construction).
+  generic boilerplate, identical across tasks by construction). **NEW (PR #17 — clean axis-2):**
+  `displayed_ai_advice()` and `render_ui_condition()` handle `"Wrong-AI-GT (dark)"`, which displays
+  `1 - task.ground_truth` with the same coercive framing as `"Wrong-AI (dark)"`; `real_panel.run_panel()`
+  accepts any condition sequence and stores/scores `trace['ai_advice']`, `ai_correct`, and `relied`
+  from `displayed_ai_advice()` as the single source of truth.
 - **experiments** — `e1_vslice`, `e1_multicond`, `e1_robustness`, `e1_decomposition`
   (each `python -m twdf.experiments.<name> --config configs/<name>.yaml`). `e1_panel_v1`
   (real LLM panel, counterfactual pairing, elasticity + permutation + bootstrap; PR#3).
@@ -239,6 +243,13 @@ docs/{plans,research,handoff}/
   formalizes H3 compliance floor + axis-2 sensor; config `configs/e4_compliance.yaml`; 
   compliance-adjusted axis-2 = over_reliance_level − placebo_floor; System-1 frozen across all 4 
   conditions; 15 items, 6 personas, gpt-4.1-mini; full response serialization).
+  **NEW (PR #17):** `axis2_powered` (powered clean axis-2 one-shot runner; config
+  `configs/axis2_powered.yaml`; conditions `Conf.`, `Conf.+Placebo`, `Conf.+Adaptive (Expert)`,
+  `Wrong-AI-GT (dark)`; 6 personas × 20 beer items with item seed 2024 ×
+  `{openai/gpt-4o, openai/gpt-4.1-mini}`; E4-style placebo-floor adjustment, per-model + pooled panel
+  over-reliance, per-persona adoption/spread, sign-flip permutation/bootstrap test for adoption above
+  placebo floor, and binomial test vs 0.5; output `results/axis2_powered.json` labeled
+  `CONFIRMATORY-PENDING-PREREG`).
   **NEW (PR #8):** `axis1_pilot` (EXPLORATORY multi-family axis-1 pilot, 5 Bansal AI conditions,
   multi-provider run loop iterates models, System-1 frozen across conditions AND models; config
   `configs/axis1_pilot.yaml`; metrics: cross-condition correlation Spearman + permutation + bootstrap,

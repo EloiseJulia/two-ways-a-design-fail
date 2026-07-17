@@ -406,6 +406,29 @@
 - **Compute:** free day-batched ({gpt-4o ~200/day, gpt-4.1-mini ~500/day} → ~4 days, auto-scheduled),
   resumable via hashlib cache; may be routed through Azure (hours) if the PI provisions creds.
 
+### D5.12 — Clean guaranteed-wrong axis-2 condition + powered one-shot runner (PR #17)
+- **What:** Added `"Wrong-AI-GT (dark)"`, a new coercive dark condition that displays
+  `1 - ground_truth` via the same `displayed_ai_advice(task, ui_condition)` single source of truth
+  used by both the renderer and `real_panel` (`trace['ai_advice']`, `ai_correct`, `relied`). The
+  existing `"Wrong-AI (dark)"` (`1 - ai_pred`) remains unchanged for E4 continuity.
+- **Why:** D5.10 showed significant-but-preliminary axis-2 over-reliance, but the old flipped-prediction
+  dark condition was genuinely wrong only on the subset where `1 - ai_pred != ground_truth`. The new
+  condition makes every trial a clean wrong-AI trial, so raw adoption equals clean adoption on wrong
+  advice.
+- **Rigor guard:** Showing `1 - ground_truth` is a deliberate experimenter construction of a wrong
+  recommendation. The agent prompt shows only a recommendation label plus coercive responsibility
+  framing; it does **not** say "ground truth", "truth", or that the label is derived from the answer,
+  so there is no ground-truth leakage to the agent.
+- **Powered run:** Added `twdf.experiments.axis2_powered` + `configs/axis2_powered.yaml` for a
+  PREREGISTERED one-shot pending Manager freeze: `{openai/gpt-4o, openai/gpt-4.1-mini}` × 6 personas ×
+  20 beer items (item seed 2024) × `Conf.`, `Conf.+Placebo`, `Conf.+Adaptive (Expert)`,
+  `Wrong-AI-GT (dark)`. Analysis reuses E4-style over-reliance and placebo-floor adjustment, reporting
+  per-model and pooled panel results, per-persona adoption/spread, a bootstrap/sign-flip permutation
+  test for adoption > placebo floor, and a binomial test vs 0.5. Output is
+  `results/axis2_powered.json` labeled `CONFIRMATORY-PENDING-PREREG`.
+- **Paper implication:** Solidifies axis-2 from significant-but-preliminary (D5.10) into a powered,
+  clean, preregistered one-shot design that the Manager will run and report regardless of outcome.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
