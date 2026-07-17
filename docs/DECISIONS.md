@@ -603,6 +603,35 @@
   story (a THIRD self-caught silent-corruption class after D5.10/D5.16, this one caught by an
   independent watcher) for reviewer-rebuttal A10. Changes NO merged number. τ stays UNFROZEN.
 
+### D5.20 — CROSS-VENDOR AXIS-2 result: over-reliance signal does NOT replicate (frontier collapse), timestamp 2026-07-17T17:06:30Z
+- **Date:** 2026-07-17 · **What changed:** first D5.18 cross-vendor readout (axis-2, the PRIMARY
+  robustness target) is IN. Result: the strong axis-2 wrong-AI over-reliance seen on gpt-4.1-mini
+  does **NOT** replicate across the frontier trio.
+- **Numbers (Manager independent re-derivation from raw traces, displayed advice recomputed as
+  `1-ground_truth` — NOT trusting stored fields; matches pipeline exactly, `stored_advice_mismatch=0`,
+  n=120 dark trials/model):**
+  - gpt-5.5: over-reliance **0.300**, binomial vs 0.5 p=1.0 (significantly BELOW chance — the frontier
+    model RESISTS the guaranteed-wrong AI)
+  - claude-sonnet-4.5: **0.492**, p=0.61 (at chance)
+  - gemini-2.5-pro: **0.525**, p=0.32 (at chance)
+  - vs PRIMARY gpt-4.1-mini preliminary: 0.69, p=0.0098 (strong).
+- **Decision rule (D5.18) outcome:** replication requires sign/significance in ≥2 of 3 vendors →
+  **0/3 significant. NON-REPLICATION.** This is exactly the PREREGISTERED frontier-ceiling risk
+  (D5.15/D5.18): capable models can judge easy beer sentiment themselves, so they don't follow a
+  wrong AI.
+- **BUT a robust sub-finding:** the trusting-novice persona (p5: domain_skill 0.2, ai_literacy 0.8)
+  stays HIGH everywhere — claude 0.95, gemini 1.00, gpt-5.5 0.60 — i.e., dark-pattern susceptibility
+  CONCENTRATES in a persona even when the model-mean collapses (a heterogeneity/axis-1-flavored signal
+  that DOES survive across vendors). Report this honestly; do not bury it or oversell it.
+- **Rigor:** parser fix (D5.19) was applied — 0 parse failures this run; result is post-fix clean.
+  Independent audit of the cross-vendor result PENDING (combined with axis-1). Report REGARDLESS.
+- **Implication for the paper (MAJOR, PI-level):** this directly UNDERCUTS the idea-eval recommendation
+  to anchor the paper on axis-2 as a "validated cross-vendor dark-pattern detector" (that anchor
+  assumed the signal generalizes; it does not on frontier models for this task). The honest contribution
+  shifts toward: axis-2 over-reliance is **model-capability-dependent** (strong in smaller models,
+  resisted by frontier models on easy tasks), while **persona-level susceptibility is robust across
+  vendors**. Escalated to PI as a framing decision. Does NOT alter any frozen primary. τ UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
