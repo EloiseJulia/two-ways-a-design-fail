@@ -345,6 +345,19 @@ docs/{plans,research,handoff}/
   `AbstentionReport`) provide deterministic JSON `to_dict()` shapes. Feature-distance analyses
   reuse `twdf.features.ui_features.feature_distance`; abstention reuses
   `twdf.calibration.thresholds.triage`/`ThresholdModel`; this layer does **not** freeze τ.
+- **analysis (PR #18 — EXPLORATORY stratified correspondence)** —
+  `twdf/analysis/stratified_correspondence.py`: `stratified_correspondence(panel_responses, *,
+  human_raw_loader, stratify_by="ai_conf", n_strata=3, seed=42, n_boot=10000, n_perm=10000)` returns
+  `StratifiedCorrespondenceResult.to_dict()` with AI-side difficulty strata, a condition × stratum
+  cell table, included cell ids, Spearman/permutation/bootstrap readout, n<3 degeneracy, and per-cell
+  ceiling/low-variance/too-few-users flags. Strata are **exploratory only** and may use only AI-side
+  exogenous properties (`ai_conf`/`confidence`/`conf`/difficulty), never `ground_truth`, human choices,
+  or human reliance. `load_real_bansal_human_raw()` reads the committed beer/five-AI-condition raw CSV
+  for offline human over-dispersion, while tests can inject synthetic loaders.
+  `confirmatory_robustness(confirmatory_result_dict)` is a pure readout over
+  `ConfirmatoryAxis1Result.to_dict()` reporting per-model CI stability, over-dispersion CI summaries,
+  leave-one-condition-out Spearman sensitivity, and a task-selection sensitivity note; it does not
+  re-run, retune, or alter the frozen D5.11 prereg.
 - **Determinism:** Use `hashlib` for any string→seed (builtin `hash()` is BANNED —
   non-deterministic across processes). Cross-process determinism tests use subprocesses.
   **E2 verified:** Cross-process cache determinism confirmed (0 API calls on rerun, byte-identical
