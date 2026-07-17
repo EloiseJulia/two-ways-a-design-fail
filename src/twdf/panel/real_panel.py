@@ -398,93 +398,130 @@ def _trait_to_desc(value: float, trait_name: str, low: str, high: str) -> str:
         return f"{trait_name}: moderate"
 
 
-def _parse_decision_response(response: str) -> tuple[int, str]:
+class PanelParseError(ValueError):
+    """Raised when a non-empty panel response yields no extractable 0/1 decision.
+
+    RIGOR: we NEVER fabricate a decision. The old parser silently defaulted an
+    unparseable-but-valid response to decision=0 (conf=0.5), which systematically
+    biased over-dispersion (axis-1) and over_reliance (axis-2) — especially for
+    verbose / code-fenced / long-reasoning models (claude, gemini). A response
+    that survives every recovery path below is genuinely anomalous and must be
+    LOUD, not silently averaged in as 0.
     """
-    Parse decision + reasoning from LLM response.
-    
-    Returns:
-        (decision, reasoning)
+
+
+def _strip_code_fences(text: str) -> str:
+    """Return the content inside a ```json ... ``` (or ``` ... ```) fence if present."""
+    fence = re.search(r"```(?:json)?\s*(.*?)```", text, re.DOTALL | re.IGNORECASE)
+    return fence.group(1).strip() if fence else text.strip()
+
+
+def _extract_json_object(text: str) -> Optional[str]:
+    """Extract the first brace-BALANCED {...} block that contains a "decision" key.
+
+    The old regex `\\{[^{}]*"decision"[^{}]*\\}` could not span nested braces and
+    grabbed a partial object; this walks braces to return the full object.
     """
+    for start in (m.start() for m in re.finditer(r"\{", text)):
+        depth = 0
+        for i in range(start, len(text)):
+            if text[i] == "{":
+                depth += 1
+            elif text[i] == "}":
+                depth -= 1
+                if depth == 0:
+                    block = text[start:i + 1]
+                    if '"decision"' in block or "'decision'" in block:
+                        return block
+                    break
+    return None
+
+
+def _decision_from_json(response: str) -> Optional[tuple[int, float, str]]:
+    """Try to recover (decision, confidence, reasoning) via tolerant JSON parsing.
+
+    Tolerates markdown fences and literal control characters (bare newlines/tabs)
+    inside string values via json.loads(strict=False). Returns None if the JSON
+    path does not yield a valid 0/1 decision (caller then tries the regex fallback).
+    """
+    block = _extract_json_object(_strip_code_fences(response))
+    if not block:
+        return None
     try:
-        # Try to extract JSON
-        json_match = re.search(r'\{[^{}]*"decision"[^{}]*\}', response, re.DOTALL)
-        if json_match:
-            data = json.loads(json_match.group())
-            decision = int(data['decision'])
-            reasoning = data.get('reasoning', '')
-            
-            # Validate decision
-            if decision not in [0, 1]:
-                raise ValueError(f"Invalid decision value: {decision}")
-            
-            return decision, reasoning
-        
-        # Fallback: look for explicit decision
-        if 'decision' in response.lower():
-            for match in re.finditer(r'decision["\s:]+(\d+)', response, re.IGNORECASE):
-                decision = int(match.group(1))
-                if decision in [0, 1]:
-                    return decision, response
-        
-        # Default to 0 if parsing fails (conservative)
-        print(f"Warning: Failed to parse decision from response, defaulting to 0: {response[:200]}")
-        return 0, response
-        
-    except Exception as e:
-        print(f"Warning: Exception parsing decision ({e}), defaulting to 0: {response[:200]}")
-        return 0, response
+        data = json.loads(block, strict=False)  # strict=False: allow control chars
+    except (json.JSONDecodeError, ValueError):
+        return None
+    if not isinstance(data, dict) or "decision" not in data:
+        return None
+    try:
+        decision = int(data["decision"])
+    except (TypeError, ValueError):
+        return None
+    if decision not in (0, 1):
+        return None
+    try:
+        confidence = float(data.get("confidence", 0.5))
+    except (TypeError, ValueError):
+        confidence = 0.5
+    confidence = max(0.0, min(1.0, confidence))
+    reasoning = str(data.get("reasoning", ""))
+    return decision, confidence, reasoning
+
+
+def _decision_from_regex(response: str) -> Optional[tuple[int, float]]:
+    """Fallback: pull a 0/1 decision (and optional confidence) via regex on raw text."""
+    decision = None
+    for match in re.finditer(r'"?decision"?\s*[:=]\s*"?(\d+)', response, re.IGNORECASE):
+        dec = int(match.group(1))
+        if dec in (0, 1):
+            decision = dec
+            break
+    if decision is None:
+        return None
+    confidence = 0.5
+    for match in re.finditer(r'"?confidence"?\s*[:=]\s*"?([0-9.]+)', response, re.IGNORECASE):
+        conf = float(match.group(1))
+        if 0.0 <= conf <= 1.0:
+            confidence = conf
+            break
+    return decision, confidence
+
+
+def _parse_decision_response(response: str) -> tuple[int, str]:
+    """Parse decision + reasoning from an LLM response. Never fabricates a decision.
+
+    Order: tolerant JSON (fence-stripped, strict=False, balanced braces) → regex
+    fallback → raise PanelParseError (NOT a silent default).
+    """
+    parsed = _decision_from_json(response)
+    if parsed is not None:
+        decision, _confidence, reasoning = parsed
+        return decision, (reasoning or response)
+    fallback = _decision_from_regex(response)
+    if fallback is not None:
+        return fallback[0], response
+    raise PanelParseError(
+        f"No extractable 0/1 decision in non-empty response: {response[:200]!r}"
+    )
 
 
 def _parse_decision_with_confidence(response: str) -> tuple[int, float, str]:
+    """Parse decision + confidence + reasoning. Never fabricates a decision.
+
+    Order: tolerant JSON (fence-stripped, strict=False, balanced braces) → regex
+    fallback → raise PanelParseError (NOT a silent (0, 0.5) default).
     """
-    Parse decision + confidence + reasoning from LLM response.
-    
-    Returns:
-        (decision, confidence, reasoning)
-    """
-    try:
-        # Try to extract JSON
-        json_match = re.search(r'\{[^{}]*"decision"[^{}]*\}', response, re.DOTALL)
-        if json_match:
-            data = json.loads(json_match.group())
-            decision = int(data['decision'])
-            confidence = float(data.get('confidence', 0.5))
-            reasoning = data.get('reasoning', '')
-            
-            # Validate
-            if decision not in [0, 1]:
-                raise ValueError(f"Invalid decision value: {decision}")
-            
-            # Clamp confidence
-            confidence = max(0.0, min(1.0, confidence))
-            
-            return decision, confidence, reasoning
-        
-        # Fallback: look for explicit fields
-        decision = None
-        confidence = 0.5
-        
-        for match in re.finditer(r'decision["\s:]+(\d+)', response, re.IGNORECASE):
-            dec = int(match.group(1))
-            if dec in [0, 1]:
-                decision = dec
-                break
-        
-        for match in re.finditer(r'confidence["\s:]+([0-9.]+)', response, re.IGNORECASE):
-            conf = float(match.group(1))
-            if 0 <= conf <= 1:
-                confidence = conf
-                break
-        
-        if decision is None:
-            print(f"Warning: Failed to parse decision from response, defaulting to 0: {response[:200]}")
-            decision = 0
-        
+    parsed = _decision_from_json(response)
+    if parsed is not None:
+        decision, confidence, reasoning = parsed
+        return decision, confidence, (reasoning or response)
+    fallback = _decision_from_regex(response)
+    if fallback is not None:
+        decision, confidence = fallback
         return decision, confidence, response
-        
-    except Exception as e:
-        print(f"Warning: Exception parsing decision+confidence ({e}), defaulting to (0, 0.5): {response[:200]}")
-        return 0, 0.5, response
+    raise PanelParseError(
+        f"No extractable 0/1 decision+confidence in non-empty response: {response[:200]!r}"
+    )
 
 
 def _compute_reliance(
