@@ -799,3 +799,23 @@ and timestamp for every change.
     hash-seed nondeterminism. Enhance it to spawn a subprocess (or document the
     limitation). Cross-process reproducibility currently proven only by manual
     3-run audit, not by an automated regression test.
+
+- **2026-07-17 — PR #20 (metric bug-fixes) SQUASH-MERGED to main (commit e916a07).**
+  - Flow: bughunt-codebase (found 4) -> Manager verify (3 real, 1 = disclosed
+    design risk) -> fix in worktree + 9 regression tests -> audit-metric-fixes
+    (independent, **PASS**) -> Manager merge. See DECISIONS D5.16.
+  - Fixes: (1) betabinom boundary rho 0.999->0 for all-boundary users (same
+    NaN-inversion family as D5.10); (2) ui_features wrong_ai/authority_cue now
+    include Wrong-AI-GT (dark) (D5.13); (3) condition_correlation early
+    degenerate/constant guard (audit confirmed OLD code hard-crashed IndexError).
+  - Independently verified NO already-merged number changes; fixes are PRE-DATA
+    (D5.11/D5.13 confirmatory not yet executed).
+  - BLOCKER-1 (item-selection correspondence circularity) = disclosed design
+    risk, added as reviewer-rebuttal **A11** (mitigation: held-out item
+    correspondence + E6), NOT a code fix.
+- **2026-07-17 — idea-eval-sota independent assessment delivered** (saved to
+  docs/research/2026-07-17-idea-eval-sota-assessment.md). Verdict: idea GENUINELY
+  novel but NARROW (protocol/framing, not yet validated); current top-venue
+  accept ~10-15%, ~25-35% w/ powered axis-1+axis-2, ~50-60% w/ E6. Recommends
+  ANCHOR ON AXIS-2 + a stripped axis-2-only E6 (N~40). Flagged to PI as framing
+  decisions (pending approval before any DECISIONS reframe).
