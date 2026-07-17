@@ -92,6 +92,7 @@ class OpenAICompatibleProvider:
                           seed: int) -> str:
         """Compute deterministic cache key using hashlib (NOT builtin hash())."""
         canonical_payload = {
+            "provider": "openai_compat",
             "model": self.name,
             "messages": messages,
             "temperature": temperature,

@@ -7,6 +7,7 @@ import pytest
 
 from twdf.experiments.provider_factory import build_provider_from_config
 from twdf.panel.openai_compat_provider import OpenAICompatibleProvider
+from twdf.panel.provider import GitHubModelsProvider
 
 
 class FakeResponse:
@@ -97,6 +98,25 @@ def test_min_completion_tokens_not_in_cache_key(tmp_path):
     assert small_floor._build_payload(messages, 0.1, 600, 1)["max_completion_tokens"] == 1000
     assert large_floor._build_payload(messages, 0.1, 600, 1)["max_completion_tokens"] == 4096
     assert small_floor._compute_cache_key(messages, 0.1, 600, 1) == large_floor._compute_cache_key(messages, 0.1, 600, 1)
+
+
+def test_cache_key_has_provider_discriminator_vs_github(monkeypatch, tmp_path):
+    monkeypatch.setenv("GH_MODELS_TOKEN", "dummy-token")
+    messages = [{"role": "user", "content": "same prompt"}]
+    compat = make_provider(
+        tmp_path / "compat",
+        model_name="openai/gpt-4o",
+        token_param="max_tokens",
+    )
+    github = GitHubModelsProvider(
+        model_name="openai/gpt-4o",
+        cache_dir=tmp_path / "github",
+        inter_call_sleep=0,
+    )
+
+    compat_key = compat._compute_cache_key(messages, 0.2, 123, 42)
+    github_key = github._compute_cache_key(messages, 0.2, 123, 42)
+    assert compat_key != github_key
 
 
 def test_empty_content_retries_raises_and_does_not_cache(monkeypatch, tmp_path):
