@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from twdf.panel.azure_provider import AzureFoundryProvider
+from twdf.panel.openai_compat_provider import OpenAICompatibleProvider
 from twdf.panel.provider import GitHubModelsProvider, ModelProvider
 
 
@@ -19,10 +20,21 @@ def model_names_from_config(config: dict[str, Any]) -> list[str]:
     return names
 
 
+def _model_entry_from_config(config: dict[str, Any], model_name: str) -> dict[str, Any]:
+    """Return the matching model dict for optional per-model overrides."""
+    for model in config.get("models", []) or []:
+        if isinstance(model, dict) and str(model.get("name")) == model_name:
+            return dict(model)
+    return {}
+
+
 def build_provider_from_config(config: dict[str, Any], model_name: str) -> ModelProvider:
     """Build the configured provider; absent provider.type preserves GitHub Models."""
+    model_cfg = _model_entry_from_config(config, model_name)
     provider_cfg = dict(config.get("provider", {}) or {})
+    provider_cfg.update(dict(model_cfg.get("provider", {}) or {}))
     runtime_cfg = dict(config.get("model_runtime", {}) or {})
+    runtime_cfg.update(dict(model_cfg.get("model_runtime", {}) or {}))
     runtime_cfg.update(provider_cfg)
 
     provider_type = str(provider_cfg.get("type", "github")).lower()
@@ -38,6 +50,19 @@ def build_provider_from_config(config: dict[str, Any], model_name: str) -> Model
             call_budget=call_budget,
             inter_call_sleep=inter_call_sleep,
             max_retries=max_retries,
+        )
+
+    if provider_type in {"openai_compatible", "copilot_proxy", "proxy", "ghc"}:
+        return OpenAICompatibleProvider(
+            model_name=model_name,
+            base_url=provider_cfg.get("base_url"),
+            cache_dir=cache_dir,
+            call_budget=call_budget,
+            inter_call_sleep=inter_call_sleep,
+            max_retries=max_retries,
+            token_param=str(provider_cfg.get("token_param", "max_tokens")),
+            omit_temperature=bool(provider_cfg.get("omit_temperature", False)),
+            min_completion_tokens=int(provider_cfg.get("min_completion_tokens", 0)),
         )
 
     if provider_type in {"azure", "azure_foundry", "azure_openai", "foundry"}:
