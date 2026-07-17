@@ -85,7 +85,7 @@ cache_dir: data/cache/panel
 provider:
   type: ghc
   base_url: http://127.0.0.1:8787/v1
-  call_budget: 450
+  call_budget: 5000
   inter_call_sleep: 0.8
   max_retries: 5
 analysis:
