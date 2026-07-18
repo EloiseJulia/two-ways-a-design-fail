@@ -98,6 +98,17 @@ human study that grounds it.
   - **ROBUST positive result (B):** dark-pattern susceptibility concentrates in the trusting-novice
     persona (p5) across ALL vendors — adoption gpt-5.5 0.60 / claude 0.95 / gemini 1.00 — even where the
     model mean collapses.
+- **Same-provider capability ladder (D5.23/D5.24, proxy, identical config — de-confounds the headline;
+  audit PASS):** gpt-4o-mini → gpt-4.1 → gpt-4o → gpt-5.5.
+  - **Axis-2 over-reliance is NOT a clean monotone:** 0.500 (chance) / 0.600 (p=0.018, the only significant
+    over-relier) / 0.433 / 0.300 (significantly BELOW chance — resists). Over-reliance is MODEL-IDIOSYNCRATIC
+    (the smallest proxy model gpt-4o-mini is at chance; the strong effect was gpt-4.1-mini/gpt-4.1), with the
+    one reliable regularity being FRONTIER RESISTANCE (gpt-5.5).
+  - **Axis-1 heterogeneity cleanly collapses at the frontier:** conflict over-dispersion 0.32/0.47/0.47/0.021,
+    panel disagreement 0.110/0.157/0.096/0.012 — gpt-5.5 near-homogeneous. (Correspondence to humans stays
+    n.s. at n=5 for every model.) This is the cleanest capability-linked signal.
+  - **Persona-p5 robust across the ladder too** (dark adoption 1.00/1.00/1.00/0.60).
+  - HONEST framing: model-idiosyncrasy + frontier resistance + persona robustness — NOT a clean dose-response.
 - Confirmatory axis-1 on the ORIGINAL provider (H1a, N=20, preregistered D5.11, GitHub Models
   gpt-4o+gpt-4.1-mini): ⟨PENDING — awaiting gpt-4o daily-reset; report per-model, regardless⟩.
 - E3 LOIO generalization, E5 ECE/reliable-radius/abstention: ⟨report the offline/methodological results⟩.

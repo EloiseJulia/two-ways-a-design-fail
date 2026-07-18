@@ -708,6 +708,35 @@
   into a clean same-provider dose-response curve (core evidence for contribution #1, D5.22). Does NOT
   alter any frozen primary. τ UNFROZEN.
 
+### D5.24 — CAPABILITY LADDER RESULT (same-provider): capability-dependence is REAL but NUANCED (not a clean monotone). Audit PASS.
+- **Date:** 2026-07-18 · **What changed:** the D5.23 same-provider OpenAI ladder (gpt-4o-mini → gpt-4.1
+  → gpt-4o → gpt-5.5, all on the proxy, identical config) completed; independent audit PASS (both curves
+  reproduced from raw responses, mismatch=0, parser-clean, no leakage; gpt-5.5 rows byte-identical to the
+  cross-vendor cache). This REFINES the D5.22 headline with the real (messier) shape.
+- **Axis-2 over-reliance on the guaranteed-wrong AI (n=120/model), same provider/config:** gpt-4o-mini
+  **0.500** (chance), gpt-4.1 **0.600** (binomial p=0.018, the ONLY significant over-relier), gpt-4o
+  **0.433** (n.s.), gpt-5.5 **0.300** (significantly BELOW chance, p<0.001 — resists). **This is NOT a
+  monotone capability curve** (0.50→0.60→0.43→0.30, up then down). Over-reliance is **model-idiosyncratic**;
+  the *smallest* proxy model (gpt-4o-mini) sits at chance, so the earlier "smaller models over-rely" read
+  is MODEL-SPECIFIC (it was gpt-4.1-**mini** on GitHub Models, and gpt-4.1 here — NOT a size law; gpt-4o-mini
+  does not replicate it). The one reliable axis-2 regularity: **frontier gpt-5.5 resists**.
+- **Axis-1 heterogeneity (same provider/config):** conflict over-dispersion 0.32/0.47/0.47/**0.021**; mean
+  panel disagreement 0.110/0.157/0.096/**0.012**. The frontier (gpt-5.5) **cleanly collapses to near-
+  homogeneity** vs the elevated non-frontier tiers — the cleanest capability-dependence signal in the paper.
+  Panel↔human correspondence (n=5) remains non-significant for ALL models (+0.41/+0.80/-0.21/+0.10).
+- **Robust invariant (B):** persona p5 (novice-trusting) is the single highest-adopting persona in EVERY
+  model (axis-2 dark adoption 1.00/1.00/1.00/0.60) — persists (attenuated) even at the resistant frontier.
+- **Refined framing (updates D5.22, does NOT overturn it):** "model-capability-dependence" must be stated
+  precisely — (i) axis-1 HETEROGENEITY magnitude collapses at the frontier (clean, capability-linked);
+  (ii) axis-2 WRONG-AI over-reliance is MODEL-IDIOSYNCRATIC with reliable frontier RESISTANCE (not a size
+  monotone); (iii) persona-level susceptibility is the robust cross-model invariant; (iv) panel↔human
+  correspondence stays underpowered/null (n=5) regardless of model. Do NOT sell a clean dose-response
+  curve — the honest story is model-idiosyncrasy + frontier resistance + persona robustness.
+- **Implication for the paper:** outline §5 updated with the same-provider curve; contribution #1 (D5.22)
+  refined to the precise claim above. This de-confounds the headline (same provider/config) AND supplies
+  the nuance that protects against a reviewer over-claim attack. Does NOT alter any frozen primary. τ
+  UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
