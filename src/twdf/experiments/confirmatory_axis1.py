@@ -45,6 +45,7 @@ def build_personas(config: dict[str, Any]) -> list[Persona]:
 
 def build_tasks(config: dict[str, Any]) -> list[Any]:
     item_cfg = config.get("item_selection", {})
+    domain = config.get("domain", item_cfg.get("domain", "beer"))
     criteria = ItemSelectionCriteria(
         n_items=int(config.get("n_items", item_cfg.get("n_items", 10))),
         prefer_ai_wrong=float(item_cfg.get("prefer_ai_wrong", 0.5)),
@@ -52,7 +53,7 @@ def build_tasks(config: dict[str, Any]) -> list[Any]:
         prefer_high_variance=float(item_cfg.get("prefer_high_variance", 0.2)),
         seed=int(item_cfg.get("seed", config.get("seeds", [42])[0])),
     )
-    return list(select_hard_items(criteria=criteria).values())
+    return list(select_hard_items(criteria=criteria, domain=domain).values())
 
 
 def build_provider(config: dict[str, Any], model_name: str) -> ModelProvider:

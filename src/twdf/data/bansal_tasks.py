@@ -160,141 +160,132 @@ def _extract_expert_highlights(expert_html: str, target_classes: set[str]) -> st
     return _format_highlights(matches, "(No matching expert highlights available)")
 
 
-def load_beer_tasks(data_dir: Optional[Path] = None,
-                   seed: int = 42,
-                   n_tasks: int = 20) -> dict[str, TaskStimulus]:
+def load_domain_tasks(domain: str,
+                      data_dir: Optional[Path] = None,
+                      seed: int = 42,
+                      n_tasks: int = 20) -> dict[str, TaskStimulus]:
     """
-    Load beer sentiment task stimuli.
-    
-    CRITICAL: Sampling must be DIVERSE (span both AI-correct and AI-incorrect,
-    range of confidence levels) for the decomposition finding to hold.
-    
+    Load task stimuli for a supported Bansal domain.
+
     Args:
+        domain: Task domain (beer, amzbook, or lsat).
         data_dir: Directory for raw data (default: data/raw/)
         seed: Random seed for deterministic task selection
         n_tasks: Number of tasks to select (default: 20)
-    
+
     Returns:
         Dict mapping task_id (str) -> TaskStimulus
     """
     if data_dir is None:
         data_dir = Path("data/raw")
-    
-    # Download beer tasks
-    local_path = data_dir / "task-sentiment-beer.json"
-    _download_if_missing(TASK_URLS['beer'], local_path)
-    
-    # Load JSON
+
+    domain = domain.lower()
+    if domain not in TASK_URLS:
+        raise ValueError(f"Unknown task domain '{domain}'. Known domains: {sorted(TASK_URLS)}")
+
+    local_path = data_dir / Path(TASK_URLS[domain]).name
+    _download_if_missing(TASK_URLS[domain], local_path)
+
     with open(local_path, 'r', encoding='utf-8') as f:
         raw_tasks = json.load(f)
-    
-    print(f"Loaded {len(raw_tasks)} beer tasks from {local_path}")
-    
-    # Parse tasks
+
+    print(f"Loaded {len(raw_tasks)} {domain} tasks from {local_path}")
+
     tasks = {}
     for idx, item in enumerate(raw_tasks):
-        # Map fields
-        # Use array index as task_id to match Bansal questionId (0-49)
         task_id = str(idx)
         testid = str(item['testid'])
-        
+
         task = TaskStimulus(
             task_id=task_id,
-            domain='beer',
+            domain=domain,
             text=item['X'],
             ground_truth=int(item['Y']),
             ai_pred=int(item['pred']),
             ai_conf=float(item['conf']),
             expert_explanation=_extract_text_from_html(item['expert']),
-            system_highlights=item['system'],  # Raw LIME HTML
+            system_highlights=item['system'],
             testid=testid,
             expert_highlights_html=item['expert'],
         )
-        
+
         tasks[task_id] = task
-    
-    # Verify testid→questionId join with Bansal decision CSV
-    print("\nVerifying testid→questionId join with Bansal decision data...")
+
+    print(f"\nVerifying testid→questionId join with Bansal decision data for {domain}...")
     from twdf.data.bansal import load_bansal
-    
-    # Load Bansal data (all conditions, all tasks)
+
     bansal_df = load_bansal(
         data_dir=data_dir,
         task_sample=None,
         ui_conditions=None,
         task_selection='all'
     )
-    
-    # Filter to beer domain
-    beer_trials = bansal_df[bansal_df['extra'].apply(lambda x: x.get('task') == 'beer')]
-    beer_questionIds = set(beer_trials['task_id'].astype(str).unique())
-    
-    # Check overlap
+
+    domain_trials = bansal_df[bansal_df['extra'].apply(lambda x: x.get('task') == domain)]
+    domain_questionIds = set(domain_trials['task_id'].astype(str).unique())
+
     task_ids_set = set(tasks.keys())
-    overlap = task_ids_set & beer_questionIds
-    
+    overlap = task_ids_set & domain_questionIds
+
     print(f"Task stimuli testids: {len(task_ids_set)}")
-    print(f"Bansal beer questionIds: {len(beer_questionIds)}")
+    print(f"Bansal {domain} questionIds: {len(domain_questionIds)}")
     print(f"Overlap (join): {len(overlap)}")
-    
+
     if len(overlap) == 0:
         raise RuntimeError(
-            "ZERO overlap between task stimuli testids and Bansal beer questionIds! "
+            f"ZERO overlap between task stimuli testids and Bansal {domain} questionIds! "
             "The join is broken. Cannot proceed with panel experiment."
         )
-    
+
     if len(overlap) < n_tasks:
         print(f"WARNING: Only {len(overlap)} overlapping tasks, but requested n_tasks={n_tasks}")
         print(f"Reducing to {len(overlap)} tasks")
         n_tasks = len(overlap)
-    
-    # Select diverse subset (deterministic)
-    # Sort by task_id for determinism, then select to span diversity
+
     overlapping_tasks = sorted(overlap)
-    
-    # Compute diversity metrics for selection
+
     import numpy as np
     diversity_scores = []
     for tid in overlapping_tasks:
         task = tasks[tid]
-        # Diversity = span of AI correctness + confidence range
         ai_correct = (task.ai_pred == task.ground_truth)
-        diversity_score = (ai_correct * 100) + task.ai_conf  # Mix correctness + conf
+        diversity_score = (ai_correct * 100) + task.ai_conf
         diversity_scores.append((tid, diversity_score))
-    
-    # Sort by diversity score to get a spread
+
     diversity_scores.sort(key=lambda x: x[1])
-    
-    # Select evenly spaced tasks for max diversity
+
     selected = []
     step = len(diversity_scores) / n_tasks
     for i in range(n_tasks):
         idx = int(i * step)
         selected.append(diversity_scores[idx][0])
-    
-    # Use RNG for deterministic shuffle to avoid any bias
+
     import random
     rng = random.Random(seed)
     rng.shuffle(selected)
-    selected = sorted(selected)  # Re-sort for determinism
-    
-    # Filter to selected tasks
+    selected = sorted(selected)
+
     selected_tasks = {tid: tasks[tid] for tid in selected}
-    
-    # Report diversity
+
     ai_correct_count = sum(1 for t in selected_tasks.values() if t.ai_pred == t.ground_truth)
     conf_min = min(t.ai_conf for t in selected_tasks.values())
     conf_max = max(t.ai_conf for t in selected_tasks.values())
     conf_mean = np.mean([t.ai_conf for t in selected_tasks.values()])
-    
-    print(f"\nSelected {len(selected_tasks)} diverse tasks:")
+
+    print(f"\nSelected {len(selected_tasks)} diverse {domain} tasks:")
     print(f"  AI correct: {ai_correct_count}/{len(selected_tasks)} ({ai_correct_count/len(selected_tasks)*100:.1f}%)")
     print(f"  AI incorrect: {len(selected_tasks) - ai_correct_count}/{len(selected_tasks)}")
     print(f"  Confidence range: [{conf_min:.3f}, {conf_max:.3f}], mean={conf_mean:.3f}")
     print(f"  Task IDs: {sorted(selected_tasks.keys())}")
-    
+
     return selected_tasks
 
+
+def load_beer_tasks(data_dir: Optional[Path] = None,
+                   seed: int = 42,
+                   n_tasks: int = 20) -> dict[str, TaskStimulus]:
+    """Load beer sentiment task stimuli (backward-compatible wrapper)."""
+    return load_domain_tasks('beer', data_dir=data_dir, seed=seed, n_tasks=n_tasks)
 
 def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
     """Return the AI recommendation ACTUALLY SHOWN to the agent for this condition.

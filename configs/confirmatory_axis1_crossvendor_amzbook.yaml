@@ -1,0 +1,96 @@
+# SECONDARY robustness arm: OpenAI-compatible ghc-api cross-vendor check.
+# Item seed intentionally matches confirmatory_axis1.yaml / Azure GPT-5 config.
+# Per-model provider overrides are consumed by provider_factory so reasoning models
+# can use max_completion_tokens without forcing that token field on Claude.
+
+experiment_name: confirmatory_axis1
+description: 'CONFIRMATORY H1a Axis-1 panel: cross-vendor proxy robustness arm'
+domain: amzbook
+models:
+- name: gpt-5.5
+  provider:
+    token_param: max_completion_tokens
+    omit_temperature: true
+    min_completion_tokens: 4096
+- name: claude-sonnet-4.5
+  provider:
+    token_param: max_tokens
+    omit_temperature: false
+- name: gemini-2.5-pro
+  provider:
+    token_param: max_completion_tokens
+    min_completion_tokens: 4096
+ui_conditions:
+- Conf.
+- Conf.+Single
+- Conf.+Double
+- Conf.+Adaptive
+- Conf.+Adaptive (Expert)
+control_condition: Conf.
+treatment_condition: Conf.+Adaptive (Expert)
+human_overdispersion_path: results/e1_multicond_amzbook.json
+n_items: 20
+item_selection:
+  n_items: 20
+  prefer_ai_wrong: 0.5
+  prefer_low_conf: 0.3
+  prefer_high_variance: 0.2
+  seed: 42
+personas:
+- persona_id: novice_trusting
+  domain_skill: 0.2
+  ai_literacy: 0.8
+  risk_sensitivity: 0.3
+  caution: 0.7
+  temperature: 0.7
+  prior_mix: 0.5
+- persona_id: novice_skeptical
+  domain_skill: 0.2
+  ai_literacy: 0.3
+  risk_sensitivity: 0.3
+  caution: 0.7
+  temperature: 0.7
+  prior_mix: 0.5
+- persona_id: expert_cautious
+  domain_skill: 0.8
+  ai_literacy: 0.5
+  risk_sensitivity: 0.8
+  caution: 0.8
+  temperature: 0.5
+  prior_mix: 0.3
+- persona_id: expert_confident
+  domain_skill: 0.8
+  ai_literacy: 0.5
+  risk_sensitivity: 0.2
+  caution: 0.3
+  temperature: 0.5
+  prior_mix: 0.3
+- persona_id: moderate_balanced
+  domain_skill: 0.5
+  ai_literacy: 0.5
+  risk_sensitivity: 0.5
+  caution: 0.5
+  temperature: 0.6
+  prior_mix: 0.5
+- persona_id: moderate_ai_literate
+  domain_skill: 0.5
+  ai_literacy: 0.8
+  risk_sensitivity: 0.5
+  caution: 0.5
+  temperature: 0.6
+  prior_mix: 0.5
+seeds:
+- 42
+mode: static
+cache_dir: data/cache/panel
+provider:
+  type: ghc
+  base_url: http://127.0.0.1:8787/v1
+  call_budget: 5000
+  inter_call_sleep: 2.0
+  max_retries: 8
+analysis:
+  seed: 42
+  n_boot: 10000
+  n_perm: 10000
+output_file: results/confirmatory_axis1_crossvendor_amzbook.json

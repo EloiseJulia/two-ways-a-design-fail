@@ -60,6 +60,7 @@ def run_e1_multicond(config: dict) -> dict:
     data_config = config.get('data', {})
     panel_config = config.get('panel', {})
     seeds = config.get('seeds', {})
+    domain_filter = config.get('domain')
     
     # 1. Load human data
     print("\n[1/6] Loading Bansal CHI'21 human reliance data...")
@@ -70,6 +71,11 @@ def run_e1_multicond(config: dict) -> dict:
         ui_conditions=data_config.get('ui_conditions'),  # None = all 6 conditions
         task_selection=data_config.get('task_selection', 'all')
     )
+    if domain_filter:
+        df = df[df['extra'].apply(lambda x: x.get('task') == domain_filter)].copy()
+        if df.empty:
+            raise ValueError(f"No Bansal rows found for domain '{domain_filter}'")
+        print(f"Domain filter: {domain_filter} ({len(df)} rows)")
     
     # Get list of conditions (sorted for determinism)
     ui_conditions = sorted(df['ui_condition'].unique())
@@ -319,6 +325,8 @@ def main():
     parser.add_argument('--config', required=True, help="Path to YAML config file")
     parser.add_argument('--output', default='results/e1_multicond.json', 
                        help="Output JSON path")
+    parser.add_argument('--domain', default=None,
+                       help="Optional Bansal task-domain filter (e.g. beer or amzbook)")
     
     args = parser.parse_args()
     
@@ -330,6 +338,8 @@ def main():
     
     with open(config_path) as f:
         config = yaml.safe_load(f)
+    if args.domain:
+        config['domain'] = args.domain
     
     # Run experiment
     results = run_e1_multicond(config)

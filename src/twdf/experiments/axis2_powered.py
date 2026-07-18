@@ -60,6 +60,13 @@ def build_provider(config: dict, model_name: str) -> ModelProvider:
     return build_provider_from_config(config, model_name)
 
 
+def build_tasks(config: dict) -> list:
+    item_cfg = config["item_selection"]
+    domain = config.get("domain", item_cfg.get("domain", "beer"))
+    criteria = ItemSelectionCriteria(**{k: v for k, v in item_cfg.items() if k != "domain"})
+    return list(select_hard_items(criteria=criteria, domain=domain).values())
+
+
 def _per_persona_adoption(responses: Iterable[AgentResponse]) -> dict[str, float]:
     by_persona: dict[str, list[float]] = {}
     for r in responses:
@@ -181,8 +188,7 @@ def collect_panel_responses(
     providers: Iterable[ModelProvider] | None = None,
 ) -> list[AgentResponse]:
     personas = _personas_from_config(config)
-    criteria = ItemSelectionCriteria(**config["item_selection"])
-    tasks = select_hard_items(criteria=criteria)
+    tasks = {task.task_id: task for task in build_tasks(config)}
     ui_conditions = tuple(config["ui_conditions"])
 
     all_responses: list[AgentResponse] = []
@@ -226,8 +232,8 @@ def main() -> None:
 
     config_hash = hashlib.sha256(json.dumps(config, sort_keys=True).encode("utf-8")).hexdigest()[:16]
     personas = _personas_from_config(config)
-    criteria = ItemSelectionCriteria(**config["item_selection"])
-    tasks = select_hard_items(criteria=criteria)
+    domain = config.get("domain", config.get("item_selection", {}).get("domain", "beer"))
+    tasks = {task.task_id: task for task in build_tasks(config)}
     ui_conditions = tuple(config["ui_conditions"])
 
     all_responses: list[AgentResponse] = []
@@ -259,7 +265,7 @@ def main() -> None:
             "config_file": args.config,
             "timestamp": datetime.utcnow().isoformat() + "Z",
             "wall_time_seconds": wall_time,
-            "domain": config["domain"],
+            "domain": domain,
             "n_personas": len(personas),
             "n_tasks": len(tasks),
             "n_models": len(_model_names(config)),
