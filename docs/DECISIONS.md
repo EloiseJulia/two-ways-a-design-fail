@@ -761,7 +761,31 @@
     human reliance heterogeneity"). Does NOT alter the capability-dependence contribution. Schedule #3
     (the day-batch grinder) is STOPPED. τ stays UNFROZEN.
 
-  ## Cross-cutting rigor commitments (standing)
+### D5.26 — amzbook 2nd-DOMAIN arm PREREGISTERED (cross-domain generalization test), timestamp 2026-07-18T13:08:04Z
+- **Date:** 2026-07-18 · **What changed:** preregister a 2nd-domain replication on **amzbook** (Amazon
+  book-review sentiment) of the cross-vendor (D5.18) and capability-ladder (D5.23) arms, to test whether
+  the D5.22/D5.24 findings GENERALIZE across domains (answers reviewer A5 "single domain (beer)").
+- **Infra:** PR #23 (audit PASS) generalized the beer-hardcoded item selection to a `domain` param
+  (backward-compatible — beer seed-42 IDs byte-identical), added `load_domain_tasks`, an amzbook-only
+  human anchor `results/e1_multicond_amzbook.json`, and 4 configs.
+- **FROZEN design (before any run):** identical protocol to beer — 6 personas, same UI conditions
+  (axis-1: 5 conditions; axis-2: incl. Wrong-AI-GT dark), matched item seeds (axis-1=42, axis-2=2024),
+  per-model NO pooling, same estimators, proxy provider (throttled). Models: cross-vendor trio
+  (gpt-5.5 + claude-sonnet-4.5 + gemini-2.5-pro) AND the capability ladder (gpt-4o-mini → gpt-4.1 →
+  gpt-4o → gpt-5.5). Axis-1 correspondence uses the amzbook-only anchor (n=5, low-power as before).
+  Configs: `{axis2_powered,confirmatory_axis1}_{crossvendor,capladder}_amzbook.yaml`; outputs `*_amzbook.json`.
+- **Preregistered predictions (report REGARDLESS):** if capability-dependence + persona-robustness
+  GENERALIZE, on amzbook we expect (a) axis-2 over-reliance model-idiosyncratic with reliable frontier
+  RESISTANCE (gpt-5.5 low/below chance), (b) axis-1 panel heterogeneity COLLAPSE at the frontier, (c)
+  persona p5 (trusting-novice) the highest-susceptible across models. A DIFFERENT pattern on amzbook is
+  an honest domain-boundary finding (also publishable). amzbook AI base accuracy differs from beer, so
+  absolute over-reliance levels may shift — the QUALITATIVE model-ordering / frontier-resistance /
+  persona-robustness is the generalization test, not the absolute numbers.
+- **Implication for the paper:** if it generalizes → strong cross-domain robustness for contribution #1/#2
+  (kills A5); if not → a characterized domain boundary. Either way strengthens the honest story. Does NOT
+  alter any frozen primary. τ UNFROZEN.
+
+## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
 - Preregistration discipline: freeze model set / N / τ BEFORE their results; log every change with a
