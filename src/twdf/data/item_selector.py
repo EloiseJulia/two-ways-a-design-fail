@@ -28,7 +28,7 @@ import json
 import numpy as np
 import pandas as pd
 
-from twdf.data.bansal_tasks import TaskStimulus, load_beer_tasks as _original_load_beer_tasks
+from twdf.data.bansal_tasks import TaskStimulus, load_domain_tasks
 from twdf.data.bansal import load_bansal
 
 
@@ -49,7 +49,8 @@ class ItemSelectionCriteria:
 
 def compute_human_reliance_variance(
     task_stimuli: dict[str, TaskStimulus],
-    data_dir: Optional[Path] = None
+    data_dir: Optional[Path] = None,
+    domain: str = "beer"
 ) -> dict[str, float]:
     """
     Compute per-item human reliance variance from Bansal data.
@@ -61,6 +62,7 @@ def compute_human_reliance_variance(
     Args:
         task_stimuli: Dict of task_id -> TaskStimulus
         data_dir: Directory for Bansal CSV (default: data/raw/)
+        domain: Task domain to select from (default: beer)
     
     Returns:
         Dict mapping task_id -> reliance variance across humans
@@ -73,15 +75,15 @@ def compute_human_reliance_variance(
         task_selection='all'
     )
     
-    # Filter to beer domain
-    df_beer = df[df['extra'].apply(lambda x: x.get('task') == 'beer')].copy()
+    # Filter to requested domain
+    df_domain = df[df['extra'].apply(lambda x: x.get('task') == domain)].copy()
     
     # Compute per-item reliance variance
     variance_by_task = {}
     
     for task_id in task_stimuli.keys():
         # Get all human trials for this task (across all conditions)
-        task_trials = df_beer[df_beer['task_id'] == task_id]
+        task_trials = df_domain[df_domain['task_id'] == task_id]
         
         if len(task_trials) == 0:
             variance_by_task[task_id] = 0.0
@@ -102,14 +104,18 @@ def compute_human_reliance_variance(
 
 
 def select_hard_items(
-    criteria: ItemSelectionCriteria,
-    data_dir: Optional[Path] = None
+    criteria: ItemSelectionCriteria | None = None,
+    data_dir: Optional[Path] = None,
+    *,
+    domain: str = "beer",
+    seed: int | None = None,
+    n_items: int | None = None,
 ) -> dict[str, TaskStimulus]:
     """
     Select hard/ambiguous items using data-driven criteria (Fix B).
-    
+
     DETERMINISTIC SELECTION (sorted + fixed seed):
-    1. Load all beer tasks from Bansal
+    1. Load all tasks for the requested Bansal domain
     2. Compute human reliance variance per item (from CSV)
     3. Score items by weighted criteria:
        - AI-wrong items (pred != Y): higher score
@@ -117,99 +123,79 @@ def select_hard_items(
        - High human reliance variance: higher score
     4. Sort by composite score (descending), select top n_items
     5. Deterministic shuffle with seed, then re-sort for final determinism
-    
-    Args:
-        criteria: ItemSelectionCriteria with n_items, weights, seed
-        data_dir: Directory for raw data (default: data/raw/)
-    
-    Returns:
-        Dict of task_id -> TaskStimulus for selected hard items
-    
-    Reports:
-        - Counts of AI-wrong / low-conf / high-human-variance in selection
-        - Distribution of AI confidence in selected items
-        - Disclosure that human reliance was used for SELECTION (not leakage)
-    
-    Methodological guards:
-        - Selection criteria defined a priori (this docstring = preregistration)
-        - Human reliance used ONLY for item selection, NOT in agent prompts
-        - Deterministic (sorted + seeded RNG) for reproducibility
     """
+    if criteria is None:
+        criteria = ItemSelectionCriteria(n_items=n_items or 20, seed=seed if seed is not None else 42)
+    elif seed is not None or n_items is not None:
+        criteria = ItemSelectionCriteria(
+            n_items=n_items if n_items is not None else criteria.n_items,
+            prefer_ai_wrong=criteria.prefer_ai_wrong,
+            prefer_low_conf=criteria.prefer_low_conf,
+            prefer_high_variance=criteria.prefer_high_variance,
+            seed=seed if seed is not None else criteria.seed,
+        )
+
+    domain = domain.lower()
+
     if data_dir is None:
         data_dir = Path("data/raw")
-    
-    print("=== FIX B: Data-driven hard/ambiguous item selection ===")
+
+    print(f"=== FIX B: Data-driven hard/ambiguous item selection ({domain}) ===")
     print(f"Target: {criteria.n_items} items")
     print(f"Weights: AI-wrong={criteria.prefer_ai_wrong:.1%}, "
           f"low-conf={criteria.prefer_low_conf:.1%}, "
           f"high-variance={criteria.prefer_high_variance:.1%}")
     print(f"Seed: {criteria.seed}")
     print()
-    
-    # Load all beer tasks
-    all_tasks = _original_load_beer_tasks(
+
+    all_tasks = load_domain_tasks(
+        domain,
         data_dir=data_dir,
         seed=criteria.seed,
         n_tasks=1000  # Load all available
     )
-    
-    print(f"Total beer tasks available: {len(all_tasks)}")
-    
-    # Compute human reliance variance per item
+
+    print(f"Total {domain} tasks available: {len(all_tasks)}")
+
     print("Computing human reliance variance per item...")
-    variance_by_task = compute_human_reliance_variance(all_tasks, data_dir=data_dir)
-    
-    # Score items by criteria
+    variance_by_task = compute_human_reliance_variance(all_tasks, data_dir=data_dir, domain=domain)
+
     item_scores = []
-    
+
+    max_variance = max(variance_by_task.values()) if variance_by_task else 1.0
     for task_id, task in all_tasks.items():
-        # Criterion 1: AI-wrong items (binary: 0 or 1)
         ai_wrong = 1.0 if task.ai_pred != task.ground_truth else 0.0
-        
-        # Criterion 2: Low AI confidence (normalized: 1-conf)
         low_conf = 1.0 - task.ai_conf
-        
-        # Criterion 3: High human reliance variance (normalized to [0, 1])
-        # Normalize by max variance seen
-        max_variance = max(variance_by_task.values()) if variance_by_task else 1.0
         high_variance = variance_by_task.get(task_id, 0.0) / max_variance if max_variance > 0 else 0.0
-        
-        # Weighted composite score
+
         score = (
             criteria.prefer_ai_wrong * ai_wrong +
             criteria.prefer_low_conf * low_conf +
             criteria.prefer_high_variance * high_variance
         )
-        
+
         item_scores.append((task_id, task, score, ai_wrong, low_conf, high_variance))
-    
-    # Sort by score (descending) + task_id (for determinism)
+
     item_scores.sort(key=lambda x: (-x[2], x[0]))
-    
-    # Select top n_items
     selected = item_scores[:criteria.n_items]
-    
-    # Deterministic shuffle with seed, then re-sort for final determinism
+
     rng = np.random.RandomState(criteria.seed)
     selected_ids = [item[0] for item in selected]
     rng.shuffle(selected_ids)
-    selected_ids = sorted(selected_ids)  # Re-sort for determinism
-    
-    # Build selected tasks dict
+    selected_ids = sorted(selected_ids)
+
     selected_tasks = {task_id: all_tasks[task_id] for task_id in selected_ids}
-    
-    # ===== REPORT SELECTION =====
-    
+
     ai_wrong_count = sum(1 for tid in selected_ids if all_tasks[tid].ai_pred != all_tasks[tid].ground_truth)
     ai_correct_count = len(selected_ids) - ai_wrong_count
-    
+
     conf_values = [all_tasks[tid].ai_conf for tid in selected_ids]
     low_conf_count = sum(1 for c in conf_values if c < 0.7)
     high_conf_count = len(conf_values) - low_conf_count
-    
+
     variance_values = [variance_by_task.get(tid, 0.0) for tid in selected_ids]
     high_var_count = sum(1 for v in variance_values if v > np.median(variance_values))
-    
+
     print(f"\n=== SELECTED {len(selected_tasks)} HARD ITEMS ===")
     print(f"AI correctness:")
     print(f"  - AI WRONG: {ai_wrong_count}/{len(selected_ids)} ({ai_wrong_count/len(selected_ids)*100:.1f}%)")
@@ -231,7 +217,7 @@ def select_hard_items(
     print("on loci of heterogeneity), but human outcomes/reliance are NOT leaked to")
     print("panel agents in prompts or as predictors. Item selection ≠ label leakage.")
     print()
-    
+
     return selected_tasks
 
 
