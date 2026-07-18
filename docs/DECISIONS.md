@@ -686,6 +686,28 @@
     human reliance heterogeneity" — exactly what the human capstone answers.
   - No frozen primary altered; τ UNFROZEN. Cross-vendor audit PASS recorded (D5.20/D5.21).
 
+### D5.23 — SAME-PROVIDER CAPABILITY LADDER preregistered (proxy OpenAI family), timestamp 2026-07-18T01:34:15Z
+- **Date:** 2026-07-18 · **What changed:** to remove a confound in the D5.22 capability-dependence
+  headline, add a within-provider, within-config **capability ladder** run on the ghc-api proxy.
+- **WHY:** the D5.22 claim currently contrasts gpt-4.1-mini (GitHub Models, E4/axis2_powered config)
+  vs the frontier trio (proxy, cross-vendor config) — provider AND config differ, so "capability" is
+  confounded with provider/config. A reviewer would (rightly) attack this. Fix: run an OpenAI-family
+  ladder on the SAME provider (proxy) and the SAME config as the cross-vendor arm.
+- **FROZEN design (before running):** models = **gpt-4o-mini → gpt-4.1 → gpt-4o → gpt-5.5** (small→
+  frontier, all OpenAI, all via proxy). Identical protocol to D5.18 (matched item seeds axis-1=42 /
+  axis-2=2024, same 6 personas, same UI conditions incl. Wrong-AI-GT dark; per-model NO pooling; same
+  estimators). gpt-5.5 reuses its cached cross-vendor responses (identical cache key) so it is the
+  shared anchor between the ladder and the cross-vendor arm. Non-frontier tiers use standard max_tokens;
+  gpt-5.5 uses max_completion_tokens+min 4096 (reasoning). Outputs: `results/*_capladder.json`.
+- **Prediction (preregistered, report regardless):** if capability-dependence is real, axis-2 wrong-AI
+  over-reliance should DECREASE from gpt-4o-mini → gpt-5.5, and panel disagreement (axis-1) should shrink
+  toward the frontier. A flat/again-null curve would WEAKEN the D5.22 headline — report it honestly
+  either way. Note: the proxy has no exact `gpt-4.1-mini`; the GitHub-Models gpt-4.1-mini primary remains
+  a separate cross-provider point (not part of this same-provider ladder).
+- **Implication for the paper:** turns the capability-dependence claim from a provider-confounded contrast
+  into a clean same-provider dose-response curve (core evidence for contribution #1, D5.22). Does NOT
+  alter any frozen primary. τ UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
