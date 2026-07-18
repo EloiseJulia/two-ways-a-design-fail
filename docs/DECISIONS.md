@@ -737,7 +737,31 @@
   the nuance that protects against a reviewer over-claim attack. Does NOT alter any frozen primary. τ
   UNFROZEN.
 
-## Cross-cutting rigor commitments (standing)
+  ### D5.25 — FROZEN CONFIRMATORY axis-1 (D5.11) COMPLETE: H1a is NULL on both models (audit PASS)
+  - **Date:** 2026-07-18 · **What changed:** the frozen GitHub-Models confirmatory (D5.11, N=20, gpt-4o +
+    gpt-4.1-mini) finally completed after multi-day gpt-4o daily-cap batching; independent audit PASS
+    (numbers reproduced from raw cache offline, parser-clean, prereg-conformant, no leakage, not spun).
+  - **Result (Manager re-derivation == audit == summary):**
+    - gpt-4.1-mini: conflict over-dispersion 0.086, mean panel disagreement 0.028, panel↔human
+      cross-condition correspondence rho **-0.205** (BH adj p 0.766, n.s.), within-task permutation BH adj
+      p 0.248 (n.s.).
+    - gpt-4o: over-dispersion 0.364, disagreement 0.125, correspondence rho **+0.410** (BH 0.498, n.s.),
+      within-task BH 0.498 (n.s.).
+    - ALL baselines NOT beaten (mean-predictor/random/prompt-only/single-model/Bayes-null); within-task CI
+      includes 0. **H1a panel↔human over-dispersion correspondence is NULL on both models.**
+  - **WHY / interpretation (honest, per D5.4/D5.11 "report regardless, do not spin"):** this is the
+    pre-expected weak/null axis-1. n=5 conditions has ~no power. It is the **4th independent null on the
+    panel↔human correspondence** (GH-Models gpt-4o + gpt-4.1-mini here, plus the cross-vendor trio D5.21 and
+    the capability ladder D5.24) — the panel↔human PREDICTIVE link is unestablished across EVERY model
+    tested. Consistent with D5.24 model-idiosyncrasy: on axis-1, gpt-4o is more heterogeneous (0.36) than
+    gpt-4.1-mini (0.086).
+  - **Implication for the paper:** the confirmatory-of-record is now on the books as an honest null (§5).
+    It REINFORCES the D5.22/D5.24 framing (capability-dependence; correspondence unvalidated) and makes the
+    E6 human study the decisive, sharply-motivated validator ("which model's panel, if any, tracks real
+    human reliance heterogeneity"). Does NOT alter the capability-dependence contribution. Schedule #3
+    (the day-batch grinder) is STOPPED. τ stays UNFROZEN.
+
+  ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
 - Preregistration discipline: freeze model set / N / τ BEFORE their results; log every change with a

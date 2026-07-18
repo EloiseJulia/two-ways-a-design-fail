@@ -110,7 +110,11 @@ human study that grounds it.
   - **Persona-p5 robust across the ladder too** (dark adoption 1.00/1.00/1.00/0.60).
   - HONEST framing: model-idiosyncrasy + frontier resistance + persona robustness — NOT a clean dose-response.
 - Confirmatory axis-1 on the ORIGINAL provider (H1a, N=20, preregistered D5.11, GitHub Models
-  gpt-4o+gpt-4.1-mini): ⟨PENDING — awaiting gpt-4o daily-reset; report per-model, regardless⟩.
+  gpt-4o+gpt-4.1-mini; **COMPLETE, audit PASS, D5.25**): **NULL on both models** — panel↔human
+  cross-condition over-dispersion correspondence rho −0.205 (gpt-4.1-mini) / +0.410 (gpt-4o), both n.s.
+  after BH (n=5); within-task signal CI includes 0; no baseline beaten. Reported as an honest null
+  (per D5.4). This is the 4th independent null on the panel↔human correspondence across all models tested
+  → the predictive link is unvalidated without E6.
 - E3 LOIO generalization, E5 ECE/reliable-radius/abstention: ⟨report the offline/methodological results⟩.
 
 ## 6. Limitations & threats to validity (LOAD-BEARING — write honestly)
