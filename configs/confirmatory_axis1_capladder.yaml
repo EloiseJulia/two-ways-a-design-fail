@@ -90,8 +90,8 @@ provider:
   type: ghc
   base_url: http://127.0.0.1:8787/v1
   call_budget: 5000
-  inter_call_sleep: 0.8
-  max_retries: 5
+  inter_call_sleep: 2.0
+  max_retries: 8
 analysis:
   seed: 42
   n_boot: 10000
