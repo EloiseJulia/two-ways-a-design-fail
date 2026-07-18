@@ -1,29 +1,41 @@
 # Paper skeleton — "Two Ways a Design Fails" (working title)
 
-> **Status:** living skeleton (2026-07-17). Encodes the LOCKED positioning (DECISIONS D5.4) and the
-> honest evidentiary state. Results marked ⟨PENDING⟩ fill in from the confirmatory axis-1 (D5.11) and
-> powered axis-2 (D5.13) runs. Venue targets: CHI (Methods) / FAccT / CSCW. Do NOT overclaim the
-> empirical magnitude — the signal is the TARGET the method detects (D5.4).
+> **Status:** living skeleton (updated 2026-07-18). Encodes the PIVOTED positioning (DECISIONS **D5.22**,
+> PI-approved A+B) driven by the cross-vendor evidence (D5.20/D5.21, audit PASS). The "validated
+> cross-vendor detector" framing is RETIRED. New main line: **panel deployment-screening signals are
+> model-capability-dependent**; persona-level susceptibility is the robust positive result. Results
+> marked ⟨PENDING⟩ fill in from the frozen GH-Models confirmatory axis-1 (D5.11, awaiting gpt-4o reset).
+> Venue targets: HCOMP / FAccT / CHI (Methods). Report REGARDLESS of outcome; do NOT re-inflate a
+> retired claim.
 
-## Title candidates (align with the evidence: validated axis-2 + preliminary axis-1 + method)
-- "Two Ways a Design Fails: Pre-Deployment Triage of Human–AI Decision Interfaces with a Synthetic Agent Panel"
-- "Over-Dispersion as a Safety Signal: Triaging AI-Advice Interfaces Before the Human Study"
-- (avoid claiming "predicting humans" in the title until E6; frame as "triage"/"screening")
+## Title candidates (align with the evidence: capability-dependence + persona-robust susceptibility)
+- "When Does a Synthetic Panel See the Danger? Model-Capability-Dependence of Pre-Deployment Screening for Human–AI Decision Interfaces"
+- "Frontier Models Resist the Trap Their Users Fall Into: Capability-Dependent Reliance Signals in LLM Panels"
+- "Who the Panel Still Warns About: Persona-Robust Dark-Pattern Susceptibility Across Model Vendors"
+- (avoid "validated detector" / "predicts humans" — the cross-vendor data do not support generalization)
 
-## Abstract (sketch)
+## Abstract (sketch — PIVOTED, D5.22)
 Deploying an AI-advice interface can fail in (at least) two ways: it can make reliance **heterogeneous
-and user-sensitive** (safe for some users, dangerous for others — an over-dispersion failure), or it
-can make users **uniformly over-rely on a confidently wrong AI** (a dark-pattern failure). Both are
-invisible to mean-accuracy evaluation. We propose a **pre-deployment triage** that runs a calibrated
-**multi-agent LLM panel** as a synthetic cohort and screens an interface on two axes — reliance
-**over-dispersion** (axis-1) and **wrong-AI over-reliance** (axis-2) — flagging designs that warrant a
-(costly) human study before release. We treat cross-user **variance** as the safety-relevant dependent
-variable (not the mean effect), validate the panel against two real human decision datasets (Bansal,
-Lu&Yin), and preregister our confirmatory tests. ⟨Findings: axis-2 = strong, significant over-reliance
-on a coercive wrong AI (clean 0.69, p<0.01); axis-1 = ⟨PENDING confirmatory⟩; panel↔human
-correspondence = ⟨PENDING⟩.⟩ The empirical signal is the target the method detects; small effects
-motivate a calibrated-threshold abstention rule rather than undermining the screen. We do not claim to
-predict individual humans — we triage designs that need human study.
+and user-sensitive** (an over-dispersion failure), or make users **uniformly over-rely on a confidently
+wrong AI** (a dark-pattern failure). A tempting shortcut is to screen interfaces *before* a costly human
+study with a **calibrated multi-agent LLM panel** as a synthetic cohort. We build that panel — two-axis
+(over-dispersion; wrong-AI over-reliance), conflict-conditioned, preregistered — and ask whether its
+danger signals are **robust across the LLMs that power it**. They are **not**: the signals are strongly
+**model-capability-dependent**. A smaller model (gpt-4.1-mini) reproduces documented human failure modes
+(wrong-AI over-reliance ≈0.69, p<0.01; real reliance heterogeneity), whereas **frontier models resist
+the trap and homogenize** — gpt-5.5 adopts the guaranteed-wrong AI only 30% of the time (significantly
+*below* chance), with near-zero cross-persona disagreement; claude-sonnet-4.5 and gemini-2.5-pro sit at
+chance (0/3 vendors replicate). **Consequently, the choice of panel model is a first-order, under-
+appreciated design decision, and a single-frontier-model panel can silently MASK deployment risks that a
+weaker-model panel surfaces.** Yet one signal is **robust across all vendors**: dark-pattern
+susceptibility **concentrates in a trusting-novice persona** (adoption 0.60–1.00) even when the model
+mean collapses — so the panel reliably localizes *which user profiles* a coercive interface endangers,
+even where aggregate rates do not transfer. We contribute (i) this capability-dependence finding as new,
+head-on evidence for the silicon-sampling reliability debate, (ii) the persona-conditioned susceptibility
+result, (iii) the two-axis over-dispersion-as-safety-DV protocol, and (iv) a rigorous, preregistered,
+audit-gated pipeline (three self-caught silent-corruption bugs). We do not claim to predict individual
+humans; we characterize when a synthetic panel does — and does not — see the danger, and preregister the
+human study that grounds it.
 
 ## 1. Introduction
 - Hook: mean accuracy hides *who* is endangered and *when* an interface weaponizes a wrong AI.
@@ -70,34 +82,56 @@ predict individual humans — we triage designs that need human study.
 - E1 axis-1 over-dispersion on real Bansal humans: REAL (ρ=0.067, excludes 0); variance decomposition
   (no-AI trait 0.74 → AI user×task 0.32–0.41 on Bansal; C0 = Bansal-specific, does not generalize to
   Lu&Yin 0.80 — reported honestly).
-- Confirmatory axis-1 (H1a, N=20, preregistered D5.11): ⟨PENDING — report per-model, regardless⟩.
-- Panel↔human cross-condition correspondence (secondary): ⟨PENDING; power-N suggested weak⟩.
-- Axis-2 (E4 → powered D5.13): E4 = strong significant over-reliance on a coercive wrong AI (clean 0.69,
-  binomial p=0.0098, p5=100%, near-uniform); powered clean 1−gt multi-model = ⟨PENDING⟩.
+- **Cross-vendor capability-dependence (D5.18/D5.20/D5.21 — the CENTERPIECE; audit PASS):** same
+  preregistered protocol run on gpt-5.5 (OpenAI) + claude-sonnet-4.5 (Anthropic) + gemini-2.5-pro
+  (Google), matched items, per-model (no pooling).
+  - **Axis-2 does NOT replicate on frontier:** over-reliance on the guaranteed-wrong AI = gpt-5.5
+    **0.300** (binomial vs 0.5 p=1.0 — significantly *below* chance, active resistance), claude
+    **0.492** (p=0.61), gemini **0.525** (p=0.32); **0/3 significant** vs gpt-4.1-mini **0.690**
+    (p=0.0098). 
+  - **Axis-1 correspondence null/weak across all vendors:** panel↔human per-condition over-dispersion
+    Spearman = −0.20 / −0.31 / +0.10 (n=5, none significant; swings to +0.63 dropping one condition =
+    A4 fragility, not signal).
+  - **Frontier-ceiling mechanism (preregistered risk, confirmed):** gpt-5.5 mean panel disagreement
+    0.012 (vs claude 0.045, gemini 0.074) = near-homogeneous; conflict trials ARE present (n_conflict
+    59–73/120) — the model *resists*, it is not a no-conflict artifact.
+  - **ROBUST positive result (B):** dark-pattern susceptibility concentrates in the trusting-novice
+    persona (p5) across ALL vendors — adoption gpt-5.5 0.60 / claude 0.95 / gemini 1.00 — even where the
+    model mean collapses.
+- Confirmatory axis-1 on the ORIGINAL provider (H1a, N=20, preregistered D5.11, GitHub Models
+  gpt-4o+gpt-4.1-mini): ⟨PENDING — awaiting gpt-4o daily-reset; report per-model, regardless⟩.
 - E3 LOIO generalization, E5 ECE/reliable-radius/abstention: ⟨report the offline/methodological results⟩.
 
 ## 6. Limitations & threats to validity (LOAD-BEARING — write honestly)
-- **Synthetic personas ≠ real users** (the central threat). Mitigations: calibration; conflict-
-  conditioned DV; cross-model; and — critically — E6 (future) is the direct human validation. Until
-  E6, claims are TRIAGE/screening, not human prediction.
-- **Panel↔human predictive validity is not yet established** (axis-1 correspondence looks weak in the
-  power-N). We state this plainly; the confirmatory settles it; a null is reported as a bound.
-- **Single domain (beer) for the panel**; single-vendor (OpenAI family, capability-tier not cross-
-  vendor); axis-2 domain/model coverage limited.
-- **Axis-2 manipulation:** the dark condition constructs a guaranteed-wrong AI (1−gt) — measures
-  susceptibility to a coercive wrong AI, not naturalistic model error.
-- **Small effect sizes / task-selection sensitivity** for axis-1 over-dispersion (disclosed; motivates
-  the calibrated threshold + abstention).
-- **No human study yet** (E6 is the planned capstone).
+- **Synthetic personas ≠ real users** (the central threat). The cross-vendor result makes this concrete:
+  the panel's danger signal depends on the model, so "the panel" is not one thing. E6 (future) is the
+  direct human validation that grounds WHICH model, if any, tracks humans.
+- **The screen is NOT model-agnostic:** our own evidence shows axis-2/axis-1 signals do not transfer
+  across capability tiers. We therefore do NOT claim a validated, deployable, model-agnostic detector.
+- **Small n / no power for axis-1 correspondence** (n=5 conditions; task-selection fragility) — disclosed;
+  motivates the difficulty-stratified correspondence (D5.14) and E6.
+- **Single domain (beer)**; axis-2 constructs a guaranteed-wrong AI (1−gt) = susceptibility to a coercive
+  wrong AI, not naturalistic model error. amzbook 2nd-domain arm is queued.
+- **Item selection uses human reliance variance** (A11, disclosed): correspondence-circularity risk;
+  mitigation = held-out item correspondence + E6.
+- **No human study yet** (E6 is the planned capstone; now sharply motivated by the capability-dependence).
 
-## 7. Contributions (ranked; honest)
-1. **Framing/method:** over-dispersion as a safety-relevant DV + a two-axis pre-deployment triage
-   protocol with calibrated thresholds + abstention. (Novel; no direct prior art.)
-2. **A significant axis-2 dark-pattern susceptibility result** in a calibrated panel (E4/D5.13).
-3. **A rigorous, reproducible pipeline** (preregistration, blind analysis, audit-gated, a caught-and-
-   fixed bug) — a methods contribution in itself.
-4. ⟨If it lands: axis-1 confirmatory + panel↔human correspondence.⟩
-5. A **preregistered human-validation design (E6)** as the path to full validation.
+## 7. Contributions (ranked; honest — PIVOTED per D5.22)
+1. **Model-capability-dependence of LLM-panel screening signals** (primary empirical + cautionary
+   methods): the same preregistered panel yields strong human-like failure signals on a smaller model
+   but has them RESISTED/HOMOGENIZED by frontier models — new, direct evidence for the silicon-sampling
+   reliability debate (Seshadri ICLR'26, Santurkar), and a concrete warning that panel-model choice is a
+   first-order design decision that can mask deployment risks.
+2. **Persona-conditioned dark-pattern susceptibility that IS robust across vendors** (positive result):
+   even when the model mean collapses, the panel localizes the trusting-novice profile as highly
+   susceptible — a detector-flavored contribution scoped to WHO, not aggregate rate.
+3. **The two-axis protocol** (over-dispersion as a safety-relevant DV + wrong-AI over-reliance,
+   conflict-conditioned, with calibrated thresholds + abstention) as the method.
+4. **A rigorous, reproducible pipeline** — preregistration frozen before results, blind analysis,
+   audit-gated merges, and THREE self-caught silent-corruption bugs (axis-2 sign-inversion D5.10,
+   betabinom boundary D5.16, parser fabrication D5.19) reported as evidence of process integrity.
+5. A **preregistered human-validation design (E6)**, now sharpened: which model's panel (if any) tracks
+   real human reliance heterogeneity.
 
 ## 8. Ethics
 - Dark-pattern deception (guaranteed-wrong coercive AI) → debrief; IRB for E6; no deployment of dark

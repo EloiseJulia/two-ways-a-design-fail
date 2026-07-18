@@ -655,6 +655,37 @@
   (see D5.20 escalation). Does NOT alter any frozen primary (D5.11 GH-Models confirmatory still pending
   its gpt-4o daily-reset finish). τ stays UNFROZEN.
 
+### D5.22 — CONTRIBUTION PIVOT (PI-approved): "model-capability-dependence of panel signals" + persona-robust susceptibility
+- **Date:** 2026-07-18 · **What changed:** headline contribution reframed, driven by the D5.20/D5.21
+  cross-vendor evidence (independent audit PASS). PI-approved option **A+B**.
+- **From → to:** D5.4/outline positioned the paper as a **validated two-axis pre-deployment triage /
+  (cross-vendor) dark-pattern detector**, with axis-2 as the anchor empirical result → **NEW main line:
+  "LLM-panel deployment-screening signals are MODEL-CAPABILITY-DEPENDENT"** — smaller/older models
+  (gpt-4.1-mini) reproduce documented human failure modes (strong wrong-AI over-reliance 0.69, real
+  reliance heterogeneity), while frontier models RESIST wrong AI and HOMOGENIZE (gpt-5.5 over-reliance
+  0.30 below chance, near-zero panel disagreement 0.012; claude/gemini at chance). **Therefore the panel
+  model is a critical, under-appreciated design choice, and a single-frontier-model panel can MASK real
+  deployment risks.** Plus the robust positive sub-finding (**B**): dark-pattern susceptibility
+  **concentrates in a trusting-novice persona across ALL vendors** (p5 = 0.60/0.95/1.00) even when the
+  model-mean collapses — the panel robustly localizes WHICH user profiles a coercive interface endangers.
+- **WHY / evidence:** D5.18 cross-vendor arm (gpt-5.5 + claude-sonnet-4.5 + gemini-2.5-pro), preregistered
+  and audited (both axes reproduced from raw traces, mismatch=0, parser-fix-clean): axis-2 0/3 replicate
+  (D5.20), axis-1 correspondence null/weak/fragile (D5.21). The arm intended to answer reviewer A2/A8
+  instead produced a deeper, honest result. This is the results-driven reframe the PI empowered
+  (cf. the D5.17 "gate framing on data" decision — the data are now in).
+- **Implication for the paper:**
+  - **Contribution structure** (rewritten in `docs/paper/outline.md`): (1) the capability-dependence
+    finding as the primary empirical contribution + a cautionary methods result on silicon-sampling
+    (engages Seshadri ICLR'26 head-on with NEW evidence); (2) persona-conditioned susceptibility as the
+    robust positive detector-flavored result; (3) the two-axis protocol + over-dispersion-as-DV as the
+    method; (4) the rigor spine (preregistration, blind analysis, THREE self-caught silent-corruption
+    bugs D5.10/D5.16/D5.19). The "validated cross-vendor detector" claim is RETIRED (not supported).
+  - **Reviewer rebuttals:** A2/A8 ("just GPT's priors / homogeneity") flip from a threat we defend to a
+    phenomenon we CHARACTERIZE and own.
+  - **E6 motivation sharpened:** the key open question becomes "WHICH model's panel (if any) tracks real
+    human reliance heterogeneity" — exactly what the human capstone answers.
+  - No frozen primary altered; τ UNFROZEN. Cross-vendor audit PASS recorded (D5.20/D5.21).
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

@@ -22,10 +22,13 @@
 ### A2 ★★★★ — "The panel just re-encodes the LLM's own priors; 'persona disagreement' is prompt noise."
 - **Current evidence:** conflict-conditioned DV (only System-1≠AI cells); item selection uses AI-side
   exogenous props (no human-DV leakage); PR#4 distinguishes preference vs capability-noise disagreement.
-- **Rebuttal + gap:** strongest answer is **cross-model / cross-vendor consistency** — if disagreement
-  is prompt noise it won't agree across gpt-4o vs gpt-4.1-mini (and ideally a non-OpenAI vendor).
-- **Cheapest closer:** the confirmatory already runs 2 models (report cross-model agreement). **Add a
-  cross-vendor model via Azure** (the provider exists) for a stronger claim. PRIORITY 3.
+- **PIVOT (D5.22) — we now OWN this instead of merely defending it:** the cross-vendor arm (gpt-5.5 +
+  claude-sonnet-4.5 + gemini-2.5-pro) shows the signal is NOT uniform prompt noise — it is
+  **model-capability-dependent**: a smaller model reproduces human-like wrong-AI over-reliance (0.69)
+  while frontier models RESIST it (gpt-5.5 0.30, below chance) and homogenize. Cross-model rank
+  agreement on the condition ordering is high (0.78, descriptive), but the *magnitude* is capability-
+  tied. This is a characterized phenomenon, not an unaddressed weakness. Persona-level susceptibility
+  (trusting-novice) is robust across all three vendors — the opposite of "prompt noise."
 
 ### A3 ★★★★ — "Correspondence is only n=5 conditions — you can't do statistics on 5 points."
 - **Current evidence:** the frozen prereg uses 5-condition Spearman as SECONDARY; the PRIMARY is the
@@ -60,8 +63,13 @@
 ### A8 ★★★★ — "LLM homogeneity / silicon-sampling (Santurkar, Seshadri, CoMPosT)."
 - **Current:** PR#3 naive-panel collapse → PR#4 conflict-conditioned DV + hard items + persona
   conditioning resolves it (43% conflict, spread 0.11–0.56); calibration step.
-- **Rebuttal + gap:** cite the critiques head-on; show conflict-conditioned disagreement is not trivial
-  agreement; **cross-model consistency** is the empirical answer (see A2). Cheapest closer = A2's.
+- **PIVOT (D5.22) — turned into a contribution:** rather than claim we escaped silicon-sampling
+  homogeneity, we CHARACTERIZE it as capability-dependent NEW evidence for exactly this debate: frontier
+  models (gpt-5.5) homogenize (panel disagreement 0.012, near-uniform) and resist the wrong-AI trap,
+  while a smaller model does not. This is a direct empirical answer to Seshadri/Santurkar — the panel's
+  fidelity to human failure modes DEGRADES with model capability on easy tasks — and it motivates using
+  capability-appropriate panel models + the E6 human anchor. The robust cross-vendor invariant (persona
+  p5 susceptibility) shows the panel still carries non-trivial, transferable structure.
 
 ### A9 ★★★ (NEW) — "Your dark condition shows a guaranteed-wrong AI (1−gt) — that's not naturalistic."
 - **Rebuttal:** it's a deliberate stress test of *susceptibility to a coercive wrong AI* (a dark
