@@ -819,3 +819,16 @@ and timestamp for every change.
   accept ~10-15%, ~25-35% w/ powered axis-1+axis-2, ~50-60% w/ E6. Recommends
   ANCHOR ON AXIS-2 + a stripped axis-2-only E6 (N~40). Flagged to PI as framing
   decisions (pending approval before any DECISIONS reframe).
+
+---
+## 2026-07-19 — MANAGER #3 → #4 HANDOFF (era summary; see docs/handoff/2026-07-19-manager-handoff.md)
+- **PIVOT (D5.22, PI-approved):** main line = LLM-panel signals are MODEL-CAPABILITY-DEPENDENT +
+  persona-robust susceptibility. "Validated cross-vendor detector" RETIRED.
+- **Audited results:** cross-vendor (D5.20/21), capability ladder (D5.24), frozen confirmatory NULL
+  (D5.25), amzbook cross-domain generalization arms 1-3 done (D5.26; arm 4 running via Schedule #5).
+- **Merged PRs:** #20 metric bug-fixes, #21 OpenAICompatibleProvider, #22 P0 parser fix, #23 amzbook domain.
+- **3 self-caught silent-corruption bugs:** axis-2 sign-inversion (D5.10), betabinom boundary (D5.16),
+  parser fabrication (D5.19, caught by watcher).
+- **Infra:** ghc-api proxy (free, rate-limited) replaced the Azure plan. Schedules #3/#4 STOPPED; #5 running.
+- **Next:** finish amzbook (D5.27) → E6 human study (decisive validator). Honest venue read: HCOMP now,
+  top-venue full paper needs E6. Launch prompt for the successor: docs/manager-prompt-v4.md.
