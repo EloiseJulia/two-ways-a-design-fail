@@ -1,0 +1,3051 @@
+{
+  "aligned_per_condition_table": [
+    {
+      "condition": "Conf.",
+      "conflict_conditioned_reliance": 0.43902439024390244,
+      "conflict_fraction": 0.3416666666666667,
+      "model": "gpt-4.1",
+      "n_conflict": 41,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.15951452712482617,
+      "overdispersion_mean_p": 0.43902439024390244,
+      "overdispersion_rho": 0.5769195708675788,
+      "panel_disagreement": 0.19555579176114893,
+      "per_cell_counts": {
+        "expert_cautious|Conf.": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.8333333333333334,
+        "moderate_balanced|seed=42": 0.14285714285714285,
+        "novice_skeptical|seed=42": 0.625,
+        "novice_trusting|seed=42": 1.0
+      },
+      "unconditional_reliance": 0.8083333333333333
+    },
+    {
+      "condition": "Conf.+Adaptive",
+      "conflict_conditioned_reliance": 0.3902439024390244,
+      "conflict_fraction": 0.3416666666666667,
+      "model": "gpt-4.1",
+      "n_conflict": 41,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.17258492949791684,
+      "overdispersion_mean_p": 0.3902439024390244,
+      "overdispersion_rho": 0.7000053532807233,
+      "panel_disagreement": 0.20740740740740743,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.8333333333333334,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.5,
+        "novice_trusting|seed=42": 1.0
+      },
+      "unconditional_reliance": 0.7916666666666666
+    },
+    {
+      "condition": "Conf.+Adaptive (Expert)",
+      "conflict_conditioned_reliance": 0.43902439024390244,
+      "conflict_fraction": 0.3416666666666667,
+      "model": "gpt-4.1",
+      "n_conflict": 41,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.15951452712482617,
+      "overdispersion_mean_p": 0.43902439024390244,
+      "overdispersion_rho": 0.5769195708675788,
+      "panel_disagreement": 0.19555579176114893,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.8333333333333334,
+        "moderate_balanced|seed=42": 0.14285714285714285,
+        "novice_skeptical|seed=42": 0.625,
+        "novice_trusting|seed=42": 1.0
+      },
+      "unconditional_reliance": 0.8083333333333333
+    },
+    {
+      "condition": "Conf.+Double",
+      "conflict_conditioned_reliance": 0.3902439024390244,
+      "conflict_fraction": 0.3416666666666667,
+      "model": "gpt-4.1",
+      "n_conflict": 41,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.1520031551214996,
+      "overdispersion_mean_p": 0.3902439024390244,
+      "overdispersion_rho": 0.5629323008526044,
+      "panel_disagreement": 0.18682563303099017,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Double": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Double": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Double": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.8333333333333334,
+        "moderate_balanced|seed=42": 0.14285714285714285,
+        "novice_skeptical|seed=42": 0.375,
+        "novice_trusting|seed=42": 1.0
+      },
+      "unconditional_reliance": 0.7916666666666666
+    },
+    {
+      "condition": "Conf.+Single",
+      "conflict_conditioned_reliance": 0.4146341463414634,
+      "conflict_fraction": 0.3416666666666667,
+      "model": "gpt-4.1",
+      "n_conflict": 41,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.138013054769659,
+      "overdispersion_mean_p": 0.4146341463414634,
+      "overdispersion_rho": 0.5411429151980893,
+      "panel_disagreement": 0.1735319822373394,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Single": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Single": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Single": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.6666666666666666,
+        "moderate_balanced|seed=42": 0.14285714285714285,
+        "novice_skeptical|seed=42": 0.625,
+        "novice_trusting|seed=42": 1.0
+      },
+      "unconditional_reliance": 0.8
+    },
+    {
+      "condition": "Conf.",
+      "conflict_conditioned_reliance": 0.25,
+      "conflict_fraction": 0.4,
+      "model": "gpt-4o",
+      "n_conflict": 48,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.09713863168724277,
+      "overdispersion_mean_p": 0.25,
+      "overdispersion_rho": 0.4839478058021215,
+      "panel_disagreement": 0.12057613168724277,
+      "per_cell_counts": {
+        "expert_cautious|Conf.": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.3333333333333333,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.2222222222222222,
+        "novice_trusting|seed=42": 0.8888888888888888
+      },
+      "unconditional_reliance": 0.7
+    },
+    {
+      "condition": "Conf.+Adaptive",
+      "conflict_conditioned_reliance": 0.25,
+      "conflict_fraction": 0.4,
+      "model": "gpt-4o",
+      "n_conflict": 48,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.0824266975308642,
+      "overdispersion_mean_p": 0.25,
+      "overdispersion_rho": 0.4321102256754235,
+      "panel_disagreement": 0.1058641975308642,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.5,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.2222222222222222,
+        "novice_trusting|seed=42": 0.7777777777777778
+      },
+      "unconditional_reliance": 0.7
+    },
+    {
+      "condition": "Conf.+Adaptive (Expert)",
+      "conflict_conditioned_reliance": 0.2708333333333333,
+      "conflict_fraction": 0.4,
+      "model": "gpt-4o",
+      "n_conflict": 48,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.08200191293724282,
+      "overdispersion_mean_p": 0.2708333333333333,
+      "overdispersion_rho": 0.4399921276214693,
+      "panel_disagreement": 0.10668724279835393,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.5,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.3333333333333333,
+        "novice_trusting|seed=42": 0.7777777777777778
+      },
+      "unconditional_reliance": 0.7083333333333334
+    },
+    {
+      "condition": "Conf.+Double",
+      "conflict_conditioned_reliance": 0.25,
+      "conflict_fraction": 0.4,
+      "model": "gpt-4o",
+      "n_conflict": 48,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.0824266975308642,
+      "overdispersion_mean_p": 0.25,
+      "overdispersion_rho": 0.4321102256754235,
+      "panel_disagreement": 0.1058641975308642,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Double": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Double": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Double": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Double": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Double": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.5,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.2222222222222222,
+        "novice_trusting|seed=42": 0.7777777777777778
+      },
+      "unconditional_reliance": 0.7
+    },
+    {
+      "condition": "Conf.+Single",
+      "conflict_conditioned_reliance": 0.2708333333333333,
+      "conflict_fraction": 0.4,
+      "model": "gpt-4o",
+      "n_conflict": 48,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.07737228330761317,
+      "overdispersion_mean_p": 0.2708333333333333,
+      "overdispersion_rho": 0.4341128606613237,
+      "panel_disagreement": 0.10205761316872428,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Single": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Single": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Single": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Single": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Single": {
+          "conflict_fraction": 0.45,
+          "n_conflict": 9,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.3333333333333333,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.4444444444444444,
+        "novice_trusting|seed=42": 0.7777777777777778
+      },
+      "unconditional_reliance": 0.7083333333333334
+    },
+    {
+      "condition": "Conf.",
+      "conflict_conditioned_reliance": 0.40540540540540543,
+      "conflict_fraction": 0.30833333333333335,
+      "model": "gpt-4o-mini",
+      "n_conflict": 37,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.09705941276169805,
+      "overdispersion_mean_p": 0.40540540540540543,
+      "overdispersion_rho": 0.3699494430220754,
+      "panel_disagreement": 0.13614890400604684,
+      "per_cell_counts": {
+        "expert_cautious|Conf.": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.": {
+          "conflict_fraction": 0.25,
+          "n_conflict": 5,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.16666666666666666,
+        "moderate_ai_literate|seed=42": 0.6666666666666666,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.5714285714285714,
+        "novice_trusting|seed=42": 0.8571428571428571
+      },
+      "unconditional_reliance": 0.8083333333333333
+    },
+    {
+      "condition": "Conf.+Adaptive",
+      "conflict_conditioned_reliance": 0.3783783783783784,
+      "conflict_fraction": 0.30833333333333335,
+      "model": "gpt-4o-mini",
+      "n_conflict": 37,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.08107581986064713,
+      "overdispersion_mean_p": 0.3783783783783784,
+      "overdispersion_rho": 0.3461935393371034,
+      "panel_disagreement": 0.11921768707482991,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive": {
+          "conflict_fraction": 0.25,
+          "n_conflict": 5,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.5,
+        "moderate_balanced|seed=42": 0.2,
+        "novice_skeptical|seed=42": 0.5714285714285714,
+        "novice_trusting|seed=42": 0.8571428571428571
+      },
+      "unconditional_reliance": 0.8083333333333333
+    },
+    {
+      "condition": "Conf.+Adaptive (Expert)",
+      "conflict_conditioned_reliance": 0.3783783783783784,
+      "conflict_fraction": 0.30833333333333335,
+      "model": "gpt-4o-mini",
+      "n_conflict": 37,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.08334339355679227,
+      "overdispersion_mean_p": 0.3783783783783784,
+      "overdispersion_rho": 0.3424891817161643,
+      "panel_disagreement": 0.12148526077097503,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.25,
+          "n_conflict": 5,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.16666666666666666,
+        "moderate_ai_literate|seed=42": 0.3333333333333333,
+        "moderate_balanced|seed=42": 0.2,
+        "novice_skeptical|seed=42": 0.42857142857142855,
+        "novice_trusting|seed=42": 1.0
+      },
+      "unconditional_reliance": 0.8
+    },
+    {
+      "condition": "Conf.+Double",
+      "conflict_conditioned_reliance": 0.3783783783783784,
+      "conflict_fraction": 0.30833333333333335,
+      "model": "gpt-4o-mini",
+      "n_conflict": 37,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.08107581986064713,
+      "overdispersion_mean_p": 0.3783783783783784,
+      "overdispersion_rho": 0.3461935393371034,
+      "panel_disagreement": 0.11921768707482991,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Double": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Double": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Double": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Double": {
+          "conflict_fraction": 0.25,
+          "n_conflict": 5,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.5,
+        "moderate_balanced|seed=42": 0.2,
+        "novice_skeptical|seed=42": 0.5714285714285714,
+        "novice_trusting|seed=42": 0.8571428571428571
+      },
+      "unconditional_reliance": 0.8083333333333333
+    },
+    {
+      "condition": "Conf.+Single",
+      "conflict_conditioned_reliance": 0.3783783783783784,
+      "conflict_fraction": 0.30833333333333335,
+      "model": "gpt-4o-mini",
+      "n_conflict": 37,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.08799569892338335,
+      "overdispersion_mean_p": 0.3783783783783784,
+      "overdispersion_rho": 0.3600452657568524,
+      "panel_disagreement": 0.12613756613756613,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Single": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Single": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Single": {
+          "conflict_fraction": 0.3,
+          "n_conflict": 6,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Single": {
+          "conflict_fraction": 0.25,
+          "n_conflict": 5,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.6666666666666666,
+        "moderate_balanced|seed=42": 0.2,
+        "novice_skeptical|seed=42": 0.42857142857142855,
+        "novice_trusting|seed=42": 0.8571428571428571
+      },
+      "unconditional_reliance": 0.8083333333333333
+    },
+    {
+      "condition": "Conf.",
+      "conflict_conditioned_reliance": 0.20930232558139536,
+      "conflict_fraction": 0.35833333333333334,
+      "model": "gpt-5.5",
+      "n_conflict": 43,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.003406418151989183,
+      "overdispersion_mean_p": 0.20930232558139536,
+      "overdispersion_rho": 1.0063588750022228e-06,
+      "panel_disagreement": 0.026498724489795917,
+      "per_cell_counts": {
+        "expert_cautious|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.14285714285714285,
+        "moderate_ai_literate|seed=42": 0.42857142857142855,
+        "moderate_balanced|seed=42": 0.14285714285714285,
+        "novice_skeptical|seed=42": 0.14285714285714285,
+        "novice_trusting|seed=42": 0.375
+      },
+      "unconditional_reliance": 0.7166666666666667
+    },
+    {
+      "condition": "Conf.+Adaptive",
+      "conflict_conditioned_reliance": 0.06976744186046512,
+      "conflict_fraction": 0.35833333333333334,
+      "model": "gpt-5.5",
+      "n_conflict": 43,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.0023812684229489404,
+      "overdispersion_mean_p": 0.06976744186046512,
+      "overdispersion_rho": 0.04304459364751247,
+      "panel_disagreement": 0.011437074829931972,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.14285714285714285,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.0,
+        "novice_trusting|seed=42": 0.25
+      },
+      "unconditional_reliance": 0.6666666666666666
+    },
+    {
+      "condition": "Conf.+Adaptive (Expert)",
+      "conflict_conditioned_reliance": 0.13953488372093023,
+      "conflict_fraction": 0.35833333333333334,
+      "model": "gpt-5.5",
+      "n_conflict": 43,
+      "n_total": 120,
+      "overdispersion_excess_variance": -0.00225494253319072,
+      "overdispersion_mean_p": 0.13953488372093023,
+      "overdispersion_rho": 1.0037305930631128e-06,
+      "panel_disagreement": 0.01449829931972789,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Adaptive (Expert)": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.2857142857142857,
+        "moderate_balanced|seed=42": 0.14285714285714285,
+        "novice_skeptical|seed=42": 0.14285714285714285,
+        "novice_trusting|seed=42": 0.25
+      },
+      "unconditional_reliance": 0.6916666666666667
+    },
+    {
+      "condition": "Conf.+Double",
+      "conflict_conditioned_reliance": 0.06976744186046512,
+      "conflict_fraction": 0.35833333333333334,
+      "model": "gpt-5.5",
+      "n_conflict": 43,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.0023812684229489404,
+      "overdispersion_mean_p": 0.06976744186046512,
+      "overdispersion_rho": 0.04304459364751247,
+      "panel_disagreement": 0.011437074829931972,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Double": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Double": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.14285714285714285,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.0,
+        "novice_trusting|seed=42": 0.25
+      },
+      "unconditional_reliance": 0.6666666666666666
+    },
+    {
+      "condition": "Conf.+Single",
+      "conflict_conditioned_reliance": 0.06976744186046512,
+      "conflict_fraction": 0.35833333333333334,
+      "model": "gpt-5.5",
+      "n_conflict": 43,
+      "n_total": 120,
+      "overdispersion_excess_variance": 0.0023812684229489404,
+      "overdispersion_mean_p": 0.06976744186046512,
+      "overdispersion_rho": 0.04304459364751247,
+      "panel_disagreement": 0.011437074829931972,
+      "per_cell_counts": {
+        "expert_cautious|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "expert_confident|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_ai_literate|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "moderate_balanced|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_skeptical|Conf.+Single": {
+          "conflict_fraction": 0.35,
+          "n_conflict": 7,
+          "n_total": 20,
+          "underpowered": false
+        },
+        "novice_trusting|Conf.+Single": {
+          "conflict_fraction": 0.4,
+          "n_conflict": 8,
+          "n_total": 20,
+          "underpowered": false
+        }
+      },
+      "per_member_reliance": {
+        "expert_cautious|seed=42": 0.0,
+        "expert_confident|seed=42": 0.0,
+        "moderate_ai_literate|seed=42": 0.14285714285714285,
+        "moderate_balanced|seed=42": 0.0,
+        "novice_skeptical|seed=42": 0.0,
+        "novice_trusting|seed=42": 0.25
+      },
+      "unconditional_reliance": 0.6666666666666666
+    }
+  ],
+  "cross_model_agreement": {
+    "mean_pairwise_correlation": 0.4207097919667593,
+    "note": "Cross-model agreement is descriptive only; primary H1a numbers are per-model, not pooled.",
+    "pairwise_rank_correlations": {
+      "gpt-4.1_vs_gpt-4o": 0.5263157894736843,
+      "gpt-4.1_vs_gpt-4o-mini": -0.26315789473684215,
+      "gpt-4.1_vs_gpt-5.5": 0.2867696673382022,
+      "gpt-4o-mini_vs_gpt-5.5": 0.6882472016116853,
+      "gpt-4o_vs_gpt-4o-mini": 0.36842105263157904,
+      "gpt-4o_vs_gpt-5.5": 0.9176629354822471
+    }
+  },
+  "exploratory_vs_confirmatory": "CONFIRMATORY",
+  "n": {
+    "conditions": 5,
+    "items": 20,
+    "models": 4,
+    "personas": 6,
+    "responses": 2400,
+    "seeds": 1
+  },
+  "per_model": {
+    "gpt-4.1": {
+      "aligned_per_condition_table": [
+        {
+          "condition": "Conf.",
+          "conflict_conditioned_reliance": 0.43902439024390244,
+          "conflict_fraction": 0.3416666666666667,
+          "model": "gpt-4.1",
+          "n_conflict": 41,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.15951452712482617,
+          "overdispersion_mean_p": 0.43902439024390244,
+          "overdispersion_rho": 0.5769195708675788,
+          "panel_disagreement": 0.19555579176114893,
+          "per_cell_counts": {
+            "expert_cautious|Conf.": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.8333333333333334,
+            "moderate_balanced|seed=42": 0.14285714285714285,
+            "novice_skeptical|seed=42": 0.625,
+            "novice_trusting|seed=42": 1.0
+          },
+          "unconditional_reliance": 0.8083333333333333
+        },
+        {
+          "condition": "Conf.+Adaptive",
+          "conflict_conditioned_reliance": 0.3902439024390244,
+          "conflict_fraction": 0.3416666666666667,
+          "model": "gpt-4.1",
+          "n_conflict": 41,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.17258492949791684,
+          "overdispersion_mean_p": 0.3902439024390244,
+          "overdispersion_rho": 0.7000053532807233,
+          "panel_disagreement": 0.20740740740740743,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.8333333333333334,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.5,
+            "novice_trusting|seed=42": 1.0
+          },
+          "unconditional_reliance": 0.7916666666666666
+        },
+        {
+          "condition": "Conf.+Adaptive (Expert)",
+          "conflict_conditioned_reliance": 0.43902439024390244,
+          "conflict_fraction": 0.3416666666666667,
+          "model": "gpt-4.1",
+          "n_conflict": 41,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.15951452712482617,
+          "overdispersion_mean_p": 0.43902439024390244,
+          "overdispersion_rho": 0.5769195708675788,
+          "panel_disagreement": 0.19555579176114893,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.8333333333333334,
+            "moderate_balanced|seed=42": 0.14285714285714285,
+            "novice_skeptical|seed=42": 0.625,
+            "novice_trusting|seed=42": 1.0
+          },
+          "unconditional_reliance": 0.8083333333333333
+        },
+        {
+          "condition": "Conf.+Double",
+          "conflict_conditioned_reliance": 0.3902439024390244,
+          "conflict_fraction": 0.3416666666666667,
+          "model": "gpt-4.1",
+          "n_conflict": 41,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.1520031551214996,
+          "overdispersion_mean_p": 0.3902439024390244,
+          "overdispersion_rho": 0.5629323008526044,
+          "panel_disagreement": 0.18682563303099017,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Double": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Double": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Double": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.8333333333333334,
+            "moderate_balanced|seed=42": 0.14285714285714285,
+            "novice_skeptical|seed=42": 0.375,
+            "novice_trusting|seed=42": 1.0
+          },
+          "unconditional_reliance": 0.7916666666666666
+        },
+        {
+          "condition": "Conf.+Single",
+          "conflict_conditioned_reliance": 0.4146341463414634,
+          "conflict_fraction": 0.3416666666666667,
+          "model": "gpt-4.1",
+          "n_conflict": 41,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.138013054769659,
+          "overdispersion_mean_p": 0.4146341463414634,
+          "overdispersion_rho": 0.5411429151980893,
+          "panel_disagreement": 0.1735319822373394,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Single": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Single": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Single": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.6666666666666666,
+            "moderate_balanced|seed=42": 0.14285714285714285,
+            "novice_skeptical|seed=42": 0.625,
+            "novice_trusting|seed=42": 1.0
+          },
+          "unconditional_reliance": 0.8
+        }
+      ],
+      "baseline_comparisons": {
+        "mean_predictor": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "name": "mean_predictor",
+          "note": "Reuses baseline_mean_predictor; rho=0 by construction.",
+          "signal_estimate": 0.0,
+          "value": 0.0
+        },
+        "prompt_only": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "name": "prompt_only",
+          "note": "Single prompt/no persona panel has no between-persona disagreement axis.",
+          "signal_estimate": 0.0,
+          "value": 0.0
+        },
+        "random": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "name": "random",
+          "note": "Deterministic zero-effect random-label null for within-task paired disagreement.",
+          "signal_estimate": 0.0,
+          "value": 0.0
+        },
+        "rational_bayes_null": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "name": "rational_bayes_null",
+          "note": "Appropriate-reliance anchor: rely iff AI advice is correct; no human-outcome predictor.",
+          "signal_estimate": 0.0,
+          "value": 0.0
+        },
+        "single_model": {
+          "beaten": false,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "name": "single_model",
+          "note": "No cross-model triangulation null; primary estimates are still reported per model.",
+          "signal_estimate": 0.0,
+          "value": 0.0
+        }
+      },
+      "bh_adjusted_pvalues": {
+        "cross_condition_correspondence": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        },
+        "within_task_permutation": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        }
+      },
+      "conflict_conditioned_overdispersion": {
+        "ci_lower": 0.046644642831194655,
+        "ci_upper": 0.8608044699636147,
+        "estimate": 0.5769195708675788,
+        "se": 0.20007245499629175
+      },
+      "cross_condition_correspondence": {
+        "aligned_pairs": [
+          {
+            "condition": "Conf.",
+            "human_rho": 0.0007455087863218283,
+            "panel_disagreement": 0.19555579176114893
+          },
+          {
+            "condition": "Conf.+Single",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.1735319822373394
+          },
+          {
+            "condition": "Conf.+Double",
+            "human_rho": 0.003633013081178861,
+            "panel_disagreement": 0.18682563303099017
+          },
+          {
+            "condition": "Conf.+Adaptive",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.20740740740740743
+          },
+          {
+            "condition": "Conf.+Adaptive (Expert)",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.19555579176114893
+          }
+        ],
+        "bootstrap_ci": [
+          0.0,
+          0.0
+        ],
+        "ceiling_excluded": null,
+        "ceiling_flags": {
+          "Conf.": {
+            "empirical_var": 0.00256225513616818,
+            "excess_var": 0.00012304530630050494,
+            "flagged": false,
+            "mean_p": 0.8578260869565217,
+            "reason": null
+          },
+          "Conf.+Adaptive": {
+            "empirical_var": 0.0019361383824216926,
+            "excess_var": -0.0006841034952520264,
+            "flagged": false,
+            "mean_p": 0.8449462365591398,
+            "reason": null
+          },
+          "Conf.+Adaptive (Expert)": {
+            "empirical_var": 0.0016719372900335953,
+            "excess_var": -0.0009526442058112802,
+            "flagged": false,
+            "mean_p": 0.8446315789473684,
+            "reason": null
+          },
+          "Conf.+Double": {
+            "empirical_var": 0.0034986766541822718,
+            "excess_var": 0.0007895694936884447,
+            "flagged": false,
+            "mean_p": 0.8384444444444444,
+            "reason": null
+          },
+          "Conf.+Single": {
+            "empirical_var": 0.0012785347985347993,
+            "excess_var": -0.0012048647908867686,
+            "flagged": false,
+            "mean_p": 0.8547252747252747,
+            "reason": null
+          }
+        },
+        "degenerate": false,
+        "n_conditions": 5,
+        "note": "Constant panel disagreement; correspondence reported as null rather than failing.",
+        "pearson_r": 0.0,
+        "shared_conditions": [
+          "Conf.",
+          "Conf.+Single",
+          "Conf.+Double",
+          "Conf.+Adaptive",
+          "Conf.+Adaptive (Expert)"
+        ],
+        "spearman_p": 1.0,
+        "spearman_rho": 0.0
+      },
+      "model": "gpt-4.1",
+      "within_task_estimator": {
+        "ci_lower": 0.0,
+        "ci_upper": 0.0,
+        "estimate": 0.0,
+        "permutation": {
+          "n_pairs": 13,
+          "n_permutations": 10000,
+          "observed_diff": 0.0,
+          "pvalue": 1.0
+        },
+        "se": 0.0
+      }
+    },
+    "gpt-4o": {
+      "aligned_per_condition_table": [
+        {
+          "condition": "Conf.",
+          "conflict_conditioned_reliance": 0.25,
+          "conflict_fraction": 0.4,
+          "model": "gpt-4o",
+          "n_conflict": 48,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.09713863168724277,
+          "overdispersion_mean_p": 0.25,
+          "overdispersion_rho": 0.4839478058021215,
+          "panel_disagreement": 0.12057613168724277,
+          "per_cell_counts": {
+            "expert_cautious|Conf.": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.3333333333333333,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.2222222222222222,
+            "novice_trusting|seed=42": 0.8888888888888888
+          },
+          "unconditional_reliance": 0.7
+        },
+        {
+          "condition": "Conf.+Adaptive",
+          "conflict_conditioned_reliance": 0.25,
+          "conflict_fraction": 0.4,
+          "model": "gpt-4o",
+          "n_conflict": 48,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.0824266975308642,
+          "overdispersion_mean_p": 0.25,
+          "overdispersion_rho": 0.4321102256754235,
+          "panel_disagreement": 0.1058641975308642,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.5,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.2222222222222222,
+            "novice_trusting|seed=42": 0.7777777777777778
+          },
+          "unconditional_reliance": 0.7
+        },
+        {
+          "condition": "Conf.+Adaptive (Expert)",
+          "conflict_conditioned_reliance": 0.2708333333333333,
+          "conflict_fraction": 0.4,
+          "model": "gpt-4o",
+          "n_conflict": 48,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.08200191293724282,
+          "overdispersion_mean_p": 0.2708333333333333,
+          "overdispersion_rho": 0.4399921276214693,
+          "panel_disagreement": 0.10668724279835393,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.5,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.3333333333333333,
+            "novice_trusting|seed=42": 0.7777777777777778
+          },
+          "unconditional_reliance": 0.7083333333333334
+        },
+        {
+          "condition": "Conf.+Double",
+          "conflict_conditioned_reliance": 0.25,
+          "conflict_fraction": 0.4,
+          "model": "gpt-4o",
+          "n_conflict": 48,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.0824266975308642,
+          "overdispersion_mean_p": 0.25,
+          "overdispersion_rho": 0.4321102256754235,
+          "panel_disagreement": 0.1058641975308642,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Double": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Double": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Double": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Double": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Double": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.5,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.2222222222222222,
+            "novice_trusting|seed=42": 0.7777777777777778
+          },
+          "unconditional_reliance": 0.7
+        },
+        {
+          "condition": "Conf.+Single",
+          "conflict_conditioned_reliance": 0.2708333333333333,
+          "conflict_fraction": 0.4,
+          "model": "gpt-4o",
+          "n_conflict": 48,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.07737228330761317,
+          "overdispersion_mean_p": 0.2708333333333333,
+          "overdispersion_rho": 0.4341128606613237,
+          "panel_disagreement": 0.10205761316872428,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Single": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Single": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Single": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Single": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Single": {
+              "conflict_fraction": 0.45,
+              "n_conflict": 9,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.3333333333333333,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.4444444444444444,
+            "novice_trusting|seed=42": 0.7777777777777778
+          },
+          "unconditional_reliance": 0.7083333333333334
+        }
+      ],
+      "baseline_comparisons": {
+        "mean_predictor": {
+          "beaten": false,
+          "ci_lower": -0.05555555555555556,
+          "ci_upper": 0.08484848484848485,
+          "name": "mean_predictor",
+          "note": "Reuses baseline_mean_predictor; rho=0 by construction.",
+          "signal_estimate": 0.025641025641025644,
+          "value": 0.0
+        },
+        "prompt_only": {
+          "beaten": false,
+          "ci_lower": -0.05555555555555556,
+          "ci_upper": 0.08484848484848485,
+          "name": "prompt_only",
+          "note": "Single prompt/no persona panel has no between-persona disagreement axis.",
+          "signal_estimate": 0.025641025641025644,
+          "value": 0.0
+        },
+        "random": {
+          "beaten": false,
+          "ci_lower": -0.05555555555555556,
+          "ci_upper": 0.08484848484848485,
+          "name": "random",
+          "note": "Deterministic zero-effect random-label null for within-task paired disagreement.",
+          "signal_estimate": 0.025641025641025644,
+          "value": 0.0
+        },
+        "rational_bayes_null": {
+          "beaten": false,
+          "ci_lower": -0.05555555555555556,
+          "ci_upper": 0.08484848484848485,
+          "name": "rational_bayes_null",
+          "note": "Appropriate-reliance anchor: rely iff AI advice is correct; no human-outcome predictor.",
+          "signal_estimate": 0.025641025641025644,
+          "value": 0.0
+        },
+        "single_model": {
+          "beaten": false,
+          "ci_lower": -0.05555555555555556,
+          "ci_upper": 0.08484848484848485,
+          "name": "single_model",
+          "note": "No cross-model triangulation null; primary estimates are still reported per model.",
+          "signal_estimate": 0.025641025641025644,
+          "value": 0.0
+        }
+      },
+      "bh_adjusted_pvalues": {
+        "cross_condition_correspondence": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        },
+        "within_task_permutation": {
+          "adjusted_p": 1.0,
+          "raw_p": 0.7539,
+          "reject_alpha_0_05": false
+        }
+      },
+      "conflict_conditioned_overdispersion": {
+        "ci_lower": 0.0025089342162566935,
+        "ci_upper": 0.7201842087429386,
+        "estimate": 0.4399921276214693,
+        "se": 0.16300287626399595
+      },
+      "cross_condition_correspondence": {
+        "aligned_pairs": [
+          {
+            "condition": "Conf.",
+            "human_rho": 0.0007455087863218283,
+            "panel_disagreement": 0.12057613168724277
+          },
+          {
+            "condition": "Conf.+Single",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.10205761316872428
+          },
+          {
+            "condition": "Conf.+Double",
+            "human_rho": 0.003633013081178861,
+            "panel_disagreement": 0.1058641975308642
+          },
+          {
+            "condition": "Conf.+Adaptive",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.1058641975308642
+          },
+          {
+            "condition": "Conf.+Adaptive (Expert)",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.10668724279835393
+          }
+        ],
+        "bootstrap_ci": [
+          0.0,
+          0.0
+        ],
+        "ceiling_excluded": null,
+        "ceiling_flags": {
+          "Conf.": {
+            "empirical_var": 0.00256225513616818,
+            "excess_var": 0.00012304530630050494,
+            "flagged": false,
+            "mean_p": 0.8578260869565217,
+            "reason": null
+          },
+          "Conf.+Adaptive": {
+            "empirical_var": 0.0019361383824216926,
+            "excess_var": -0.0006841034952520264,
+            "flagged": false,
+            "mean_p": 0.8449462365591398,
+            "reason": null
+          },
+          "Conf.+Adaptive (Expert)": {
+            "empirical_var": 0.0016719372900335953,
+            "excess_var": -0.0009526442058112802,
+            "flagged": false,
+            "mean_p": 0.8446315789473684,
+            "reason": null
+          },
+          "Conf.+Double": {
+            "empirical_var": 0.0034986766541822718,
+            "excess_var": 0.0007895694936884447,
+            "flagged": false,
+            "mean_p": 0.8384444444444444,
+            "reason": null
+          },
+          "Conf.+Single": {
+            "empirical_var": 0.0012785347985347993,
+            "excess_var": -0.0012048647908867686,
+            "flagged": false,
+            "mean_p": 0.8547252747252747,
+            "reason": null
+          }
+        },
+        "degenerate": false,
+        "n_conditions": 5,
+        "note": "Constant panel disagreement; correspondence reported as null rather than failing.",
+        "pearson_r": 0.0,
+        "shared_conditions": [
+          "Conf.",
+          "Conf.+Single",
+          "Conf.+Double",
+          "Conf.+Adaptive",
+          "Conf.+Adaptive (Expert)"
+        ],
+        "spearman_p": 1.0,
+        "spearman_rho": 0.0
+      },
+      "model": "gpt-4o",
+      "within_task_estimator": {
+        "ci_lower": -0.05555555555555556,
+        "ci_upper": 0.08484848484848485,
+        "estimate": 0.025641025641025644,
+        "permutation": {
+          "n_pairs": 13,
+          "n_permutations": 10000,
+          "observed_diff": 0.025641025641025644,
+          "pvalue": 0.7539
+        },
+        "se": 0.03540648320161468
+      }
+    },
+    "gpt-4o-mini": {
+      "aligned_per_condition_table": [
+        {
+          "condition": "Conf.",
+          "conflict_conditioned_reliance": 0.40540540540540543,
+          "conflict_fraction": 0.30833333333333335,
+          "model": "gpt-4o-mini",
+          "n_conflict": 37,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.09705941276169805,
+          "overdispersion_mean_p": 0.40540540540540543,
+          "overdispersion_rho": 0.3699494430220754,
+          "panel_disagreement": 0.13614890400604684,
+          "per_cell_counts": {
+            "expert_cautious|Conf.": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.": {
+              "conflict_fraction": 0.25,
+              "n_conflict": 5,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.16666666666666666,
+            "moderate_ai_literate|seed=42": 0.6666666666666666,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.5714285714285714,
+            "novice_trusting|seed=42": 0.8571428571428571
+          },
+          "unconditional_reliance": 0.8083333333333333
+        },
+        {
+          "condition": "Conf.+Adaptive",
+          "conflict_conditioned_reliance": 0.3783783783783784,
+          "conflict_fraction": 0.30833333333333335,
+          "model": "gpt-4o-mini",
+          "n_conflict": 37,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.08107581986064713,
+          "overdispersion_mean_p": 0.3783783783783784,
+          "overdispersion_rho": 0.3461935393371034,
+          "panel_disagreement": 0.11921768707482991,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive": {
+              "conflict_fraction": 0.25,
+              "n_conflict": 5,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.5,
+            "moderate_balanced|seed=42": 0.2,
+            "novice_skeptical|seed=42": 0.5714285714285714,
+            "novice_trusting|seed=42": 0.8571428571428571
+          },
+          "unconditional_reliance": 0.8083333333333333
+        },
+        {
+          "condition": "Conf.+Adaptive (Expert)",
+          "conflict_conditioned_reliance": 0.3783783783783784,
+          "conflict_fraction": 0.30833333333333335,
+          "model": "gpt-4o-mini",
+          "n_conflict": 37,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.08334339355679227,
+          "overdispersion_mean_p": 0.3783783783783784,
+          "overdispersion_rho": 0.3424891817161643,
+          "panel_disagreement": 0.12148526077097503,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.25,
+              "n_conflict": 5,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.16666666666666666,
+            "moderate_ai_literate|seed=42": 0.3333333333333333,
+            "moderate_balanced|seed=42": 0.2,
+            "novice_skeptical|seed=42": 0.42857142857142855,
+            "novice_trusting|seed=42": 1.0
+          },
+          "unconditional_reliance": 0.8
+        },
+        {
+          "condition": "Conf.+Double",
+          "conflict_conditioned_reliance": 0.3783783783783784,
+          "conflict_fraction": 0.30833333333333335,
+          "model": "gpt-4o-mini",
+          "n_conflict": 37,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.08107581986064713,
+          "overdispersion_mean_p": 0.3783783783783784,
+          "overdispersion_rho": 0.3461935393371034,
+          "panel_disagreement": 0.11921768707482991,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Double": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Double": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Double": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Double": {
+              "conflict_fraction": 0.25,
+              "n_conflict": 5,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.5,
+            "moderate_balanced|seed=42": 0.2,
+            "novice_skeptical|seed=42": 0.5714285714285714,
+            "novice_trusting|seed=42": 0.8571428571428571
+          },
+          "unconditional_reliance": 0.8083333333333333
+        },
+        {
+          "condition": "Conf.+Single",
+          "conflict_conditioned_reliance": 0.3783783783783784,
+          "conflict_fraction": 0.30833333333333335,
+          "model": "gpt-4o-mini",
+          "n_conflict": 37,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.08799569892338335,
+          "overdispersion_mean_p": 0.3783783783783784,
+          "overdispersion_rho": 0.3600452657568524,
+          "panel_disagreement": 0.12613756613756613,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Single": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Single": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Single": {
+              "conflict_fraction": 0.3,
+              "n_conflict": 6,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Single": {
+              "conflict_fraction": 0.25,
+              "n_conflict": 5,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.6666666666666666,
+            "moderate_balanced|seed=42": 0.2,
+            "novice_skeptical|seed=42": 0.42857142857142855,
+            "novice_trusting|seed=42": 0.8571428571428571
+          },
+          "unconditional_reliance": 0.8083333333333333
+        }
+      ],
+      "baseline_comparisons": {
+        "mean_predictor": {
+          "beaten": false,
+          "ci_lower": -0.06666666666666667,
+          "ci_upper": 0.065,
+          "name": "mean_predictor",
+          "note": "Reuses baseline_mean_predictor; rho=0 by construction.",
+          "signal_estimate": 0.015151515151515164,
+          "value": 0.0
+        },
+        "prompt_only": {
+          "beaten": false,
+          "ci_lower": -0.06666666666666667,
+          "ci_upper": 0.065,
+          "name": "prompt_only",
+          "note": "Single prompt/no persona panel has no between-persona disagreement axis.",
+          "signal_estimate": 0.015151515151515164,
+          "value": 0.0
+        },
+        "random": {
+          "beaten": false,
+          "ci_lower": -0.06666666666666667,
+          "ci_upper": 0.065,
+          "name": "random",
+          "note": "Deterministic zero-effect random-label null for within-task paired disagreement.",
+          "signal_estimate": 0.015151515151515164,
+          "value": 0.0
+        },
+        "rational_bayes_null": {
+          "beaten": false,
+          "ci_lower": -0.06666666666666667,
+          "ci_upper": 0.065,
+          "name": "rational_bayes_null",
+          "note": "Appropriate-reliance anchor: rely iff AI advice is correct; no human-outcome predictor.",
+          "signal_estimate": 0.015151515151515164,
+          "value": 0.0
+        },
+        "single_model": {
+          "beaten": false,
+          "ci_lower": -0.06666666666666667,
+          "ci_upper": 0.065,
+          "name": "single_model",
+          "note": "No cross-model triangulation null; primary estimates are still reported per model.",
+          "signal_estimate": 0.015151515151515164,
+          "value": 0.0
+        }
+      },
+      "bh_adjusted_pvalues": {
+        "cross_condition_correspondence": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        },
+        "within_task_permutation": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        }
+      },
+      "conflict_conditioned_overdispersion": {
+        "ci_lower": 1.0037305930631128e-06,
+        "ci_upper": 0.7163338952388308,
+        "estimate": 0.3424891817161643,
+        "se": 0.23720616356061935
+      },
+      "cross_condition_correspondence": {
+        "aligned_pairs": [
+          {
+            "condition": "Conf.",
+            "human_rho": 0.0007455087863218283,
+            "panel_disagreement": 0.13614890400604684
+          },
+          {
+            "condition": "Conf.+Single",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.12613756613756613
+          },
+          {
+            "condition": "Conf.+Double",
+            "human_rho": 0.003633013081178861,
+            "panel_disagreement": 0.11921768707482991
+          },
+          {
+            "condition": "Conf.+Adaptive",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.11921768707482991
+          },
+          {
+            "condition": "Conf.+Adaptive (Expert)",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.12148526077097503
+          }
+        ],
+        "bootstrap_ci": [
+          0.0,
+          0.0
+        ],
+        "ceiling_excluded": null,
+        "ceiling_flags": {
+          "Conf.": {
+            "empirical_var": 0.00256225513616818,
+            "excess_var": 0.00012304530630050494,
+            "flagged": false,
+            "mean_p": 0.8578260869565217,
+            "reason": null
+          },
+          "Conf.+Adaptive": {
+            "empirical_var": 0.0019361383824216926,
+            "excess_var": -0.0006841034952520264,
+            "flagged": false,
+            "mean_p": 0.8449462365591398,
+            "reason": null
+          },
+          "Conf.+Adaptive (Expert)": {
+            "empirical_var": 0.0016719372900335953,
+            "excess_var": -0.0009526442058112802,
+            "flagged": false,
+            "mean_p": 0.8446315789473684,
+            "reason": null
+          },
+          "Conf.+Double": {
+            "empirical_var": 0.0034986766541822718,
+            "excess_var": 0.0007895694936884447,
+            "flagged": false,
+            "mean_p": 0.8384444444444444,
+            "reason": null
+          },
+          "Conf.+Single": {
+            "empirical_var": 0.0012785347985347993,
+            "excess_var": -0.0012048647908867686,
+            "flagged": false,
+            "mean_p": 0.8547252747252747,
+            "reason": null
+          }
+        },
+        "degenerate": false,
+        "n_conditions": 5,
+        "note": "Constant panel disagreement; correspondence reported as null rather than failing.",
+        "pearson_r": 0.0,
+        "shared_conditions": [
+          "Conf.",
+          "Conf.+Single",
+          "Conf.+Double",
+          "Conf.+Adaptive",
+          "Conf.+Adaptive (Expert)"
+        ],
+        "spearman_p": 1.0,
+        "spearman_rho": 0.0
+      },
+      "model": "gpt-4o-mini",
+      "within_task_estimator": {
+        "ci_lower": -0.06666666666666667,
+        "ci_upper": 0.065,
+        "estimate": 0.015151515151515164,
+        "permutation": {
+          "n_pairs": 11,
+          "n_permutations": 10000,
+          "observed_diff": 0.015151515151515164,
+          "pvalue": 1.0
+        },
+        "se": 0.03636385092101493
+      }
+    },
+    "gpt-5.5": {
+      "aligned_per_condition_table": [
+        {
+          "condition": "Conf.",
+          "conflict_conditioned_reliance": 0.20930232558139536,
+          "conflict_fraction": 0.35833333333333334,
+          "model": "gpt-5.5",
+          "n_conflict": 43,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.003406418151989183,
+          "overdispersion_mean_p": 0.20930232558139536,
+          "overdispersion_rho": 1.0063588750022228e-06,
+          "panel_disagreement": 0.026498724489795917,
+          "per_cell_counts": {
+            "expert_cautious|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.14285714285714285,
+            "moderate_ai_literate|seed=42": 0.42857142857142855,
+            "moderate_balanced|seed=42": 0.14285714285714285,
+            "novice_skeptical|seed=42": 0.14285714285714285,
+            "novice_trusting|seed=42": 0.375
+          },
+          "unconditional_reliance": 0.7166666666666667
+        },
+        {
+          "condition": "Conf.+Adaptive",
+          "conflict_conditioned_reliance": 0.06976744186046512,
+          "conflict_fraction": 0.35833333333333334,
+          "model": "gpt-5.5",
+          "n_conflict": 43,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.0023812684229489404,
+          "overdispersion_mean_p": 0.06976744186046512,
+          "overdispersion_rho": 0.04304459364751247,
+          "panel_disagreement": 0.011437074829931972,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.14285714285714285,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.0,
+            "novice_trusting|seed=42": 0.25
+          },
+          "unconditional_reliance": 0.6666666666666666
+        },
+        {
+          "condition": "Conf.+Adaptive (Expert)",
+          "conflict_conditioned_reliance": 0.13953488372093023,
+          "conflict_fraction": 0.35833333333333334,
+          "model": "gpt-5.5",
+          "n_conflict": 43,
+          "n_total": 120,
+          "overdispersion_excess_variance": -0.00225494253319072,
+          "overdispersion_mean_p": 0.13953488372093023,
+          "overdispersion_rho": 1.0037305930631128e-06,
+          "panel_disagreement": 0.01449829931972789,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Adaptive (Expert)": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.2857142857142857,
+            "moderate_balanced|seed=42": 0.14285714285714285,
+            "novice_skeptical|seed=42": 0.14285714285714285,
+            "novice_trusting|seed=42": 0.25
+          },
+          "unconditional_reliance": 0.6916666666666667
+        },
+        {
+          "condition": "Conf.+Double",
+          "conflict_conditioned_reliance": 0.06976744186046512,
+          "conflict_fraction": 0.35833333333333334,
+          "model": "gpt-5.5",
+          "n_conflict": 43,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.0023812684229489404,
+          "overdispersion_mean_p": 0.06976744186046512,
+          "overdispersion_rho": 0.04304459364751247,
+          "panel_disagreement": 0.011437074829931972,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Double": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Double": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.14285714285714285,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.0,
+            "novice_trusting|seed=42": 0.25
+          },
+          "unconditional_reliance": 0.6666666666666666
+        },
+        {
+          "condition": "Conf.+Single",
+          "conflict_conditioned_reliance": 0.06976744186046512,
+          "conflict_fraction": 0.35833333333333334,
+          "model": "gpt-5.5",
+          "n_conflict": 43,
+          "n_total": 120,
+          "overdispersion_excess_variance": 0.0023812684229489404,
+          "overdispersion_mean_p": 0.06976744186046512,
+          "overdispersion_rho": 0.04304459364751247,
+          "panel_disagreement": 0.011437074829931972,
+          "per_cell_counts": {
+            "expert_cautious|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "expert_confident|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_ai_literate|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "moderate_balanced|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_skeptical|Conf.+Single": {
+              "conflict_fraction": 0.35,
+              "n_conflict": 7,
+              "n_total": 20,
+              "underpowered": false
+            },
+            "novice_trusting|Conf.+Single": {
+              "conflict_fraction": 0.4,
+              "n_conflict": 8,
+              "n_total": 20,
+              "underpowered": false
+            }
+          },
+          "per_member_reliance": {
+            "expert_cautious|seed=42": 0.0,
+            "expert_confident|seed=42": 0.0,
+            "moderate_ai_literate|seed=42": 0.14285714285714285,
+            "moderate_balanced|seed=42": 0.0,
+            "novice_skeptical|seed=42": 0.0,
+            "novice_trusting|seed=42": 0.25
+          },
+          "unconditional_reliance": 0.6666666666666666
+        }
+      ],
+      "baseline_comparisons": {
+        "mean_predictor": {
+          "beaten": false,
+          "ci_lower": -0.038095238095238106,
+          "ci_upper": 0.019047619047619042,
+          "name": "mean_predictor",
+          "note": "Reuses baseline_mean_predictor; rho=0 by construction.",
+          "signal_estimate": -0.020833333333333336,
+          "value": 0.0
+        },
+        "prompt_only": {
+          "beaten": false,
+          "ci_lower": -0.038095238095238106,
+          "ci_upper": 0.019047619047619042,
+          "name": "prompt_only",
+          "note": "Single prompt/no persona panel has no between-persona disagreement axis.",
+          "signal_estimate": -0.020833333333333336,
+          "value": 0.0
+        },
+        "random": {
+          "beaten": false,
+          "ci_lower": -0.038095238095238106,
+          "ci_upper": 0.019047619047619042,
+          "name": "random",
+          "note": "Deterministic zero-effect random-label null for within-task paired disagreement.",
+          "signal_estimate": -0.020833333333333336,
+          "value": 0.0
+        },
+        "rational_bayes_null": {
+          "beaten": false,
+          "ci_lower": -0.038095238095238106,
+          "ci_upper": 0.019047619047619042,
+          "name": "rational_bayes_null",
+          "note": "Appropriate-reliance anchor: rely iff AI advice is correct; no human-outcome predictor.",
+          "signal_estimate": -0.020833333333333336,
+          "value": 0.0
+        },
+        "single_model": {
+          "beaten": false,
+          "ci_lower": -0.038095238095238106,
+          "ci_upper": 0.019047619047619042,
+          "name": "single_model",
+          "note": "No cross-model triangulation null; primary estimates are still reported per model.",
+          "signal_estimate": -0.020833333333333336,
+          "value": 0.0
+        }
+      },
+      "bh_adjusted_pvalues": {
+        "cross_condition_correspondence": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        },
+        "within_task_permutation": {
+          "adjusted_p": 1.0,
+          "raw_p": 1.0,
+          "reject_alpha_0_05": false
+        }
+      },
+      "conflict_conditioned_overdispersion": {
+        "ci_lower": 1.0037305930631128e-06,
+        "ci_upper": 0.10953476032802217,
+        "estimate": 1.0037305930631128e-06,
+        "se": 0.029060883144448477
+      },
+      "cross_condition_correspondence": {
+        "aligned_pairs": [
+          {
+            "condition": "Conf.",
+            "human_rho": 0.0007455087863218283,
+            "panel_disagreement": 0.026498724489795917
+          },
+          {
+            "condition": "Conf.+Single",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.011437074829931972
+          },
+          {
+            "condition": "Conf.+Double",
+            "human_rho": 0.003633013081178861,
+            "panel_disagreement": 0.011437074829931972
+          },
+          {
+            "condition": "Conf.+Adaptive",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.011437074829931972
+          },
+          {
+            "condition": "Conf.+Adaptive (Expert)",
+            "human_rho": 1.0037305930631128e-06,
+            "panel_disagreement": 0.01449829931972789
+          }
+        ],
+        "bootstrap_ci": [
+          0.0,
+          0.0
+        ],
+        "ceiling_excluded": null,
+        "ceiling_flags": {
+          "Conf.": {
+            "empirical_var": 0.00256225513616818,
+            "excess_var": 0.00012304530630050494,
+            "flagged": false,
+            "mean_p": 0.8578260869565217,
+            "reason": null
+          },
+          "Conf.+Adaptive": {
+            "empirical_var": 0.0019361383824216926,
+            "excess_var": -0.0006841034952520264,
+            "flagged": false,
+            "mean_p": 0.8449462365591398,
+            "reason": null
+          },
+          "Conf.+Adaptive (Expert)": {
+            "empirical_var": 0.0016719372900335953,
+            "excess_var": -0.0009526442058112802,
+            "flagged": false,
+            "mean_p": 0.8446315789473684,
+            "reason": null
+          },
+          "Conf.+Double": {
+            "empirical_var": 0.0034986766541822718,
+            "excess_var": 0.0007895694936884447,
+            "flagged": false,
+            "mean_p": 0.8384444444444444,
+            "reason": null
+          },
+          "Conf.+Single": {
+            "empirical_var": 0.0012785347985347993,
+            "excess_var": -0.0012048647908867686,
+            "flagged": false,
+            "mean_p": 0.8547252747252747,
+            "reason": null
+          }
+        },
+        "degenerate": false,
+        "n_conditions": 5,
+        "note": "Constant panel disagreement; correspondence reported as null rather than failing.",
+        "pearson_r": 0.0,
+        "shared_conditions": [
+          "Conf.",
+          "Conf.+Single",
+          "Conf.+Double",
+          "Conf.+Adaptive",
+          "Conf.+Adaptive (Expert)"
+        ],
+        "spearman_p": 1.0,
+        "spearman_rho": 0.0
+      },
+      "model": "gpt-5.5",
+      "within_task_estimator": {
+        "ci_lower": -0.038095238095238106,
+        "ci_upper": 0.019047619047619042,
+        "estimate": -0.020833333333333336,
+        "permutation": {
+          "n_pairs": 8,
+          "n_permutations": 10000,
+          "observed_diff": -0.020833333333333336,
+          "pvalue": 1.0
+        },
+        "se": 0.01627231699065697
+      }
+    }
+  }
+}

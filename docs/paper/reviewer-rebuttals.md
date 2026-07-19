@@ -48,7 +48,13 @@
   do NOT chase significance. PRIORITY 2 (robustness harness).
 
 ### A5 ★★★ — "Single domain (beer)."
-- **Cheapest closer:** **amzbook** (binary, cheap) gives a 2nd domain now; lsat later. PRIORITY 3.
+- **CLOSED (panel-side) — D5.27:** amzbook (Amazon book-review sentiment) 2nd-domain arm run with matched
+  protocol. All 3 panel-side findings REPLICATE: axis-2 model-idiosyncrasy + frontier resistance (gpt-4.1
+  sole over-relier 0.658; gpt-5.5 0.150 below chance), axis-1 heterogeneity collapse at the frontier
+  (disagreement 0.015, over-disp 0.000, conflict trials present), persona-p5 robustness (1.00/1.00/1.00/0.40).
+  Capability-dependence is domain-robust, not a beer artifact. **Residual:** amzbook correspondence is
+  degenerate/uninformative (human anchor near-constant over-dispersion), so the panel↔human link is still
+  single-domain-and-underpowered → E6. lsat later. PRIORITY: done for panel-side; correspondence → E6.
 
 ### A6 ★★★★ — "Underpowered."
 - **Current:** axis-1 now N=20 (preregistered, powered per the power-N projection); axis-2 powered clean

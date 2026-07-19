@@ -785,6 +785,45 @@
   (kills A5); if not → a characterized domain boundary. Either way strengthens the honest story. Does NOT
   alter any frozen primary. τ UNFROZEN.
 
+### D5.27 — amzbook 2nd-DOMAIN RESULT: capability-dependence + persona-robustness GENERALIZE across domains (audit PASS). Manager re-derivation complete.
+- **Date:** 2026-07-19 · **What changed:** the D5.26 amzbook arm COMPLETED (arm 4, axis-1 capability
+  ladder `confirmatory_axis1_capladder_amzbook`, finished 2026-07-19T13:12Z; arms 1–3 already done). All 4
+  configs now have results. Manager independently re-derived both axes from RAW responses (sign-correct
+  axis-2, panel disagreement + conflict presence axis-1). **Independent audit PASS**
+  (`.prompts/audit-amzbook-d527.md`): all 4 claims reproduced from raw within rounding; sign-check clean
+  (dark frac=1.000 / non-dark 0.400); 0 D5.19 sentinels (480/480 + 360/360 parsed, 0 mismatch); no leakage;
+  no pooling; binomial gpt-4.1 p=6.7e-4 ABOVE, gpt-5.5 p=2.0e-15 BELOW chance.
+- **CROSS-DOMAIN GENERALIZATION HOLDS — all 3 preregistered predictions replicate on amzbook** (Manager
+  re-derivation; compare beer D5.24 in parentheses):
+  - **(a) axis-2 wrong-AI over-reliance = model-idiosyncratic + frontier resistance.** Capability ladder
+    dark-condition over-reliance (n=120/model): gpt-4o-mini **0.475** (beer 0.500), gpt-4.1 **0.658**
+    (0.600) — the SOLE significant over-relier, gpt-4o **0.475** (0.433), gpt-5.5 **0.150** (0.300) —
+    significantly BELOW chance = resists. Same qualitative shape (up-then-down, gpt-4.1 peak, frontier
+    resists); NOT a size monotone (gpt-4o-mini at chance). Sign-check verified: dark condition
+    `ai_advice == 1 − ground_truth` at frac=1.000; non-dark 0.400 (natural error). E4 sign-inversion
+    trap avoided.
+  - **(b) axis-1 heterogeneity collapses at the frontier.** Mean panel disagreement across 5 conditions:
+    0.124 / 0.192 / 0.108 / **0.015** (beer 0.110/0.157/0.096/0.012); conflict over-dispersion estimate
+    0.343 / 0.577 / 0.440 / **0.000** (beer 0.321/0.472/0.469/0.021). gpt-5.5 collapses to near-zero on
+    BOTH domains — even cleaner on amzbook (0.000). NON-frontier ordering also replicates
+    (gpt-4.1 > gpt-4o-mini > gpt-4o). Frontier is NOT a no-conflict artifact: gpt-5.5 has **215/600
+    conflict trials present** — genuine resistance/homogenization (preregistered risk addressed).
+  - **(c) persona-p5 (novice-trusting) robustness.** Highest-adopting persona in EVERY ladder model
+    (dark adoption 1.00 / 1.00 / 1.00 / 0.40), matching beer (1.00/1.00/1.00/0.60) — robust, attenuated
+    at the resistant frontier.
+- **HONEST caveat (correspondence is UNINFORMATIVE on amzbook, not an informative null):** amzbook axis-1
+  panel↔human correspondence is rho=0.0 / p=1.0 for ALL models, but this is DEGENERATE — the human-side
+  per-condition over-dispersion on the amzbook anchor (`results/e1_multicond_amzbook.json`) is near-zero
+  and near-constant (aligned_pairs human_rho ≈ 1e-6…3e-3), so there is no cross-condition variation to
+  correlate (estimator note: "reported as null rather than failing"). amzbook therefore adds NO
+  correspondence evidence (unlike beer, whose human anchor at least varied). This REINFORCES the standing
+  conclusion: panel↔human correspondence is unvalidated at n=5 regardless of domain → only **E6** closes it.
+- **Implication for the paper:** kills reviewer A5 ("single domain (beer)") on the panel-side findings —
+  the capability-dependence (frontier resistance + axis-1 collapse) and persona-robustness now REPLICATE
+  across two domains. Does NOT extend the correspondence claim (amzbook uninformative there). Outline §5 +
+  reviewer-rebuttals A5 updated. Does NOT alter any frozen primary. τ UNFROZEN. Audit PASS (2026-07-19,
+  read-only code-review, 4/4 claims reproduced, no red flags).
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

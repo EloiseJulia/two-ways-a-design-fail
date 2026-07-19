@@ -109,6 +109,18 @@ human study that grounds it.
     n.s. at n=5 for every model.) This is the cleanest capability-linked signal.
   - **Persona-p5 robust across the ladder too** (dark adoption 1.00/1.00/1.00/0.60).
   - HONEST framing: model-idiosyncrasy + frontier resistance + persona robustness — NOT a clean dose-response.
+- **Cross-domain generalization — amzbook 2nd domain (D5.26/D5.27, matched protocol, proxy; Manager
+  re-derived, audit-gated):** the capability-dependence + persona-robustness pattern REPLICATES on Amazon
+  book-review sentiment.
+  - Axis-2 over-reliance (capability ladder, n=120): 0.475 / **0.658** (sole significant over-relier) /
+    0.475 / **0.150** (frontier resists, below chance) — same up-then-down, model-idiosyncratic shape as beer.
+  - Axis-1 mean panel disagreement: 0.124 / 0.192 / 0.108 / **0.015**; conflict over-dispersion
+    0.343 / 0.577 / 0.440 / **0.000** — frontier collapses (even cleaner than beer), with 215/600 conflict
+    trials present (resistance, not a no-conflict artifact).
+  - Persona-p5 (novice-trusting) is again the single highest-adopting persona in EVERY model (1.00/1.00/1.00/0.40).
+  - HONEST caveat: amzbook panel↔human correspondence is UNINFORMATIVE (the amzbook human anchor's
+    per-condition over-dispersion is near-constant → degenerate rho=0/p=1, not an informative null); amzbook
+    adds cross-domain robustness to the PANEL-side findings but no correspondence evidence — only E6 validates that.
 - Confirmatory axis-1 on the ORIGINAL provider (H1a, N=20, preregistered D5.11, GitHub Models
   gpt-4o+gpt-4.1-mini; **COMPLETE, audit PASS, D5.25**): **NULL on both models** — panel↔human
   cross-condition over-dispersion correspondence rho −0.205 (gpt-4.1-mini) / +0.410 (gpt-4o), both n.s.
@@ -125,8 +137,10 @@ human study that grounds it.
   across capability tiers. We therefore do NOT claim a validated, deployable, model-agnostic detector.
 - **Small n / no power for axis-1 correspondence** (n=5 conditions; task-selection fragility) — disclosed;
   motivates the difficulty-stratified correspondence (D5.14) and E6.
-- **Single domain (beer)**; axis-2 constructs a guaranteed-wrong AI (1−gt) = susceptibility to a coercive
-  wrong AI, not naturalistic model error. amzbook 2nd-domain arm is queued.
+- **Two domains (beer + amzbook):** the capability-dependence + persona-robustness findings replicate on
+  a 2nd domain (amzbook, D5.27); axis-2 constructs a guaranteed-wrong AI (1−gt) = susceptibility to a
+  coercive wrong AI, not naturalistic model error. Correspondence remains unvalidated (amzbook anchor is
+  degenerate for correspondence; beer n=5 underpowered) → E6.
 - **Item selection uses human reliance variance** (A11, disclosed): correspondence-circularity risk;
   mitigation = held-out item correspondence + E6.
 - **No human study yet** (E6 is the planned capstone; now sharply motivated by the capability-dependence).
