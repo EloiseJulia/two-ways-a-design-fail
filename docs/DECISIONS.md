@@ -873,6 +873,16 @@
   one-domain-BH-sig). Outline §5/§7 + D5.24 framing updated with the BH correction. Does NOT alter any
   frozen primary (these are secondary/exploratory hardening analyses; τ UNFROZEN). Audit PASS (2026-07-20).
 
+### D5.30 — Paper figures generated (compute-free, from existing results)
+- **Date:** 2026-07-20 · **What changed:** added `scripts/analysis/make_figures.py` (tracked, reproducible;
+  reuses `axis2_robustness.load_dark_records`, no API calls) producing 4 publication figures (PNG@200dpi +
+  PDF vector) in `figures/`: (1) axis-2 over-reliance capability-ladder curve with Wilson CIs + chance line,
+  both domains (idiosyncrasy + frontier resistance); (2) persona×model dark-adoption heatmap, both domains
+  (p5 row highlighted, top in 12/12); (3) axis-1 mean-panel-disagreement frontier-collapse curve, both
+  domains; (4) two-panel aggregate-RATE-idiosyncrasy bars + independent-vendor persona-ordering-agreement
+  profiles (the A2/A8 story). matplotlib added as an OPTIONAL `viz` dependency (not core). No new data; no
+  frozen primary altered.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
