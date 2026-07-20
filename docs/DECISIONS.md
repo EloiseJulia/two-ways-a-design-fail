@@ -838,6 +838,41 @@
   (`docs/plans/e6-human-study-design.md`) remains the eventual capstone. Freeze §§1–4 + IRB BEFORE any
   data. Does NOT alter any frozen primary. τ UNFROZEN. Awaiting PI review of the design.
 
+### D5.29 — AXIS-2 ROBUSTNESS HARDENING (compute-free, existing data): persona-p5 iron-clad; frontier resistance is the rock; gpt-4.1 over-reliance softened under BH. Audit PASS.
+- **Date:** 2026-07-20 · **What changed:** three compute-free hardening analyses on the existing axis-2
+  dark-condition data (6 unique models × 2 domains = 12 cells; gpt-5.5 de-duplicated, its capladder/
+  crossvendor dark rows verified byte-identical). New tracked analysis `scripts/analysis/axis2_robustness.py`
+  → `results/axis2_robustness.json`. Independent audit **PASS** (recomputed from raw; de-dup + sign
+  firewall verified). PI-requested (analyses ①②③).
+- **① persona-p5 (trusting-novice) susceptibility is now STATISTICALLY IRON (contribution #2):** p5 is the
+  STRICT single highest-adopting persona in **12/12** cells (sign-test vs chance 1/6: p=4.6e-10). Per-cell
+  Fisher (p5 vs pooled other-5, one-sided) is significant in ALL 12 after BH (max BH p=0.0023). Pooled GEE
+  logistic (adopt~is_p5, clustered by cell) odds ratio **15.0** (95% CI 5.8–38.8, p=2e-8). p5-minus-others
+  gap mean +0.526, min +0.300 (holds even at the resistant frontier). This upgrades the persona claim from
+  "numerically highest" to "significantly most-susceptible across 6 models × 2 domains."
+- **② ordering agreement vs rate idiosyncrasy (sharpens contribution #1, answers A2/A8):** aggregate wrong-AI
+  RATE is model-idiosyncratic (spread: beer 0.30–0.60 range 0.30; amzbook 0.15–0.658 range 0.51), while the
+  persona RISK ORDERING is largely shared — beer independent-vendor (gpt-5.5/claude/gemini) mean pairwise
+  Spearman **0.87** (min 0.82); within-domain beer 0.81. HONEST attenuation: amzbook ordering agreement is
+  weaker (within 0.58, indep-vendor 0.50) and gpt-5.5's cross-domain ordering is only 0.28 — because the
+  frontier compresses non-p5 personas toward the floor, making the sub-top ranking noisy. So the robust
+  claim is precisely: *the TOP of the risk ordering (who is most endangered = p5) is universal (12/12), and
+  the full ordering agrees strongly off-frontier/on beer but attenuates at the amzbook frontier.* Not
+  "one model's prompt noise" (A2) — independent vendors agree on the ordering.
+- **③ stats hygiene surfaced an HONESTY CORRECTION:** BH across the 12 per-cell binomial tests → only
+  **amzbook gpt-4.1 (0.658, BH p=0.0027)**, **amzbook gpt-5.5 (0.150, BH p=2.4e-14)**, **beer gpt-5.5
+  (0.300, BH p=8.3e-5)** survive. **beer gpt-4.1 (0.600) does NOT survive BH (p=0.106)** — it was reported
+  nominally significant (uncorrected p=0.018) in D5.24. CORRECTION to the framing: *frontier RESISTANCE
+  (gpt-5.5, below chance, both domains, all between-model contrasts p<0.005) is the ROCK-SOLID axis-2
+  regularity; gpt-4.1 over-reliance is model-idiosyncratic and BH-significant only on amzbook (nominal on
+  beer)* — so "the sole significant over-relier" must be stated as amzbook-BH-significant / beer-nominal,
+  NOT a clean cross-domain significant effect. Between-model contrasts confirm idiosyncrasy: gpt-4.1 vs
+  gpt-4o Fisher p=0.014 (beer) / 0.006 (amzbook); gpt-5.5 vs gpt-4.1 p=4.8e-6 / 4.9e-16.
+- **Implication for the paper:** contribution #2 (persona robustness) is now bulletproof; contribution #1
+  reframed with the precise, BH-honest hierarchy (frontier resistance = rock; over-reliance = idiosyncratic,
+  one-domain-BH-sig). Outline §5/§7 + D5.24 framing updated with the BH correction. Does NOT alter any
+  frozen primary (these are secondary/exploratory hardening analyses; τ UNFROZEN). Audit PASS (2026-07-20).
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

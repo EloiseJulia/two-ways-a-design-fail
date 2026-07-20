@@ -1,0 +1,441 @@
+{
+  "n_cells": 12,
+  "cells": [],
+  "analysis1_persona_p5": {
+    "per_cell": [
+      {
+        "domain": "amzbook",
+        "model": "claude-sonnet-4.5",
+        "p5_rate": 0.9,
+        "others_mean": 0.35,
+        "gap": 0.55,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 5.126800472348307e-06,
+        "fisher_bh": 7.69020070852246e-06
+      },
+      {
+        "domain": "amzbook",
+        "model": "gemini-2.5-pro",
+        "p5_rate": 0.95,
+        "others_mean": 0.4,
+        "gap": 0.5499999999999999,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 2.9878506384436967e-06,
+        "fisher_bh": 5.12202966590348e-06
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-4.1",
+        "p5_rate": 1.0,
+        "others_mean": 0.59,
+        "gap": 0.41000000000000003,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 8.999615271630191e-05,
+        "fisher_bh": 0.0001079953832595623
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-4o",
+        "p5_rate": 1.0,
+        "others_mean": 0.37,
+        "gap": 0.63,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 4.107868457296445e-08,
+        "fisher_bh": 1.6431473829185778e-07
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-4o-mini",
+        "p5_rate": 1.0,
+        "others_mean": 0.37,
+        "gap": 0.63,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 4.107868457296445e-08,
+        "fisher_bh": 1.6431473829185778e-07
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-5.5",
+        "p5_rate": 0.4,
+        "others_mean": 0.1,
+        "gap": 0.30000000000000004,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 0.0023347743175178106,
+        "fisher_bh": 0.0023347743175178106
+      },
+      {
+        "domain": "beer",
+        "model": "claude-sonnet-4.5",
+        "p5_rate": 0.95,
+        "others_mean": 0.4,
+        "gap": 0.5499999999999999,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 2.9878506384436967e-06,
+        "fisher_bh": 5.12202966590348e-06
+      },
+      {
+        "domain": "beer",
+        "model": "gemini-2.5-pro",
+        "p5_rate": 1.0,
+        "others_mean": 0.43000000000000005,
+        "gap": 0.57,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 4.578255860381678e-07,
+        "fisher_bh": 1.0987814064916027e-06
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-4.1",
+        "p5_rate": 1.0,
+        "others_mean": 0.52,
+        "gap": 0.48,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 1.059149574605989e-05,
+        "fisher_bh": 1.412199432807985e-05
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-4o",
+        "p5_rate": 1.0,
+        "others_mean": 0.31999999999999995,
+        "gap": 0.68,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 4.276480072226852e-09,
+        "fisher_bh": 5.131776086672223e-08
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-4o-mini",
+        "p5_rate": 1.0,
+        "others_mean": 0.4,
+        "gap": 0.6,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 1.422786018306522e-07,
+        "fisher_bh": 4.2683580549195664e-07
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-5.5",
+        "p5_rate": 0.6,
+        "others_mean": 0.24000000000000005,
+        "gap": 0.35999999999999993,
+        "p5_is_strict_top": true,
+        "p5_in_top": true,
+        "fisher_p_greater": 0.0022660694141790555,
+        "fisher_bh": 0.0023347743175178106
+      }
+    ],
+    "strict_top_count": "12/12",
+    "in_top_count": "12/12",
+    "signtest_strict_vs_1_6": 4.593936579977831e-10,
+    "signtest_intop_vs_1_6": 4.593936579977831e-10,
+    "gap_mean": 0.5258333333333333,
+    "gap_min": 0.30000000000000004,
+    "wilcoxon_gap_gt0_p": 0.000244140625,
+    "gee_is_p5": {
+      "odds_ratio": 15.053452115812918,
+      "or_ci": [
+        5.8373402557812435,
+        38.82014936145682
+      ],
+      "p": 2.0217889553750622e-08
+    }
+  },
+  "analysis2_ordering": {
+    "aggregate_rate": {
+      "amzbook|claude-sonnet-4.5": 0.44166666666666665,
+      "amzbook|gemini-2.5-pro": 0.49166666666666664,
+      "amzbook|gpt-4.1": 0.6583333333333333,
+      "amzbook|gpt-4o": 0.475,
+      "amzbook|gpt-4o-mini": 0.475,
+      "amzbook|gpt-5.5": 0.15,
+      "beer|claude-sonnet-4.5": 0.49166666666666664,
+      "beer|gemini-2.5-pro": 0.525,
+      "beer|gpt-4.1": 0.6,
+      "beer|gpt-4o": 0.43333333333333335,
+      "beer|gpt-4o-mini": 0.5,
+      "beer|gpt-5.5": 0.3
+    },
+    "aggregate_rate_spread_beer": {
+      "min": 0.3,
+      "max": 0.6,
+      "range": 0.3,
+      "sd": 0.09254628471643157
+    },
+    "aggregate_rate_spread_amzbook": {
+      "min": 0.15,
+      "max": 0.6583333333333333,
+      "range": 0.5083333333333333,
+      "sd": 0.15080161319830063
+    },
+    "ordering_spearman_within_beer": {
+      "mean": 0.8133944648361028,
+      "min": 0.5217939320872036,
+      "n_pairs": 15
+    },
+    "ordering_spearman_within_amzbook": {
+      "mean": 0.5809566773047593,
+      "min": 0.1323529411764706,
+      "n_pairs": 15
+    },
+    "ordering_spearman_indepvendor_beer": {
+      "mean": 0.8715912379481008,
+      "min": 0.823529411764706,
+      "n_pairs": 3
+    },
+    "ordering_spearman_indepvendor_amzbook": {
+      "mean": 0.4990343857615654,
+      "min": 0.21251185925162072,
+      "n_pairs": 3
+    },
+    "ordering_spearman_crossdomain_by_model": {
+      "claude-sonnet-4.5": 0.8676470588235294,
+      "gemini-2.5-pro": 0.9856107606091624,
+      "gpt-4.1": 0.8986451052612952,
+      "gpt-4o": 0.9276336570439174,
+      "gpt-4o-mini": 0.7941176470588236,
+      "gpt-5.5": 0.2813874297663251
+    }
+  },
+  "analysis3_hygiene": {
+    "per_cell": [
+      {
+        "domain": "amzbook",
+        "model": "claude-sonnet-4.5",
+        "k": 53,
+        "n": 120,
+        "rate": 0.44166666666666665,
+        "wilson_lo": 0.3559959731595542,
+        "wilson_hi": 0.530956391796971,
+        "binom_p_two": 0.2352033679725253,
+        "binom_bh": 0.4704067359450506,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "amzbook",
+        "model": "gemini-2.5-pro",
+        "k": 59,
+        "n": 120,
+        "rate": 0.49166666666666664,
+        "wilson_lo": 0.4038741586989492,
+        "wilson_hi": 0.5799761791519831,
+        "binom_p_two": 0.927315021089884,
+        "binom_bh": 1.0,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-4.1",
+        "k": 79,
+        "n": 120,
+        "rate": 0.6583333333333333,
+        "wilson_lo": 0.5697466444292892,
+        "wilson_hi": 0.7370969364029997,
+        "binom_p_two": 0.0006667238970035186,
+        "binom_bh": 0.0026668955880140744,
+        "sig_after_bh": true
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-4o",
+        "k": 57,
+        "n": 120,
+        "rate": 0.475,
+        "wilson_lo": 0.3878193727928457,
+        "wilson_hi": 0.5637316407599509,
+        "binom_p_two": 0.6482600518210055,
+        "binom_bh": 0.8643467357613407,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-4o-mini",
+        "k": 57,
+        "n": 120,
+        "rate": 0.475,
+        "wilson_lo": 0.3878193727928457,
+        "wilson_hi": 0.5637316407599509,
+        "binom_p_two": 0.6482600518210055,
+        "binom_bh": 0.8643467357613407,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "amzbook",
+        "model": "gpt-5.5",
+        "k": 18,
+        "n": 120,
+        "rate": 0.15,
+        "wilson_lo": 0.09703734033668816,
+        "wilson_hi": 0.22467684940246252,
+        "binom_p_two": 1.9758911914423336e-15,
+        "binom_bh": 2.3710694297308e-14,
+        "sig_after_bh": true
+      },
+      {
+        "domain": "beer",
+        "model": "claude-sonnet-4.5",
+        "k": 59,
+        "n": 120,
+        "rate": 0.49166666666666664,
+        "wilson_lo": 0.4038741586989492,
+        "wilson_hi": 0.5799761791519831,
+        "binom_p_two": 0.927315021089884,
+        "binom_bh": 1.0,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "beer",
+        "model": "gemini-2.5-pro",
+        "k": 63,
+        "n": 120,
+        "rate": 0.525,
+        "wilson_lo": 0.43626835924004914,
+        "wilson_hi": 0.6121806272071544,
+        "binom_p_two": 0.6482600518210055,
+        "binom_bh": 0.8643467357613407,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-4.1",
+        "k": 72,
+        "n": 120,
+        "rate": 0.6,
+        "wilson_lo": 0.5105585981828253,
+        "wilson_hi": 0.6832373476059888,
+        "binom_p_two": 0.035323682537769574,
+        "binom_bh": 0.10597104761330872,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-4o",
+        "k": 52,
+        "n": 120,
+        "rate": 0.43333333333333335,
+        "wilson_lo": 0.34810028273121946,
+        "wilson_hi": 0.5227024200762379,
+        "binom_p_two": 0.17064521313035158,
+        "binom_bh": 0.4095485115128438,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-4o-mini",
+        "k": 60,
+        "n": 120,
+        "rate": 0.5,
+        "wilson_lo": 0.411937137430229,
+        "wilson_hi": 0.588062862569771,
+        "binom_p_two": 1.0,
+        "binom_bh": 1.0,
+        "sig_after_bh": false
+      },
+      {
+        "domain": "beer",
+        "model": "gpt-5.5",
+        "k": 36,
+        "n": 120,
+        "rate": 0.3,
+        "wilson_lo": 0.22525501338672319,
+        "wilson_hi": 0.38715309503564865,
+        "binom_p_two": 1.3897012121027625e-05,
+        "binom_bh": 8.338207272616576e-05,
+        "sig_after_bh": true
+      }
+    ],
+    "between_model_contrasts": [
+      {
+        "domain": "beer",
+        "m1": "gpt-4.1",
+        "m2": "gpt-4o",
+        "rate1": 0.6,
+        "rate2": 0.43333333333333335,
+        "fisher_p_two": 0.013949222351959133
+      },
+      {
+        "domain": "beer",
+        "m1": "gpt-4.1",
+        "m2": "gpt-4o-mini",
+        "rate1": 0.6,
+        "rate2": 0.5,
+        "fisher_p_two": 0.15335834882666444
+      },
+      {
+        "domain": "beer",
+        "m1": "gpt-5.5",
+        "m2": "gpt-4.1",
+        "rate1": 0.3,
+        "rate2": 0.6,
+        "fisher_p_two": 4.772890581818171e-06
+      },
+      {
+        "domain": "beer",
+        "m1": "claude-sonnet-4.5",
+        "m2": "gpt-5.5",
+        "rate1": 0.49166666666666664,
+        "rate2": 0.3,
+        "fisher_p_two": 0.0035810927814400105
+      },
+      {
+        "domain": "beer",
+        "m1": "gemini-2.5-pro",
+        "m2": "gpt-5.5",
+        "rate1": 0.525,
+        "rate2": 0.3,
+        "fisher_p_two": 0.0006178793327892065
+      },
+      {
+        "domain": "amzbook",
+        "m1": "gpt-4.1",
+        "m2": "gpt-4o",
+        "rate1": 0.6583333333333333,
+        "rate2": 0.475,
+        "fisher_p_two": 0.006103386394357104
+      },
+      {
+        "domain": "amzbook",
+        "m1": "gpt-4.1",
+        "m2": "gpt-4o-mini",
+        "rate1": 0.6583333333333333,
+        "rate2": 0.475,
+        "fisher_p_two": 0.006103386394357104
+      },
+      {
+        "domain": "amzbook",
+        "m1": "gpt-5.5",
+        "m2": "gpt-4.1",
+        "rate1": 0.15,
+        "rate2": 0.6583333333333333,
+        "fisher_p_two": 4.859126826899688e-16
+      },
+      {
+        "domain": "amzbook",
+        "m1": "claude-sonnet-4.5",
+        "m2": "gpt-5.5",
+        "rate1": 0.44166666666666665,
+        "rate2": 0.15,
+        "fisher_p_two": 1.0556462537831737e-06
+      },
+      {
+        "domain": "amzbook",
+        "m1": "gemini-2.5-pro",
+        "m2": "gpt-5.5",
+        "rate1": 0.49166666666666664,
+        "rate2": 0.15,
+        "fisher_p_two": 1.7893491907224172e-08
+      }
+    ]
+  }
+}

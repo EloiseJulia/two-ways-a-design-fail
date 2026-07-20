@@ -100,10 +100,10 @@ human study that grounds it.
     model mean collapses.
 - **Same-provider capability ladder (D5.23/D5.24, proxy, identical config — de-confounds the headline;
   audit PASS):** gpt-4o-mini → gpt-4.1 → gpt-4o → gpt-5.5.
-  - **Axis-2 over-reliance is NOT a clean monotone:** 0.500 (chance) / 0.600 (p=0.018, the only significant
-    over-relier) / 0.433 / 0.300 (significantly BELOW chance — resists). Over-reliance is MODEL-IDIOSYNCRATIC
-    (the smallest proxy model gpt-4o-mini is at chance; the strong effect was gpt-4.1-mini/gpt-4.1), with the
-    one reliable regularity being FRONTIER RESISTANCE (gpt-5.5).
+  - **Axis-2 over-reliance is NOT a clean monotone:** 0.500 (chance) / 0.600 (nominal p=0.018, but does
+    NOT survive BH — see robustness hardening) / 0.433 / 0.300 (significantly BELOW chance — resists).
+    Over-reliance is MODEL-IDIOSYNCRATIC (the smallest proxy model gpt-4o-mini is at chance; the strong
+    effect was gpt-4.1-mini/gpt-4.1), with the one reliable regularity being FRONTIER RESISTANCE (gpt-5.5).
   - **Axis-1 heterogeneity cleanly collapses at the frontier:** conflict over-dispersion 0.32/0.47/0.47/0.021,
     panel disagreement 0.110/0.157/0.096/0.012 — gpt-5.5 near-homogeneous. (Correspondence to humans stays
     n.s. at n=5 for every model.) This is the cleanest capability-linked signal.
@@ -112,8 +112,9 @@ human study that grounds it.
 - **Cross-domain generalization — amzbook 2nd domain (D5.26/D5.27, matched protocol, proxy; Manager
   re-derived, audit-gated):** the capability-dependence + persona-robustness pattern REPLICATES on Amazon
   book-review sentiment.
-  - Axis-2 over-reliance (capability ladder, n=120): 0.475 / **0.658** (sole significant over-relier) /
-    0.475 / **0.150** (frontier resists, below chance) — same up-then-down, model-idiosyncratic shape as beer.
+  - Axis-2 over-reliance (capability ladder, n=120): 0.475 / **0.658** (BH-significant over-relier on
+    amzbook) / 0.475 / **0.150** (frontier resists, below chance) — same up-then-down, model-idiosyncratic
+    shape as beer.
   - Axis-1 mean panel disagreement: 0.124 / 0.192 / 0.108 / **0.015**; conflict over-dispersion
     0.343 / 0.577 / 0.440 / **0.000** — frontier collapses (even cleaner than beer), with 215/600 conflict
     trials present (resistance, not a no-conflict artifact).
@@ -121,6 +122,24 @@ human study that grounds it.
   - HONEST caveat: amzbook panel↔human correspondence is UNINFORMATIVE (the amzbook human anchor's
     per-condition over-dispersion is near-constant → degenerate rho=0/p=1, not an informative null); amzbook
     adds cross-domain robustness to the PANEL-side findings but no correspondence evidence — only E6 validates that.
+- **Robustness hardening across all 6 models × 2 domains (D5.29, compute-free; audit PASS):** pooled
+  statistical tests on the 12 dark-condition cells.
+  - **Persona-p5 susceptibility is statistically iron (contribution #2):** p5 (trusting-novice) is the
+    STRICT single most-susceptible persona in **12/12** cells (sign-test vs chance 1/6 p=4.6e-10); pooled GEE
+    logistic odds ratio **15.0** (95% CI 5.8–38.8, p=2e-8); per-cell Fisher significant in ALL 12 after BH
+    (max BH p=0.0023); p5-minus-others adoption gap mean +0.53, min +0.30 (holds at the resistant frontier).
+  - **Ordering agrees where it matters, rate is idiosyncratic (contribution #1, answers A2/A8):** aggregate
+    wrong-AI RATE is model-idiosyncratic (spread beer 0.30–0.60, amzbook 0.15–0.658), while the persona RISK
+    ORDERING is shared across INDEPENDENT vendors (beer gpt-5.5/claude/gemini mean pairwise Spearman **0.87**,
+    min 0.82) — it is not one model's prompt noise. HONEST attenuation: ordering agreement weakens at the
+    amzbook frontier (indep-vendor 0.50; gpt-5.5 cross-domain ordering 0.28) because the frontier compresses
+    non-p5 personas toward the floor — so the universal claim is the TOP of the ordering (p5), not the full rank.
+  - **BH honesty correction:** across the 12 per-cell binomial tests, only **amzbook gpt-4.1 (0.658,
+    BH 0.003)**, **amzbook gpt-5.5 (0.150, BH 2e-14)** and **beer gpt-5.5 (0.300, BH 8e-5)** survive; **beer
+    gpt-4.1 (0.600) does NOT survive BH (p=0.11)**. FRAMING: frontier RESISTANCE is the rock-solid axis-2
+    regularity (both domains, all between-model contrasts p<0.005); gpt-4.1 over-reliance is idiosyncratic
+    and BH-significant only on amzbook (nominal on beer). Between-model: gpt-4.1 vs gpt-4o Fisher p=0.014
+    (beer)/0.006 (amzbook); gpt-5.5 vs gpt-4.1 p=4.8e-6/4.9e-16.
 - Confirmatory axis-1 on the ORIGINAL provider (H1a, N=20, preregistered D5.11, GitHub Models
   gpt-4o+gpt-4.1-mini; **COMPLETE, audit PASS, D5.25**): **NULL on both models** — panel↔human
   cross-condition over-dispersion correspondence rho −0.205 (gpt-4.1-mini) / +0.410 (gpt-4o), both n.s.
@@ -153,7 +172,9 @@ human study that grounds it.
    first-order design decision that can mask deployment risks.
 2. **Persona-conditioned dark-pattern susceptibility that IS robust across vendors** (positive result):
    even when the model mean collapses, the panel localizes the trusting-novice profile as highly
-   susceptible — a detector-flavored contribution scoped to WHO, not aggregate rate.
+   susceptible — the STRICT top-adopting persona in 12/12 model×domain cells (sign-test vs chance
+   p=4.6e-10; pooled GEE odds ratio 15.0; per-cell BH-significant everywhere, D5.29) — a detector-flavored
+   contribution scoped to WHO, not aggregate rate.
 3. **The two-axis protocol** (over-dispersion as a safety-relevant DV + wrong-AI over-reliance,
    conflict-conditioned, with calibrated thresholds + abstention) as the method.
 4. **A rigorous, reproducible pipeline** — preregistration frozen before results, blind analysis,
