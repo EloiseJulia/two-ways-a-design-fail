@@ -919,6 +919,41 @@
 - **Implication:** submittable-shape LaTeX exists. Remaining: verify the few `% VERIFY` cites (seshadri2026,
   mildner2023dark), fill page numbers, optional dark-vs-placebo contrast, and E6. No frozen primary altered.
 
+### D5.33 — External CHI review response: coercion-framing contrast (NEW positive result) + item-clustered persona robustness (audit PASS)
+- **Date:** 2026-07-20 · **What changed:** an external CHI-style review (8 comments 3.2–3.9 + writing)
+  prompted two compute-free reanalyses on the EXISTING axis-2 raw data. New tracked
+  `scripts/analysis/axis2_review_reanalysis.py` → `results/axis2_review_reanalysis.json`. Independent audit
+  **PASS** (all numbers reproduced from raw; de-dup 5760 rows / 12 cells; sign firewall 100%/40%).
+- **(A) Coercion-framing contrast (answers 3.2 construct validity + 3.5 arbitrary 0.5 baseline):** on the
+  matched subset of items where the AI advice is naturally WRONG under the neutral Conf. condition (8
+  items/cell), compare wrong-advice adoption under neutral vs placebo vs coercive-dark framing, holding
+  item + wrong-label CONSTANT (isolates the bundled coercive/high-authority framing, NOT advice
+  correctness). Pooled item-clustered logistic (adopt ~ is_dark + is_placebo + C(model)): **beer dark
+  OR=1.90 (CI 1.42–2.53, p=1.3e-5); amzbook dark OR=1.17 (p=0.01)**; placebo ≤ neutral (beer OR 0.94 n.s.;
+  amzbook OR 0.88 p=0.005, a small PROTECTIVE placebo effect). Conflict-conditioned switch-to-wrong (the
+  cleanest reliance measure): coercive framing ~doubles-to-triples it for non-frontier models (beer gpt-4.1
+  neutral 0.19 → dark 0.51); frontier gpt-5.5 barely moves (0.04 → 0.10). **This UPGRADES axis-2 from
+  "wrong-advice adoption under a stress test" to a real, model-dependent bundled-coercive-framing effect
+  with a non-arbitrary matched baseline, and re-grounds "gpt-5.5 resists" as "smallest framing effect."**
+- **(B) Persona-p5 under item-clustered inference (answers 3.4 pseudoreplication):** re-fit clustered by
+  ITEM (the pseudo-replication unit) — OR **14.9 (CI 10.95–20.17)**, does NOT collapse; item-level
+  bootstrap of the p5−others gap mean **0.525 (CI 0.485–0.566)**. Robust to the independence critique. BUT
+  per reviewer 3.3 + rubber-duck, the persona result is partly TAUTOLOGICAL (persona is prompt-defined as
+  trusting) and the 1/6 sign-test is invalid (personas not exchangeable) → DECISION: demote persona from a
+  headline contribution to a **backend-stable manipulation-check** ("explicit trusting-novice role prompt
+  yields a large, model-stable wrong-advice ordering"), delete the 1/6 sign-test, reserve
+  vulnerable-population claims for descriptor-ablation / E6. [Pending PI confirmation of the demotion.]
+- **Review disposition (see rubber-duck deliberation, both agree):** ADOPT 3.2 (as bundled framing, not
+  pure coercion), 3.4, 3.5, 3.6 (axis-1 estimator/figure clarity + common-conflict-subset robustness), 3.8
+  ("faithful interface rendering" → "textual prompt encoding"; agents see text, not screenshots), 3.9
+  (repro appendix + FIXED the placeholder citation: seshadri2026 was UNVERIFIABLE → replaced with real
+  cao2025specializing NAACL'25; mildner2023dark verified), §4 tone-down; DEMOTE persona per 3.3; PARTIAL
+  3.7 ("cross-domain" → "two review datasets"; non-sentiment/fresh-item = future work). Blockers per duck:
+  3.4 (inferential claims), 3.2 (calling it coercion), 3.9 (placeholder) — all resolved by narrowing +
+  the new contrast. No frozen primary altered; τ UNFROZEN. Audit PASS 2026-07-20.
+- **NEXT:** on PI confirmation, revise `main.tex` (coercion-contrast subsection + new numbers, persona
+  demotion, axis-1 clarity, rendering honesty, repro appendix, tone), rebuild PDF, re-audit if needed.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
