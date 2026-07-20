@@ -883,6 +883,28 @@
   profiles (the A2/A8 story). matplotlib added as an OPTIONAL `viz` dependency (not core). No new data; no
   frozen primary altered.
 
+### D5.31 — Full CHI paper DRAFT v1 written + rubber-duck over-claim pass (target venue CHI)
+- **Date:** 2026-07-20 · **What changed:** wrote `docs/paper/draft.md` — a complete CHI-style draft
+  (Abstract → Intro w/ persona hook → Related Work → Method → Results w/ 4 figures → Discussion →
+  Limitations → Process-integrity → E6 placeholder → Conclusion). PI decisions: target **CHI** (studied
+  CHI best-paper craft conventions first); **E6 left as a rough future-work placeholder** (not run).
+- **Rubber-duck critical review pass (numbers all verified vs D5.20–D5.30 / axis2_robustness.json):**
+  fixed one factual error (draft wrongly called the E6 human study "preregistered" — it is design-only
+  per D5.28; the *protocol/analysis* preregistration claims are correct and kept) and scoped down
+  over-claims: human-facing conclusions reframed as synthetic-panel findings + E6 hypotheses;
+  "capability-dependence" → model-dependence + cautious interpretation (alignment/reasoning could drive
+  it); claude/gemini = "at chance" (not "resist"); persona result = robust SYNTHETIC-persona invariant
+  with prompt-construct circularity acknowledged; axis-2 = "wrong-advice adoption under a guaranteed-wrong
+  stress test" (dark-vs-placebo contrast flagged as immediate follow-up, NOT yet claimed as coercion
+  effect); triage/"reusable method" → proposed testbed (not validated screen); held-out-item mitigation
+  downgraded to "unresolved pending fresh-item human check"; persona p-values contextualized (12 non-
+  independent cells) with 12/12 + effect sizes foregrounded.
+- **OPEN framing decisions escalated to PI:** (a) final title; (b) whether process-integrity stays a
+  numbered contribution (#4) or moves fully into Methods; (c) how far to rebalance the framing toward
+  "a reliability audit of synthetic panels" vs the current "two ways a design fails" screening frame.
+- **Implication:** first submittable-shape draft exists; no new data, no frozen primary altered. Next:
+  PI framing calls → BibTeX/related-work fill-in → (eventually) E6 to convert ordering→prediction.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
