@@ -905,6 +905,20 @@
 - **Implication:** first submittable-shape draft exists; no new data, no frozen primary altered. Next:
   PI framing calls → BibTeX/related-work fill-in → (eventually) E6 to convert ordering→prediction.
 
+### D5.32 — Paper converted to LaTeX (acmart/CHI); PI framing decisions applied; compiles clean
+- **Date:** 2026-07-20 · **What changed:** authored `docs/paper/main.tex` (acmart `sigconf,review,anonymous`)
+  + `docs/paper/references.bib` (17 best-effort BibTeX entries; a few marked `% VERIFY`). PI framing
+  decisions applied: (a) title = "Two Ways a Design Fails: When Does a Synthetic LLM Panel See the Danger?";
+  (b) process-integrity MERGED into Method (now **3** contributions, not 4); (c) kept the "two ways a design
+  fails" screening frame (not rebalanced to a reliability audit). All 4 figures embedded via
+  `\graphicspath{{../../figures/}}`.
+- **Build verified:** MiKTeX 25.12 installed (winget, user scope, auto-install on); `pdflatex→bibtex→
+  pdflatex×2` compiles **clean to a 6-page main.pdf**, no undefined refs/citations, no LaTeX errors (4
+  cosmetic overfull hboxes; bibtex only cosmetic missing-page warnings). `main.pdf` committed; aux
+  artifacts gitignored.
+- **Implication:** submittable-shape LaTeX exists. Remaining: verify the few `% VERIFY` cites (seshadri2026,
+  mildner2023dark), fill page numbers, optional dark-vs-placebo contrast, and E6. No frozen primary altered.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

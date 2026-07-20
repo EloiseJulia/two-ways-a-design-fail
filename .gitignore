@@ -27,3 +27,12 @@ data/cache/
 # Scratch files
 *.log
 *_output.txt
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
