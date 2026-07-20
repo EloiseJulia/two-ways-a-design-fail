@@ -1,8 +1,11 @@
 %% Two Ways a Design Fails — CHI submission draft (acmart, sigconf).
 %% Build: pdflatex main -> bibtex main -> pdflatex main -> pdflatex main
 %% Figures are the vector PDFs in ../../figures/ (see \graphicspath).
-%% Status: DRAFT v1 (2026-07-20). Numbers are audited (DECISIONS D5.20–D5.31).
-%% Citations in references.bib are best-effort; entries marked "% VERIFY" need a metadata check.
+%% Status: DRAFT v2 (2026-07-20). Revised per external CHI review (D5.33/D5.34): added the matched
+%% coercion-framing contrast (Sec. "Is it coercion..."), demoted the persona result to a manipulation
+%% check (item-clustered stats; 1/6 sign-test removed), clarified axis-1 metric/units, "textual prompt
+%% encoding" (not "faithful interface rendering"), narrowed "cross-domain" to "two review datasets",
+%% toned down language, fixed the placeholder citation. Numbers are audited (D5.29 + D5.33 audit PASS).
 
 \documentclass[sigconf,review,anonymous]{acmart}
 
@@ -32,29 +35,28 @@
 \begin{abstract}
 Deploying an AI-advice interface can fail in (at least) two ways. It can make human reliance
 \emph{heterogeneous and user-sensitive}---safe on average, dangerous for particular people (an
-\emph{over-dispersion} failure). Or it can make users \emph{uniformly over-rely on a confidently wrong
-AI}---a coercive \emph{dark-pattern} failure. Catching either normally requires an expensive human
+\emph{over-dispersion} failure). Or it can make users \emph{over-rely on a confidently wrong AI} under a
+coercive framing (a \emph{dark-pattern} failure). Catching either normally requires an expensive human
 study. A tempting shortcut is to screen an interface \emph{before} that study with a calibrated
 multi-agent LLM panel that plays a synthetic cohort of users. We build such a panel---two-axis
-(over-dispersion; wrong-AI over-reliance), conflict-conditioned, preregistered---and ask a question
-prior to ``does it predict humans?'': \emph{are its danger signals even stable across the LLMs that
-power it?} They are not. The signals are strongly \textbf{model-dependent}. On a guaranteed-wrong
-interface, a frontier model (gpt-5.5) adopts the wrong advice only 15--30\% of the time---significantly
-\emph{below} chance, i.e.\ it \emph{resists} the trap---and homogenizes cross-persona disagreement to
-near zero, on two domains; other models show higher adoption, but idiosyncratically (only gpt-4.1
-exceeds chance, and only after multiple-comparison correction on one of two domains). Independent-vendor
-frontier models (claude-sonnet-4.5, gemini-2.5-pro) sit at chance. \textbf{The choice of panel model is
-therefore a first-order, under-appreciated methodological decision: a single-frontier-model panel can
-suppress a warning that other panel models raise.} Yet one signal is robust across all six models and
-both domains: within the synthetic persona set, wrong-AI adoption \textbf{concentrates in a
-trusting-novice persona}, the single most-susceptible profile in \textbf{12 of 12} model$\times$domain
-cells (pooled odds ratio 15.0). The panel robustly ranks \emph{which persona} is most susceptible even
-where aggregate rates do not transfer. We contribute (i) the model-dependence finding as direct evidence
-for the silicon-sampling reliability debate, (ii) the persona-conditioned susceptibility invariant, and
-(iii) the two-axis, over-dispersion-as-safety protocol; and we describe a preregistered, audit-gated
-pipeline whose integrity is part of the method. We do \emph{not} claim to predict individual humans or a
-validated deployment screen; we characterize \emph{when a synthetic panel does and does not see the
-danger}, and design the human study that would ground it.
+(over-dispersion; wrong-advice adoption), conflict-conditioned, preregistered---and ask a question prior
+to ``does it predict humans?'': \emph{are its danger signals even stable across the LLMs that power it?}
+They are not. The signals are strongly \textbf{model-dependent}. Using a matched contrast that holds the
+wrong advice constant and varies only the framing, we find a real \emph{bundled coercive-framing effect}
+(item-clustered odds ratio 1.90 on one dataset, 1.17 on the other; a non-coercive placebo stays at or
+below the neutral baseline)---but it is model-dependent: a frontier model (gpt-5.5) shows the smallest
+framing effect and the lowest absolute wrong-advice adoption, while smaller and mid-tier models adopt
+more, idiosyncratically. \textbf{The choice of panel model is therefore a first-order, under-appreciated
+methodological decision: a single-frontier-model panel can suppress a warning that other panel models
+raise.} A secondary, backend-stable manipulation check shows the panel faithfully propagates a prompted
+trust disposition: an explicitly trusting-novice persona is the highest-adopting persona in all 12
+model$\times$domain cells (item-clustered odds ratio $\approx$15). We contribute (i) the model-dependence
+finding---including the model-dependent coercive-framing effect---as direct evidence for the
+silicon-sampling reliability debate, and (ii) the two-axis, over-dispersion-as-safety protocol on a
+preregistered, audit-gated pipeline. We do \emph{not} claim to predict individual humans or a validated
+deployment screen, and we are explicit that the persona result is largely a property of the prompt; we
+characterize \emph{when a synthetic panel does and does not see the danger}, and design the human study
+that would ground it.
 \end{abstract}
 
 \begin{CCSXML}
@@ -92,8 +94,8 @@ two ways a design fails in our title:
   the interface induces. The team ships something safe for the median user and unsafe for the tails.
   Variance, usually a nuisance to be averaged away~\cite{bansal2021whole,gajos2022people}, is here the
   \emph{safety quantity of interest}.
-  \item \textbf{Axis~2---wrong-AI over-reliance.} Under a coercive framing, users \emph{systematically
-  adopt a wrong AI}. This is lethal even at zero dispersion: everyone fails
+  \item \textbf{Axis~2---wrong-advice adoption under coercion.} Under a coercive framing, users
+  \emph{systematically adopt a wrong AI}. This is dangerous even at zero dispersion: everyone can fail
   together~\cite{bucinca2021trust,vasconcelos2023explanations,luguri2021shining}.
 \end{itemize}
 
@@ -114,45 +116,44 @@ signal even stable across the LLMs you might build it from?} If not, then any cl
 the risk'' is really a claim about a particular model---and swapping the model can erase the warning.
 
 Our central finding is that the danger signal is \textbf{strongly model-dependent}, and not in a tidy way
-(Figure~\ref{fig:ladder}). On a guaranteed-wrong interface, the \emph{frontier} model we test (gpt-5.5)
-does not fall for the trap---it adopts the wrong AI significantly \emph{below} chance and flattens
-cross-persona disagreement to near zero, on \textbf{both} domains. Other models show higher adoption, but
-\textbf{idiosyncratically}: the smallest model sits at chance, one mid-tier model (gpt-4.1) exceeds
-chance, and two independent-vendor frontier models sit at chance. After multiple-comparison correction,
-the only \emph{rock-solid} axis-2 regularity is gpt-5.5's cross-domain \textbf{resistance}; the
-elevated-adoption effect is real but model-specific and survives correction on only one of two domains.
-We interpret this association with capability cautiously---alignment, reasoning behavior, or training
-could drive it as much as raw capability---but the practical upshot is robust: \textbf{the model you
-choose to power a synthetic panel is a first-order methodological decision.} A team that screens with a
-single frontier model may see a green light because \emph{that model} resists a coercion its less-capable
-human users might not---a risk-masking failure mode we demonstrate \emph{within the panel} and
-hypothesize (but do not yet show) for humans.
+(Figure~\ref{fig:ladder}). Under a coercive, high-authority framing that presents a wrong AI verdict, the
+\emph{frontier} model we test (gpt-5.5) shows the smallest framing effect and the lowest absolute
+wrong-advice adoption, while smaller and mid-tier models adopt more, but \textbf{idiosyncratically}: the
+smallest model is at chance, one mid-tier model (gpt-4.1) is the only one with above-chance adoption, and
+two independent-vendor frontier models are at chance. Using a matched contrast that holds the wrong advice
+constant and varies only the framing (Section~\ref{sec:coercion}), the coercive framing raises wrong-advice
+adoption significantly on one dataset (item-clustered odds ratio 1.90) and modestly on the other (1.17),
+with a non-coercive placebo at or below the neutral baseline---but again the frontier model barely moves.
+We interpret the association with capability cautiously---alignment, reasoning behavior, or training could
+drive it as much as raw capability---but the practical upshot is robust: \textbf{the model you choose to
+power a synthetic panel is a first-order methodological decision.} A team that screens with a single
+frontier model may see no warning because \emph{that model} does not follow a coercively-framed wrong AI
+that its less-capable human users might---a risk-masking failure mode we demonstrate \emph{within the
+panel} and hypothesize (but do not show) for humans.
 
-Against this negative, one result is stubbornly \textbf{robust} (Figure~\ref{fig:heatmap}). Even where the
-model mean collapses, every model ranks the \emph{same} persona as most-susceptible: a
-\textbf{trusting-novice} persona is the single highest-adopting persona in \textbf{12 of 12}
-model$\times$domain cells (pooled odds ratio 15.0). The panel cannot tell you the \emph{rate} at which
-people will over-rely---that depends on the model---but \emph{within its synthetic persona set} it robustly
-ranks \emph{who} is most susceptible. We are careful: this persona is prompt-defined to be trusting, so
-12/12 is in part consistent instruction-following; whether it maps to a real vulnerable human population is
-an open question our planned study addresses.
+A secondary result is a backend-stable manipulation check (Figure~\ref{fig:heatmap}). Even where the model
+mean shifts, every model ranks the \emph{same} persona highest: an \textbf{explicitly trusting-novice}
+persona is the highest-adopting persona in \textbf{12 of 12} model$\times$domain cells (item-clustered odds
+ratio $\approx$15). We read this honestly: the persona is \emph{prompt-defined} to be trusting, so this is
+substantially a demonstration that the panel faithfully and stably propagates a prompted disposition into
+behavior across backends---a useful reliability property, but \emph{not} evidence that the panel discovers
+a latent vulnerable human population. Whether the ordering survives removing the explicit ``trusting'' and
+``novice'' cues, and whether it maps to real people, are questions for descriptor ablation and the human
+study.
 
-We make three contributions, and we are explicit about their limits:
+We make two contributions, and we are explicit about their limits:
 \begin{enumerate}
   \item \textbf{Model-dependence of synthetic-panel screening signals}---direct evidence for the
-  silicon-sampling reliability debate: the \emph{same} preregistered protocol yields strong human-like
-  failure signals on smaller/mid-tier models and has them resisted/homogenized by gpt-5.5, replicated
-  across two domains. Panel-model choice is a first-order methodological decision that can, within the
-  panel, suppress a warning other models raise.
-  \item \textbf{A persona-conditioned susceptibility invariant robust across vendors}---even when the model
-  mean collapses, the panel ranks the trusting-novice persona as most-susceptible (12/12 cells; sign-test
-  $p=4.6\times10^{-10}$; pooled odds ratio 15.0). A synthetic-persona invariant scoped to relative
-  \emph{ordering}, not aggregate rate, whose human validity is left to the planned study.
-  \item \textbf{The two-axis protocol}---over-dispersion-as-safety plus wrong-AI over-reliance,
+  silicon-sampling reliability debate: the \emph{same} preregistered protocol yields strong wrong-advice
+  adoption and a significant coercive-framing effect on smaller/mid-tier models, both attenuated by
+  gpt-5.5, replicated across two review datasets. Panel-model choice is a first-order methodological
+  decision that can, within the panel, suppress a warning other models raise.
+  \item \textbf{The two-axis protocol}---over-dispersion-as-safety plus wrong-advice adoption,
   conflict-conditioned and preregistered---proposed as a reusable \emph{testbed} for reasoning about
   interface-level reliance safety (not a validated screen), built on a preregistered, audit-gated pipeline
   whose process integrity (Section~\ref{sec:method}) is part of the method.
 \end{enumerate}
+The persona result above is reported as a supporting manipulation check, not a standalone contribution.
 
 We do \emph{not} claim a validated, model-agnostic detector, and we do \emph{not} claim to predict
 individual humans. Our panel$\leftrightarrow$human correspondence is null in every configuration we can
@@ -194,13 +195,19 @@ We evaluate an interface $i$ on two axes, both measured on the panel's decisions
 
 \paragraph{Axis 1---between-user reliance over-dispersion.} For each item, personas produce reliance
 decisions; we estimate the \emph{excess variance} beyond the binomial $p(1-p)$ a single homogeneous user
-would produce (a beta-binomial over-dispersion estimator). We compute it \emph{conflict-conditioned}:
-only on trials where the persona's independent System-1 judgment disagrees with the shown AI, isolating
-genuine reliance from trivial agreement. High axis-1 means the interface makes reliance user-sensitive.
+would produce (a beta-binomial over-dispersion estimator, parameter $\rho$). We compute it
+\emph{conflict-conditioned}: only on trials where the persona's independent System-1 judgment disagrees
+with the shown AI, isolating genuine reliance from trivial agreement. As a stable, bounded summary that
+avoids the beta-binomial estimator's boundary behaviour at extreme rates (Section~\ref{sec:method}), we
+report \emph{mean panel disagreement}---the mean across items of the per-item variance of the six
+personas' reliance decisions---which tracks $\rho$ monotonically and is what we plot; we report $\rho$
+alongside it. High axis-1 means the interface makes reliance user-sensitive.
 
-\paragraph{Axis 2---wrong-AI over-reliance.} Under a coercive ``dark'' framing, the interface shows a
-\emph{guaranteed-wrong} AI verdict (the negation of ground truth) at high confidence. Axis-2 is the rate
-at which personas adopt it. It is dangerous even at zero dispersion---a uniform failure.
+\paragraph{Axis 2---wrong-advice adoption under coercion.} Under a coercive ``dark'' framing, the
+interface shows a \emph{guaranteed-wrong} AI verdict (the negation of ground truth) at high confidence
+with authority and accountability cues. Axis-2 is the rate at which personas adopt it. To separate the
+\emph{framing} from ordinary wrong-advice following, we contrast it against neutral and placebo framings
+on matched items (Section~\ref{sec:coercion}). It is dangerous even at zero dispersion---a uniform failure.
 
 \paragraph{The triage rule (design, not yet validated).} We learn thresholds $\tau_{\text{disp}},
 \tau_{\text{level}}$ once in an atomic UI feature space; either axis over threshold $\Rightarrow$
@@ -221,15 +228,22 @@ AI (a frozen, no-AI anchor), then a \textbf{System-2} decision \emph{with} the A
 Reliance is defined against the System-1 anchor---what makes conflict-conditioning possible and prevents
 the ``everyone-agrees-so-everyone-complies'' collapse of a naive panel.
 
-\paragraph{Faithful interface rendering.} We reproduce the Bansal et al.~\cite{bansal2021whole}
-explanation conditions faithfully (confidence-only; single/double highlighted-token explanations; adaptive
-and expert-adaptive), and construct the dark condition by negating ground truth at high confidence. A
-placebo condition (AI present, non-coercive) isolates coercion from mere AI-presence.
+\paragraph{Textual prompt encoding of the interface.} Agents receive a \emph{textual serialization} of
+each interface condition---not screenshots and not a vision model. The AI prediction, its confidence, and
+(for the explanation conditions) the highlighted tokens are rendered as text in the prompt, following the
+Bansal et al.~\cite{bansal2021whole} condition definitions (confidence-only; single/double
+highlighted-token explanations; adaptive and expert-adaptive). The dark condition negates ground truth and
+adds high confidence plus authority/accountability language; a placebo condition presents the real AI
+non-coercively. This means we study \emph{prompt-level} interface framing; pixel-level layout, visual
+salience, and typography are not modelled, and a multimodal rendering is future work. The exact per-model
+prompt templates are in the supplement.
 
-\paragraph{Stimuli and domains.} Items are drawn from the Bansal sentiment benchmark, held out from any
+\paragraph{Stimuli and datasets.} Items are drawn from the Bansal sentiment benchmark, held out from any
 threshold fitting, and selected to concentrate on loci of human reliance heterogeneity (disclosed; human
 outcomes are used only for \emph{item selection}, never leaked into agent prompts---item selection $\ne$
-label leakage). We run two domains: \textbf{beer reviews} and \textbf{Amazon book reviews (amzbook)}.
+label leakage). We run two \emph{review-sentiment datasets}: \textbf{beer reviews} and \textbf{Amazon book
+reviews (amzbook)}. Both are English binary sentiment; we therefore treat this as replication across two
+datasets within one task family, not broad cross-domain generalization (Section~\ref{sec:limits}).
 
 \paragraph{Models.} A within-provider capability ladder (gpt-4o-mini $\to$ gpt-4.1 $\to$ gpt-4o $\to$
 gpt-5.5, identical config) plus independent-vendor frontier models (claude-sonnet-4.5, gemini-2.5-pro):
@@ -265,45 +279,67 @@ boundary.
   \centering
   \includegraphics[width=\columnwidth]{fig1_axis2_ladder}
   \caption{Axis-2 wrong-advice adoption on the guaranteed-wrong interface across the same-provider
-  capability ladder, both domains (Wilson 95\% CIs; dashed line $=$ chance). Adoption is non-monotonic
-  and idiosyncratic; the frontier model (gpt-5.5) sits significantly \emph{below} chance on both
-  domains---it resists.}
+  capability ladder, both datasets (Wilson 95\% CIs; dashed line $=$ 0.5). Adoption is non-monotonic and
+  idiosyncratic; the frontier model (gpt-5.5) has the lowest adoption on both datasets. A non-arbitrary
+  baseline for ``resists'' is given by the matched framing contrast (Section~\ref{sec:coercion}).}
   \label{fig:ladder}
 \end{figure}
 
 On the guaranteed-wrong interface, axis-2 wrong-advice adoption is \emph{not} a clean function of
 capability (Figure~\ref{fig:ladder}). Across the ladder (beer / amzbook): gpt-4o-mini 0.50 / 0.48, gpt-4.1
-0.60 / \textbf{0.66}, gpt-4o 0.43 / 0.48, gpt-5.5 \textbf{0.30 / 0.15}. The frontier model is \emph{below}
-chance on both domains (binomial BH $p=8\times10^{-5}$ beer, $2\times10^{-14}$ amzbook)---it resists
-following the wrong advice. The adoption peak at gpt-4.1 is real (between-model Fisher vs.\ gpt-4o
-$p=0.014/0.006$) but \textbf{model-idiosyncratic}: the smallest ladder model sits at chance, and after BH
-correction gpt-4.1's elevated adoption survives on amzbook ($p=0.003$) but is only nominal on beer
-(uncorrected $p=0.035$; BH $p=0.11$). Independent-vendor frontier models replicate the \emph{at-chance}
-pattern, not the elevated adoption: claude 0.49, gemini 0.53 on beer (0/3 vendors exceed chance).
+0.60 / \textbf{0.66}, gpt-4o 0.43 / 0.48, gpt-5.5 \textbf{0.30 / 0.15}. The adoption peak at gpt-4.1 is
+real (between-model Fisher vs.\ gpt-4o $p=0.014/0.006$) but \textbf{model-idiosyncratic}: the smallest
+ladder model is at chance, and after BH correction gpt-4.1's elevated adoption survives on amzbook
+($p=0.003$) but is only nominal on beer (uncorrected $p=0.035$; BH $p=0.11$). Independent-vendor frontier
+models are at chance (claude 0.49, gemini 0.53 on beer; 0/3 vendors above chance). Rather than interpret
+adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect point, since personas are
+not random guessers---we ground the effect in a matched framing contrast below.
 
-Axis-1 tells a parallel story more cleanly (Figure~\ref{fig:collapse}). Mean panel disagreement across the
-ladder is 0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and 0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook):
-gpt-5.5 collapses to near-homogeneity on both domains. This is not a no-conflict artifact---genuine
-conflict trials remain present (e.g., 215/600 on amzbook)---the model \emph{resists diverging}.
+Axis-1 tells a parallel story (Figure~\ref{fig:collapse}). Mean panel disagreement across the ladder is
+0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and 0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5
+collapses to near-homogeneity on both datasets, and the beta-binomial $\rho$ (which mean disagreement
+tracks) collapses in step (e.g.\ $\rho$ from 0.32--0.58 down to $\approx$0 at the frontier). Axis-1 is
+computed over the full 5-condition design (5 conditions $\times$ 6 personas $\times$ 20 items $=600$
+trials/model), distinct from the 120 dark-only axis-2 trials; the collapse is not a no-conflict artifact,
+since genuine conflict trials remain present at the frontier (e.g.\ 215/600 on amzbook). Because
+conflict-conditioning yields slightly different effective subsets per model, we verified the collapse also
+holds on the common conflict subset shared across models.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{fig3_axis1_collapse}
-  \caption{Axis-1 mean panel disagreement across the ladder, both domains. Heterogeneity collapses at the
-  frontier (gpt-5.5) on both domains.}
+  \caption{Axis-1 mean panel disagreement across the ladder, both datasets. Heterogeneity collapses at the
+  frontier (gpt-5.5) on both.}
   \label{fig:collapse}
 \end{figure}
 
-\emph{Coercion vs.\ mere advice-following (a caveat).} We measure adoption of a guaranteed-wrong AI against
-chance; our data do not isolate the \emph{coercive framing} from ordinary wrong-advice following, because
-we do not report the dark-vs-placebo contrast here (an immediate follow-up). We therefore describe axis-2
-as \emph{wrong-advice adoption under a guaranteed-wrong stress test}, and reserve ``dark-pattern
-susceptibility'' for the controlled contrast.
+\paragraph{Reading.} gpt-5.5's cross-domain low adoption and axis-1 collapse are the most consistent
+patterns; adoption magnitude is otherwise model-specific. A synthetic panel's aggregate reading is
+therefore a property of the panel's model as much as of the interface: swapping in the frontier model can
+turn a warning into no warning \emph{within the panel}.
 
-\paragraph{Reading.} gpt-5.5's cross-domain \textbf{resistance} (both axes) is the rock-solid regularity;
-adoption magnitude is model-specific. A synthetic panel's aggregate reading is therefore a property of the
-panel's model as much as of the interface: swapping in the frontier model can flip a warning to a green
-light \emph{within the panel}.
+\subsection{Is it coercion, or just wrong-advice following? A matched framing contrast}
+\label{sec:coercion}
+
+Adoption of a guaranteed-wrong AI could reflect ordinary wrong-advice following rather than the
+\emph{coercive framing} (high confidence, expert-authority and accountability cues). To separate them we
+use a within-item contrast: on the subset of items where the AI advice is \emph{naturally wrong} under the
+neutral condition (8 items/cell), the same wrong label is shown under neutral, non-coercive placebo, and
+coercive-dark framings---so any difference in adoption is attributable to the framing, not to the advice
+being wrong. We fit a logistic model \texttt{adopt $\sim$ dark $+$ placebo $+$ model}, clustered by item.
+
+The coercive framing significantly increases wrong-advice adoption on beer (odds ratio \textbf{1.90}, 95\%
+CI 1.42--2.53, $p=1.3\times10^{-5}$) and modestly on amzbook (OR \textbf{1.17}, $p=0.01$); the
+non-coercive placebo stays at or below the neutral baseline (beer OR 0.94, n.s.; amzbook OR 0.88,
+$p=0.005$, a small \emph{protective} effect), confirming the effect is the coercive framing and not mere
+AI-presence. The effect is clearest on the conflict-conditioned switch rate---the fraction of trials where
+a persona whose System-1 judgment was \emph{correct} switches to the wrong advice: coercive framing roughly
+doubles-to-triples it for non-frontier models (e.g.\ beer gpt-4.1 $0.19\to0.51$; gpt-4o $0.12\to0.29$),
+while the frontier gpt-5.5 barely moves ($0.04\to0.10$). This licenses two honest statements: axis-2
+reflects a real \emph{bundled coercive-framing effect} (we cannot separate confidence from authority from
+accountability, which co-vary in the dark condition), and that effect is model-dependent---smallest at the
+frontier. It also replaces the arbitrary $0.5$ baseline: ``gpt-5.5 resists'' means it shows the smallest
+matched framing effect, not merely adoption below one-half.
 
 \subsection{One signal is robust: which persona the panel ranks highest}
 
@@ -316,35 +352,38 @@ light \emph{within the panel}.
   \label{fig:heatmap}
 \end{figure*}
 
+\subsection{A backend-stable manipulation check: the panel propagates a prompted trust disposition}
+
 The aggregate adoption \emph{rate} is model-idiosyncratic (range 0.30 across beer models, 0.51 across
-amzbook models). The \emph{ordering} of which persona adopts most is not (Figure~\ref{fig:heatmap}). A
-\textbf{trusting-novice} persona is the single highest-adopting persona in \textbf{12 of 12}
-model$\times$domain cells (sign-test vs.\ a $1/6$ chance top $p=4.6\times10^{-10}$). A pooled GEE logistic
-regression (clustered by cell) gives an odds ratio of \textbf{15.0} (95\% CI 5.8--38.8,
-$p=2\times10^{-8}$) for that persona adopting the wrong AI relative to the others; a per-cell Fisher test
-is significant in \emph{all 12} cells after BH (largest BH $p=0.002$). The persona-minus-others adoption
-gap is $+0.53$ on average and never below $+0.30$---it holds even at the resistant frontier. We foreground
-the descriptive 12/12 and the large effect sizes over the $p$-values, whose inferential unit (12 cells
-sharing prompts, items, and providers) is not fully independent; the persona is also prompt-defined to be
-trusting, so this is best read as a \emph{robust synthetic-persona invariant} rather than established
-human-population localization.
+amzbook models). The \emph{ordering} of which persona adopts most is stable (Figure~\ref{fig:heatmap}). An
+\textbf{explicitly trusting-novice} persona is the highest-adopting persona in \textbf{all 12}
+model$\times$domain cells. Because the 20 items are reused across personas and the 12 cells share prompts,
+items, and providers, we do not treat trials as independent: clustering by item (the main
+pseudo-replication unit), a logistic model gives an odds ratio of \textbf{14.9} (95\% CI 10.9--20.2) for
+that persona relative to the others, and an item-level bootstrap of the mean per-cell adoption gap gives
+$+0.53$ (95\% CI $0.48$--$0.57$). The effect does not collapse under item clustering.
+
+We interpret this carefully, and \emph{demote it from a headline finding to a manipulation check}. The
+persona is \emph{prompt-defined} to be trusting and novice, so ``it adopts the AI most'' is substantially
+a consequence of the instruction, not a discovery. What the result does show is a genuine reliability
+property: the panel \emph{faithfully and stably} translates a prompted disposition into behaviour, and the
+resulting ordering is consistent across six backends and two datasets (independent-vendor per-persona
+profiles correlate at mean pairwise Spearman 0.87 on beer; Figure~\ref{fig:ordering}). It is \emph{not}
+evidence that the panel discovers a latent vulnerable human population; a chance baseline of $1/6$ per
+persona would be inappropriate here, since the personas are not exchangeable (this one was constructed to
+be the most trusting). Whether the ordering survives removing the explicit ``trusting''/``novice''
+descriptors (a descriptor ablation), and whether it corresponds to real users, are questions we leave to
+future work and the human study.
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{fig4_rate_vs_ordering}
   \caption{Left: aggregate wrong-advice adoption is model-idiosyncratic (large spread across models).
-  Right: the per-persona adoption profile agrees across independent vendors (gpt-5.5, claude, gemini),
-  all peaking at the trusting-novice persona (mean pairwise Spearman 0.87 on beer).}
+  Right: the per-persona adoption profile is consistent across independent vendors (gpt-5.5, claude,
+  gemini), all peaking at the prompted trusting-novice persona (mean pairwise Spearman 0.87 on beer). This
+  is a reliability property of persona-prompt propagation, not population discovery.}
   \label{fig:ordering}
 \end{figure*}
-
-The persona \emph{ordering} also agrees across \emph{independent vendors}: on beer, the mean pairwise
-Spearman correlation of the six-persona adoption profile across gpt-5.5, claude, and gemini is
-\textbf{0.87} (min 0.82)---not one model's prompt noise (Figure~\ref{fig:ordering}, right). We are honest
-about the boundary: ordering agreement attenuates at the amzbook frontier (independent-vendor mean 0.50),
-because the frontier compresses the \emph{non-top} personas toward the floor, making their sub-ranking
-noisy. The robust claim is precisely about the \emph{top} of the ordering---the highest-adopting
-persona---which is universal.
 
 \subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
 Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
@@ -355,25 +394,28 @@ predictive-validity claim; only a powered human study (Section~\ref{sec:e6}) can
 
 \section{Discussion}
 
-\paragraph{Panel-model choice has safety consequences.} The field's instinct is that a \emph{better} base
-model makes a \emph{better} simulator. For danger-screening, the opposite can hold: the frontier model we
-test resists a wrong-advice trap that lower-tier panel models fall into, so a single-frontier-model panel
-can under-report a risk \emph{within the panel}. If---a hypothesis for the human study, not a demonstrated
-fact---the frontier model is less human-like than a team's actual users, that under-report would carry to
-deployment. Either way, ``which LLM should power my synthetic study?'' becomes a first-order methodological
-choice, arguing for \textbf{deliberately including lower-tier models} in a screening panel.
+\paragraph{Panel-model choice has screening consequences.} The field's instinct is that a \emph{better}
+base model makes a \emph{better} simulator. For danger-screening, the opposite can hold: the frontier model
+we test follows a coercively-framed wrong AI least, so a single-frontier-model panel can under-report a
+risk \emph{within the panel}. If---a hypothesis for the human study, not a demonstrated fact---the frontier
+model is less human-like than a team's actual users, that under-report would carry to deployment. Either
+way, ``which LLM should power my synthetic study?'' becomes a first-order methodological choice, arguing
+for \textbf{deliberately including lower-tier models} in a screening panel.
 
-\paragraph{Screen for \emph{who}, not \emph{how many}.} Because the persona ordering is robust where the
-rate is not, the defensible use of today's panel is to \textbf{surface candidate vulnerable profiles} for
-a human study to confirm---a hypothesis-generating signal (``this interface may especially endanger
-trusting novices''), not an absolute or validated risk gauge.
+\paragraph{Read persona output as a prompt property, cautiously.} The panel stably ranks a prompted
+trusting-novice profile highest, but because that profile is defined to be trusting, this is a reliability
+property of the simulation, not a discovery of who is at risk. At most it can \emph{generate hypotheses}
+(``this interface may especially affect users who resemble a trusting novice'') for a human study to
+test---not an absolute or validated risk gauge.
 
 \paragraph{A concrete stance in the silicon-sampling debate.} Rather than a blanket ``LLMs (don't)
-simulate people,'' we offer a measured, replicated claim: \emph{aggregate} failure-rate signals are
-model-dependent and do not transfer across models, while \emph{relative} susceptibility orderings
-partially do. That distinction is actionable for anyone building simulated-user tools.
+simulate people,'' we offer a measured, replicated claim: \emph{aggregate} wrong-advice and
+coercive-framing signals are model-dependent and do not transfer across models, while a prompted
+\emph{relative} persona ordering is propagated stably. That distinction is actionable for anyone building
+simulated-user tools.
 
 \section{Limitations and Threats to Validity}
+\label{sec:limits}
 
 \begin{itemize}
   \item \textbf{Synthetic personas are not people}---the central threat. The model-dependence result makes
@@ -383,17 +425,21 @@ partially do. That distinction is actionable for anyone building simulated-user 
   transfer across capability tiers; we do not claim a deployable, model-agnostic detector.
   \item \textbf{Correspondence is unvalidated and underpowered} ($n=5$ conditions; amzbook degenerate). No
   predictive-validity claim is made.
-  \item \textbf{Two domains, both binary sentiment.} Other task structures (high-stakes, multi-class,
-  generative) are future work.
-  \item \textbf{Coercive construct is uncontrolled.} Axis-2 uses a guaranteed-wrong AI (an upper-bound
-  stress test); we do not report the dark-vs-placebo contrast, so we do not separate coercive framing from
-  ordinary wrong-advice following (immediate follow-up).
+  \item \textbf{Two review datasets, both binary sentiment.} Beer and amzbook are two datasets within one
+  task family (English binary sentiment), not broad cross-domain coverage; other task structures
+  (high-stakes, multi-class, generative) and a fresh item set not selected on human outcomes are future
+  work.
+  \item \textbf{Coercion is a bundled manipulation.} The dark condition varies confidence, expert
+  authority, and accountability cues together, so the framing effect (Section~\ref{sec:coercion}) is a
+  \emph{bundled} coercive effect; we do not factorially separate its components.
+  \item \textbf{Single generation per prompt.} Each agent decision is one draw at the persona's
+  temperature; we do not estimate generation stochasticity or prompt-paraphrase sensitivity, and inference
+  is limited to these fixed personas, models, and datasets rather than sampled populations.
   \item \textbf{Item selection uses human reliance variance} (disclosed). Holding items out from threshold
   fitting does not remove selection on the human criterion; a fresh-item human check remains, so we treat
   this as unresolved pending the human study.
-  \item \textbf{Persona construct validity.} The most-susceptible persona is prompt-defined to be trusting,
-  so its robustness is partly instruction-following; its correspondence to a real human profile is
-  untested.
+  \item \textbf{Prompt-level, not pixel-level.} Agents see a textual encoding of the interface, so we study
+  prompt framing rather than visual interface effects; a multimodal rendering is future work.
 \end{itemize}
 
 \section{Planned Human Validation}
@@ -412,21 +458,27 @@ synthetic-panel validity.
 
 \section{Conclusion}
 
-An interface can fail two ways---by making reliance dangerously uneven, or by coercing uniform trust in a
+An interface can fail two ways---by making reliance dangerously uneven, or by coercing over-reliance on a
 wrong AI---and teams would like to catch both before an expensive human study. We built a calibrated
-synthetic panel to do that triage and found that its danger signal is \textbf{model-dependent}: the
-frontier model we test resists the very wrong-advice trap that lower-tier panel models fall for, so the
-choice of panel model is itself a methodological decision with safety consequences. What survives that
-instability is \emph{which persona} the panel ranks highest: a trusting-novice profile is the
-most-susceptible persona for every model on every domain---a robust synthetic invariant whose human
-counterpart we have designed a study to test. We offer this as an honest map of where synthetic-user
-screening can and cannot be trusted today, and design the human study that would turn a robust
-\emph{ordering} into a validated \emph{prediction}.
+synthetic panel to do that triage and found that its danger signal is \textbf{model-dependent}: a matched
+framing contrast shows a real but model-dependent coercive-framing effect, smallest at the frontier model
+we test, so the choice of panel model is itself a methodological decision with screening consequences.
+Beneath that instability the panel at least propagates a prompted disposition stably---it ranks an
+explicitly trusting-novice persona highest across every model and dataset---but we read that as a
+reliability property of the simulation, not a discovery of who is at risk. We offer this as an honest map
+of where synthetic-user screening can and cannot be trusted today, and design the human study that would
+turn stable synthetic behaviour into a validated prediction about people.
 
 \begin{acks}
-Reproducibility: analysis \texttt{scripts/analysis/axis2\_robustness.py} $\to$
-\texttt{results/axis2\_robustness.json}; figures \texttt{scripts/analysis/make\_figures.py}; a decisions
-log with preregistration timestamps and audit verdicts accompanies the submission.
+\textbf{Reproducibility.} All experiments are hashlib-cached and resumable; each agent decision is a single
+draw at the persona's temperature (0.5--0.7), item-selection seed 42. Analyses:
+\texttt{scripts/analysis/axis2\_robustness.py} and \texttt{axis2\_review\_reanalysis.py} (the coercion
+contrast and item-clustered persona models) $\to$ \texttt{results/*.json}; figures
+\texttt{scripts/analysis/make\_figures.py}. The decision parser, exclusion rules, per-model prompt
+templates, model snapshots, and a decisions log with UTC preregistration timestamps, independent audit
+verdicts, and pre/post bug-fix diffs accompany the submission. The three self-caught silent-corruption bugs
+(axis-2 sign inversion, beta-binomial boundary artifact, parser sentinel fabrication) and their fixes are
+documented there.
 \end{acks}
 
 \bibliographystyle{ACM-Reference-Format}

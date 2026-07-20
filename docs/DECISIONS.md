@@ -954,6 +954,24 @@
 - **NEXT:** on PI confirmation, revise `main.tex` (coercion-contrast subsection + new numbers, persona
   demotion, axis-1 clarity, rendering honesty, repro appendix, tone), rebuild PDF, re-audit if needed.
 
+### D5.34 — Paper revised per external CHI review (PI-confirmed persona demotion); rebuilds clean to 7-page PDF
+- **Date:** 2026-07-20 · **What changed:** applied the full D5.33 review disposition to `docs/paper/main.tex`
+  (v2). PI confirmed the persona demotion. Edits: (i) NEW results subsection "Is it coercion, or just
+  wrong-advice following?" reporting the matched framing contrast (beer dark OR 1.90, amzbook 1.17, placebo
+  ≤ neutral, conflict-switch ~2–3× for non-frontier vs gpt-5.5 flat) — axis-2 is now a real
+  bundled-coercive-framing effect, not just a stress test; (ii) persona DEMOTED from contribution to a
+  "backend-stable manipulation check" with item-clustered stats (OR 14.9, bootstrap gap 0.53 [0.48,0.57]),
+  1/6 sign-test REMOVED (personas non-exchangeable); (iii) contributions cut from 3 → 2 (persona folded in);
+  (iv) axis-1 metric/units clarified (mean disagreement ↔ β-binomial ρ; 600 vs 120 trials; common-conflict
+  subset; boundary-bug note); (v) "faithful interface rendering" → "textual prompt encoding" (agents see
+  text, not screenshots; multimodal = future work); (vi) "cross-domain" → "two review datasets" (both binary
+  sentiment); (vii) added single-generation-stochasticity limitation; (viii) reproducibility acks expanded;
+  (ix) fixed placeholder citation (real cao2025specializing; mildner verified); (x) toned down "lethal /
+  rock-solid / resists the trap / green light / invariant" throughout, reduced rate-vs-ordering repetition.
+- **Numbers:** all from audited analyses (D5.29 robustness + D5.33 reanalysis, both audit PASS); Manager
+  re-derived. **Build:** pdflatex→bibtex→pdflatex×2 clean, 7-page `main.pdf`, no undefined refs/citations,
+  no errors. No frozen primary altered; τ UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
