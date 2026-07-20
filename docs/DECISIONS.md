@@ -824,6 +824,20 @@
   reviewer-rebuttals A5 updated. Does NOT alter any frozen primary. τ UNFROZEN. Audit PASS (2026-07-19,
   read-only code-review, 4/4 claims reproduced, no red flags).
 
+### D5.28 — E6-stripped (axis-2-only, N≈40 Prolific) DESIGN drafted for PI review (design-only, NOT preregistered)
+- **Date:** 2026-07-19 · **What changed:** per PI directive (chose "draft stripped E6, no recruitment"),
+  drafted `docs/plans/e6-stripped-axis2-design.md` — the fastest-path human validation that tests only
+  the paper's strongest, cross-domain-robust positives: H1 (coercive wrong-AI over-coerces real humans,
+  within-subject Dark vs Faithful/Placebo), H2 (trusting-novice human index = most susceptible → validates
+  persona-p5 localization), H3 (WHICH ladder model's panel best tracks humans — predicting gpt-4.1 >
+  frontier gpt-5.5, i.e. the most-capable panel is the least human-faithful screener).
+- **WHY stripped/axis-2-only:** axis-1 correspondence is null in all 4 synthetic runs AND degenerate on
+  the amzbook human anchor (D5.27) → N≈40 cannot test it fairly; axis-2 (over-reliance + persona) is the
+  robust positive. Directly answers reviewers A1/A8 for the core claim at minimum cost (~£250–350, one-shot).
+- **Status:** DESIGN ONLY. NOT preregistered, NO recruitment, NO IRB yet. The full 6-interface N≈60 E6
+  (`docs/plans/e6-human-study-design.md`) remains the eventual capstone. Freeze §§1–4 + IRB BEFORE any
+  data. Does NOT alter any frozen primary. τ UNFROZEN. Awaiting PI review of the design.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
