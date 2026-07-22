@@ -1051,6 +1051,25 @@
   each gated on an independent audit + Manager re-derivation before entering the paper. Does NOT alter any
   frozen primary; τ UNFROZEN.
 
+### D5.37 — Paper RESTRUCTURED to the hybrid measurement-audit framing (v3); compiles clean (8 pp)
+- **Date:** 2026-07-22 · Applied the D5.35 hybrid decision + comment2 zero-compute recommendations to
+  `docs/paper/main.tex`, after studying CHI measurement-audit craft (CHI'25 "Placebo Effect of Control
+  Settings" best paper; CoMPosT; Santurkar as genre models). Kept the "Two Ways a Design Fails" title/hook;
+  reframed the CLAIM as a backend-sensitivity measurement audit.
+- **Changes:** (i) abstract rewritten to audit structure (Context→Gap→Action→stable-vs-unstable
+  Findings→Implication); (ii) intro adds the measurement-invariance framing + four RQs (backend invariance /
+  variance decomposition / construct-vs-compliance / backend-aware reporting) + audit contributions (3);
+  (iii) related-work adds measurement-invariance/reliability/validity, researcher degrees-of-freedom,
+  algorithmic auditing; (iv) NEW results subsections `sec:instability` (cross-backend decision-flip
+  0.60/0.33, Fleiss κ, refusal-not-a-confound) and `sec:variance` (crossed-RE variance shares
+  item≈persona>model); (v) persona subsection adds the zero-compute p1-vs-p5 evidence + [ablation pending]
+  placeholder; (vi) discussion reframed to "the backend is the measurement instrument / more-capable ≠
+  more-valid / disagreement is information / three kinds of failure"; (vii) limitations mapped to claim
+  boundaries. Placeholders mark the in-flight multi-generation + persona-ablation results.
+- All numbers from audited analyses (D5.29/D5.33/D5.35, audit PASS). Build clean, 8-page `main.pdf`, no
+  undefined refs/citations. Multi-generation (D5.36) still running detached (healthy). No frozen primary
+  altered; τ UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
