@@ -1080,6 +1080,38 @@
   check not headline discovery", "audit that triage" (conclusion), E6 "two review datasets" not
   "cross-domain-robust", terminology consistency (backend/dataset), and trimmed the repeated
   "backend is the instrument"/"Reading" restatements. Numbers unchanged. Compiles clean, 8 pp.
+### D5.39 — Blind CHI review (GPT-5.6, score 2.5) + statistical-rigor reanalysis; CORRECTS a headline claim (audit-caught)
+- **Date:** 2026-07-22 · A blinded GPT-5.6 reviewer (expertise 4/4) scored the paper **2.5 (below borderline)**,
+  praising the honesty/timeliness but flagging: no demonstrated human/design-risk validity; pseudo-replicated
+  inference; incomplete audit (generation variance pending, no paraphrases); very narrow evidence (2 binary-
+  sentiment datasets, 20 selected items, artificial always-wrong AI, textual not visual); weak axis-1 construct;
+  RQ4 abstention tautological; persona result near-entailed by the prompt; novelty vs prompt/model-sensitivity
+  work not sharply drawn. Full review saved in agent history.
+- **Statistical-rigor reanalysis** (scripts/analysis/review_stats_rigor.py -> esults/review_stats_rigor.json;
+  independent audit PASS on 4/5 claims, and the audit CAUGHT a 5th):
+  - **CORRECTION (headline):** my earlier claim that the coercive-framing effect is **backend-dependent**
+    (D5.33) is **RETRACTED**. A GEE robust-Wald interaction test looked significant (beer Wald 124.8) but was
+    an **8-item-cluster sandwich artifact**; the proper **likelihood-ratio test** gives condition x backend
+    interaction **NOT significant on either dataset** (beer chi2=1.70 p=0.89; amzbook chi2=3.18 p=0.67), and a
+    mixed model agrees. HONEST claim: there IS a coercive-framing effect (pooled item-clustered OR **1.90**
+    beer / **1.17** amzbook, dataset-dependent), roughly **common across backends**; what is backend-dependent
+    is the **absolute adoption LEVEL** (0.15-0.66) and the decision-flip, NOT the framing-effect slope. Also
+    correct the "frontier shows the smallest framing effect" wording -> true only in ABSOLUTE adoption, not in
+    odds-ratio terms (beer gpt-5.5 descriptive dark OR 2.67).
+  - **Persona p5** under a crossed mixed model (item+model+dataset REs): OR **26.5 (CI 17-41)** -> robust to the
+    pseudo-replication critique (a manipulation check regardless).
+  - **Vendor persona-ordering** agreement is driven by the shared p5 peak: excluding p5, beer stays 0.77 but
+    amzbook COLLAPSES to 0.085 (min -0.45) -> temper the "ordering agrees across vendors" claim.
+  - **Decision-flip** persists across thresholds **0.35-0.65** (not unique to 0.5) -> strengthens the flip result.
+  - **Refusal/challenge by backend** (dark): OpenAI ~0, claude/gemini 2-4% (non-driving; crude keyword proxy).
+- **Plan (zero-compute, integrate into paper after these corrections):** rewrite coercion subsection + abstract
+  + intro to the corrected (common-framing / level-dependent) claim; add LRT + per-dataset pooled OR; persona
+  crossed-model OR; p5-excluded ordering; flip-threshold sweep; refusal-by-backend; soften "calibrated",
+  "clear"->"below threshold", axis-1 -> "synthetic persona disagreement"; disclose human-anchor N/estimator/CI,
+  prompt table, per-persona temperature (not backend-confounding); fix figures (colorblind fig5, fig4 both
+  datasets + p5-excluded, fig3 CIs, neutral titles). Pending experiments (generation variance = running
+  multigen; descriptor ablation = harness ready) answer the reviewer's essential asks. No frozen primary
+  altered; tau UNFROZEN.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

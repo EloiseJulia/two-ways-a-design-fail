@@ -65,32 +65,30 @@ def coercion_interaction(df):
         dd = pd.concat(recs, ignore_index=True)
         dd['is_dark'] = (dd.cond == DARK).astype(int)
         dd['adopt'] = dd['adopt'].astype(int)
-        # GEE with interaction, clustered by item, model as fixed factor
+        # Proper likelihood-ratio test of the condition x backend interaction (full vs additive GLM).
+        # NOTE: the matched design has only 8 item clusters, so a GEE robust-sandwich Wald is degenerate
+        # and spuriously inflated; we use an LRT (and report per-backend ORs as DESCRIPTIVE only).
         try:
-            res = smf.gee('adopt ~ is_dark * C(model)', groups='item', data=dd,
-                          family=sm.families.Binomial(), cov_struct=Exchangeable()).fit()
-            # Wald test that all interaction terms are jointly 0
-            inter = [p for p in res.params.index if 'is_dark:' in p]
             from scipy.stats import chi2
-            if inter:
-                b = res.params[inter].values
-                V = res.cov_params().loc[inter, inter].values
-                wald = float(b @ np.linalg.pinv(V) @ b)
-                dfree = len(inter)
-                pval = float(chi2.sf(wald, dfree))
-            else:
-                wald, dfree, pval = float('nan'), 0, float('nan')
-            # per-backend dark OR (ref model gets base is_dark; others add interaction)
-            base = res.params.get('is_dark', np.nan)
-            per_backend = {}
+            add = smf.glm('adopt ~ is_dark + C(model)', data=dd, family=sm.families.Binomial()).fit()
+            full = smf.glm('adopt ~ is_dark * C(model)', data=dd, family=sm.families.Binomial()).fit()
+            lr = float(2 * (full.llf - add.llf))
+            dfree = int(full.df_model - add.df_model)
+            pval = float(chi2.sf(lr, dfree))
+            # descriptive per-backend dark OR from the full GLM
+            base = full.params.get('is_dark', np.nan)
             ref = sorted(dd.model.unique())[0]
-            for m in sorted(dd.model.unique()):
-                key = f'is_dark:C(model)[T.{m}]'
-                logor = base + (res.params.get(key, 0.0) if m != ref else 0.0)
-                per_backend[m] = round(float(np.exp(logor)), 3)
-            out[dom] = dict(interaction_wald=wald, interaction_df=dfree,
-                            interaction_p=pval, ref_model=ref,
-                            per_backend_dark_OR=per_backend, n_obs=int(len(dd)))
+            per_backend = {}
+            for mm in sorted(dd.model.unique()):
+                key = f'is_dark:C(model)[T.{mm}]'
+                logor = base + (full.params.get(key, 0.0) if mm != ref else 0.0)
+                per_backend[mm] = round(float(np.exp(logor)), 3)
+            # pooled framing OR (additive model)
+            pooled_or = float(np.exp(add.params['is_dark']))
+            out[dom] = dict(lrt_chi2=lr, lrt_df=dfree, lrt_p=pval,
+                            interaction_significant=bool(pval < 0.05),
+                            pooled_framing_OR=round(pooled_or, 3),
+                            per_backend_dark_OR_descriptive=per_backend, ref_model=ref, n_obs=int(len(dd)))
         except Exception as e:
             out[dom] = f'NA ({e})'
     return out
@@ -175,11 +173,12 @@ def main():
     }
     json.dump(result, open('results/review_stats_rigor.json', 'w'), indent=2, default=str)
     ci = result['coercion_interaction']
-    print('=== COERCION condition x backend INTERACTION (per dataset) ===')
+    print('=== COERCION condition x backend INTERACTION (LRT, per dataset) ===')
     for dom, v in ci.items():
         if isinstance(v, dict):
-            print(f"  [{dom}] interaction Wald={v['interaction_wald']:.2f} df={v['interaction_df']} "
-                  f"p={v['interaction_p']:.4f} | per-backend dark OR={v['per_backend_dark_OR']}")
+            print(f"  [{dom}] LRT chi2={v['lrt_chi2']:.2f} df={v['lrt_df']} p={v['lrt_p']:.4f} "
+                  f"sig={v['interaction_significant']} | pooled framing OR={v['pooled_framing_OR']} | "
+                  f"descriptive per-backend OR={v['per_backend_dark_OR_descriptive']}")
         else:
             print(f"  [{dom}] {v}")
     print('=== PERSONA crossed mixed + vendor ordering with/without p5 ===')

@@ -1,11 +1,12 @@
 {
   "coercion_interaction": {
     "beer": {
-      "interaction_wald": 124.75018418287705,
-      "interaction_df": 5,
-      "interaction_p": 3.0911760581026375e-25,
-      "ref_model": "claude-sonnet-4.5",
-      "per_backend_dark_OR": {
+      "lrt_chi2": 1.6987734905699199,
+      "lrt_df": 5,
+      "lrt_p": 0.8890542425620238,
+      "interaction_significant": false,
+      "pooled_framing_OR": 1.901,
+      "per_backend_dark_OR_descriptive": {
         "claude-sonnet-4.5": 1.418,
         "gemini-2.5-pro": 1.571,
         "gpt-4.1": 2.778,
@@ -13,14 +14,16 @@
         "gpt-4o-mini": 1.8,
         "gpt-5.5": 2.674
       },
+      "ref_model": "claude-sonnet-4.5",
       "n_obs": 576
     },
     "amzbook": {
-      "interaction_wald": 7.580199761084377,
-      "interaction_df": 5,
-      "interaction_p": 0.18093977096388672,
-      "ref_model": "claude-sonnet-4.5",
-      "per_backend_dark_OR": {
+      "lrt_chi2": 3.1835005825570306,
+      "lrt_df": 5,
+      "lrt_p": 0.6717193169066727,
+      "interaction_significant": false,
+      "pooled_framing_OR": 1.166,
+      "per_backend_dark_OR_descriptive": {
         "claude-sonnet-4.5": 0.776,
         "gemini-2.5-pro": 1.0,
         "gpt-4.1": 1.429,
@@ -28,17 +31,18 @@
         "gpt-4o-mini": 1.659,
         "gpt-5.5": 0.74
       },
+      "ref_model": "claude-sonnet-4.5",
       "n_obs": 576
     }
   },
   "persona_crossed": {
     "bayes_mixed_is_p5": {
-      "OR": 26.493046310945697,
+      "OR": 26.4930549128587,
       "OR_ci": [
-        17.029652341772632,
-        41.21525729049932
+        17.029659734940473,
+        41.21526616152322
       ],
-      "z": 14.53339738133724
+      "z": 14.533402420761945
     },
     "vendor_ordering_with_p5_beer": {
       "mean": 0.8715912379481008,
