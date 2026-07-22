@@ -56,14 +56,19 @@ the panel faithfully propagates a \emph{prompted} disposition---an explicitly tr
 the highest-adopting persona in all 12 backend$\times$dataset cells (item-clustered odds ratio $\approx$15)---
 which is a reliability property of the simulation, not a discovered vulnerability. A variance decomposition
 shows per-trial adoption is driven \emph{more} by the researcher-chosen items and personas than by the
-backend, yet the backend still moves the aggregate estimate a practitioner would read. We contribute (i) a
+backend, yet the backend still moves the aggregate estimate a practitioner would read. \textbf{Most
+consequential:} the strongest backend is the one that least reproduces the highest-severity failure---the
+at-risk trusting-novice persona---so a single frontier backend (the model a quality-optimal router would
+pick) surfaces almost none of the risk that a pair of weaker backends recovers. We contribute (i) a
 systematic backend-sensitivity audit showing that synthetic-user interface-risk measurement is not
-backend-invariant; (ii) a reusable audit and reporting protocol (variance decomposition, behavior
-taxonomy, cross-backend decision-flip, and disagreement-triggered abstention)---report distributions over
-models/prompts/generations, not a single point estimate; and (iii) the two-axis over-dispersion/coercion
-construct on a preregistered, audit-gated pipeline. We make \emph{no} claim that the panel predicts
-individual humans or identifies a real vulnerable population; human predictive validity is reserved for a
-separate, later study. The result is an honest map of \emph{when a synthetic panel's danger reading can and
+backend-invariant; (ii) a \emph{capability--vulnerability mismatch} and a vulnerability-coverage principle
+for panel selection---the inverse of capability routing; (iii) a reusable audit and reporting protocol
+(variance decomposition, behavior taxonomy, cross-backend decision-flip, and disagreement-triggered
+abstention)---report distributions over models/prompts/generations, not a single point estimate; and (iv)
+the two-axis over-dispersion/coercion construct on a preregistered, audit-gated pipeline. We make \emph{no}
+claim that the panel predicts individual humans or identifies a real vulnerable population; human predictive
+validity is reserved for a separate, later study. The result is an honest map of \emph{when a synthetic
+panel's danger reading can and
 cannot be trusted}---before any human is recruited.
 \end{abstract}
 
@@ -156,7 +161,11 @@ vulnerability, since the persona is defined to be trusting; and its cross-vendor
 is largely carried by this one persona (Section~\ref{sec:variance}). \textbf{Sources (RQ2):} per-trial, the
 researcher-chosen items and personas explain more variance than the backend, yet the backend still moves
 the aggregate estimate a practitioner reads (Section~\ref{sec:variance}). We use these to motivate a
-backend-aware reporting protocol (RQ4).
+backend-aware reporting protocol (RQ4). \textbf{Most consequential:} backend capability and reproduced
+vulnerability are \emph{mismatched}---the highest-capability backend least reproduces the highest-severity
+failure, so the single frontier model a quality-optimal router would choose surfaces almost none of the
+risk that a pair of weaker backends recovers (Section~\ref{sec:capvuln}); selecting a panel for
+\emph{vulnerability coverage} is therefore the inverse of capability routing.
 
 We keep the evocative ``two ways a design fails'' framing because the two axes are the risks we care about;
 but our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
@@ -166,6 +175,13 @@ but our \emph{claimed} contribution is the audit, not a validated screen. We con
   can flip an interface's risk classification---while a prompted persona ordering propagates stably. This is
   direct, quantitative evidence for the silicon-sampling
   reliability debate, reframed as measurement (non-)invariance.
+  \item \textbf{The capability--vulnerability mismatch and a vulnerability-coverage principle for panel
+  selection.} The strongest backend is the one that least reproduces the highest-severity failure (the
+  at-risk trusting-novice persona), so a single frontier backend---the model a quality-optimal
+  router~\cite{ong2025routellm,wang2025mixture} would pick---surfaces almost none of the risk that a pair of
+  weaker backends recovers. Choosing an evaluation panel to maximize \emph{vulnerability coverage} is thus
+  the \emph{inverse} of capability routing: a counterintuitive, actionable design principle for who should
+  power a synthetic-user study.
   \item \textbf{A reusable audit and reporting protocol}: a variance decomposition over backend, persona,
   item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
   disagreement-triggered abstention. The message is operational---report synthetic-panel results as
@@ -519,6 +535,46 @@ stated, but no explicit trust/deference policy) and test whether the p5 ranking 
   \label{fig:ordering}
 \end{figure*}
 
+\subsection{Capability--vulnerability mismatch: strong backends under-represent the at-risk user}
+\label{sec:capvuln}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig6_capability_vulnerability}
+  \caption{Left: backend task competence (System-1 accuracy) vs.\ the AI-induced flip rate
+  $P(\text{adopt}\mid\text{System-1 correct})$, both datasets---a directional negative trend (Spearman
+  $-0.43$ / $-0.60$; n.s.\ at $n{=}6$). Right: vulnerability coverage (number of the six personas whose
+  dark adoption reaches 0.5) for a single frontier backend, a weak pair, and the full panel. The single
+  frontier backend surfaces the fewest at-risk profiles.}
+  \label{fig:capvuln}
+\end{figure*}
+
+A backend's aggregate adoption is one thing; \emph{which} users it flags as at-risk is another, and
+combining them exposes an uncomfortable pattern (Figure~\ref{fig:capvuln}). Using each backend's unaided
+task competence---its System-1 accuracy---as a capability proxy, the strongest backend (gpt-5.5, 0.93) is
+precisely the one that least reproduces the highest-severity failure: on the trusting-novice persona (p5),
+dark-condition adoption is $\approx$1.0 for five backends but only \textbf{0.50} for gpt-5.5. Isolating AI
+influence from baseline error---the \emph{AI-induced flip}, $P(\text{adopt}\mid\text{System-1 correct})$,
+which excludes trials where the persona was already wrong (there adoption is 1 by construction)---the same
+ordering holds: the frontier flips a correct answer to the wrong AI least often (0.16), a mid-tier backend
+most (0.46). Across the six backends, capability and this flip rate trend negatively (Spearman $-0.43$
+beer / $-0.60$ amzbook); this is directional and not significant at $n=6$, so we present it as suggestive
+and lean on the direct, robust effect: \textbf{the frontier backend is nearly blind to the at-risk
+persona.}
+
+This has a concrete consequence for assembling an evaluation panel. Treating a persona as \emph{covered}
+when its dark adoption reaches a risk threshold (0.5), a single frontier backend---the model a
+quality-optimal router~\cite{ong2025routellm,wang2025mixture} would select---surfaces the risk for only
+1 of 6 personas on beer and 0 of 6 on amzbook, whereas a pair of weaker backends (gpt-4.1, gpt-4o-mini)
+surfaces 4 and 5 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
+so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
+for this purpose}. Choosing an evaluation panel to maximize \textbf{vulnerability coverage}---faithful
+reproduction of human failure modes---is the \emph{inverse} of choosing it to maximize task quality, and a
+practice built on ``use the strongest model'' would systematically miss the users who matter most. We state
+this as a design principle for synthetic-user evaluation, not a validated claim about people: p5 is a
+prompted disposition (Section~\ref{sec:modeldep}), so this is coverage of a \emph{synthetic} vulnerability
+whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
+
 \subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
 \label{sec:corr}
 Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
@@ -544,6 +600,18 @@ compress the persona differentiation a screen relies on. Absent a human criterio
 correctness are not grounds for choosing a synthetic participant, and we deliberately avoid claiming the
 frontier model ``misses real danger'' or that weaker models are ``more human''---either would require the
 human study we have not run.
+
+\paragraph{Vulnerability coverage inverts capability routing.} Model-routing and mixture-of-agents systems
+choose backends to maximize answer \emph{quality}~\cite{ong2025routellm,wang2025mixture}. A synthetic-user
+\emph{audit} wants the opposite: the value of a backend is how much of the interface's risk surface it
+exposes, and we find capability and reproduced vulnerability are mismatched---the highest-capability backend
+reproduces the highest-severity failure least (Section~\ref{sec:capvuln}). So the single frontier model a
+quality-optimal router would select is close to the worst choice for a risk audit, and a pair of weaker,
+diverse backends covers far more of the vulnerability surface than one strong one. We state this as an
+actionable, if deliberately bounded, design principle---\emph{select an evaluation panel for vulnerability
+coverage, not capability}---while flagging that our capability proxy is coarse ($n=6$ backends) and the
+at-risk persona is prompt-defined, so the coverage claim, not the capability correlation, is the robust
+core.
 
 \paragraph{Disagreement is information, not just noise.} Because the reading is instrument-sensitive,
 cross-backend disagreement is itself a useful output. A conservative protocol reports the risk as a
@@ -587,6 +655,14 @@ paper establishes (i) and characterizes (ii); (iii) is reserved for the human st
   \item \textbf{Item selection uses human reliance variance} (disclosed). Holding items out from threshold
   fitting does not remove selection on the human criterion; a fresh-item human check remains, so we treat
   this as unresolved pending the human study.
+  \item \textbf{The capability--vulnerability mismatch rests on synthetic evidence with a coarse capability
+  proxy and a partly mechanical component.} Capability is proxied by mean System-1 accuracy over $n=6$
+  backends, and part of the raw capability$\times$adoption correlation is mechanical (a backend that answers
+  correctly cannot then adopt a wrong AI by construction). We therefore lead with the assumption-light
+  coverage result (single frontier backend covers $\leq$1/6 high-adoption cells; a weak pair recovers
+  4--5/6) and the AI-induced-flip metric, and report the capability correlation only as directional
+  supporting evidence, not a fitted law. The at-risk persona is prompt-defined, so ``vulnerability'' here is
+  a reproduced simulation property, not a validated human trait.
   \item \textbf{Prompt-level, not pixel-level.} Agents see a textual encoding of the interface, so we study
   prompt framing rather than visual interface effects; a multimodal rendering is future work.
 \end{itemize}
