@@ -77,10 +77,10 @@ def fig1_axis2_ladder(df):
                 arrowprops=dict(arrowstyle='->', color='black'), fontsize=9, ha='center')
     ax.set_xticks(x); ax.set_xticklabels(LADDER, rotation=15)
     ax.set_ylabel('over-reliance on guaranteed-wrong AI\n(dark condition, Wilson 95% CI)')
-    ax.set_xlabel('capability ladder (same provider, identical config)')
+    ax.set_xlabel('same-provider model set (small \u2192 frontier)')
     ax.set_ylim(0, 1)
-    ax.set_title('Axis-2 wrong-AI over-reliance is model-idiosyncratic;\nthe frontier resists (both domains)')
-    ax.legend(title='domain')
+    ax.set_title('Dark-condition wrong-advice adoption by backend, both datasets')
+    ax.legend(title='dataset')
     save(fig, 'fig1_axis2_ladder')
 
 
@@ -103,9 +103,9 @@ def fig2_persona_heatmap(df):
         ax.add_patch(plt.Rectangle((-0.5, p5i - 0.5), len(ALL_MODELS), 1, fill=False,
                                    edgecolor='cyan', lw=2))
         ax.set_title(dom)
-    fig.suptitle('Persona × model dark-adoption: p5 (novice-trusting) is the top-adopting persona in every cell (12/12)',
-                 fontsize=11)
-    fig.colorbar(im, ax=axes, fraction=0.025, pad=0.02, label='wrong-AI adoption')
+    fig.suptitle('Dark-condition wrong-advice adoption by persona and backend, both datasets '
+                 '(p5 row highlighted)', fontsize=11)
+    fig.colorbar(im, ax=axes, fraction=0.025, pad=0.02, label='wrong-advice adoption')
     for ext in ('png', 'pdf'):
         fig.savefig(os.path.join(FIGDIR, f'fig2_persona_heatmap.{ext}'), dpi=200, bbox_inches='tight')
     plt.close(fig)
@@ -113,7 +113,7 @@ def fig2_persona_heatmap(df):
 
 
 def _axis1_disagreement():
-    """(domain, model) -> mean panel disagreement across 5 conditions."""
+    """(domain, model) -> list of per-condition panel disagreement values (5 conditions)."""
     files = {'beer': 'results/confirmatory_axis1_capladder.json',
              'amzbook': 'results/confirmatory_axis1_capladder_amzbook.json'}
     out = {}
@@ -121,7 +121,7 @@ def _axis1_disagreement():
         d = json.load(open(path))
         for m in LADDER:
             tbl = d['per_model'][m]['aligned_per_condition_table']
-            out[(dom, m)] = float(np.mean([r['panel_disagreement'] for r in tbl]))
+            out[(dom, m)] = [float(r['panel_disagreement']) for r in tbl]
     return out
 
 
@@ -129,26 +129,25 @@ def fig3_axis1_collapse():
     dis = _axis1_disagreement()
     fig, ax = plt.subplots(figsize=(6.4, 4.2))
     x = np.arange(len(LADDER))
-    for dom in DOMAINS:
-        y = [dis[(dom, m)] for m in LADDER]
-        ax.plot(x, y, marker='s', lw=2, color=DCOL[dom], label=dom)
-    ax.annotate('frontier collapses\nto near-homogeneity', xy=(3, dis[('beer', 'gpt-5.5')]),
-                xytext=(1.6, 0.15), arrowprops=dict(arrowstyle='->', color='black'),
-                fontsize=9, ha='center')
+    for i, dom in enumerate(DOMAINS):
+        means = [float(np.mean(dis[(dom, m)])) for m in LADDER]
+        sds = [float(np.std(dis[(dom, m)], ddof=1)) for m in LADDER]
+        ax.errorbar(x + (i - 0.5) * 0.04, means, yerr=sds, marker='s', lw=2, capsize=3,
+                    color=DCOL[dom], label=dom)
     ax.set_xticks(x); ax.set_xticklabels(LADDER, rotation=15)
-    ax.set_ylabel('mean panel disagreement (axis-1 heterogeneity)')
-    ax.set_xlabel('capability ladder')
-    ax.set_ylim(0, max(dis.values()) * 1.15)
-    ax.set_title('Axis-1 panel heterogeneity collapses at the frontier (both domains)')
-    ax.legend(title='domain')
+    ax.set_ylabel('mean panel disagreement\n(error bars: SD across 5 UI conditions)')
+    ax.set_xlabel('same-provider model set (small \u2192 frontier)')
+    ax.set_ylim(0, None)
+    ax.set_title('Mean panel disagreement by backend, both datasets')
+    ax.legend(title='dataset')
     save(fig, 'fig3_axis1_collapse')
 
 
 def fig4_rate_vs_ordering(df):
     cr = cell_rates(df)
     pr = persona_rates(df)
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=(11, 4.4))
-    # LEFT: aggregate rate per model (idiosyncrasy) — grouped bars
+    fig, (axL, axB, axA) = plt.subplots(1, 3, figsize=(14, 4.2))
+    # LEFT: aggregate rate per backend, both datasets
     x = np.arange(len(ALL_MODELS))
     w = 0.38
     for i, dom in enumerate(DOMAINS):
@@ -156,27 +155,27 @@ def fig4_rate_vs_ordering(df):
         axL.bar(x + (i - 0.5) * w, vals, w, color=DCOL[dom], label=dom)
     axL.axhline(0.5, ls='--', color='gray', lw=1)
     axL.set_xticks(x); axL.set_xticklabels(ALL_MODELS, rotation=40, ha='right', fontsize=8)
-    axL.set_ylabel('aggregate wrong-AI over-reliance')
-    axL.set_title('Aggregate RATE is model-idiosyncratic\n(beer range 0.30, amzbook range 0.51)')
-    axL.legend(title='domain', fontsize=8)
+    axL.set_ylabel('aggregate wrong-advice adoption')
+    axL.set_title('Aggregate adoption by backend, both datasets')
+    axL.legend(title='dataset', fontsize=8)
     axL.set_ylim(0, 1)
-    # RIGHT: persona ordering profiles overlaid (beer), independent vendors — ordering agrees
+    # RIGHT panels: per-persona vendor profiles, one per dataset (categorical personas: markers)
     vendors = ['gpt-5.5', 'claude-sonnet-4.5', 'gemini-2.5-pro']
-    vcol = {'gpt-5.5': '#2ca02c', 'claude-sonnet-4.5': '#9467bd', 'gemini-2.5-pro': '#ff7f0e'}
+    vcol = {'gpt-5.5': '#009E73', 'claude-sonnet-4.5': '#9467bd', 'gemini-2.5-pro': '#E69F00'}
     xp = np.arange(len(PERSONAS))
-    for m in vendors:
-        y = [pr[('beer', m, p)] for p in PERSONAS]
-        axR.plot(xp, y, marker='o', lw=1.8, color=vcol[m], label=m)
-    axR.set_xticks(xp)
-    axR.set_xticklabels([p.split('-', 1)[0] for p in PERSONAS], fontsize=9)
     p5i = PERSONAS.index(TARGET)
-    axR.axvline(p5i, ls=':', color='cyan', lw=2)
-    axR.text(p5i, 1.02, 'p5', color='teal', ha='center', fontsize=9)
-    axR.set_ylabel('dark adoption')
-    axR.set_xlabel('persona')
-    axR.set_title('Persona ORDERING agrees across independent vendors\n(beer mean pairwise Spearman 0.87)')
-    axR.legend(fontsize=8)
-    axR.set_ylim(0, 1.08)
+    for ax, dom in [(axB, 'beer'), (axA, 'amzbook')]:
+        for m in vendors:
+            y = [pr[(dom, m, p)] for p in PERSONAS]
+            ax.plot(xp, y, marker='o', lw=1.4, ls='--', color=vcol[m], label=m)
+        ax.axvline(p5i, ls=':', color='0.4', lw=1.5)
+        ax.text(p5i, 1.03, 'p5', color='0.3', ha='center', fontsize=9)
+        ax.set_xticks(xp); ax.set_xticklabels([p.split('-', 1)[0] for p in PERSONAS], fontsize=9)
+        ax.set_xlabel('persona (categorical; order arbitrary)')
+        ax.set_ylabel('dark adoption')
+        ax.set_title(f'Per-persona adoption, independent vendors ({dom})')
+        ax.set_ylim(0, 1.1)
+        ax.legend(fontsize=7)
     save(fig, 'fig4_rate_vs_ordering')
 
 
@@ -185,30 +184,32 @@ def fig5_decision_flip(df):
     some clear -> the decision flips across backends."""
     cr = cell_rates(df)
     thr = 0.5
+    FLAG, BELOW = '#D55E00', '#0072B2'  # colorblind-safe (Wong): vermillion / blue
     fig, axes = plt.subplots(1, 2, figsize=(11, 3.8), sharex=True)
     for ax, dom in zip(axes, DOMAINS):
         vals = [(m, cr[(dom, m)][2]) for m in ALL_MODELS]
         vals.sort(key=lambda t: t[1])
         names = [m for m, _ in vals]
         rates = [r for _, r in vals]
-        colors = ['#d62728' if r >= thr else '#2ca02c' for r in rates]  # red=flag, green=clear
+        colors = [FLAG if r >= thr else BELOW for r in rates]
         y = np.arange(len(names))
         ax.barh(y, rates, color=colors)
         ax.axvline(thr, ls='--', color='black', lw=1.2)
-        ax.text(thr + 0.01, -0.6, r'threshold $\tau=0.5$', fontsize=8, va='top')
+        ax.annotate(r'$\tau=0.5$', xy=(thr, len(names) - 0.4), xytext=(thr + 0.02, len(names) - 0.4),
+                    fontsize=8, va='center')
         for yi, r in zip(y, rates):
             ax.text(r + 0.01, yi, f'{r:.2f}', va='center', fontsize=8)
         ax.set_yticks(y); ax.set_yticklabels(names, fontsize=8)
         n_flag = sum(r >= thr for r in rates)
-        ax.set_title(f'{dom}: {n_flag}/6 flag, {6-n_flag}/6 clear')
+        ax.set_title(f'{dom}: {n_flag}/6 at/above threshold, {6-n_flag}/6 below')
         ax.set_xlim(0, 1.0)
         ax.set_xlabel('aggregate wrong-advice adoption (same dark interface)')
     from matplotlib.patches import Patch
-    axes[1].legend(handles=[Patch(color='#d62728', label=r'flag ($\geq\tau$)'),
-                            Patch(color='#2ca02c', label=r'clear ($<\tau$)')],
+    axes[1].legend(handles=[Patch(color=FLAG, label=r'at/above $\tau$ (would flag)'),
+                            Patch(color=BELOW, label=r'below $\tau$')],
                    fontsize=8, loc='lower right')
-    fig.suptitle('The same interface, flipped: backends disagree on the risk decision '
-                 '(pairwise flip rate 0.60 beer / 0.33 amzbook)', fontsize=11)
+    fig.suptitle('Aggregate dark-condition adoption by backend, both datasets, at a fixed decision '
+                 'threshold (pairwise flip rate 0.60 beer / 0.33 amzbook)', fontsize=11)
     for ext in ('png', 'pdf'):
         fig.savefig(os.path.join(FIGDIR, f'fig5_decision_flip.{ext}'), dpi=200, bbox_inches='tight')
     plt.close(fig)

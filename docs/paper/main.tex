@@ -328,10 +328,11 @@ boundary.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{fig1_axis2_ladder}
-  \caption{Axis-2 wrong-advice adoption on the guaranteed-wrong interface across the same-provider
-  capability ladder, both datasets (Wilson 95\% CIs; dashed line $=$ 0.5). Adoption is non-monotonic and
-  idiosyncratic; the frontier model (gpt-5.5) has the lowest adoption on both datasets. A non-arbitrary
-  baseline for ``resists'' is given by the matched framing contrast (Section~\ref{sec:coercion}).}
+  \caption{Axis-2 wrong-advice adoption on the guaranteed-wrong interface across the same-provider model
+  set (gpt-4o-mini $\to$ gpt-4.1 $\to$ gpt-4o $\to$ gpt-5.5), both datasets (Wilson 95\% CIs; dashed line
+  $=$ 0.5). Adoption is non-monotonic across backends; gpt-5.5 has the lowest adoption on both datasets.
+  The matched framing contrast (Section~\ref{sec:coercion}) provides a non-arbitrary baseline for this
+  low level.}
   \label{fig:ladder}
 \end{figure}
 
@@ -358,8 +359,8 @@ holds on the common conflict subset shared across models.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{fig3_axis1_collapse}
-  \caption{Axis-1 mean panel disagreement across the ladder, both datasets. Heterogeneity collapses at the
-  frontier (gpt-5.5) on both.}
+  \caption{Axis-1 mean panel disagreement across the same-provider model set, both datasets (error bars:
+  SD across the 5 UI conditions). gpt-5.5 shows the lowest cross-persona disagreement on both datasets.}
   \label{fig:collapse}
 \end{figure}
 
@@ -485,10 +486,12 @@ the explicit deference instruction entirely is a preregistered descriptor-ablati
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{fig4_rate_vs_ordering}
-  \caption{Left: aggregate wrong-advice adoption is model-idiosyncratic (large spread across models).
-  Right: the per-persona adoption profile is consistent across independent vendors (gpt-5.5, claude,
-  gemini), all peaking at the prompted trusting-novice persona (mean pairwise Spearman 0.87 on beer). This
-  is a reliability property of persona-prompt propagation, not population discovery.}
+  \caption{Left: aggregate wrong-advice adoption spans a wide range across backends on both datasets.
+  Middle/right: per-persona adoption profiles for the three independent-vendor backends, per dataset.
+  All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak they disagree---
+  removing p5, the mean pairwise Spearman falls from 0.87 to 0.77 on beer and from 0.50 to 0.09 on amzbook.
+  Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona prompt, not
+  population discovery.}
   \label{fig:ordering}
 \end{figure*}
 
