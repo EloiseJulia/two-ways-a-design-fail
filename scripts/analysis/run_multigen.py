@@ -38,42 +38,72 @@ def main():
 
     all_rows = []
     done = set()  # (model, gen) slices already collected (for in-process idempotency)
+    failed = []
     start = time.time()
     total_slices = len(models) * len(gen_seeds)
     k = 0
+
+    def run_slice(model_name, provider, gen):
+        t0 = time.time()
+        responses = run_panel(
+            personas=personas, tasks=tasks, ui_pair=ui_conditions,
+            providers=[provider], seeds=[gen], mode=config["mode"],
+        )
+        for r in responses:
+            row = _serialize_response(r)
+            row["gen_seed"] = gen
+            all_rows.append(row)
+        done.add((model_name, gen))
+        return len(responses), time.time() - t0
+
+    def save(kk):
+        manifest = {
+            "experiment_name": config["experiment_name"],
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "models": models, "generation_seeds": gen_seeds,
+            "ui_conditions": list(ui_conditions), "item_seed": config["item_selection"]["seed"],
+            "n_personas": len(personas), "n_tasks": len(tasks),
+            "slices_done": len(done), "total_slices": total_slices,
+            "failed_slices": [f"{m}|{g}" for (m, g) in failed],
+            "n_responses": len(all_rows), "wall_time_seconds": time.time() - start,
+        }
+        json.dump({"run_manifest": manifest, "responses": all_rows},
+                  open(out_path, "w", encoding="utf-8"), indent=2)
+
     for model_name in models:
         provider = build_provider(config, model_name)
         for gen in gen_seeds:
             k += 1
             if (model_name, gen) in done:
                 continue
-            t0 = time.time()
-            responses = run_panel(
-                personas=personas, tasks=tasks, ui_pair=ui_conditions,
-                providers=[provider], seeds=[gen], mode=config["mode"],
-            )
-            for r in responses:
-                row = _serialize_response(r)
-                row["gen_seed"] = gen
-                all_rows.append(row)
-            done.add((model_name, gen))
-            # incremental save (resumable / monitorable)
-            manifest = {
-                "experiment_name": config["experiment_name"],
-                "timestamp": datetime.utcnow().isoformat() + "Z",
-                "models": models, "generation_seeds": gen_seeds,
-                "ui_conditions": list(ui_conditions), "item_seed": config["item_selection"]["seed"],
-                "n_personas": len(personas), "n_tasks": len(tasks),
-                "slices_done": k, "total_slices": total_slices,
-                "n_responses": len(all_rows),
-                "wall_time_seconds": time.time() - start,
-            }
-            json.dump({"run_manifest": manifest, "responses": all_rows},
-                      open(out_path, "w", encoding="utf-8"), indent=2)
-            print(f"[{k}/{total_slices}] {model_name} gen={gen}: +{len(responses)} rows "
-                  f"(total {len(all_rows)}) in {time.time()-t0:.0f}s", flush=True)
+            try:
+                n, dt = run_slice(model_name, provider, gen)
+                save(k)
+                print(f"[{k}/{total_slices}] {model_name} gen={gen}: +{n} rows "
+                      f"(total {len(all_rows)}) in {dt:.0f}s", flush=True)
+            except Exception as e:
+                failed.append((model_name, gen))
+                save(k)
+                print(f"[{k}/{total_slices}] {model_name} gen={gen}: FAILED ({e}); continuing", flush=True)
 
-    print(f"DONE: {len(all_rows)} responses -> {out_path} in {time.time()-start:.0f}s", flush=True)
+    # one retry pass over failed slices (transient upstream errors)
+    if failed:
+        print(f"Retrying {len(failed)} failed slices...", flush=True)
+        retry = list(failed)
+        failed.clear()
+        for model_name, gen in retry:
+            provider = build_provider(config, model_name)
+            try:
+                n, dt = run_slice(model_name, provider, gen)
+                save(0)
+                print(f"[retry] {model_name} gen={gen}: +{n} rows in {dt:.0f}s", flush=True)
+            except Exception as e:
+                failed.append((model_name, gen))
+                save(0)
+                print(f"[retry] {model_name} gen={gen}: FAILED AGAIN ({e})", flush=True)
+
+    print(f"DONE: {len(all_rows)} responses -> {out_path} in {time.time()-start:.0f}s "
+          f"({len(failed)} slices still failed: {failed})", flush=True)
 
 
 if __name__ == "__main__":
