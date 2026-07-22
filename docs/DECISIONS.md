@@ -1012,6 +1012,45 @@
   multilingual, multimodal, auto-persona.
 - No frozen primary altered; τ UNFROZEN. Paper prose restructure + compute proposal pending (next step).
 
+### D5.36 — PREREGISTRATION: two minimal compute experiments (multi-generation + persona-deference ablation), PI-authorized, timestamp 2026-07-22T14:45Z
+- **Date:** 2026-07-22 · **What changed:** PI authorized (2026-07-22) the two minimal, budget-capped
+  compute experiments proposed in D5.35. Preregistered here (design/N/analysis/prediction FROZEN) BEFORE
+  running, per the rigor contract. Proxy verified UP and generation-varying: same prompt, different `seed`
+  → different completion (e.g. 482917/482739/482937), same seed reproducible → runs are cache-consistent
+  and resumable.
+- **Experiment M — MULTI-GENERATION (generation-stochasticity variance), FROZEN:**
+  - Models (3, spanning the adoption range): gpt-4.1 (high adopter), gpt-5.5 (frontier/low),
+    claude-sonnet-4.5 (independent vendor). Conditions: `Conf.` (neutral) + `Wrong-AI-GT (dark)`. Personas:
+    the 6 axis-2 personas (p1–p6). Items: 20, item-selection seed **2024** (matches the existing axis-2
+    runs). Generation seeds: **[42, 100, 101, 102, 103]** (5 generations; seed 42 reuses existing cache).
+    Throttle inter_call_sleep 2.0, max_retries 8, detached, serial, resumable.
+  - **Analysis (frozen):** per (model, condition, persona, item) compute adoption across the 5 generations;
+    report (a) within-backend generation SD of the cell mean adoption, (b) between-backend SD, (c) ICC /
+    variance ratio between:within, (d) persona top-rank stability across generations (how often p5 stays
+    top), (e) framing-effect (dark−neutral) SIGN stability across generations, (f) risk-flag flip rate
+    across generations at threshold 0.5.
+  - **Prediction (report regardless):** between-backend SD >> within-backend (generation) SD (i.e. backend
+    differences are not sampling noise); persona top-rank and framing-effect sign are stable across
+    generations; a flat/reversing result would WEAKEN the model-dependence claim and is reported honestly.
+- **Experiment A — PERSONA-DEFERENCE ABLATION, FROZEN:**
+  - Rationale: the persona system prompt is generated from trait floats into EXPLICIT decision policies
+    (real_panel `_build_system_prompt`); p5's prompt literally instructs "trust AI / give significant weight
+    to high-confidence recommendations / your own judgment is unreliable." The ablation removes the explicit
+    AI-deference POLICY while keeping the background (novice) description, testing whether p5's top ranking
+    survives without the explicit deference instruction. (Note: p1 novice-skeptical vs p5 novice-trusting
+    ALREADY isolates the trust policy at fixed novice level in existing data — a zero-compute partial answer.)
+  - Design: add a `prompt_style` persona field; a new `background_only` builder that states experience/skill
+    and AI-usage frequency but NOT trust/deference/verification policies. Run: 2 models (gpt-4.1, gpt-5.5) ×
+    `Wrong-AI-GT (dark)` × 6 background-only personas × 20 items (seed 2024) × seed 42. Compare each persona's
+    adoption vs the explicit-policy baseline (existing data).
+  - **Prediction (report regardless):** if p5's high adoption largely disappears under background-only
+    prompting → the result is prompt-compliance (confirms the manipulation-check demotion); if it persists →
+    some construct sensitivity beyond the explicit label. Either way honest; no human-population claim.
+- **Budget/rules:** serial (never 2 proxy arms parallel), throttled ≥2.0s, ≤~6k calls total, cache-backed
+  resume on 429/overnight-sleep. Results → `results/multigen_axis2.json`, `results/persona_ablation.json`;
+  each gated on an independent audit + Manager re-derivation before entering the paper. Does NOT alter any
+  frozen primary; τ UNFROZEN.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
