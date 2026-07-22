@@ -46,8 +46,10 @@ this, across six backend LLMs and two review-sentiment datasets, and separate \e
 what is not}. \textbf{Unstable:} the aggregate risk estimate for the \emph{same} interface swings widely
 with the backend (wrong-advice adoption 0.15--0.66), enough to \emph{flip} the interface's risk
 classification for a majority of backend pairs (pairwise flip rate up to 0.60 at a fixed threshold); a
-matched contrast confirms a real but backend-dependent coercive-framing effect (item-clustered odds ratio
-1.90 on one dataset, 1.17 on the other; a non-coercive placebo stays at or below baseline). \textbf{Stable:}
+matched contrast confirms a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on one
+dataset, 1.17 on the other; a non-coercive placebo stays at or below baseline), of a magnitude we cannot
+distinguish across backends (no significant backend interaction)---so it is the adoption \emph{level},
+not the framing effect, that the backend moves. \textbf{Stable:}
 the panel faithfully propagates a \emph{prompted} disposition---an explicitly trusting-novice persona is
 the highest-adopting persona in all 12 backend$\times$dataset cells (item-clustered odds ratio $\approx$15)---
 which is a reliability property of the simulation, not a discovered vulnerability. A variance decomposition
@@ -139,25 +141,28 @@ review-sentiment datasets}, and ask:
 
 Our answer separates \emph{what is stable from what is not}. \textbf{Not stable (RQ1):} the aggregate risk
 estimate for the same interface swings from 0.15 to 0.66 across backends (Figure~\ref{fig:ladder}), enough
-to flip the interface's risk classification for a majority of backend pairs at a fixed threshold
-(Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and varies only
-the framing confirms a real but backend-dependent coercive-framing effect (item-clustered odds ratio 1.90
-on one dataset, 1.17 on the other; a non-coercive placebo at or below baseline; Section~\ref{sec:coercion}).
-\textbf{Stable, but for an unglamorous reason (RQ3):} the panel faithfully propagates a \emph{prompted}
-disposition---an explicitly trusting-novice persona is the highest-adopting persona in all 12
-backend$\times$dataset cells (item-clustered odds ratio $\approx$15; Figure~\ref{fig:heatmap})---which is a
-reliability property of the simulation, not a discovered vulnerability, since the persona is defined to be
-trusting. \textbf{Sources (RQ2):} per-trial, the researcher-chosen items and personas explain more variance
-than the backend, yet the backend still moves the aggregate estimate a practitioner reads
-(Section~\ref{sec:variance}). We use these to motivate a backend-aware reporting protocol (RQ4).
+to flip the interface's risk classification for a majority of backend pairs across a wide range of
+thresholds (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
+varies only the framing confirms a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on
+one dataset, 1.17 on the other; a non-coercive placebo at or below baseline; Section~\ref{sec:coercion}),
+of a magnitude we cannot distinguish across backends---so it is the adoption \emph{level}, not the framing
+slope, that the backend moves. \textbf{Stable, but for an unglamorous reason (RQ3):} the panel faithfully
+propagates a \emph{prompted} disposition---an explicitly trusting-novice persona is the highest-adopting
+persona in all 12 backend$\times$dataset cells (crossed-mixed-model odds ratio $\approx$26;
+Figure~\ref{fig:heatmap})---which is a reliability property of the simulation, not a discovered
+vulnerability, since the persona is defined to be trusting; and its cross-vendor \emph{ordering} agreement
+is largely carried by this one persona (Section~\ref{sec:variance}). \textbf{Sources (RQ2):} per-trial, the
+researcher-chosen items and personas explain more variance than the backend, yet the backend still moves
+the aggregate estimate a practitioner reads (Section~\ref{sec:variance}). We use these to motivate a
+backend-aware reporting protocol (RQ4).
 
 We keep the evocative ``two ways a design fails'' framing because the two axes are the risks we care about;
 but our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
 \begin{enumerate}
   \item \textbf{A systematic backend-sensitivity audit} of synthetic-user interface-risk measurement (six
-  backends $\times$ two datasets): the aggregate risk estimate and the coercive-framing effect are
-  \emph{not} backend-invariant---they can flip an interface's risk classification---while a prompted
-  persona ordering propagates stably. This is direct, quantitative evidence for the silicon-sampling
+  backends $\times$ two datasets): the aggregate risk estimate is strongly \emph{not} backend-invariant---it
+  can flip an interface's risk classification---while a prompted persona ordering propagates stably. This is
+  direct, quantitative evidence for the silicon-sampling
   reliability debate, reframed as measurement (non-)invariance.
   \item \textbf{A reusable audit and reporting protocol}: a variance decomposition over backend, persona,
   item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
@@ -371,20 +376,25 @@ Adoption of a guaranteed-wrong AI could reflect ordinary wrong-advice following 
 use a within-item contrast: on the subset of items where the AI advice is \emph{naturally wrong} under the
 neutral condition (8 items/cell), the same wrong label is shown under neutral, non-coercive placebo, and
 coercive-dark framings---so any difference in adoption is attributable to the framing, not to the advice
-being wrong. We fit a logistic model \texttt{adopt $\sim$ dark $+$ placebo $+$ model}, clustered by item.
+being wrong. We fit a logistic model \texttt{adopt $\sim$ dark $+$ placebo $+$ model} (clustered by item)
+for the pooled framing effect, and test backend-dependence with a likelihood-ratio test of the
+\texttt{dark$\times$model} interaction.
 
-The coercive framing significantly increases wrong-advice adoption on beer (odds ratio \textbf{1.90}, 95\%
-CI 1.42--2.53, $p=1.3\times10^{-5}$) and modestly on amzbook (OR \textbf{1.17}, $p=0.01$); the
-non-coercive placebo stays at or below the neutral baseline (beer OR 0.94, n.s.; amzbook OR 0.88,
-$p=0.005$, a small \emph{protective} effect), confirming the effect is the coercive framing and not mere
-AI-presence. The effect is clearest on the conflict-conditioned switch rate---the fraction of trials where
-a persona whose System-1 judgment was \emph{correct} switches to the wrong advice: coercive framing roughly
-doubles-to-triples it for non-frontier models (e.g.\ beer gpt-4.1 $0.19\to0.51$; gpt-4o $0.12\to0.29$),
-while the frontier gpt-5.5 barely moves ($0.04\to0.10$). This supports two scope-limited claims: axis-2
-reflects a real \emph{bundled coercive-framing effect} (we cannot separate confidence, authority, and
-accountability cues, which co-vary in the dark condition), and that effect is model-dependent---smallest
-at the frontier. It also replaces the arbitrary $0.5$ baseline: ``gpt-5.5 resists'' means it shows the
-smallest \emph{matched} framing effect, not merely adoption below one-half.
+A coercive-framing effect is present: pooled across backends, the dark framing raises wrong-advice adoption
+over the matched neutral baseline with odds ratio \textbf{1.90} on beer (95\% CI 1.42--2.53) and
+\textbf{1.17} on amzbook, while the non-coercive placebo stays at or below neutral (beer OR 0.94, n.s.;
+amzbook OR 0.88, $p=0.005$, a small \emph{protective} effect)---so the effect is the coercive framing, not
+mere AI-presence. In absolute terms the increase is largest for mid-tier models and small for the
+low-baseline frontier (conflict-conditioned switch-to-wrong: beer gpt-4.1 $0.19\to0.51$, gpt-4o
+$0.12\to0.29$, gpt-5.5 $0.04\to0.10$). However, a \emph{formal} test does \emph{not} support a
+backend-dependent framing effect: the \texttt{dark$\times$model} interaction is non-significant on both
+datasets (likelihood-ratio $\chi^2(5)=1.70$, $p=0.89$ beer; $\chi^2(5)=3.18$, $p=0.67$ amzbook). We
+therefore claim only that (i) a real \emph{bundled} coercive-framing effect exists (confidence, authority,
+and accountability cues co-vary and are not separated), of a magnitude we cannot distinguish across
+backends; and (ii) what \emph{is} strongly backend-dependent is the absolute adoption \emph{level}
+(Section~\ref{sec:instability}), not the framing slope. This also replaces the arbitrary $0.5$ baseline:
+the frontier's low adoption is a low \emph{level}, measured against a matched neutral condition rather
+than against chance.
 
 \subsection{Cross-backend decision instability: the same interface, flipped}
 \label{sec:instability}
@@ -394,8 +404,8 @@ smallest \emph{matched} framing effect, not merely adoption below one-half.
   \includegraphics[width=\textwidth]{fig5_decision_flip}
   \caption{The \emph{same} guaranteed-wrong interface, scored by six backends, both datasets. Bars are
   aggregate wrong-advice adoption; the dashed line is a fixed decision threshold ($\tau=0.5$). Red backends
-  \emph{flag} the interface, green backends \emph{clear} it---so the screening decision flips with the
-  backend (pairwise flip rate 0.60 beer / 0.33 amzbook).}
+  are at or above threshold (would \emph{flag} the interface), green backends are below it---so the
+  screening decision flips with the backend (pairwise flip rate 0.60 beer / 0.33 amzbook).}
   \label{fig:flip}
 \end{figure*}
 
@@ -404,15 +414,20 @@ agree on its risk (Figure~\ref{fig:flip}). They do not. Aggregate wrong-advice a
 interface is 0.30--0.60
 across the six beer backends and 0.15--0.66 across the amzbook backends. Turning the estimate into the
 binary decision a screen would make---``flag for a human study if adoption $\ge \tau$''---the flag is
-\emph{unstable at every threshold} we tried (0.4/0.5/0.6): at $\tau=0.5$ the same beer interface is flagged
-by 3 of 6 backends and cleared by the other 3, and the amzbook interface by 1 of 6. The
-\textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---is
-\textbf{0.60} on beer and 0.33 on amzbook. Even the persona-level risk flags agree only moderately across
+unstable not just at one threshold but across the entire plausible operating range: as $\tau$ sweeps
+$0.35$--$0.65$ (beer) and $0.30$--$0.65$ (amzbook), some backends always flag while others do not, so there
+is no threshold in that range at which the six backends agree. At $\tau=0.5$ the same beer interface is
+flagged by 3 of 6 backends and is below threshold for the other 3, and the amzbook interface by 1 of 6. The
+\textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---peaks at
+\textbf{0.60} on beer and 0.33 on amzbook. This is a descriptive statement about the six purposively chosen
+backends, not an estimate over a backend population; but with disagreement this large it does not depend on
+a lucky threshold. Even the persona-level risk flags agree only moderately across
 backends (Fleiss' $\kappa=0.64$ beer, $0.24$ amzbook). In measurement terms, the instrument is not
 invariant: swapping the backend can move an interface from ``high risk'' to ``low risk'' without touching
 the design. A behavior audit rules out one benign explanation---that low-adopting backends simply
-\emph{refuse} the deceptive task: explicit challenge/refusal language is rare ($\le$4\% of dark responses
-across models), and low adoption is achieved by evidence-based re-verification, not by declining to answer.
+\emph{refuse} the deceptive task: explicit challenge/refusal language is rare (0\% of dark responses for
+the OpenAI backends, 2--4\% for claude and gemini), and low adoption is achieved by evidence-based
+re-verification, not by declining to answer.
 
 \subsection{Where the variance comes from}
 \label{sec:variance}
@@ -441,21 +456,23 @@ and treat its omission as a limitation (Section~\ref{sec:limits}).
   \label{fig:heatmap}
 \end{figure*}
 
-The aggregate adoption \emph{rate} is model-idiosyncratic (range 0.30 across beer models, 0.51 across
-amzbook models). The \emph{ordering} of which persona adopts most is stable (Figure~\ref{fig:heatmap}). An
+The aggregate adoption \emph{rate} is model-idiosyncratic (range 0.30 across beer backends, 0.51 across
+amzbook backends). The \emph{ordering} of which persona adopts most is stable (Figure~\ref{fig:heatmap}). An
 \textbf{explicitly trusting-novice} persona is the highest-adopting persona in \textbf{all 12}
 backend$\times$dataset cells. Because the 20 items are reused across personas and the 12 cells share prompts,
-items, and providers, we do not treat trials as independent: clustering by item (the main
-pseudo-replication unit), a logistic model gives an odds ratio of \textbf{14.9} (95\% CI 10.9--20.2) for
-that persona relative to the others, and an item-level bootstrap of the mean per-cell adoption gap gives
-$+0.53$ (95\% CI $0.48$--$0.57$). The effect does not collapse under item clustering.
+items, and providers, we do not treat trials as independent: a crossed random-effects logistic model with
+item, backend, and dataset random effects gives an odds ratio of \textbf{26} (95\% CI 17--41) for that
+persona relative to the others (an item-clustered GEE agrees, OR 14.9). The effect is robust to the
+pseudo-replication structure.
 
 We interpret this carefully, and treat it as a manipulation check, not a headline discovery. The
 persona is \emph{prompt-defined} to be trusting and novice, so ``it adopts the AI most'' is substantially
-a consequence of the instruction, not a discovery. What the result does show is a genuine reliability
-property: the panel \emph{faithfully and stably} translates a prompted disposition into behaviour, and the
-resulting ordering is consistent across six backends and two datasets (independent-vendor per-persona
-profiles correlate at mean pairwise Spearman 0.87 on beer; Figure~\ref{fig:ordering}). It is \emph{not}
+a consequence of the instruction, not a discovery. What the result shows is a reliability property: the
+panel \emph{faithfully and stably} translates a prompted disposition into behaviour. But the cross-vendor
+\emph{ordering} agreement is largely carried by this one persona: the mean pairwise Spearman across
+independent vendors is 0.87 on beer with p5 included, but drops to 0.77 on beer and \emph{collapses to
+0.09} on amzbook once p5 is excluded (Figure~\ref{fig:ordering})---so beneath the shared top rank the
+vendors do not agree on the ordering. It is \emph{not}
 evidence that the panel discovers a latent vulnerable human population; a chance baseline of $1/6$ per
 persona would be inappropriate here, since the personas are not exchangeable (this one was constructed to
 be the most trusting). A within-data check reinforces this: holding the ``novice'' background fixed and
