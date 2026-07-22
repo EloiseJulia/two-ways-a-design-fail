@@ -47,6 +47,7 @@ def _personas_from_config(config: dict) -> list[Persona]:
             caution=p["caution"],
             temperature=p["temperature"],
             prior_mix=p["prior_mix"],
+            prompt_style=p.get("prompt_style", "policy"),
         )
         for p in config["personas"]
     ]

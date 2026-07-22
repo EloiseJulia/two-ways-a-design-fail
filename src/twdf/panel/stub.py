@@ -27,6 +27,8 @@ class Persona:
     caution: float
     temperature: float
     prior_mix: float
+    prompt_style: str = "policy"  # "policy" (default, explicit decision policies) or
+    #                               "background_only" (D5.36 ablation: background facts, no AI-deference policy)
 
 
 @dataclass(frozen=True)

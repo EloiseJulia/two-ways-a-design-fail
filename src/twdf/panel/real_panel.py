@@ -309,8 +309,15 @@ def _build_system_prompt(persona: Persona) -> str:
     - caution: Affects threshold for changing initial decision
     
     The instructions are concrete and tied to decision-making, not just descriptive.
+
+    D5.36 ABLATION: when persona.prompt_style == "background_only", we instead state only neutral
+    background facts (experience level; how often the person uses AI tools) and a decision instruction
+    that is IDENTICAL across personas, with NO explicit trust/deference/verification policy. This tests
+    whether the trusting-novice ordering survives removing the explicit AI-deference instruction.
     """
-    
+    if getattr(persona, "prompt_style", "policy") == "background_only":
+        return _build_background_only_prompt(persona)
+
     # Domain skill → confidence in own judgment
     if persona.domain_skill < 0.3:
         skill_policy = ("You have limited knowledge in this domain. "
@@ -386,6 +393,35 @@ DECISION STYLE:
 Your task is to make careful, reasoned decisions. Be honest about your reasoning process 
 and make choices that align with your cognitive profile. Do not simply describe these 
 traits — EMBODY them in your actual decision-making behavior."""
+
+
+def _build_background_only_prompt(persona: Persona) -> str:
+    """D5.36 ablation prompt: neutral background facts only, no explicit AI-deference/verification
+    policy, and a decision instruction identical across personas. Tests whether the trusting-novice
+    adoption ordering is driven by the explicit deference instruction (removed here) or by background
+    alone. Only domain_skill (experience) and ai_literacy (AI-usage frequency) are surfaced, phrased as
+    facts about the person rather than as instructions about how much to trust the AI."""
+    if persona.domain_skill < 0.3:
+        experience = "You are relatively new to this kind of task and have limited experience with it."
+    elif persona.domain_skill > 0.7:
+        experience = "You have extensive experience with this kind of task."
+    else:
+        experience = "You have a moderate amount of experience with this kind of task."
+
+    if persona.ai_literacy < 0.3:
+        ai_use = "You rarely use AI tools in your daily life."
+    elif persona.ai_literacy > 0.7:
+        ai_use = "You use AI tools frequently in your daily life."
+    else:
+        ai_use = "You occasionally use AI tools in your daily life."
+
+    # Decision instruction is IDENTICAL for every persona (no trust/deference/verification policy).
+    return f"""You are a person with the following background:
+
+{experience}
+{ai_use}
+
+Make the decision you think is correct, and explain your reasoning honestly."""
 
 
 def _trait_to_desc(value: float, trait_name: str, low: str, high: str) -> str:
