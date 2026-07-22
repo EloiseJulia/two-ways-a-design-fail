@@ -109,7 +109,7 @@ of users, from which the two axes are read directly. Synthetic users are having 
 HCI~\cite{park2022social,argyle2023out,aher2023using}, and so is the backlash: a large literature warns
 that LLM-simulated people are \emph{unreliable proxies}---they collapse human diversity, echo the base
 model's priors, and mis-estimate distributions~\cite{santurkar2023whose,cao2025specializing,%
-cheng2023compost,hamalainen2023evaluating}.
+bisbee2024synthetic,dominguez2024questioning,cheng2023compost,hamalainen2023evaluating}.
 
 That debate is almost entirely about whether synthetic users \emph{match} real ones. We argue a more basic
 question comes first, and is rarely tested. When a panel reports that an interface is risky, that reading
@@ -180,11 +180,13 @@ sensitivity that must precede it.
 been proposed for surveys, user studies, and formative
 evaluation~\cite{park2022social,argyle2023out,aher2023using}. A parallel literature documents their
 failure as proxies: they compress opinion diversity and over-represent majority
-views~\cite{santurkar2023whose}, mis-calibrate distributions~\cite{cao2025specializing}, and caricature rather
-than simulate subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. We sit inside this debate
-but change the target: we do not ask the panel to \emph{predict} a human distribution, we ask it to
-\emph{triage} an interface, and we isolate a specific, measurable pathology---\emph{model-dependence of
-the triage signal}---that the prediction framing obscures.
+views~\cite{santurkar2023whose}, mis-calibrate distributions~\cite{cao2025specializing,%
+dominguez2024questioning}, exhibit non-human response biases~\cite{tjuatja2024llms}, fail as
+survey-sample replacements~\cite{bisbee2024synthetic}, and caricature rather than simulate
+subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. We sit inside this debate but change the
+target: we do not ask the panel to \emph{predict} a human distribution, we ask it to \emph{triage} an
+interface, and we isolate a specific, measurable pathology---\emph{model-dependence of the triage
+signal}---that the prediction framing obscures.
 
 \paragraph{Reliance and over-reliance on AI advice.} A large body of work studies when people
 appropriately rely on AI given confidence and
@@ -206,21 +208,26 @@ and---critically---a characterization of when such a screen's signal is trustwor
 \paragraph{Measurement invariance, reliability, and validity.} Psychometrics distinguishes
 \emph{reliability} (does an instrument give the same reading on repetition) from \emph{validity} (does it
 measure the intended construct), and \emph{measurement invariance} asks whether an instrument means the
-same thing across groups or contexts~\cite{santurkar2023whose}. We import this lens: the \emph{backend LLM
-is part of the measurement instrument}, so comparing interface risk across backends is a measurement-
-invariance question, and stability across generations is a reliability question. Stability does not imply
-validity, but severe backend non-invariance undermines any validity claim built on a single backend.
+same thing across groups or contexts~\cite{santurkar2023whose,tjuatja2024llms}. We import this lens: the
+\emph{backend LLM is part of the measurement instrument}, so comparing interface risk across backends is a
+measurement-invariance question, and stability across generations is a reliability question. Stability does
+not imply validity, but severe backend non-invariance undermines any validity claim built on a single
+backend~\cite{dominguez2024questioning}.
 
 \paragraph{Researcher degrees of freedom in LLM evaluation.} Model choice, prompt wording, decoding
 settings, output parsing, persona phrasing, and sample count are analytic choices that can each move a
-reported result---a form of hidden flexibility analogous to the ``garden of forking paths'' in empirical
-research and to specification-sensitivity in ML evaluation~\cite{cheng2023compost,hamalainen2023evaluating}.
-We make these degrees of freedom the object of study rather than a footnote.
+reported result---a form of hidden flexibility analogous to the ``garden of forking paths'' and
+undisclosed analytic flexibility in empirical research~\cite{simmons2011false}. In LLM evaluation
+specifically, small prompt-format changes swing results~\cite{sclar2024quantifying} and single-prompt
+scores misrepresent ability~\cite{mizrahi2024state}. We make these degrees of freedom the object of study,
+and adopt specification-curve-style multiverse reporting~\cite{simonsohn2020specification} rather than a
+single spec.
 
 \paragraph{Algorithmic auditing and robustness reporting.} Our stance---stress-test a widely-adopted
 measurement practice, quantify its sensitivity, and recommend distributional reporting with
-abstention---follows the tradition of sensitivity analysis, model/evaluation cards, and multi-model
-benchmarking. We contribute a concrete audit protocol for synthetic-user interface evaluation.
+abstention---follows the tradition of sensitivity analysis, model/evaluation cards~\cite{mitchell2019model},
+and multi-model benchmarking with reliability-aware judging~\cite{zheng2023judging}. We contribute a
+concrete audit protocol for synthetic-user interface evaluation.
 
 \section{The Two-Axis Construct: Definitions}
 
