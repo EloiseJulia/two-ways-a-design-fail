@@ -972,6 +972,46 @@
   re-derived. **Build:** pdflatex→bibtex→pdflatex×2 clean, 7-page `main.pdf`, no undefined refs/citations,
   no errors. No frozen primary altered; τ UNFROZEN.
 
+### D5.35 — HYBRID reframing (PI-decided) + measurement-audit analyses answering external comment2.md
+- **Date:** 2026-07-22 · **Context:** a 2nd external review (`comment2.md`, CHI-polish) recommends
+  repositioning the paper from a "danger screen" to a **backend measurement-audit** (measurement
+  invariance / construct validity / robustness of synthetic-user interface-risk measurement). This
+  contradicted the PI's 2026-07-20 "keep screening frame" choice, so it was escalated. **PI decision:
+  HYBRID** — keep the "Two Ways a Design Fails" title/hook + two-failure-mode motivation, but the CLAIMED
+  contribution is the backend measurement-audit; no human-predictive-validity claim pre-E6. (Stored as a
+  repository memory.)
+- **Compute-free measurement-audit analyses (new `scripts/analysis/measurement_audit.py` →
+  `results/measurement_audit.json`; audit dispatched):** answers comment2 experiments 8/9/10 + RQ2 on the
+  EXISTING dark-condition data (6 models × 2 datasets), no new API calls.
+  - **(9) Cross-backend decision INSTABILITY (the headline measurement-audit evidence):** the same dark
+    interface yields aggregate risk (adoption) spanning 0.30–0.60 (beer) / 0.15–0.66 (amzbook). At a 0.5
+    risk threshold it is flagged by 3/6 backends (beer) / 1/6 (amzbook) — UNSTABLE at every threshold
+    (0.4/0.5/0.6). **Pairwise flip rate = 0.60 (beer), 0.33 (amzbook)** — i.e. a majority of backend pairs
+    DISAGREE on whether to flag the same design on beer. Persona-flag Fleiss κ 0.64 (beer) / 0.24 (amzbook).
+    "The backend is the measurement instrument."
+  - **(RQ2) Variance decomposition (crossed RE LPM, adopt ~ (1|model)+(1|persona)+(1|item)):** variance
+    shares (APPROXIMATE — MixedLM emitted a convergence warning, so quote the ordering, not exact shares;
+    ordering corroborated by the between-group SDs below) model **0.07**, persona **0.23**, item **0.28**,
+    residual 0.42. HONEST nuance: per-trial, backend variance is SMALLER than researcher-chosen item/persona
+    variance — yet the aggregate risk ESTIMATE still flips across backends (both true; report distributions,
+    not point estimates). Between-group SDs (naive upper bounds): model 0.13, persona 0.25, item 0.16,
+    domain 0.02.
+  - **(8) Behavior taxonomy — refutes a confound:** explicit challenge/refusal of the deceptive premise is
+    RARE (≈0–4%) across all models; spot-checking claude/gemini "retain" responses shows evidence-based
+    re-verification, NOT deception-detection. So the backend adoption differences are NOT a refusal
+    artifact (answers comment2's exp-8 worry honestly). Decision taxonomy = {adopt_wrong, retain_own}.
+  - **(10) Backend-aware aggregation:** conservative-max / median / disagreement-triggered abstention;
+    range>0.2 on both datasets ⇒ "backend-sensitive ⇒ abstain / require human eval" is the honest output.
+- **Disposition of comment2 (my independent weighing; rubber-duck earlier concurred on the prior round):**
+  ADOPT the hybrid reframing + all zero-compute analyses above + writing precision (axis-1 → "persona-
+  conditioned response heterogeneity", conflict-conditioned switch as PRIMARY axis-2 DV, related-work adds
+  measurement-invariance / reliability-vs-validity / researcher-DoF / auditing, "backend is the instrument"
+  discussion, limitations↔claims mapping). DEFER to a compute-gated proposal (needs PI budget sign-off):
+  persona descriptor-ablation, multi-generation (generation variance), coercive factorial ablation,
+  fresh/held-out items, ≥1 non-sentiment task. Lower priority / reject-for-now: 20-persona sweeps,
+  multilingual, multimodal, auto-persona.
+- No frozen primary altered; τ UNFROZEN. Paper prose restructure + compute proposal pending (next step).
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

@@ -1,0 +1,266 @@
+{
+  "behavior_taxonomy": [
+    {
+      "domain": "amzbook",
+      "model": "claude-sonnet-4.5",
+      "n": 120,
+      "adopt": 0.44166666666666665,
+      "adopt_nonchallenge": 0.44166666666666665,
+      "challenge_rate": 0.0,
+      "retain_own": 0.5583333333333333,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "amzbook",
+      "model": "gemini-2.5-pro",
+      "n": 120,
+      "adopt": 0.49166666666666664,
+      "adopt_nonchallenge": 0.5042735042735043,
+      "challenge_rate": 0.025,
+      "retain_own": 0.5083333333333333,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "amzbook",
+      "model": "gpt-4.1",
+      "n": 120,
+      "adopt": 0.6583333333333333,
+      "adopt_nonchallenge": 0.6583333333333333,
+      "challenge_rate": 0.0,
+      "retain_own": 0.3416666666666667,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "amzbook",
+      "model": "gpt-4o",
+      "n": 120,
+      "adopt": 0.475,
+      "adopt_nonchallenge": 0.475,
+      "challenge_rate": 0.0,
+      "retain_own": 0.525,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "amzbook",
+      "model": "gpt-4o-mini",
+      "n": 120,
+      "adopt": 0.475,
+      "adopt_nonchallenge": 0.475,
+      "challenge_rate": 0.0,
+      "retain_own": 0.525,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "amzbook",
+      "model": "gpt-5.5",
+      "n": 120,
+      "adopt": 0.15,
+      "adopt_nonchallenge": 0.15,
+      "challenge_rate": 0.0,
+      "retain_own": 0.85,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "beer",
+      "model": "claude-sonnet-4.5",
+      "n": 120,
+      "adopt": 0.49166666666666664,
+      "adopt_nonchallenge": 0.49166666666666664,
+      "challenge_rate": 0.0,
+      "retain_own": 0.5083333333333333,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "beer",
+      "model": "gemini-2.5-pro",
+      "n": 120,
+      "adopt": 0.525,
+      "adopt_nonchallenge": 0.5478260869565217,
+      "challenge_rate": 0.041666666666666664,
+      "retain_own": 0.475,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "beer",
+      "model": "gpt-4.1",
+      "n": 120,
+      "adopt": 0.6,
+      "adopt_nonchallenge": 0.5966386554621849,
+      "challenge_rate": 0.008333333333333333,
+      "retain_own": 0.4,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "beer",
+      "model": "gpt-4o",
+      "n": 120,
+      "adopt": 0.43333333333333335,
+      "adopt_nonchallenge": 0.43333333333333335,
+      "challenge_rate": 0.0,
+      "retain_own": 0.5666666666666667,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "beer",
+      "model": "gpt-4o-mini",
+      "n": 120,
+      "adopt": 0.5,
+      "adopt_nonchallenge": 0.5,
+      "challenge_rate": 0.0,
+      "retain_own": 0.5,
+      "switch_to_right": 0.0
+    },
+    {
+      "domain": "beer",
+      "model": "gpt-5.5",
+      "n": 120,
+      "adopt": 0.3,
+      "adopt_nonchallenge": 0.3,
+      "challenge_rate": 0.0,
+      "retain_own": 0.7,
+      "switch_to_right": 0.0
+    }
+  ],
+  "cross_backend_instability": {
+    "beer": {
+      "aggregate_adoption": {
+        "gpt-4o-mini": 0.5,
+        "gpt-4.1": 0.6,
+        "gpt-4o": 0.433,
+        "gpt-5.5": 0.3,
+        "claude-sonnet-4.5": 0.492,
+        "gemini-2.5-pro": 0.525
+      },
+      "by_threshold": {
+        "0.4": {
+          "flags": {
+            "gpt-4o-mini": 1,
+            "gpt-4.1": 1,
+            "gpt-4o": 1,
+            "gpt-5.5": 0,
+            "claude-sonnet-4.5": 1,
+            "gemini-2.5-pro": 1
+          },
+          "n_flag": 5,
+          "unstable": true
+        },
+        "0.5": {
+          "flags": {
+            "gpt-4o-mini": 1,
+            "gpt-4.1": 1,
+            "gpt-4o": 0,
+            "gpt-5.5": 0,
+            "claude-sonnet-4.5": 0,
+            "gemini-2.5-pro": 1
+          },
+          "n_flag": 3,
+          "unstable": true
+        },
+        "0.6": {
+          "flags": {
+            "gpt-4o-mini": 0,
+            "gpt-4.1": 1,
+            "gpt-4o": 0,
+            "gpt-5.5": 0,
+            "claude-sonnet-4.5": 0,
+            "gemini-2.5-pro": 0
+          },
+          "n_flag": 1,
+          "unstable": true
+        }
+      },
+      "pairwise_flip_rate_at_0p5": 0.6,
+      "n_flips_at_0p5": 9,
+      "n_pairs": 15,
+      "persona_flag_fleiss_kappa_at_0p5": 0.6387959866220737
+    },
+    "amzbook": {
+      "aggregate_adoption": {
+        "gpt-4o-mini": 0.475,
+        "gpt-4.1": 0.658,
+        "gpt-4o": 0.475,
+        "gpt-5.5": 0.15,
+        "claude-sonnet-4.5": 0.442,
+        "gemini-2.5-pro": 0.492
+      },
+      "by_threshold": {
+        "0.4": {
+          "flags": {
+            "gpt-4o-mini": 1,
+            "gpt-4.1": 1,
+            "gpt-4o": 1,
+            "gpt-5.5": 0,
+            "claude-sonnet-4.5": 1,
+            "gemini-2.5-pro": 1
+          },
+          "n_flag": 5,
+          "unstable": true
+        },
+        "0.5": {
+          "flags": {
+            "gpt-4o-mini": 0,
+            "gpt-4.1": 1,
+            "gpt-4o": 0,
+            "gpt-5.5": 0,
+            "claude-sonnet-4.5": 0,
+            "gemini-2.5-pro": 0
+          },
+          "n_flag": 1,
+          "unstable": true
+        },
+        "0.6": {
+          "flags": {
+            "gpt-4o-mini": 0,
+            "gpt-4.1": 1,
+            "gpt-4o": 0,
+            "gpt-5.5": 0,
+            "claude-sonnet-4.5": 0,
+            "gemini-2.5-pro": 0
+          },
+          "n_flag": 1,
+          "unstable": true
+        }
+      },
+      "pairwise_flip_rate_at_0p5": 0.3333333333333333,
+      "n_flips_at_0p5": 5,
+      "n_pairs": 15,
+      "persona_flag_fleiss_kappa_at_0p5": 0.23499999999999976
+    }
+  },
+  "aggregation_protocols": {
+    "beer": {
+      "conservative_max": 0.6,
+      "median_ensemble": 0.49583333333333335,
+      "min_model": 0.3,
+      "range": 0.3,
+      "disagreement_abstain": true,
+      "note": "range>0.2 => backend-sensitive => abstain/require human eval"
+    },
+    "amzbook": {
+      "conservative_max": 0.6583333333333333,
+      "median_ensemble": 0.475,
+      "min_model": 0.15,
+      "range": 0.5083333333333333,
+      "disagreement_abstain": true,
+      "note": "range>0.2 => backend-sensitive => abstain/require human eval"
+    }
+  },
+  "variance_decomposition": {
+    "lpm_crossed_variance": {
+      "model": 0.0284716208019072,
+      "persona": 0.08847718235507562,
+      "item": 0.10883500308450542,
+      "residual": 0.16251535249528876
+    },
+    "lpm_variance_share": {
+      "model": 0.073,
+      "persona": 0.228,
+      "item": 0.28,
+      "residual": 0.419
+    },
+    "between_model_sd": 0.13190423363884818,
+    "between_persona_sd": 0.2479697655554597,
+    "between_item_sd": 0.15806689845657979,
+    "between_domain_sd": 0.018659762281311644
+  }
+}
