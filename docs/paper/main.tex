@@ -6,8 +6,9 @@
 %% GEE significance was an 8-item-cluster artifact) -> honest claim is a common coercive-framing effect +
 %% backend-dependent adoption LEVEL/decision-flip; persona OR from a crossed mixed model (26); vendor
 %% ordering shown p5-driven; flip over a threshold range; figures made colorblind-safe/neutral/both-datasets;
-%% axis-1 reframed as synthetic persona disagreement; prompts + settings appendix added. Two [pending]
-%% placeholders = in-flight multi-generation + descriptor-ablation experiments. Numbers are audited.
+%% axis-1 reframed as synthetic persona disagreement; prompts + settings appendix added. Capability-
+%% vulnerability mismatch increment integrated (D5.40/D5.41: submodular coverage-curve + RAIR/RSR). The
+%% generation-variance placeholder is now filled (D5.42); one [pending] left = descriptor-ablation. Numbers are audited.
 
 \documentclass[sigconf,review,anonymous]{acmart}
 
@@ -480,9 +481,19 @@ backend is a modest source of noise, yet at the level of the \emph{aggregate est
 the backend still shifts the number enough to flip the decision. The practical implication is the same for
 every source---item selection, persona wording, and backend are all analyst choices that move the reading,
 so a synthetic-panel result should be reported as a \emph{distribution} over these choices, not a point
-estimate. Generation randomness is the one source we cannot yet quantify from a single draw per prompt; we
-estimate it directly in a preregistered multi-generation run \emph{[generation-variance results pending]}
-and treat its omission as a limitation (Section~\ref{sec:limits}).
+estimate. Generation randomness---the one source a single draw per prompt cannot expose---turns out to be
+the smallest of all. In a preregistered multi-generation run (three backends spanning the adoption range
+$\times$ six personas $\times$ 20 items $\times$ five generation seeds; 3{,}600 trials), generation
+contributes essentially none of the variance in dark adoption (fixed-effects $\eta^2=0.001$, versus $0.22$
+for items, $0.15$ for personas, and $0.07$ for the backend), and each backend's aggregate over-reliance
+estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$)---small
+against the $0.31$ spread \emph{between} backends that flips the decision. Generation noise is real at the
+level of an individual persona--item cell (mean cell SD $0.17$; about a third of cells change across seeds),
+but it averages out---two-thirds of cells are reproduced identically---so the aggregate reading a
+practitioner acts on is stable across generations, and the backend and persona effects above are not
+artifacts of a lucky draw. (We report a fixed-effects $\eta^2$ share because a random-effects variance
+component for the backend is degenerate on three groups; the direct stability statistics are the primary,
+model-free evidence.)
 
 \subsection{A backend-stable manipulation check: the panel propagates a prompted trust disposition}
 
@@ -686,9 +697,10 @@ paper establishes (i) and characterizes (ii); (iii) is reserved for the human st
   \emph{bundled} coercive effect; we do not factorially separate its components.
   \item \textbf{Generation and prompt-format sensitivity.} The main results use one generation per prompt;
   we estimate generation stochasticity directly in a preregistered multi-generation run
-  (Section~\ref{sec:variance}) \emph{[pending]}, but prompt-paraphrase and presentation-order sensitivity
-  remain future work, and inference is limited to these fixed personas, models, and datasets rather than
-  sampled populations.
+  (Section~\ref{sec:variance}) and find it negligible for the aggregate estimate ($\eta^2=0.001$; per-backend
+  SD $\le0.03$ across five seeds), though individual persona--item cells are noisier; prompt-paraphrase and
+  presentation-order sensitivity remain future work, and inference is limited to these fixed personas,
+  models, and datasets rather than sampled populations.
   \item \textbf{Partial specification audit.} We decompose backend/persona/item variance and sweep the
   decision threshold, but a full specification-curve/multiverse analysis~\cite{simonsohn2020specification}
   over parsing rules, heterogeneity metrics, and conflict-conditioning choices is future work.

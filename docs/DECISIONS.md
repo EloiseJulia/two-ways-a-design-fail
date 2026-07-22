@@ -1162,6 +1162,25 @@
   selection), abstract "Most consequential" hook, intro finding, a Discussion paragraph, a Limitations
   bullet, sec:capvuln B+C paragraphs + fig7, using existing verified cites schemmer2023appropriate /
   ong2025routellm / wang2025mixture. Built clean (11pp, no undefined refs). No frozen primary altered.
+
+### D5.42 — Generation-variance placeholder FILLED (multigen run complete); audit PASS
+- **Date:** 2026-07-23 · The detached multi-generation run finished (results/multigen_axis2.json: 3 models
+  {gpt-4.1, gpt-5.5, claude} × 2 conditions × 6 personas × 20 items × 5 gen seeds [42,100,101,102,103] =
+  3600 responses, 0 slices failed). scripts/analysis/generation_variance.py → results/generation_variance.json.
+- **Result (dark):** generation is the SMALLEST variance source. Fixed-effects OLS eta² share of dark adopt:
+  item 0.215, persona 0.147, model 0.067, **generation 0.001**, residual 0.571. Per-backend aggregate
+  over-reliance moves at most SD 0.029 across the 5 seeds (flip-metric range ≤0.089); between-backend spread
+  is 0.31. Cell level: (model×persona×item) adoption SD across gens mean 0.169 / median 0.000, 65.3% of cells
+  reproduced identically → generation noise is real per-cell but averages out; the AGGREGATE reading is
+  stable across generations, so backend/persona effects are not lucky-draw artifacts.
+- **Method note:** dropped the measurement_audit-style crossed-RE LPM here because a (1|model) variance
+  component is degenerate on 3 groups (boundary/non-convergence mis-inflated generation to 0.15); used OLS
+  eta² for the descriptive share + direct stability stats as primary. Independent code-review audit **PASS**
+  (all numbers reproduced; approved the mixedlm→eta² switch; two LOW wording notes respected: compare via
+  eta² not SD-vs-range, and scope stability to the aggregate while keeping cell-level noise in the prose).
+- **Paper:** sec:variance [generation-variance pending] REPLACED with the numbers; Limitations generation
+  bullet de-[pending]'d; header comment updated (one [pending] left = descriptor-ablation). Built clean
+  (11pp). No frozen primary altered.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
