@@ -8,7 +8,7 @@
 %% ordering shown p5-driven; flip over a threshold range; figures made colorblind-safe/neutral/both-datasets;
 %% axis-1 reframed as synthetic persona disagreement; prompts + settings appendix added. Capability-
 %% vulnerability mismatch increment integrated (D5.40/D5.41: submodular coverage-curve + RAIR/RSR). The
-%% generation-variance placeholder is now filled (D5.42); one [pending] left = descriptor-ablation. Numbers are audited.
+%% generation-variance (D5.42) and descriptor-ablation (D5.43) placeholders are now filled; no [pending] left. Numbers are audited.
 
 \documentclass[sigconf,review,anonymous]{acmart}
 
@@ -530,9 +530,21 @@ varying only the trust disposition, the novice-\emph{skeptical} persona (p1) ado
 novice-\emph{trusting} persona (p5) on every backend---so the effect tracks the explicitly instructed
 AI-deference policy, not ``novice-ness'' or a discovered trait. Whether the ordering survives \emph{removing}
 the explicit deference instruction entirely is a preregistered synthetic \emph{descriptor ablation}: we
-re-run the dark condition with background-only persona prompts (experience level and AI-usage frequency
-stated, but no explicit trust/deference policy) and test whether the p5 ranking persists;
-\emph{[ablation results pending]}.
+re-run the dark condition on two backends with background-only persona prompts (experience level and
+AI-usage frequency stated, but no explicit trust/deference policy). The result is mixed and
+\emph{backend-dependent}, and we report it as such. On the mid-tier backend (gpt-4.1) the trusting-novice's
+adoption is essentially retained without the policy ($1.00$ with policy vs.\ $0.90$ background-only) and the
+persona ordering is preserved in point estimate (Spearman $0.70$, n.s.\ at $n=6$)---but p5 is no longer the
+\emph{unique} top adopter, because the skeptical personas also become more compliant once their explicit
+verification instruction is removed (the novice-skeptical persona p1 rises from $0.60$ to $0.90$). On the
+frontier backend (gpt-5.5) the signal is more clearly policy-carried: p5 falls from $0.60$ to $0.40$ and
+from rank~1 to rank~2, with ordering agreement only Spearman $0.34$ (n.s.). The ablation is deliberately
+small (20 items, one generation, one domain, two backends; per-cell SE $\approx$0.11), so we read
+individual rank swaps cautiously. The takeaway is consistent with the manipulation-check framing: part of
+the p5 effect is a prompt-compliance property of the explicit deference instruction and part is carried by
+the persona's background traits, and which dominates itself depends on the backend---reinforcing that the
+``at-risk persona'' is a synthetic construct whose human counterpart only the planned study
+(Section~\ref{sec:e6}) can establish.
 
 \begin{figure*}[t]
   \centering

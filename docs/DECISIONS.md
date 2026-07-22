@@ -1181,6 +1181,25 @@
 - **Paper:** sec:variance [generation-variance pending] REPLACED with the numbers; Limitations generation
   bullet de-[pending]'d; header comment updated (one [pending] left = descriptor-ablation). Built clean
   (11pp). No frozen primary altered.
+
+### D5.43 — Descriptor-ablation placeholder FILLED (persona-deference ablation complete); audit PASS; last [pending] closed
+- **Date:** 2026-07-23 · persona_ablation run finished (results/persona_ablation.json: 6 background-only
+  personas p1-bg..p6-bg × {gpt-4.1, gpt-5.5} × dark × 20 items, beer, seed 2024, gen 42 = 240 responses,
+  0 failed). scripts/analysis/persona_ablation_analysis.py → results/persona_ablation_analysis.json compares
+  matched personas POLICY (capladder, explicit deference policy) vs BACKGROUND-only (no explicit policy).
+- **Result (BACKEND-DEPENDENT, honest):** removing the explicit deference policy does NOT uniformly kill p5.
+  gpt-4.1: p5 adoption essentially retained (1.00→0.90), ordering preserved in point estimate (Spearman 0.70,
+  n.s. n=6), but p5 loses UNIQUE-top status because skeptical personas also rise (p1 0.60→0.90). gpt-5.5:
+  genuinely policy-carried — p5 0.60→0.40, rank 1→2, ordering Spearman 0.34 (n.s.). So part of p5 is
+  prompt-compliance, part is trait-carried, and which dominates depends on the backend → consistent with the
+  manipulation-check framing (persona is a synthetic construct; human counterpart needs E6).
+- **Rigor:** independent code-review audit **PASS** (all numbers reproduced, shared_items=20 both models,
+  tie handling correct). Audit MED/LOW notes RESPECTED: reframed per-model (not "substantially attenuates"
+  globally); called ρ=0.70 "positive but non-significant" not "weak"; added low-power caveat (n=20 items,
+  1 seed, 1 domain, 2 models, SE≈0.11, rank swaps within noise).
+- **Paper:** persona manipulation-check [ablation results pending] REPLACED with the backend-dependent
+  result; header comment now "no [pending] left". Built clean (11pp). No frozen primary altered. All
+  synthetic-experiment placeholders in the paper are now filled.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

@@ -1,0 +1,100 @@
+{
+  "by_model": {
+    "gpt-4.1": {
+      "policy_adopt": {
+        "1": 0.6,
+        "2": 0.65,
+        "3": 0.7,
+        "4": 0.2,
+        "5": 1.0,
+        "6": 0.45
+      },
+      "background_adopt": {
+        "1": 0.9,
+        "2": 0.7,
+        "3": 0.85,
+        "4": 0.5,
+        "5": 0.9,
+        "6": 0.45
+      },
+      "policy_flip": {
+        "1": 0.385,
+        "2": 0.5,
+        "3": 0.571,
+        "4": 0.0,
+        "5": 1.0,
+        "6": 0.267
+      },
+      "background_flip": {
+        "1": 0.857,
+        "2": 0.538,
+        "3": 0.75,
+        "4": 0.167,
+        "5": 0.857,
+        "6": 0.214
+      },
+      "p5_policy_adopt": 1.0,
+      "p5_background_adopt": 0.9,
+      "p5_rank_policy": 1,
+      "p5_rank_background": 1,
+      "p5_is_top_policy": true,
+      "p5_is_top_background": false,
+      "ordering_spearman": 0.696,
+      "ordering_spearman_p": 0.1248
+    },
+    "gpt-5.5": {
+      "policy_adopt": {
+        "1": 0.35,
+        "2": 0.2,
+        "3": 0.35,
+        "4": 0.2,
+        "5": 0.6,
+        "6": 0.1
+      },
+      "background_adopt": {
+        "1": 0.35,
+        "2": 0.3,
+        "3": 0.3,
+        "4": 0.45,
+        "5": 0.4,
+        "6": 0.3
+      },
+      "policy_flip": {
+        "1": 0.278,
+        "2": 0.158,
+        "3": 0.278,
+        "4": 0.0,
+        "5": 0.556,
+        "6": 0.053
+      },
+      "background_flip": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.143,
+        "6": 0.0
+      },
+      "p5_policy_adopt": 0.6,
+      "p5_background_adopt": 0.4,
+      "p5_rank_policy": 1,
+      "p5_rank_background": 2,
+      "p5_is_top_policy": true,
+      "p5_is_top_background": false,
+      "ordering_spearman": 0.344,
+      "ordering_spearman_p": 0.5045
+    }
+  },
+  "items_note": {
+    "gpt-4.1": {
+      "policy_items": 20,
+      "background_items": 20,
+      "shared_items": 20
+    },
+    "gpt-5.5": {
+      "policy_items": 20,
+      "background_items": 20,
+      "shared_items": 20
+    }
+  }
+}
