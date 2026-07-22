@@ -238,7 +238,7 @@ def fig6_capability_vulnerability(df):
     ra = cv['correlations']['amzbook']['flip_from_correct']['spearman']
     axS.set_xlabel('backend task competence (System-1 accuracy)')
     axS.set_ylabel('AI-induced flip-to-wrong\n$P(\\mathrm{adopt}\\mid\\mathrm{System\\text{-}1\\ correct})$')
-    axS.set_title(f'Capability vs AI-induced flip (directional, $n{=}6$)\n'
+    axS.set_title(f'Capability vs AI-induced flip (directional, $n{{=}}6$)\n'
                   f'Spearman {rb:.2f} beer / {ra:.2f} amzbook (n.s.)')
     axS.set_ylim(0, None)
     axS.legend(title='dataset', fontsize=8)
@@ -258,6 +258,37 @@ def fig6_capability_vulnerability(df):
     save(fig, 'fig6_capability_vulnerability')
 
 
+def fig7_coverage_curve(_df):
+    """Vulnerability-coverage as submodular set-cover: coverage-greedy vs capability-first (router)
+    cumulative coverage of the high-severity failure cells, for both coverage metrics."""
+    cr = json.load(open('results/coverage_and_reliance.json'))
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.6))
+    panels = [('adopt_tau0.5', 'wrong-AI adoption $\\geq 0.5$'),
+              ('flip_tau0.5', 'AI-induced flip $\\geq 0.5$ (clean)')]
+    for ax, (key, sub) in zip(axes, panels):
+        c = cr['coverage'][key]
+        U = c['universe_size']
+        ks = np.arange(1, len(ALL_MODELS) + 1)
+        gc = [v / U for v in c['greedy_curve']]
+        cc = [v / U for v in c['capability_curve']]
+        ax.plot(ks, gc, '-o', color='#2ca02c', label='coverage-greedy (ours)')
+        ax.plot(ks, cc, '-s', color='#d62728', label='capability-first (router)')
+        ax.axhline(1.0, ls=':', color='gray', lw=0.8)
+        ax.set_xlabel('panel size $k$ (backends)')
+        ax.set_ylabel('vulnerability coverage\n(fraction of %d high-risk cells)' % U)
+        ax.set_ylim(0, 1.05)
+        ax.set_xticks(ks)
+        ax.set_title(sub, fontsize=9)
+        ax.legend(fontsize=8, loc='lower right')
+        ax.annotate('router\'s 1st pick\n(frontier) = %.0f%%' % (100 * cc[0]),
+                    xy=(1, cc[0]), xytext=(3.1, 0.30),
+                    fontsize=7.5, color='#d62728', ha='center',
+                    arrowprops=dict(arrowstyle='->', color='#d62728'))
+    fig.suptitle('Selecting a synthetic panel for vulnerability coverage inverts capability routing',
+                 fontsize=10)
+    save(fig, 'fig7_coverage_curve')
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
     df = load_dark_records()
@@ -267,6 +298,7 @@ def main():
     fig4_rate_vs_ordering(df)
     fig5_decision_flip(df)
     fig6_capability_vulnerability(df)
+    fig7_coverage_curve(df)
     print('all figures ->', FIGDIR)
 
 

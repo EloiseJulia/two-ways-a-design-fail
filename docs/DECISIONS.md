@@ -1138,6 +1138,30 @@
   vs vulnerability-coverage scatter + panel-coverage bars), and elevate the contributions/discussion with a
   'vulnerability-coverage panel selection' principle (evaluation-panel choice should maximize coverage of
   human failure modes, orthogonal-to / inverted-from task-quality routing). No frozen primary altered.
+
+### D5.41 — Increment integrated + hardened (B: submodular coverage-curve, C: appropriate-reliance); audit PASS after catching a capability-ordering bug
+- **Date:** 2026-07-23 · PI approved landing two zero-compute deepenings of D5.40 (queued behind the running
+  multigen/ablation; no proxy use). **B (vulnerability-coverage = submodular set-cover, the inverse of
+  capability routing):** cells = (dataset×persona) reaching the risk threshold; coverage f(S)=|union| is
+  monotone submodular so coverage-greedy has a (1-1/e) guarantee. Coverage-greedy vs capability-first
+  (router order) curves: on the clean AI-induced-flip metric greedy is complete at k=2, capability-first's
+  1st pick (frontier gpt-5.5) covers 1/7 cells and needs k=6; on raw-adoption a single LOW-capability model
+  (gpt-4.1) covers all 9 → the best single probe is the WEAKEST model, the router's frontier pick the worst.
+  **C (appropriate reliance, Schemmer IUI'23 RAIR/RSR):** on faithful Conf., frontier gpt-5.5 has highest
+  RSR 0.924 + lowest dark over-reliance 0.162 + among-highest RAIR 0.571 (claude 0.640 higher; n_rair=14) →
+  the most appropriately-reliant backend is the least useful probe. Capability↔reliance Spearman 0.71 (RAIR)
+  / -0.54 (over-reliance): directional, n.s. at n=6.
+- **Rigor:** scripts/analysis/coverage_and_reliance.py → results/coverage_and_reliance.json;
+  scripts/analysis/make_figures.py adds fig7_coverage_curve. Independent code-review audit **caught a HIGH
+  bug**: ALL_MODELS is NOT capability-ordered (S1 acc non-monotonic), so my hard-coded reversed() mislabeled
+  the capability-first curve. Fixed by deriving cap_order = sort-by-S1-accuracy-desc dynamically
+  ([gpt-5.5, claude, gpt-4o-mini, gpt-4o, gemini-2.5-pro, gpt-4.1]); re-audit **PASS** (curves
+  adopt [1,4,6,6,6,9]/flip [1,4,4,4,5,7], both k_for_full=6, reproduced independently) and confirmed all
+  three write-up bounds are non-overclaiming.
+- **Paper:** added contribution #2 (capability–vulnerability mismatch + vulnerability-coverage panel
+  selection), abstract "Most consequential" hook, intro finding, a Discussion paragraph, a Limitations
+  bullet, sec:capvuln B+C paragraphs + fig7, using existing verified cites schemmer2023appropriate /
+  ong2025routellm / wang2025mixture. Built clean (11pp, no undefined refs). No frozen primary altered.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

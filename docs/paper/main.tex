@@ -575,6 +575,46 @@ this as a design principle for synthetic-user evaluation, not a validated claim 
 prompted disposition (Section~\ref{sec:modeldep}), so this is coverage of a \emph{synthetic} vulnerability
 whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig7_coverage_curve}
+  \caption{Vulnerability coverage as submodular set-cover. Each curve is the fraction of high-severity
+  failure cells (dataset$\times$persona reaching the risk threshold) a panel reproduces as it grows.
+  \emph{Coverage-greedy} (green) adds the backend with the largest marginal coverage; \emph{capability-first}
+  (red) adds backends strongest-first, the order a quality-optimal router would prefer. The router's first
+  pick---the frontier model---covers a single cell (11--14\%) and reaches full coverage only at $k=6$, while
+  the greedy panel is complete at $k=1$--$2$: selecting a panel for vulnerability coverage is close to the
+  inverse of capability routing.}
+  \label{fig:coverage}
+\end{figure*}
+
+We can make this selection principle precise. Given a pool of candidate backends, let a backend
+\emph{cover} a (dataset, persona) cell when its dark adoption on that cell reaches the risk threshold, and
+let a panel's coverage be the number of distinct high-risk cells at least one of its backends reproduces.
+Coverage is a monotone submodular set function, so a \emph{coverage-greedy} panel---repeatedly adding the
+backend with the largest marginal coverage---carries the standard $(1-1/e)$ approximation guarantee.
+Figure~\ref{fig:coverage} contrasts this greedy panel with a \emph{capability-first} panel that adds
+backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025routellm,wang2025mixture}
+would prefer. The two are almost opposite: on the clean AI-induced-flip metric the greedy panel covers every
+high-risk cell with two backends, whereas the capability-first panel's first pick---the frontier model---
+covers a single cell and only reaches full coverage at $k=6$. Under the raw-adoption metric the contrast is
+starker still: one \emph{low}-capability backend (gpt-4.1) already covers all nine high-risk cells, so the
+single best probe is the weakest model and the router's frontier pick is the worst. (Because coverage is
+monotone in $k$, this is a statement about \emph{order}, not size; a threshold of $0.5$ is a modeling choice
+and the qualitative inversion is what we rely on.) Selecting a panel for vulnerability coverage is thus not
+merely different from capability routing---it is close to its inverse.
+
+The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}. On the
+faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
+highest relative self-reliance (RSR $=0.92$: it keeps its own correct answer when the AI is wrong) and is
+among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n{=}14$
+reliance opportunities), and under the adversarial dark condition it shows the lowest over-reliance ($0.16$
+vs.\ up to $0.46$). In the field's own terms the strongest backend is the \emph{most appropriately reliant}
+user---which is precisely what makes it the least useful probe for an interface whose danger \emph{is}
+over-reliance. Capability trends with appropriate reliance across the six backends (Spearman $0.71$ with
+RAIR, $-0.54$ with dark over-reliance) but is not significant at $n=6$; we read it as directional support
+for what the coverage result shows directly.
+
 \subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
 \label{sec:corr}
 Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
