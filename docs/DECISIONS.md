@@ -1112,6 +1112,32 @@
   datasets + p5-excluded, fig3 CIs, neutral titles). Pending experiments (generation variance = running
   multigen; descriptor ablation = harness ready) answer the reviewer's essential asks. No frozen primary
   altered; tau UNFROZEN.
+### D5.40 — NEW INCREMENT (PI-approved): 'capability-vulnerability mismatch' + vulnerability-coverage panel selection; seed validation strong (audit pending)
+- **Date:** 2026-07-23 · After a brainstorm on top-venue novelty (SOTA on adaptive-by-expertise XAI and LLM
+  routing/MoA/RouteLLM/MoMA are BOTH crowded), the PI chose to deepen the CURRENT paper with a sharper,
+  uniquely-ours increment: **capability-vulnerability mismatch**. Insight: the population a designer most
+  needs to protect (trusting novices) is exactly the one that stronger backends fail to reproduce, so
+  synthetic-user evaluation gets LESS sensitive to the highest-severity risk as base models get stronger --
+  the inverse of the routing literature's "route to the strongest model."
+- **Seed validation (zero-compute, scripts/analysis/capability_vulnerability.py ->
+  esults/capability_vulnerability.json; audit dispatched):** capability proxy = mean System-1 (no-AI)
+  accuracy per backend. (1) Capability vs vulnerability coverage is NEGATIVE and per-dataset significant:
+  Spearman(capability, p5 dark adoption) = -0.84 (p=0.034) beer, -0.82 (p=0.046) amzbook (pooled -0.70,
+  p=0.12, n=6); capability vs aggregate adoption -0.89/-0.90. (2) p5 (highest-severity persona) adoption is
+  ~1.0 for 5 backends but only 0.50 for the frontier gpt-5.5 -- the strong model uniquely erases the
+  at-risk-user signal. (3) Panel vulnerability coverage (#personas with dark adoption >=0.5): single
+  frontier gpt-5.5 = 1/6 beer, 0/6 amzbook; a weak pair (gpt-4.1+gpt-4o-mini) = 4/6, 5/6; diverse all-6 =
+  4/6, 5/6 -> a deliberately weaker/diverse panel recovers 4-5x the vulnerability coverage of the default
+  (RouteLLM-optimal) frontier model.
+- **HONEST bounds (to write):** the capability<->resistance link is partly mechanistic (a model that solves
+  the task won't switch to the wrong label) -- this is the MECHANISM of the mismatch, not a confound; p5 is
+  prompt-defined so this is coverage of SYNTHETIC vulnerability (human vulnerability -> E6); n=6 backends is
+  small (per-dataset sig, pooled underpowered); 'diverse>single' is partly a max-over-more-backends effect,
+  so the sharp claim is that the SINGLE FRONTIER default has near-zero coverage.
+- **Plan:** on audit PASS, add a results subsection 'Capability-vulnerability mismatch', a figure (capability
+  vs vulnerability-coverage scatter + panel-coverage bars), and elevate the contributions/discussion with a
+  'vulnerability-coverage panel selection' principle (evaluation-panel choice should maximize coverage of
+  human failure modes, orthogonal-to / inverted-from task-quality routing). No frozen primary altered.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

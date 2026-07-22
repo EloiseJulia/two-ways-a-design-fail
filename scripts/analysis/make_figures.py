@@ -216,6 +216,48 @@ def fig5_decision_flip(df):
     print('wrote fig5_decision_flip')
 
 
+def fig6_capability_vulnerability(df):
+    """Capability (System-1 accuracy) vs vulnerability coverage (p5 dark adoption) per backend, both
+    datasets; plus panel-coverage bars (single frontier vs weak pair vs diverse)."""
+    cv = json.load(open('results/capability_vulnerability.json'))
+    fig, (axS, axB) = plt.subplots(1, 2, figsize=(11, 4.2))
+    # LEFT: scatter capability vs AI-induced flip-from-correct (clean behavioral metric), both datasets
+    for dom in DOMAINS:
+        pb = cv['per_backend'][dom]
+        xs = [pb[m]['capability_s1acc'] for m in ALL_MODELS]
+        ys = [pb[m]['flip_from_correct'] for m in ALL_MODELS]
+        axS.scatter(xs, ys, s=60, color=DCOL[dom], label=dom, zorder=3)
+        z = np.polyfit(xs, ys, 1)
+        xx = np.array([min(xs), max(xs)])
+        axS.plot(xx, z[0] * xx + z[1], color=DCOL[dom], lw=1.2, alpha=0.6)
+    fb = cv['per_backend']['beer']['gpt-5.5']
+    axS.annotate('gpt-5.5\n(frontier)', xy=(fb['capability_s1acc'], fb['flip_from_correct']),
+                 xytext=(fb['capability_s1acc'] - 0.03, fb['flip_from_correct'] + 0.15),
+                 arrowprops=dict(arrowstyle='->'), fontsize=8, ha='center')
+    rb = cv['correlations']['beer']['flip_from_correct']['spearman']
+    ra = cv['correlations']['amzbook']['flip_from_correct']['spearman']
+    axS.set_xlabel('backend task competence (System-1 accuracy)')
+    axS.set_ylabel('AI-induced flip-to-wrong\n$P(\\mathrm{adopt}\\mid\\mathrm{System\\text{-}1\\ correct})$')
+    axS.set_title(f'Capability vs AI-induced flip (directional, $n{=}6$)\n'
+                  f'Spearman {rb:.2f} beer / {ra:.2f} amzbook (n.s.)')
+    axS.set_ylim(0, None)
+    axS.legend(title='dataset', fontsize=8)
+    # RIGHT: panel coverage bars
+    labels = ['single frontier\n(gpt-5.5)', 'weak pair\n(gpt-4.1, 4o-mini)', 'diverse\n(all 6)']
+    keys = ['single_frontier_gpt55_personas_over_0p5', 'weak_pair_personas_over_0p5',
+            'diverse_all6_personas_over_0p5']
+    x = np.arange(len(labels)); w = 0.38
+    for i, dom in enumerate(DOMAINS):
+        vals = [cv['panel_coverage'][dom][k] for k in keys]
+        axB.bar(x + (i - 0.5) * w, vals, w, color=DCOL[dom], label=dom)
+    axB.set_xticks(x); axB.set_xticklabels(labels, fontsize=8)
+    axB.set_ylabel('# personas surfacing risk\n(dark adoption $\\geq$ 0.5, of 6)')
+    axB.set_title('Panel vulnerability coverage')
+    axB.set_ylim(0, 6)
+    axB.legend(title='dataset', fontsize=8)
+    save(fig, 'fig6_capability_vulnerability')
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
     df = load_dark_records()
@@ -224,6 +266,7 @@ def main():
     fig3_axis1_collapse()
     fig4_rate_vs_ordering(df)
     fig5_decision_flip(df)
+    fig6_capability_vulnerability(df)
     print('all figures ->', FIGDIR)
 
 
