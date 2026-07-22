@@ -1,0 +1,208 @@
+{
+  "coercion_interaction": {
+    "beer": {
+      "interaction_wald": 124.75018418287705,
+      "interaction_df": 5,
+      "interaction_p": 3.0911760581026375e-25,
+      "ref_model": "claude-sonnet-4.5",
+      "per_backend_dark_OR": {
+        "claude-sonnet-4.5": 1.418,
+        "gemini-2.5-pro": 1.571,
+        "gpt-4.1": 2.778,
+        "gpt-4o": 2.018,
+        "gpt-4o-mini": 1.8,
+        "gpt-5.5": 2.674
+      },
+      "n_obs": 576
+    },
+    "amzbook": {
+      "interaction_wald": 7.580199761084377,
+      "interaction_df": 5,
+      "interaction_p": 0.18093977096388672,
+      "ref_model": "claude-sonnet-4.5",
+      "per_backend_dark_OR": {
+        "claude-sonnet-4.5": 0.776,
+        "gemini-2.5-pro": 1.0,
+        "gpt-4.1": 1.429,
+        "gpt-4o": 1.519,
+        "gpt-4o-mini": 1.659,
+        "gpt-5.5": 0.74
+      },
+      "n_obs": 576
+    }
+  },
+  "persona_crossed": {
+    "bayes_mixed_is_p5": {
+      "OR": 26.493046310945697,
+      "OR_ci": [
+        17.029652341772632,
+        41.21525729049932
+      ],
+      "z": 14.53339738133724
+    },
+    "vendor_ordering_with_p5_beer": {
+      "mean": 0.8715912379481008,
+      "min": 0.823529411764706
+    },
+    "vendor_ordering_without_p5_beer": {
+      "mean": 0.7688082458744717,
+      "min": 0.6842105263157895
+    },
+    "vendor_ordering_with_p5_amzbook": {
+      "mean": 0.4990343857615654,
+      "min": 0.21251185925162072
+    },
+    "vendor_ordering_without_p5_amzbook": {
+      "mean": 0.08533414284522955,
+      "min": -0.4472135954999579
+    }
+  },
+  "flip_sensitivity": {
+    "beer": {
+      "aggregate": {
+        "gpt-4o-mini": 0.5,
+        "gpt-4.1": 0.6,
+        "gpt-4o": 0.43333333333333335,
+        "gpt-5.5": 0.3,
+        "claude-sonnet-4.5": 0.49166666666666664,
+        "gemini-2.5-pro": 0.525
+      },
+      "sweep": [
+        {
+          "thr": 0.3,
+          "n_flag": 6,
+          "flip_rate": 0.0
+        },
+        {
+          "thr": 0.35,
+          "n_flag": 5,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.4,
+          "n_flag": 5,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.45,
+          "n_flag": 4,
+          "flip_rate": 0.533
+        },
+        {
+          "thr": 0.5,
+          "n_flag": 3,
+          "flip_rate": 0.6
+        },
+        {
+          "thr": 0.55,
+          "n_flag": 1,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.6,
+          "n_flag": 1,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.65,
+          "n_flag": 0,
+          "flip_rate": 0.0
+        },
+        {
+          "thr": 0.7,
+          "n_flag": 0,
+          "flip_rate": 0.0
+        }
+      ],
+      "any_flip_thresholds": [
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6
+      ]
+    },
+    "amzbook": {
+      "aggregate": {
+        "gpt-4o-mini": 0.475,
+        "gpt-4.1": 0.6583333333333333,
+        "gpt-4o": 0.475,
+        "gpt-5.5": 0.15,
+        "claude-sonnet-4.5": 0.44166666666666665,
+        "gemini-2.5-pro": 0.49166666666666664
+      },
+      "sweep": [
+        {
+          "thr": 0.3,
+          "n_flag": 5,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.35,
+          "n_flag": 5,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.4,
+          "n_flag": 5,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.45,
+          "n_flag": 4,
+          "flip_rate": 0.533
+        },
+        {
+          "thr": 0.5,
+          "n_flag": 1,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.55,
+          "n_flag": 1,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.6,
+          "n_flag": 1,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.65,
+          "n_flag": 1,
+          "flip_rate": 0.333
+        },
+        {
+          "thr": 0.7,
+          "n_flag": 0,
+          "flip_rate": 0.0
+        }
+      ],
+      "any_flip_thresholds": [
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65
+      ]
+    }
+  },
+  "refusal_rate_by_backend": {
+    "amzbook|claude-sonnet-4.5": 0.042,
+    "amzbook|gemini-2.5-pro": 0.025,
+    "amzbook|gpt-4.1": 0.0,
+    "amzbook|gpt-4o": 0.0,
+    "amzbook|gpt-4o-mini": 0.0,
+    "amzbook|gpt-5.5": 0.0,
+    "beer|claude-sonnet-4.5": 0.017,
+    "beer|gemini-2.5-pro": 0.025,
+    "beer|gpt-4.1": 0.0,
+    "beer|gpt-4o": 0.0,
+    "beer|gpt-4o-mini": 0.0,
+    "beer|gpt-5.5": 0.0
+  }
+}
