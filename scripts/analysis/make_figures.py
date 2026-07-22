@@ -180,6 +180,41 @@ def fig4_rate_vs_ordering(df):
     save(fig, 'fig4_rate_vs_ordering')
 
 
+def fig5_decision_flip(df):
+    """Same dark interface, per-backend aggregate risk with a decision threshold: some backends flag,
+    some clear -> the decision flips across backends."""
+    cr = cell_rates(df)
+    thr = 0.5
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.8), sharex=True)
+    for ax, dom in zip(axes, DOMAINS):
+        vals = [(m, cr[(dom, m)][2]) for m in ALL_MODELS]
+        vals.sort(key=lambda t: t[1])
+        names = [m for m, _ in vals]
+        rates = [r for _, r in vals]
+        colors = ['#d62728' if r >= thr else '#2ca02c' for r in rates]  # red=flag, green=clear
+        y = np.arange(len(names))
+        ax.barh(y, rates, color=colors)
+        ax.axvline(thr, ls='--', color='black', lw=1.2)
+        ax.text(thr + 0.01, -0.6, r'threshold $\tau=0.5$', fontsize=8, va='top')
+        for yi, r in zip(y, rates):
+            ax.text(r + 0.01, yi, f'{r:.2f}', va='center', fontsize=8)
+        ax.set_yticks(y); ax.set_yticklabels(names, fontsize=8)
+        n_flag = sum(r >= thr for r in rates)
+        ax.set_title(f'{dom}: {n_flag}/6 flag, {6-n_flag}/6 clear')
+        ax.set_xlim(0, 1.0)
+        ax.set_xlabel('aggregate wrong-advice adoption (same dark interface)')
+    from matplotlib.patches import Patch
+    axes[1].legend(handles=[Patch(color='#d62728', label=r'flag ($\geq\tau$)'),
+                            Patch(color='#2ca02c', label=r'clear ($<\tau$)')],
+                   fontsize=8, loc='lower right')
+    fig.suptitle('The same interface, flipped: backends disagree on the risk decision '
+                 '(pairwise flip rate 0.60 beer / 0.33 amzbook)', fontsize=11)
+    for ext in ('png', 'pdf'):
+        fig.savefig(os.path.join(FIGDIR, f'fig5_decision_flip.{ext}'), dpi=200, bbox_inches='tight')
+    plt.close(fig)
+    print('wrote fig5_decision_flip')
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
     df = load_dark_records()
@@ -187,6 +222,7 @@ def main():
     fig2_persona_heatmap(df)
     fig3_axis1_collapse()
     fig4_rate_vs_ordering(df)
+    fig5_decision_flip(df)
     print('all figures ->', FIGDIR)
 
 

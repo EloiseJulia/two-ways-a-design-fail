@@ -1070,6 +1070,16 @@
   undefined refs/citations. Multi-generation (D5.36) still running detached (healthy). No frozen primary
   altered; τ UNFROZEN.
 
+### D5.38 — decision-flip figure + writing-craft polish pass (agent-reviewed)
+- **Date:** 2026-07-22 · Added `fig5_decision_flip` (scripts/analysis/make_figures.py) wired into
+  Section `sec:instability` — the same dark interface scored by 6 backends, threshold line, red=flag /
+  green=clear, both datasets; the headline "backend is the instrument" visual. A background writing-craft
+  agent produced 25 line-level suggestions; applied the high-value, framing-respecting ones: added an
+  audit subtitle, sharper topic sentences (model-dependence, variance, human-anchor), softer hook
+  ("steered toward the wrong decision" vs "off a cliff"), "estimated" not "read directly", "manipulation
+  check not headline discovery", "audit that triage" (conclusion), E6 "two review datasets" not
+  "cross-domain-robust", terminology consistency (backend/dataset), and trimmed the repeated
+  "backend is the instrument"/"Reading" restatements. Numbers unchanged. Compiles clean, 8 pp.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
