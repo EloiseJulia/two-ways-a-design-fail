@@ -1,11 +1,13 @@
 %% Two Ways a Design Fails — CHI submission draft (acmart, sigconf).
 %% Build: pdflatex main -> bibtex main -> pdflatex main -> pdflatex main
 %% Figures are the vector PDFs in ../../figures/ (see \graphicspath).
-%% Status: DRAFT v2 (2026-07-20). Revised per external CHI review (D5.33/D5.34): added the matched
-%% coercion-framing contrast (Sec. "Is it coercion..."), demoted the persona result to a manipulation
-%% check (item-clustered stats; 1/6 sign-test removed), clarified axis-1 metric/units, "textual prompt
-%% encoding" (not "faithful interface rendering"), narrowed "cross-domain" to "two review datasets",
-%% toned down language, fixed the placeholder citation. Numbers are audited (D5.29 + D5.33 audit PASS).
+%% Status: DRAFT v4 (2026-07-22). Hybrid measurement-audit framing (D5.35). Revised per a blinded GPT-5.6
+%% CHI review (D5.39): RETRACTED the "backend-dependent framing" claim (LRT interaction n.s.; the earlier
+%% GEE significance was an 8-item-cluster artifact) -> honest claim is a common coercive-framing effect +
+%% backend-dependent adoption LEVEL/decision-flip; persona OR from a crossed mixed model (26); vendor
+%% ordering shown p5-driven; flip over a threshold range; figures made colorblind-safe/neutral/both-datasets;
+%% axis-1 reframed as synthetic persona disagreement; prompts + settings appendix added. Two [pending]
+%% placeholders = in-flight multi-generation + descriptor-ablation experiments. Numbers are audited.
 
 \documentclass[sigconf,review,anonymous]{acmart}
 
@@ -234,7 +236,11 @@ single spec.
 measurement practice, quantify its sensitivity, and recommend distributional reporting with
 abstention---follows the tradition of sensitivity analysis, model/evaluation cards~\cite{mitchell2019model},
 and multi-model benchmarking with reliability-aware judging~\cite{zheng2023judging}. We contribute a
-concrete audit protocol for synthetic-user interface evaluation.
+concrete audit protocol for synthetic-user interface evaluation. Our novelty relative to this body of work
+is the \emph{object} and the \emph{consequence}: prior prompt/model-sensitivity results are about accuracy
+or benchmark \emph{scores}, whereas we show that the same free choices move an interface-level \emph{safety
+decision} in the synthetic-user HCI evaluation setting---flipping whether a design is flagged for a human
+study---which is the point at which such measurement instability actually matters for design practice.
 
 \section{The Two-Axis Construct: Definitions}
 
@@ -268,14 +274,18 @@ the human study (Section~\ref{sec:e6}).
 \section{Method: The Synthetic Panel}
 \label{sec:method}
 
-\paragraph{Panel $=$ personas $\times$ models.} Each agent is a persona (a vector of domain skill, AI
-literacy, risk sensitivity, caution) crossed with a base LLM. Personas span novice/expert $\times$
-trusting/skeptical plus two moderates (six in total).
+\paragraph{Panel $=$ personas $\times$ backends.} Each agent is a persona (a vector of domain skill, AI
+literacy, risk sensitivity, caution) crossed with a base LLM (the ``backend''). Personas span
+novice/expert $\times$ trusting/skeptical plus two moderates (six in total). Crucially, a persona's prompt
+is generated identically across backends and its decoding temperature is fixed \emph{per persona}, not per
+backend, so temperature and wording are held constant when we vary the backend---backend effects are not
+confounded with per-model prompt or temperature differences.
 
-\paragraph{Dual-system decisions.} Each agent first produces a \textbf{System-1} judgment \emph{without}
-AI (a frozen, no-AI anchor), then a \textbf{System-2} decision \emph{with} the AI advice and framing.
-Reliance is defined against the System-1 anchor---what makes conflict-conditioning possible and prevents
-the ``everyone-agrees-so-everyone-complies'' collapse of a naive panel.
+\paragraph{Pre- and post-advice decisions.} Each agent first produces a judgment \emph{without} AI (a
+frozen ``System-1''/pre-advice anchor), then a decision \emph{with} the AI advice and framing (``System-2''/
+post-advice). We use the System-1/System-2 labels descriptively, not as a validated model of dual-process
+cognition. Reliance is defined against the pre-advice anchor---what makes conflict-conditioning possible and
+prevents the ``everyone-agrees-so-everyone-complies'' collapse of a naive panel.
 
 \paragraph{Textual prompt encoding of the interface.} Agents receive a \emph{textual serialization} of
 each interface condition---not screenshots and not a vision model. The AI prediction, its confidence, and
@@ -294,33 +304,41 @@ label leakage). We run two \emph{review-sentiment datasets}: \textbf{beer review
 reviews (amzbook)}. Both are English binary sentiment; we therefore treat this as replication across two
 datasets within one task family, not broad cross-domain generalization (Section~\ref{sec:limits}).
 
-\paragraph{Models.} A within-provider capability ladder (gpt-4o-mini $\to$ gpt-4.1 $\to$ gpt-4o $\to$
-gpt-5.5, identical config) plus independent-vendor frontier models (claude-sonnet-4.5, gemini-2.5-pro):
-six models total.
+\paragraph{Backends.} A within-provider series (gpt-4o-mini, gpt-4.1, gpt-4o, gpt-5.5, identical config)
+plus independent-vendor models (claude-sonnet-4.5, gemini-2.5-pro): six backends total. We order the
+same-provider series by release for presentation only and make no claim that this is a validated capability
+scale; ``frontier'' refers to the most recent, most capable general model at the time of writing (gpt-5.5).
 
-\paragraph{Rigor spine and process integrity.} The analysis was preregistered and frozen with UTC
-timestamps before results; correspondence analyses were coded blind; every merge was gated on an
-independent audit \emph{and} a from-raw numeric re-derivation. This spine caught three silent-corruption
-bugs that would each have produced a plausible-but-false result: an axis-2 \emph{sign inversion} (scoring
-adoption against \texttt{ground\_truth} instead of the displayed $1-\texttt{ground\_truth}$), a
-beta-binomial \emph{boundary artifact}, and a decision parser that silently \emph{fabricated} a
-$(\text{decision}{=}0,\text{conf}{=}0.5)$ sentinel on parse failure. We report these openly: for a paper
-whose headline includes a negative and a nuanced positive, a pipeline that catches its own errors is what
-makes the numbers trustworthy.
+\paragraph{Rigor spine and process integrity.} Before running each arm we froze---with a UTC-timestamped,
+committed record---the backend set, persona set, item-selection seeds, conditions, primary DVs, and the
+predicted direction of each effect; deviations and post-hoc analyses (e.g.\ the exploratory threshold sweep
+and the descriptor ablation) are logged and labelled as such. Correspondence analyses were coded blind;
+every merge was gated on an independent audit \emph{and} a from-raw numeric re-derivation. This spine caught
+three silent-corruption bugs that would each have produced a plausible-but-false result: an axis-2
+\emph{sign inversion} (scoring adoption against \texttt{ground\_truth} instead of the displayed
+$1-\texttt{ground\_truth}$), a beta-binomial \emph{boundary artifact}, and a decision parser that silently
+\emph{fabricated} a $(\text{decision}{=}0,\text{conf}{=}0.5)$ sentinel on parse failure. It also caught a
+statistical error in our own draft---a GEE interaction test that appeared to show backend-dependent framing
+but was an artifact of few item clusters (Section~\ref{sec:coercion}). We report these openly: a pipeline
+that catches its own errors is what makes the numbers trustworthy.
 
 \section{Experiments and Results}
 
-We report per-model (no pooling across incomparable models), with effect sizes, confidence intervals, and
-Benjamini--Hochberg (BH) correction across the per-model test family. There are $n=120$ dark-condition
-trials per model$\times$domain cell (6 personas $\times$ 20 items).
+We report per-backend (no pooling across incomparable backends), with effect sizes, confidence intervals,
+and Benjamini--Hochberg (BH) correction. Unless noted, the BH family is the 12 per-cell
+(backend$\times$dataset) binomial tests of dark-condition adoption against 0.5. There are $n=120$
+dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 20 items).
 
 \subsection{Real human over-dispersion exists (anchor)}
-We first verify that axis-1 is a measurable human quantity in the source benchmark. On the Bansal human
-data, conflict-conditioned reliance over-dispersion is real and excludes zero
-($\rho \approx 0.067$); no-AI reliance behaves as a stable trait ($\approx 0.74$) while AI-assisted
-reliance is a user$\times$task interaction (0.32--0.41). This anchors axis-1 as a measurable human
-quantity---and, honestly, does not generalize to a second human dataset (Lu \& Yin), which we report as a
-boundary.
+We first verify that axis-1 corresponds to a measurable human quantity in the source benchmark. On the
+Bansal et al.~\cite{bansal2021whole} human data, we estimate between-user reliance over-dispersion with the
+same beta-binomial estimator we apply to the panel; conflict-conditioned over-dispersion is positive and
+excludes zero ($\rho \approx 0.067$), no-AI reliance behaves as a stable trait ($\approx 0.74$), and
+AI-assisted reliance is a user$\times$task interaction (0.32--0.41). We report this anchor briefly (full
+participant counts, per-condition estimates, and intervals are in the supplement); it establishes that the
+human construct is measurable but does \emph{not} generalize to a second human dataset (Lu \& Yin), which we
+disclose as a boundary. The human anchor is not used to validate the synthetic panel---that link is null in
+every configuration we test (Section~\ref{sec:corr}).
 
 \subsection{Wrong-advice adoption is strongly backend-dependent}
 \label{sec:modeldep}
@@ -346,15 +364,19 @@ models are at chance (claude 0.49, gemini 0.53 on beer; 0/3 vendors above chance
 adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect point, since personas are
 not random guessers---we ground the effect in a matched framing contrast below.
 
-Axis-1 tells a parallel story (Figure~\ref{fig:collapse}). Mean panel disagreement across the ladder is
-0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and 0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5
-collapses to near-homogeneity on both datasets, and the beta-binomial $\rho$ (which mean disagreement
-tracks) collapses in step (e.g.\ $\rho$ from 0.32--0.58 down to $\approx$0 at the frontier). Axis-1 is
+Axis-1 tells a parallel story (Figure~\ref{fig:collapse}). We call this quantity \emph{synthetic persona
+disagreement}---the within-item variance of the six personas' reliance decisions---and are explicit that
+it measures how differently our \emph{prompted} personas respond, not a validated human over-dispersion.
+Mean persona disagreement across the model set is 0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and
+0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5 is the most homogeneous on both datasets, and the
+beta-binomial $\rho$ (which mean disagreement tracks) is correspondingly near zero. Disagreement is
 computed over the full 5-condition design (5 conditions $\times$ 6 personas $\times$ 20 items $=600$
-trials/model), distinct from the 120 dark-only axis-2 trials; the collapse is not a no-conflict artifact,
-since genuine conflict trials remain present at the frontier (e.g.\ 215/600 on amzbook). Because
-conflict-conditioning yields slightly different effective subsets per model, we verified the collapse also
-holds on the common conflict subset shared across models.
+trials/model), distinct from the 120 dark-only axis-2 trials; the low value at gpt-5.5 is not a no-conflict
+artifact, since genuine conflict trials remain present (e.g.\ 215/600 on amzbook), and it also holds on the
+common conflict subset shared across models. We caution against reading it as a safety construct collapsing:
+low disagreement at a strong model can equally reflect the personas converging on the \emph{correct} answer
+(uniform task-solving) rather than an interface failing to differentiate users---these are indistinguishable
+without a human criterion.
 
 \begin{figure}[t]
   \centering
@@ -480,7 +502,9 @@ be the most trusting). A within-data check reinforces this: holding the ``novice
 varying only the trust disposition, the novice-\emph{skeptical} persona (p1) adopts far less than the
 novice-\emph{trusting} persona (p5) on every backend---so the effect tracks the explicitly instructed
 AI-deference policy, not ``novice-ness'' or a discovered trait. Whether the ordering survives \emph{removing}
-the explicit deference instruction entirely is a preregistered descriptor-ablation (Section~\ref{sec:e6});
+the explicit deference instruction entirely is a preregistered synthetic \emph{descriptor ablation}: we
+re-run the dark condition with background-only persona prompts (experience level and AI-usage frequency
+stated, but no explicit trust/deference policy) and test whether the p5 ranking persists;
 \emph{[ablation results pending]}.
 
 \begin{figure*}[t]
@@ -496,6 +520,7 @@ the explicit deference instruction entirely is a preregistered descriptor-ablati
 \end{figure*}
 
 \subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
+\label{sec:corr}
 Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
 significantly track the human anchor's (Spearman on $n=5$ conditions; null under BH for all six models).
 On amzbook the correspondence is \emph{degenerate}---the human anchor's per-condition over-dispersion is
@@ -610,6 +635,37 @@ documented there.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
+
+\appendix
+
+\section{Prompts and generation settings}
+\label{app:prompts}
+
+Agents receive a system prompt encoding the persona and a user prompt rendering the interface condition.
+Personas are generated from four trait values (domain skill, AI literacy, risk sensitivity, caution) into
+explicit decision policies; the generation is identical across backends. As an example, the
+\emph{trusting-novice} persona (p5) system prompt states, in part: ``You have limited knowledge in this
+domain\dots\ you should heavily weight external advice, especially from AI systems'' (low domain skill) and
+``You trust AI systems\dots\ give significant weight to AI recommendations, especially when confidence is
+high'' (high AI literacy). The \emph{background-only} ablation (Section~\ref{sec:modeldep}) replaces these
+policies with neutral background (``You are relatively new to this kind of task\dots\ You use AI tools
+frequently in your daily life'') and an instruction identical across personas (``Make the decision you
+think is correct'').
+
+The AI advice is rendered as text. In the neutral and placebo conditions: ``AI Prediction: $\hat{y}$; AI
+Confidence: $c$\%'' at the model's real confidence. In the coercive \emph{dark} condition the same wrong
+label $\hat{y}=1-y$ is presented with inflated confidence and authority/accountability cues: ``AI Expert
+System Recommendation: $\hat{y}$; AI Confidence Level: 92\%; IMPORTANT: this AI has been trained on millions
+of examples\dots\ deviating from the AI recommendation may result in errors\dots\ consider the AI's
+expertise carefully.'' Agents output a JSON decision and confidence.
+
+\textbf{Generation settings.} Decoding temperature is fixed per persona (0.5--0.7) and constant across
+backends; reasoning backends use \texttt{max\_completion\_tokens} with a 4096 minimum, others
+\texttt{max\_tokens}$=600$. The main results use one generation per prompt at seed 42 (generation-variance
+estimated separately, Section~\ref{sec:variance}); item selection uses seed 42. All calls are hashlib-cached
+and resumable. Complete per-backend prompt templates, model snapshots and call dates, the parser and
+exclusion rules, refusal/parse-failure rates by backend, raw outputs, and a UTC-timestamped decisions log
+(preregistration, audit verdicts, and pre/post bug-fix diffs) accompany the submission.
 
 \end{document}
 
