@@ -265,7 +265,7 @@ such a rule here; instead we take the simplest version of it (a threshold on axi
 (Section~\ref{sec:instability}). Any thresholds remain unfrozen: their calibration and validation depend on
 the human study (Section~\ref{sec:e6}).
 
-\section{Method: The Calibrated Synthetic Panel}
+\section{Method: The Synthetic Panel}
 \label{sec:method}
 
 \paragraph{Panel $=$ personas $\times$ models.} Each agent is a persona (a vector of domain skill, AI
@@ -322,7 +322,7 @@ reliance is a user$\times$task interaction (0.32--0.41). This anchors axis-1 as 
 quantity---and, honestly, does not generalize to a second human dataset (Lu \& Yin), which we report as a
 boundary.
 
-\subsection{The danger signal is model-dependent}
+\subsection{Wrong-advice adoption is strongly backend-dependent}
 \label{sec:modeldep}
 
 \begin{figure}[t]
@@ -581,15 +581,17 @@ synthetic-panel validity.
 \section{Conclusion}
 
 An interface can fail two ways---by making reliance dangerously uneven, or by coercing over-reliance on a
-wrong AI---and teams would like to catch both before an expensive human study. We built a calibrated
-synthetic panel to audit that triage and found that its danger reading is \textbf{model-dependent}: a matched
-framing contrast shows a real but model-dependent coercive-framing effect, smallest at the frontier model
-we test, so the choice of panel model is itself a methodological decision with screening consequences.
-Beneath that instability the panel at least propagates a prompted disposition stably---it ranks an
-explicitly trusting-novice persona highest across every model and dataset---but we read that as a
-reliability property of the simulation, not a discovery of who is at risk. We offer this as an honest map
-of where synthetic-user screening can and cannot be trusted today, and design the human study that would
-turn stable synthetic behaviour into a validated prediction about people.
+wrong AI---and teams would like to catch both before an expensive human study. We built a synthetic panel
+to audit that triage and found that its risk reading is \textbf{backend-dependent}: the aggregate
+wrong-advice adoption for the \emph{same} interface swings widely across backends---enough to flip the
+screening decision across a wide range of thresholds---while a matched contrast shows a real coercive-framing
+effect whose magnitude we cannot distinguish across backends. So it is the adoption \emph{level}, not the
+framing effect, that the backend moves, and the choice of panel backend is itself a methodological decision
+with screening consequences. Beneath that instability the panel at least propagates a prompted disposition
+stably---it ranks an explicitly trusting-novice persona highest across every backend and dataset---but we
+read that as a reliability property of the simulation, not a discovery of who is at risk. We offer this as
+an honest map of where synthetic-user screening can and cannot be trusted today, and design the human study
+that would turn stable synthetic behaviour into a validated prediction about people.
 
 \begin{acks}
 \textbf{Reproducibility.} All experiments are hashlib-cached and resumable; each agent decision is a single
