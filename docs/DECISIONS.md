@@ -1297,6 +1297,19 @@
   make_figures.py (fig1--8) to route ALL colors/cmaps through figstyle; per-figure fixes (heatmap p5
   highlight orange not cyan + grid off; fig5 barh switched to x-grid; fig8 en-dash). Visually reviewed
   fig1/2/5/6/8 — consistent, professional, CB-safe. Recompiled (13pp). No data/claims changed.
+
+### D5.50 — Figure REDESIGN v3 (chart-type overhaul, not a recolor) + full version archive
+- **Date:** 2026-07-23 · Owner rejected v2 as "just a recolor". Delivered a genuine scientific redesign that
+  changes the VISUAL ENCODINGS, in a SciencePlots (journal) idiom: fig8 grouped bars → SLOPEGRAPH
+  (per-backend descending slopes, direct-labeled; gemini's flat line pops); fig5 barh → Cleveland LOLLIPOP
+  dot plot + shaded flag-zone; fig2 heatmap → rows sorted by susceptibility + right MARGINAL susceptibility
+  bar; fig1 error bars → Wilson CONFIDENCE BANDS + direct end-labels + frontier-resists effect bracket;
+  fig7 → shaded coverage-GAP between greedy and router; fig3 bars → dot/lollipop. New module
+  scripts/analysis/make_figures_v3.py (installs scienceplots); make_figures.py (v2) kept intact.
+- **VERSION ARCHIVE (owner asked to preserve every version + recover v1):** figures/archive/{v0_first_D5.30
+  (original 4 figs, 59c9079), v1_pre_restyle (8 figs pre-recolor, 6d879c4), v2_okabe_recolor, v3_redesign};
+  extracted binaries verified intact (git blob size match). Top-level figures/ now = v3; paper recompiled (13pp).
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
