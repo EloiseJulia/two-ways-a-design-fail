@@ -1,0 +1,46 @@
+# D5.54 LSAT task-structure generalization (4-way multiple choice), self-contained runner.
+# 6 backends (same as the core axis-2 ladder) x {Conf., dark} x 6 personas x 20 LSAT items x gen 42.
+# Reuses persona conditioning + cached proxy provider; multiple-choice System-1/System-2 in lsat_panel.py.
+experiment_name: lsat_axis2
+description: D5.54 LSAT multiple-choice axis-2 (task-structure generalization)
+domain: lsat
+ui_conditions:
+- Conf.
+- Wrong-AI-GT (dark)
+item_selection:
+  n_items: 20
+  seed: 2024
+personas:
+- {persona_id: p1-novice-skeptical, domain_skill: 0.1, ai_literacy: 0.2, risk_sensitivity: 0.2, caution: 0.8, temperature: 0.3, prior_mix: 0.3}
+- {persona_id: p2-expert-trusting, domain_skill: 0.9, ai_literacy: 0.9, risk_sensitivity: 0.8, caution: 0.2, temperature: 0.8, prior_mix: 0.9}
+- {persona_id: p3-moderate-balanced, domain_skill: 0.5, ai_literacy: 0.5, risk_sensitivity: 0.5, caution: 0.5, temperature: 0.5, prior_mix: 0.5}
+- {persona_id: p4-skilled-skeptical, domain_skill: 0.7, ai_literacy: 0.1, risk_sensitivity: 0.3, caution: 0.7, temperature: 0.4, prior_mix: 0.7}
+- {persona_id: p5-novice-trusting, domain_skill: 0.2, ai_literacy: 0.8, risk_sensitivity: 0.7, caution: 0.3, temperature: 0.7, prior_mix: 0.2}
+- {persona_id: p6-expert-moderate, domain_skill: 0.8, ai_literacy: 0.4, risk_sensitivity: 0.4, caution: 0.6, temperature: 0.5, prior_mix: 0.6}
+models:
+- name: gpt-4o-mini
+  provider: {token_param: max_tokens, omit_temperature: false}
+- name: gpt-4.1
+  provider: {token_param: max_tokens, omit_temperature: false}
+- name: gpt-4o
+  provider: {token_param: max_tokens, omit_temperature: false}
+- name: gpt-5.5
+  provider: {token_param: max_completion_tokens, omit_temperature: true, min_completion_tokens: 4096}
+- name: claude-sonnet-4.5
+  provider: {token_param: max_tokens, omit_temperature: false}
+- name: gemini-2.5-pro
+  provider: {token_param: max_tokens, omit_temperature: false}
+generation_seeds:
+- 42
+seeds:
+- 42
+max_tokens: 600
+mode: static
+cache_dir: data/cache/panel
+output_file: results/lsat_axis2.json
+provider:
+  type: ghc
+  base_url: http://127.0.0.1:8787/v1
+  call_budget: 10000
+  inter_call_sleep: 2.0
+  max_retries: 8
