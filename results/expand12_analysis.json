@@ -1,0 +1,210 @@
+{
+  "n_backends": 8,
+  "backends_present": [
+    "gpt-4o-mini",
+    "gpt-4.1",
+    "gpt-4o",
+    "gpt-5.5",
+    "claude-sonnet-4.5",
+    "gemini-2.5-pro",
+    "gpt-3.5-turbo",
+    "gpt-4"
+  ],
+  "capability_s1acc": {
+    "gpt-4o-mini": 0.796,
+    "gpt-4.1": 0.688,
+    "gpt-4o": 0.758,
+    "gpt-5.5": 0.925,
+    "claude-sonnet-4.5": 0.817,
+    "gemini-2.5-pro": 0.733,
+    "gpt-3.5-turbo": 0.775,
+    "gpt-4": 0.742
+  },
+  "capability_order_strong_to_weak": [
+    "gpt-5.5",
+    "claude-sonnet-4.5",
+    "gpt-4o-mini",
+    "gpt-3.5-turbo",
+    "gpt-4o",
+    "gpt-4",
+    "gemini-2.5-pro",
+    "gpt-4.1"
+  ],
+  "per_backend": {
+    "gpt-4o-mini": {
+      "p5_adopt": 1.0,
+      "agg_adopt": 0.487,
+      "flip": 0.356,
+      "RAIR": 0.226,
+      "RSR": 0.833,
+      "n_rair": 31,
+      "n_rsr": 78
+    },
+    "gpt-4.1": {
+      "p5_adopt": 1.0,
+      "agg_adopt": 0.629,
+      "flip": 0.461,
+      "RAIR": 0.116,
+      "RSR": 0.781,
+      "n_rair": 43,
+      "n_rsr": 64
+    },
+    "gpt-4o": {
+      "p5_adopt": 1.0,
+      "agg_adopt": 0.454,
+      "flip": 0.28,
+      "RAIR": 0.25,
+      "RSR": 0.865,
+      "n_rair": 36,
+      "n_rsr": 74
+    },
+    "gpt-5.5": {
+      "p5_adopt": 0.5,
+      "agg_adopt": 0.225,
+      "flip": 0.162,
+      "RAIR": 0.571,
+      "RSR": 0.924,
+      "n_rair": 14,
+      "n_rsr": 92
+    },
+    "claude-sonnet-4.5": {
+      "p5_adopt": 0.925,
+      "agg_adopt": 0.467,
+      "flip": 0.347,
+      "RAIR": 0.64,
+      "RSR": 0.662,
+      "n_rair": 25,
+      "n_rsr": 77
+    },
+    "gemini-2.5-pro": {
+      "p5_adopt": 0.975,
+      "agg_adopt": 0.508,
+      "flip": 0.33,
+      "RAIR": 0.34,
+      "RSR": 0.756,
+      "n_rair": 50,
+      "n_rsr": 82
+    },
+    "gpt-3.5-turbo": {
+      "p5_adopt": 1.0,
+      "agg_adopt": 0.475,
+      "flip": 0.323,
+      "RAIR": 0.217,
+      "RSR": 0.909,
+      "n_rair": 23,
+      "n_rsr": 44
+    },
+    "gpt-4": {
+      "p5_adopt": 1.0,
+      "agg_adopt": 0.567,
+      "flip": 0.416,
+      "RAIR": 0.136,
+      "RSR": 0.769,
+      "n_rair": 22,
+      "n_rsr": 39
+    }
+  },
+  "correlations": {
+    "p5_adopt": {
+      "spearman": -0.546,
+      "p": 0.1619,
+      "n": 8
+    },
+    "agg_adopt": {
+      "spearman": -0.81,
+      "p": 0.0149,
+      "n": 8
+    },
+    "flip": {
+      "spearman": -0.548,
+      "p": 0.16,
+      "n": 8
+    }
+  },
+  "coverage": {
+    "adopt_tau0.5": {
+      "metric": "adopt",
+      "tau": 0.5,
+      "universe": 9,
+      "n_backends": 8,
+      "single_best": 9,
+      "single_best_backend": "gpt-4.1",
+      "single_frontier": 1,
+      "frontier_backend": "gpt-5.5",
+      "greedy_order": [
+        "gpt-4.1",
+        "gpt-4o-mini",
+        "gpt-4o",
+        "gpt-5.5",
+        "claude-sonnet-4.5",
+        "gemini-2.5-pro",
+        "gpt-3.5-turbo",
+        "gpt-4"
+      ],
+      "greedy_curve": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "greedy_k_full": 1,
+      "capability_curve": [
+        1,
+        4,
+        6,
+        6,
+        6,
+        8,
+        8,
+        9
+      ],
+      "capability_k_full": 8
+    },
+    "flip_tau0.5": {
+      "metric": "flip",
+      "tau": 0.5,
+      "universe": 7,
+      "n_backends": 8,
+      "single_best": 6,
+      "single_best_backend": "gpt-4.1",
+      "single_frontier": 1,
+      "frontier_backend": "gpt-5.5",
+      "greedy_order": [
+        "gpt-4.1",
+        "claude-sonnet-4.5",
+        "gpt-4o-mini",
+        "gpt-4o",
+        "gpt-5.5",
+        "gemini-2.5-pro",
+        "gpt-3.5-turbo",
+        "gpt-4"
+      ],
+      "greedy_curve": [
+        6,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "greedy_k_full": 2,
+      "capability_curve": [
+        1,
+        4,
+        4,
+        4,
+        4,
+        6,
+        7,
+        7
+      ],
+      "capability_k_full": 7
+    }
+  }
+}
