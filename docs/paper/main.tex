@@ -132,6 +132,17 @@ router would pick~\cite{ong2025routellm}; and (ii) that a \emph{single} backend'
 (``this design's wrong-advice adoption is 0.6'') is a property of the design rather than of the model that
 produced it. This paper puts both assumptions to an empirical test, and finds both wanting.
 
+Our stance is neither boosterism nor rejection. Simulating users with LLMs is a reasonable and advanced way
+to cut the cost of early evaluation, and we treat it as such. But a practitioner should not trust its
+\emph{single number}. Crucially, our caution is not the usual ``the agents are not human enough''---that
+would require a human ground truth we (and the field) largely lack. It is a \emph{measurement-reliability}
+caution that needs no human criterion: swap the backend model, and the \emph{same} interface can cross from
+``safe'' to ``dangerous.'' Rather than abandon the method, we show how to use it honestly---power a panel
+with \emph{several capability-diverse} backends chosen to cover the failure modes a single strong model
+misses, report the risk as a \emph{distribution} rather than a point estimate, and \emph{abstain}---routing
+the design to a human study---exactly when the backends disagree. Cheaper than an all-human study, but not
+credulous.
+
 That debate is almost entirely about whether synthetic users \emph{match} real ones. We argue a more basic
 question comes first, and is rarely tested. When a panel reports that an interface is risky, that reading
 is produced not only by the interface but by a stack of choices the researcher makes \emph{freely}: which
