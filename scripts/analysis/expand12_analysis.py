@@ -157,15 +157,45 @@ def main():
                      RAIR=round(rair, 3), RSR=round(rsr, 3), n_rair=nr, n_rsr=ns)
     out['per_backend'] = pb
 
-    # correlations capability vs vulnerability across all present backends
+    # correlations capability vs vulnerability across all present backends (+ BH over the 3-test family)
     out['correlations'] = {}
     capv = np.array([cap[m] for m in models])
-    for key in ['p5_adopt', 'agg_adopt', 'flip']:
+    keys = ['p5_adopt', 'agg_adopt', 'flip']
+    raw_p = {}
+    for key in keys:
         y = np.array([pb[m][key] if pb[m][key] is not None else np.nan for m in models])
         ok = ~np.isnan(y)
         if ok.sum() >= 3:
             rho, p = spearmanr(capv[ok], y[ok])
             out['correlations'][key] = dict(spearman=round(float(rho), 3), p=round(float(p), 4), n=int(ok.sum()))
+            raw_p[key] = float(p)
+    # apply the module's BH correction over the pre-specified 3-test family
+    if len(raw_p) == len(keys):
+        adj = bh([raw_p[k] for k in keys])
+        for k, pa in zip(keys, adj):
+            out['correlations'][k]['p_bh'] = round(float(pa), 4)
+
+    # sensitivity: same correlations restricted to BEER-only for all backends (new backends are beer-only;
+    # existing-6 pool beer+amzbook, so this removes the domain-set asymmetry)
+    out['correlations_beer_only'] = {}
+    dfb = df[df.dom == 'beer']
+    capb = {m: float(dfb[dfb.model == m].s1_correct.mean()) for m in models}
+    capbv = np.array([capb[m] for m in models])
+    for key in keys:
+        yy = []
+        for m in models:
+            d = dfb[(dfb.model == m) & (dfb.cond == DARK)]
+            if key == 'p5_adopt':
+                s = d[d.persona == TARGET]; v = float(s.adopt.mean()) if len(s) else np.nan
+            elif key == 'agg_adopt':
+                v = float(d.adopt.mean()) if len(d) else np.nan
+            else:
+                s = d[d.s1_correct == 1]; v = float(s.adopt.mean()) if len(s) else np.nan
+            yy.append(v)
+        yy = np.array(yy); ok = ~np.isnan(yy)
+        if ok.sum() >= 3:
+            rho, p = spearmanr(capbv[ok], yy[ok])
+            out['correlations_beer_only'][key] = dict(spearman=round(float(rho), 3), p=round(float(p), 4), n=int(ok.sum()))
 
     # coverage at n=12
     out['coverage'] = {'adopt_tau0.5': coverage(df, 'adopt', 0.5, cap_order),
@@ -183,8 +213,11 @@ def printout(out):
         d = out['per_backend'][m]
         print('  %-22s %.3f %s   %s   %s %s %s'
               % (m, out['capability_s1acc'][m], d['p5_adopt'], d['agg_adopt'], d['flip'], d['RAIR'], d['RSR']))
-    print('  --- correlations (Spearman, capability vs) ---')
+    print('  --- correlations (Spearman, capability vs) [raw p | BH p] ---')
     for k, v in out['correlations'].items():
+        print('   %-10s rho=%.2f p=%.3f BH=%.3f (n=%d)' % (k, v['spearman'], v['p'], v.get('p_bh', float('nan')), v['n']))
+    print('  --- beer-only sensitivity (all %d backends) ---' % out['n_backends'])
+    for k, v in out.get('correlations_beer_only', {}).items():
         print('   %-10s rho=%.2f p=%.3f (n=%d)' % (k, v['spearman'], v['p'], v['n']))
     for key, c in out['coverage'].items():
         print(' COVERAGE[%s] universe=%d single-best=%d(%s) single-frontier=%d(%s) greedy_k=%s cap_k=%s'

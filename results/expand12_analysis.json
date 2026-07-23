@@ -144,16 +144,36 @@
     "p5_adopt": {
       "spearman": -0.397,
       "p": 0.226,
-      "n": 11
+      "n": 11,
+      "p_bh": 0.226
     },
     "agg_adopt": {
       "spearman": -0.687,
       "p": 0.0196,
-      "n": 11
+      "n": 11,
+      "p_bh": 0.0589
     },
     "flip": {
       "spearman": -0.438,
       "p": 0.1775,
+      "n": 11,
+      "p_bh": 0.226
+    }
+  },
+  "correlations_beer_only": {
+    "p5_adopt": {
+      "spearman": -0.409,
+      "p": 0.2121,
+      "n": 11
+    },
+    "agg_adopt": {
+      "spearman": -0.675,
+      "p": 0.0226,
+      "n": 11
+    },
+    "flip": {
+      "spearman": -0.212,
+      "p": 0.5324,
       "n": 11
     }
   },
