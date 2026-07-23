@@ -1,0 +1,44 @@
+# D5.51 expand12 beer RERUN for the 2 backends that failed parsing under the 600-token budget.
+# claude-haiku-4.5 (verbose reasoning overflowed JSON) and gemini-3.1-pro-preview (a reasoning model that,
+# configured with plain max_tokens, degenerated into a repetition loop). Fix: use max_completion_tokens with
+# a high min_completion_tokens so the effective budget is lifted to 4096 (provider max() rule), giving the
+# models room to emit a parseable decision. Separate output_file so the 960 good rows are NOT overwritten;
+# the n=12 analysis merges both expand12 beer files.
+experiment_name: axis2_expand12_beer_fix
+description: D5.51 expand12 beer rerun (claude-haiku-4.5, gemini-3.1-pro-preview) with lifted token budget
+domain: beer
+ui_conditions:
+- Conf.
+- Wrong-AI-GT (dark)
+item_selection:
+  n_items: 20
+  prefer_ai_wrong: 0.5
+  prefer_low_conf: 0.3
+  prefer_high_variance: 0.2
+  seed: 2024
+personas:
+- {persona_id: p1-novice-skeptical, domain_skill: 0.1, ai_literacy: 0.2, risk_sensitivity: 0.2, caution: 0.8, temperature: 0.3, prior_mix: 0.3}
+- {persona_id: p2-expert-trusting, domain_skill: 0.9, ai_literacy: 0.9, risk_sensitivity: 0.8, caution: 0.2, temperature: 0.8, prior_mix: 0.9}
+- {persona_id: p3-moderate-balanced, domain_skill: 0.5, ai_literacy: 0.5, risk_sensitivity: 0.5, caution: 0.5, temperature: 0.5, prior_mix: 0.5}
+- {persona_id: p4-skilled-skeptical, domain_skill: 0.7, ai_literacy: 0.1, risk_sensitivity: 0.3, caution: 0.7, temperature: 0.4, prior_mix: 0.7}
+- {persona_id: p5-novice-trusting, domain_skill: 0.2, ai_literacy: 0.8, risk_sensitivity: 0.7, caution: 0.3, temperature: 0.7, prior_mix: 0.2}
+- {persona_id: p6-expert-moderate, domain_skill: 0.8, ai_literacy: 0.4, risk_sensitivity: 0.4, caution: 0.6, temperature: 0.5, prior_mix: 0.6}
+models:
+- name: claude-haiku-4.5
+  provider: {token_param: max_completion_tokens, omit_temperature: false, min_completion_tokens: 4096}
+- name: gemini-3.1-pro-preview
+  provider: {token_param: max_completion_tokens, omit_temperature: false, min_completion_tokens: 4096}
+generation_seeds:
+- 42
+seeds:
+- 42
+max_tokens: 600
+mode: static
+cache_dir: data/cache/panel
+output_file: results/axis2_expand12_beer_fix.json
+provider:
+  type: ghc
+  base_url: http://127.0.0.1:8787/v1
+  call_budget: 6000
+  inter_call_sleep: 2.0
+  max_retries: 8

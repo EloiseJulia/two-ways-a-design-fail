@@ -32,6 +32,9 @@ EXISTING_FILES = {('beer', 'capladder'): 'results/axis2_powered_capladder.json',
                   ('amzbook', 'capladder'): 'results/axis2_powered_capladder_amzbook.json',
                   ('amzbook', 'crossvendor'): 'results/axis2_powered_crossvendor_amzbook.json'}
 NEW_FILES = {'beer': 'results/axis2_expand12_beer.json', 'amzbook': 'results/axis2_expand12_amzbook.json'}
+# rerun files (2 backends re-run with lifted token budget) merged in addition to the main NEW_FILES
+NEW_FIX_FILES = {'beer': 'results/axis2_expand12_beer_fix.json',
+                 'amzbook': 'results/axis2_expand12_amzbook_fix.json'}
 
 
 def _rows(responses, dom, arm=None):
@@ -70,6 +73,9 @@ def load():
             rows += _rows(json.load(open(path))['responses'], dom); present.add(('new', dom))
         else:
             print(f'[warn] new-backend file missing (skipped): {path}')
+    for dom, path in NEW_FIX_FILES.items():
+        if os.path.exists(path):
+            rows += _rows(json.load(open(path))['responses'], dom); present.add(('fix', dom))
     return pd.DataFrame(rows)
 
 
