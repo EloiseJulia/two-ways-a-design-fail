@@ -53,7 +53,7 @@ of backend pairs (pairwise flip rate up to 0.60); a matched contrast confirms a 
 baseline) of a magnitude we cannot distinguish across backends---so the backend moves the adoption
 \emph{level}, not the framing effect. \textbf{Stable:} the panel faithfully propagates a \emph{prompted}
 disposition---an explicitly trusting-novice persona is the highest-adopting persona in all 12
-backend$\times$dataset cells (item-clustered odds ratio $\approx$15)---a reliability property of the
+backend$\times$dataset cells (crossed random-effects odds ratio $\approx$26)---a reliability property of the
 simulation, not a discovered vulnerability; a variance decomposition confirms per-trial adoption is driven
 \emph{more} by the researcher-chosen items and personas than by the backend, which nonetheless still moves
 the aggregate estimate a practitioner reads. \textbf{Most consequential:} the strongest backend is the one
@@ -189,9 +189,8 @@ but our \emph{claimed} contribution is the audit, not a validated screen. We con
 \begin{enumerate}
   \item \textbf{A systematic backend-sensitivity audit} of synthetic-user interface-risk measurement (six
   backends $\times$ two datasets): the aggregate risk estimate is strongly \emph{not} backend-invariant---it
-  can flip an interface's risk classification---while a prompted persona ordering propagates stably. This is
-  direct, quantitative evidence for the silicon-sampling
-  reliability debate, reframed as measurement (non-)invariance.
+  can flip an interface's risk classification---while a prompted persona ordering propagates stably; direct
+  evidence for the silicon-sampling reliability debate, reframed as measurement (non-)invariance.
   \item \textbf{The capability--vulnerability mismatch and a vulnerability-coverage principle for panel
   selection.} The strongest backend is the one that least reproduces the highest-severity failure (the
   at-risk trusting-novice persona), so a single frontier backend---the model a quality-optimal
@@ -201,9 +200,8 @@ but our \emph{claimed} contribution is the audit, not a validated screen. We con
   power a synthetic-user study.
   \item \textbf{A reusable audit and reporting protocol}: a variance decomposition over backend, persona,
   item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
-  disagreement-triggered abstention. The message is operational---report synthetic-panel results as
-  \emph{distributions over models, prompts, and generations}, not a single point estimate, and abstain when
-  backends disagree.
+  disagreement-triggered abstention---report synthetic-panel results as \emph{distributions over models,
+  prompts, and generations}, not a single point estimate, and abstain when backends disagree.
   \item \textbf{The two-axis over-dispersion/coercion construct}, conflict-conditioned and preregistered on
   an audit-gated pipeline whose process integrity (three self-caught silent-corruption bugs;
   Section~\ref{sec:method}) is part of the method.
@@ -736,34 +734,10 @@ correctness are not grounds for choosing a synthetic participant, and we deliber
 frontier model ``misses real danger'' or that weaker models are ``more human''---either would require the
 human study we have not run.
 
-\paragraph{Vulnerability coverage inverts capability routing.} Model-routing and mixture-of-agents systems
-choose backends to maximize answer \emph{quality}~\cite{ong2025routellm,wang2025mixture}. A synthetic-user
-\emph{audit} wants the opposite: the value of a backend is how much of the interface's risk surface it
-exposes, and we find capability and reproduced vulnerability are mismatched---the highest-capability backend
-reproduces the highest-severity failure least (Section~\ref{sec:capvuln}). So the single frontier model a
-quality-optimal router would select is close to the worst choice for a risk audit, and a pair of weaker,
-diverse backends covers far more of the vulnerability surface than one strong one. We state this as an
-actionable, if deliberately bounded, design principle---\emph{select an evaluation panel for vulnerability
-coverage, not capability}---while flagging that our capability proxy is coarse ($n=6$ backends) and the
-at-risk persona is prompt-defined, so the coverage claim, not the capability correlation, is the robust
-core.
-
-\paragraph{Relative comparisons survive what absolute levels do not.} A screen is most often used to
-\emph{compare} designs, and here the audit is more encouraging: adding a protective framing
-(cognitive forcing or a verification/uncertainty display) to a wrong-AI interface significantly lowers
-synthetic over-reliance (Section~\ref{sec:protective}), most of all for the at-risk persona, and \emph{every}
-backend reproduces the direction of that improvement even though the absolute levels disagree. The size of
-the benefit is not backend-free---on one backend (gemini) the same safeguard is essentially inert, and we
-preregistered (wrongly) that the frontier would be the resistant one---so the usable guidance is narrow but
-real: trust a synthetic panel for the \emph{direction} of a within-interface comparison sooner than for its
-magnitude or for an absolute risk number, and still report it across backends.
-
 \paragraph{Disagreement is information, not just noise.} Because the reading is instrument-sensitive,
-cross-backend disagreement is itself a useful output. A conservative protocol reports the risk as a
-\emph{distribution} across backends/prompts/generations and, when they disagree beyond a preset margin,
-\emph{abstains}: ``synthetic evidence is backend-sensitive; no automated conclusion should be drawn.'' On
-both datasets the backend range exceeds 0.2, so an honest screen would abstain and route to human
-evaluation rather than emit a safe/unsafe verdict.
+cross-backend disagreement is not measurement error to be averaged away but a usable signal---it marks
+exactly the interfaces on which a single-backend verdict should not be trusted, and turns the reporting
+protocol (Section~\ref{sec:variance}) from a counsel of caution into an actionable abstention rule.
 
 \paragraph{Three kinds of failure.} Our evidence separates (i) an \emph{interface-level synthetic signal}
 (agents show adoption or disagreement), from (ii) a \emph{measurement failure} (the signal flips when the

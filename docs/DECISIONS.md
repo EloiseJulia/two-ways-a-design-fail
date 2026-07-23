@@ -1261,6 +1261,17 @@
   ad. Each recommendation carries our audited bounds (coverage is robust core / capability corr. n.s. at
   n=6; abstention margin = observed >0.2 range; relative-claim magnitude caveat + gemini). No new empirical
   claim; motivation/implications wrapper only. Built clean (13pp, no undefined refs). No frozen primary altered.
+
+### D5.47 — Final holistic polish (de-duplication + tightening, no claim/number change)
+- **Date:** 2026-07-23 · Full-paper coherence pass. (1) Abstract tightened ~350→~300 words earlier;
+  harmonized persona OR to the body's primary estimator (crossed random-effects $\approx$26, was quoting the
+  GEE 15) so abstract/intro/body agree. (2) Trimmed filler in contributions (i)/(iii). (3) De-duplicated the
+  Discussion, which had grown redundant with the new commercial-implications subsection: REMOVED the
+  standalone "Relative comparisons survive" paragraph (covered by commercial impl. #3) and the
+  "Vulnerability coverage inverts capability routing" paragraph (covered by commercial impl. #1); trimmed
+  "Disagreement is information" to the conceptual point (protocol detail now lives once in sec:variance +
+  commercial impl. #2). Discussion is now 4 conceptual paragraphs + 1 consolidated practical subsection, no
+  triple-statement. NO numbers or claims changed; built clean (13pp, no undefined/orphan refs).
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
