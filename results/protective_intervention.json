@@ -1,0 +1,211 @@
+{
+  "per_backend_condition": {
+    "gpt-4o-mini": {
+      "dark": 0.5,
+      "plain": 0.392,
+      "forcing": 0.275,
+      "verify": 0.275
+    },
+    "gpt-4.1": {
+      "dark": 0.6,
+      "plain": 0.4,
+      "forcing": 0.317,
+      "verify": 0.283
+    },
+    "gpt-4o": {
+      "dark": 0.433,
+      "plain": 0.317,
+      "forcing": 0.283,
+      "verify": 0.25
+    },
+    "gpt-5.5": {
+      "dark": 0.3,
+      "plain": 0.25,
+      "forcing": 0.175,
+      "verify": 0.142
+    },
+    "claude-sonnet-4.5": {
+      "dark": 0.492,
+      "plain": 0.383,
+      "forcing": 0.317,
+      "verify": 0.325
+    },
+    "gemini-2.5-pro": {
+      "dark": 0.525,
+      "plain": 0.483,
+      "forcing": 0.458,
+      "verify": 0.483
+    }
+  },
+  "per_backend_condition_flip": {
+    "gpt-4o-mini": {
+      "dark": 0.341,
+      "plain": 0.198,
+      "forcing": 0.044,
+      "verify": 0.044
+    },
+    "gpt-4.1": {
+      "dark": 0.461,
+      "plain": 0.191,
+      "forcing": 0.079,
+      "verify": 0.034
+    },
+    "gpt-4o": {
+      "dark": 0.261,
+      "plain": 0.109,
+      "forcing": 0.065,
+      "verify": 0.022
+    },
+    "gpt-5.5": {
+      "dark": 0.222,
+      "plain": 0.167,
+      "forcing": 0.083,
+      "verify": 0.046
+    },
+    "claude-sonnet-4.5": {
+      "dark": 0.358,
+      "plain": 0.232,
+      "forcing": 0.158,
+      "verify": 0.168
+    },
+    "gemini-2.5-pro": {
+      "dark": 0.296,
+      "plain": 0.235,
+      "forcing": 0.198,
+      "verify": 0.235
+    }
+  },
+  "capability_s1acc": {
+    "gpt-4o-mini": 0.758,
+    "gpt-4.1": 0.742,
+    "gpt-4o": 0.767,
+    "gpt-5.5": 0.9,
+    "claude-sonnet-4.5": 0.792,
+    "gemini-2.5-pro": 0.675
+  },
+  "pooled_adoption": {
+    "dark": 0.475,
+    "plain": 0.371,
+    "forcing": 0.304,
+    "verify": 0.293
+  },
+  "pooled_protective_benefit": {
+    "forcing": 0.067,
+    "verify": 0.078
+  },
+  "condition_main_LRT": {
+    "chi2": 11.94,
+    "df": 2,
+    "p": 0.00255,
+    "note": "plain vs forcing vs verify pooled over backends"
+  },
+  "interaction_LRT": {
+    "chi2": 4.56,
+    "df": 10,
+    "p": 0.9185,
+    "note": "condition x backend interaction (does protective benefit vary by backend)"
+  },
+  "p5_condition_main_LRT": {
+    "chi2": 34.221,
+    "df": 2,
+    "p": 0.0
+  },
+  "protective_benefit_by_backend": {
+    "gpt-4o-mini": {
+      "plain": 0.392,
+      "dark": 0.5,
+      "benefit_forcing": 0.117,
+      "benefit_verify": 0.117,
+      "benefit_mean": 0.117
+    },
+    "gpt-4.1": {
+      "plain": 0.4,
+      "dark": 0.6,
+      "benefit_forcing": 0.083,
+      "benefit_verify": 0.117,
+      "benefit_mean": 0.1
+    },
+    "gpt-4o": {
+      "plain": 0.317,
+      "dark": 0.433,
+      "benefit_forcing": 0.034,
+      "benefit_verify": 0.067,
+      "benefit_mean": 0.051
+    },
+    "gpt-5.5": {
+      "plain": 0.25,
+      "dark": 0.3,
+      "benefit_forcing": 0.075,
+      "benefit_verify": 0.108,
+      "benefit_mean": 0.092
+    },
+    "claude-sonnet-4.5": {
+      "plain": 0.383,
+      "dark": 0.492,
+      "benefit_forcing": 0.066,
+      "benefit_verify": 0.058,
+      "benefit_mean": 0.062
+    },
+    "gemini-2.5-pro": {
+      "plain": 0.483,
+      "dark": 0.525,
+      "benefit_forcing": 0.025,
+      "benefit_verify": 0.0,
+      "benefit_mean": 0.012
+    }
+  },
+  "benefit_vs_baseline_spearman": {
+    "rho": -0.086,
+    "p": 0.8717
+  },
+  "benefit_vs_capability_spearman": {
+    "rho": 0.143,
+    "p": 0.7872
+  },
+  "frontier_backend": "gpt-5.5",
+  "frontier_benefit": 0.092,
+  "p5_by_backend_condition": {
+    "gpt-4o-mini": {
+      "dark": 1.0,
+      "plain": 0.95,
+      "forcing": 0.45,
+      "verify": 0.4
+    },
+    "gpt-4.1": {
+      "dark": 1.0,
+      "plain": 0.95,
+      "forcing": 0.5,
+      "verify": 0.3
+    },
+    "gpt-4o": {
+      "dark": 1.0,
+      "plain": 0.85,
+      "forcing": 0.65,
+      "verify": 0.45
+    },
+    "gpt-5.5": {
+      "dark": 0.6,
+      "plain": 0.45,
+      "forcing": 0.3,
+      "verify": 0.3
+    },
+    "claude-sonnet-4.5": {
+      "dark": 0.95,
+      "plain": 0.55,
+      "forcing": 0.4,
+      "verify": 0.45
+    },
+    "gemini-2.5-pro": {
+      "dark": 1.0,
+      "plain": 0.95,
+      "forcing": 0.9,
+      "verify": 0.85
+    }
+  },
+  "p5_pooled": {
+    "dark": 0.925,
+    "plain": 0.783,
+    "forcing": 0.533,
+    "verify": 0.458
+  }
+}

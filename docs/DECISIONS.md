@@ -1220,6 +1220,31 @@
   render branches for Wrong-AI-GT (plain/forcing/verify) — all guaranteed-wrong (1-ground_truth), neutral
   conf, framing-only manipulation; wrong_ai feature flag updated. Smoke-tested: all three render and display
   the guaranteed-wrong label. configs/protective_axis2.yaml written. Committed BEFORE running (freeze).
+
+### D5.45 — Experiment A COMPLETE + integrated; audit PASS; preregistered H2/H3 REFUTED (honest)
+- **Date:** 2026-07-23 · protective_axis2 run finished (results/protective_axis2.json: 2160 responses = 6
+  backends × 3 conditions (plain/forcing/verify) × 6 personas × 20 beer items × gen 42, 0 failed). Analysis
+  scripts/analysis/protective_intervention.py → results/protective_intervention.json; dark pulled from
+  capladder/crossvendor (descriptive only; all inference uses same-run plain/forcing/verify).
+- **Result:** (1) Protective framings SIGNIFICANTLY reduce synthetic over-reliance: pooled plain 0.371 →
+  forcing 0.304 / verify 0.293 (condition main-effect model-based LRT χ²=11.9, df=2, p=0.003); at-risk p5
+  drops 0.783 → 0.533/0.458 (χ²=34.2, p<1e-6). (2) **Preregistered H2/H3 REFUTED:** the benefit is NOT
+  backend-dependent in the way predicted — backend×condition interaction LRT χ²=4.6, df=10, p=0.92 (n.s.),
+  frontier gpt-5.5 shows a MID-PACK benefit 0.092 (no floor), the near-null backend is the WEAKEST (gemini
+  0.012), and benefit correlates with neither capability (ρ=0.14 n.s.) nor baseline over-reliance (−0.09
+  n.s.). Honest framing (per audit MED note): claim SIGN-robustness (all per-backend benefits ≥0, direction
+  reproduced by every backend) NOT magnitude-invariance (spread 0.01–0.12; gemini safeguard inert); the
+  interaction is underpowered → "no detectable backend-dependence", not equivalence.
+- **Narrative payoff:** relative DESIGN COMPARISONS (does a safeguard help?) are more backend-dependable than
+  absolute risk LEVELS — but even the relative reading is not backend-free. Complements capvuln (frontier
+  under-represents absolute at-risk adoption yet still detects the safeguard helps).
+- **Rigor:** independent audit **PASS** (all stats reproduced: pooled adoption, both LRTs incl. df nesting
+  5→7→17, Spearmans, dark de-dup, no NaN). Audit corrections RESPECTED: softened "backend-robust/consistent"
+  → "no detectable backend-dependence (underpowered) + sign-robust + gemini caveat"; p-values labeled
+  model-based (not cluster-robust); dark cross-run provenance caveated.
+- **Paper:** new results subsection sec:protective + fig8; Discussion paragraph (relative vs absolute);
+  Limitations bullet; intro + abstract "Usable, with a caveat" clauses. Built clean (13pp, no undefined
+  refs). No frozen primary altered. Also: abstract independently tightened ~350→~300 words (prose only).
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

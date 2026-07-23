@@ -59,7 +59,10 @@ simulation, not a discovered vulnerability; a variance decomposition confirms pe
 the aggregate estimate a practitioner reads. \textbf{Most consequential:} the strongest backend is the one
 that least reproduces the highest-severity failure---the at-risk trusting-novice persona---so a single
 frontier backend (the model a quality-optimal router would pick) surfaces almost none of the risk that a
-pair of weaker backends recovers. We contribute (i) a systematic backend-sensitivity audit showing that
+pair of weaker backends recovers. \textbf{Usable, with a caveat:} used to \emph{compare} designs rather than
+certify one, the panel is more dependable---a protective framing (cognitive forcing or a verification
+display) significantly lowers synthetic over-reliance, most for the at-risk persona, and every backend
+reproduces the \emph{direction} of that improvement, though not its magnitude. We contribute (i) a systematic backend-sensitivity audit showing that
 synthetic-user interface-risk measurement is not backend-invariant; (ii) a \emph{capability--vulnerability
 mismatch} and a vulnerability-coverage principle for panel selection---the inverse of capability routing;
 (iii) a reusable audit and reporting protocol (variance decomposition, behavior taxonomy, cross-backend
@@ -164,7 +167,13 @@ backend-aware reporting protocol (RQ4). \textbf{Most consequential:} backend cap
 vulnerability are \emph{mismatched}---the highest-capability backend least reproduces the highest-severity
 failure, so the single frontier model a quality-optimal router would choose surfaces almost none of the
 risk that a pair of weaker backends recovers (Section~\ref{sec:capvuln}); selecting a panel for
-\emph{vulnerability coverage} is therefore the inverse of capability routing.
+\emph{vulnerability coverage} is therefore the inverse of capability routing. \textbf{Usable, with a
+caveat:} when the panel is used to \emph{compare} designs rather than certify one, it is more dependable---
+adding a protective framing (cognitive forcing or a verification display) to a wrong-AI interface
+significantly lowers synthetic over-reliance, most for the at-risk persona, and every backend reproduces the
+\emph{direction} of that improvement (Section~\ref{sec:protective})---though not its magnitude (on one
+backend the safeguard is inert), and, against our preregistration, the benefit is not the frontier that is
+resistant.
 
 We keep the evocative ``two ways a design fails'' framing because the two axes are the risks we care about;
 but our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
@@ -636,6 +645,62 @@ over-reliance. Capability trends with appropriate reliance across the six backen
 RAIR, $-0.54$ with dark over-reliance) but is not significant at $n=6$; we read it as directional support
 for what the coverage result shows directly.
 
+\subsection{Auditing a protective design: the direction travels, the magnitude does not}
+\label{sec:protective}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig8_protective}
+  \caption{Protective-intervention audit. \emph{Left:} per-backend wrong-AI adoption across
+  dark (coercive) $\to$ plain $\to$ forcing $\to$ verify. Every backend shows a non-increasing staircase
+  (protective benefit $\ge0$), but the magnitude ranges from $\approx$0.12 (gpt-4o-mini) to $\approx$0.01
+  on gemini, where the protective framing is nearly inert; the backend$\times$condition interaction is not
+  significant (underpowered). \emph{Right:} the at-risk trusting-novice persona (p5, pooled) drops from
+  0.78 (plain) to 0.46--0.53 under protection. dark is shown descriptively (separate run).}
+  \label{fig:protective}
+\end{figure*}
+
+Does the panel's instability doom it for practice? Not entirely: the most common use of a synthetic screen
+is not to certify an absolute risk number but to \emph{compare} designs---does adding a safeguard help? We
+test this directly by adding, to the guaranteed-wrong AI, two protective framings from the reliance
+literature: \emph{cognitive forcing}~\cite{bucinca2021trust} (deliberate on your own evidence before
+deferring) and a \emph{verification/uncertainty} display (the AI is fallible and can be confidently wrong;
+check it against the text). All three conditions (plain, forcing, verify) show the same wrong label and
+neutral confidence and differ \emph{only} in framing; the coercive dark condition is the opposite extreme
+(shown descriptively, from a separate run).
+
+\paragraph{The effect is real, and largest where it matters.} Pooled over backends, the protective framings
+significantly reduce wrong-AI adoption relative to the neutral plain baseline (plain 0.37 $\to$ forcing
+0.30, verify 0.29; condition main-effect model-based LRT $\chi^2=11.9$, $\mathrm{df}=2$, $p=0.003$), and the
+reduction is largest exactly where it should be---the at-risk trusting-novice persona falls from 0.78
+(plain) to 0.53 (forcing) / 0.46 (verify) ($p5$ main effect $\chi^2=34.2$, $p<10^{-6}$;
+Figure~\ref{fig:protective}, right). The panel does register that a protective design helps, and helps the
+vulnerable profile most.
+
+\paragraph{The direction is backend-robust; the magnitude is not.} Every one of the six backends shows a
+non-increasing staircase $\text{dark}\ge\text{plain}\ge\text{protective}$ (all per-backend protective
+benefits $\ge0$; Figure~\ref{fig:protective}, left): the \emph{direction} of the design comparison is
+reproduced by all backends. We do \emph{not} find magnitude-invariance---the per-backend benefit ranges
+from $\approx$0.12 (gpt-4o-mini) down to $\approx$0.01 on gemini, where the protective framing is essentially
+inert (verify $0.48\to0.48$). The backend$\times$condition interaction is not significant (LRT
+$\chi^2=4.6$, $\mathrm{df}=10$, $p=0.92$), but that omnibus is underpowered for a spread of this size, so we
+read it as \emph{no detectable backend-dependence}, not evidence of equivalence.
+
+\paragraph{A refuted prediction, reported.} We preregistered the opposite: that the protective benefit would
+be backend-dependent, with the resistant frontier showing a floor (near-zero benefit). It was not---the
+frontier gpt-5.5 shows a mid-pack benefit ($0.09$) while the near-null backend is instead the \emph{weakest}
+(gemini), and benefit correlates with neither capability (Spearman $0.14$, n.s.) nor baseline over-reliance
+($-0.09$, n.s.). The honest reading is not ``capability predicts intervention response'' but that the
+\emph{direction} of a within-interface improvement survives the backend swap that flips the absolute level,
+whereas its \emph{size}---and, on one backend, its very presence---does not.
+
+This sharpens the practical guidance. A synthetic panel is a more dependable instrument for the
+\emph{relative} question (``does this safeguard reduce over-reliance?'') than for the \emph{absolute} one
+(``is this interface dangerous?''); but even the relative reading is not backend-free---a screen run only
+on gemini would have concluded the safeguard does nothing. The reporting protocol
+(Section~\ref{sec:variance}) therefore extends to design comparisons: report the benefit \emph{across}
+backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisional.
+
 \subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
 \label{sec:corr}
 Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
@@ -673,6 +738,16 @@ actionable, if deliberately bounded, design principle---\emph{select an evaluati
 coverage, not capability}---while flagging that our capability proxy is coarse ($n=6$ backends) and the
 at-risk persona is prompt-defined, so the coverage claim, not the capability correlation, is the robust
 core.
+
+\paragraph{Relative comparisons survive what absolute levels do not.} A screen is most often used to
+\emph{compare} designs, and here the audit is more encouraging: adding a protective framing
+(cognitive forcing or a verification/uncertainty display) to a wrong-AI interface significantly lowers
+synthetic over-reliance (Section~\ref{sec:protective}), most of all for the at-risk persona, and \emph{every}
+backend reproduces the direction of that improvement even though the absolute levels disagree. The size of
+the benefit is not backend-free---on one backend (gemini) the same safeguard is essentially inert, and we
+preregistered (wrongly) that the frontier would be the resistant one---so the usable guidance is narrow but
+real: trust a synthetic panel for the \emph{direction} of a within-interface comparison sooner than for its
+magnitude or for an absolute risk number, and still report it across backends.
 
 \paragraph{Disagreement is information, not just noise.} Because the reading is instrument-sensitive,
 cross-backend disagreement is itself a useful output. A conservative protocol reports the risk as a
@@ -717,6 +792,11 @@ paper establishes (i) and characterizes (ii); (iii) is reserved for the human st
   \item \textbf{Item selection uses human reliance variance} (disclosed). Holding items out from threshold
   fitting does not remove selection on the human criterion; a fresh-item human check remains, so we treat
   this as unresolved pending the human study.
+  \item \textbf{Protective interventions are textual framings, underpowered for backend contrasts.} The
+  cognitive-forcing and verification conditions (Section~\ref{sec:protective}) are prompt-level renderings
+  of the interventions, on one domain and one generation; the backend$\times$condition interaction is
+  underpowered, so we claim sign-robustness of the protective effect (all benefits $\ge0$), not
+  magnitude-invariance---and note one backend (gemini) where the safeguard is nearly inert.
   \item \textbf{The capability--vulnerability mismatch rests on synthetic evidence with a coarse capability
   proxy and a partly mechanical component.} Capability is proxied by mean System-1 accuracy over $n=6$
   backends, and part of the raw capability$\times$adoption correlation is mechanical (a backend that answers

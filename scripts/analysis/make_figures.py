@@ -289,6 +289,42 @@ def fig7_coverage_curve(_df):
     save(fig, 'fig7_coverage_curve')
 
 
+def fig8_protective(_df):
+    """Experiment A: protective-intervention audit. Left: per-backend adoption across
+    dark->plain->forcing->verify (the protective staircase is consistent across backends even though
+    absolute levels differ). Right: the at-risk persona p5, pooled, showing a large protective drop."""
+    pr = json.load(open('results/protective_intervention.json'))
+    conds = ['dark', 'plain', 'forcing', 'verify']
+    clabel = {'dark': 'dark\n(coercive)', 'plain': 'plain', 'forcing': 'forcing', 'verify': 'verify'}
+    ccol = {'dark': '#7f0000', 'plain': '#d62728', 'forcing': '#1f77b4', 'verify': '#2ca02c'}
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(9.6, 3.8), gridspec_kw={'width_ratios': [2.3, 1]})
+    x = np.arange(len(ALL_MODELS)); w = 0.2
+    for i, c in enumerate(conds):
+        vals = [pr['per_backend_condition'][m][c] for m in ALL_MODELS]
+        axL.bar(x + (i - 1.5) * w, vals, w, color=ccol[c], label=clabel[c])
+    axL.set_xticks(x)
+    axL.set_xticklabels([m.replace('-sonnet-4.5', '').replace('gemini-2.5-pro', 'gemini') for m in ALL_MODELS],
+                        rotation=20, ha='right', fontsize=8)
+    axL.set_ylabel('wrong-AI adoption')
+    axL.axhline(0.5, ls=':', color='gray', lw=0.8)
+    axL.set_ylim(0, 1.0)
+    lr = pr['interaction_LRT']; cm = pr['condition_main_LRT']
+    axL.set_title('Protective staircase by backend\n'
+                  f'condition main effect $p={cm["p"]:.3f}$; backend$\\times$condition $p={lr["p"]:.2f}$ (n.s.)',
+                  fontsize=9)
+    axL.legend(fontsize=7.5, ncol=4, loc='upper center', columnspacing=0.8, handlelength=1.0)
+    # right: p5 pooled
+    p5 = pr['p5_pooled']
+    axR.bar(range(len(conds)), [p5[c] for c in conds], color=[ccol[c] for c in conds])
+    axR.set_xticks(range(len(conds)))
+    axR.set_xticklabels([clabel[c].split('\n')[0] for c in conds], rotation=20, ha='right', fontsize=8)
+    axR.set_ylabel('p5 wrong-AI adoption')
+    axR.axhline(0.5, ls=':', color='gray', lw=0.8)
+    axR.set_ylim(0, 1.0)
+    axR.set_title('At-risk persona (p5)\n$0.78\\!\\to\\!0.46$--$0.53$ ($p<10^{-6}$)', fontsize=9)
+    save(fig, 'fig8_protective')
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
     df = load_dark_records()
@@ -299,6 +335,7 @@ def main():
     fig5_decision_flip(df)
     fig6_capability_vulnerability(df)
     fig7_coverage_curve(df)
+    fig8_protective(df)
     print('all figures ->', FIGDIR)
 
 
