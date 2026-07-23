@@ -1353,6 +1353,32 @@
   to ``Interface-\emph{Content} Risk Measurement''. Method already had the prompt-level disclosure; Limits
   already list multimodal as future work. Built clean (13pp). No claims/numbers changed.
 
+### D5.54 — LSAT (multiple-choice) task-structure harness built + queued
+- **Date:** 2026-07-23 · Built self-contained LSAT 4-way multiple-choice arm (scripts/analysis/lsat_panel.py
+  + configs/lsat_axis2.yaml) to test task-structure generalization beyond binary sentiment. Reuses persona
+  conditioning + cached proxy provider; own MC System-1/System-2 loop; records in the same analytic shape
+  (adopt = final==ai_advice on dark, s1_correct, flip). dark = AI recommends a guaranteed-wrong (non-truth)
+  option + coercive framing. Offline smoke-tested (loader 20 items, MC prompts, guaranteed-wrong dark, JSON
+  + loose parser; AI top-pick acc 13/20). Queued behind expand12.
+
+### D5.55 — Novelty/collision audit (research subagent) + zero-compute integration of 3 verified cites + flip-rate elevation
+- **Date:** 2026-07-23 · Ran a strict novelty-collision audit (research subagent, web-enabled). Overall
+  reinventing-the-wheel risk = MEDIUM; no single paper does the compound contribution. Highest-threat prior
+  art: Hu & Collier (ACL'24, persona-effect variance decomposition — their "bigger models simulate personas
+  better" is the OPPOSITE of our C2, a nameable tension), Park et al. 2024 (1,000-people generative agents —
+  accuracy/correspondence framing = our positioning foil), Bo et al. 2024 "To Rely or Not to Rely?"
+  (human reliance-intervention benchmark on LSAT — overlaps our protective arm + LSAT). Unverifiable threats
+  (P-SCA, Haase G-theory, "Same Voice Different Lab") were NOT cited pending metadata verification.
+- **RIGOR CATCH:** both the subagent AND a plain web search returned WRONG author lists for all three (e.g.
+  invented 5 authors for Hu & Collier). Verified each against the authoritative source before citing: Hu,
+  Tiancheng & Collier, Nigel (ACL 2024.acl-long.554, pp.10289-10307, DOI 10.18653/v1/2024.acl-long.554);
+  Park, Joon Sung et al. (arXiv:2411.10109); Bo, Jessica Y., Wan, Sophia, Anderson, Ashton (arXiv:2412.15584).
+  Added as hu2024quantifying / park2024generative / bo2024rely.
+- **Integration (zero-compute):** Related Work positions against all three (Park = prior accuracy question we
+  precede; Hu&Collier = persona- vs backend-decomposition + the inversion tension; Bo = human study our
+  synthetic arm complements). Elevated Contribution 1 around a named \emph{risk-classification flip rate}
+  (up to 0.60): magnitude-shift (prior work) vs threshold-flip (ours). Built clean (14pp). No numbers changed.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

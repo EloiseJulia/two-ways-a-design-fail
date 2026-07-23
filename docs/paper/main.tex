@@ -195,9 +195,12 @@ We keep the evocative ``two ways a design fails'' framing because the two axes a
 but our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
 \begin{enumerate}
   \item \textbf{A systematic backend-sensitivity audit} of synthetic-user interface-risk measurement (six
-  backends $\times$ two datasets): the aggregate risk estimate is strongly \emph{not} backend-invariant---it
-  can flip an interface's risk classification---while a prompted persona ordering propagates stably; direct
-  evidence for the silicon-sampling reliability debate, reframed as measurement (non-)invariance.
+  backends $\times$ two datasets), organized around a \emph{risk-classification flip rate}---the fraction of
+  backend pairs that disagree on whether the \emph{same} interface crosses a decision threshold (up to 0.60).
+  The aggregate risk estimate is strongly \emph{not} backend-invariant while a prompted persona ordering
+  propagates stably. Prior prompt/model-sensitivity work shows outputs \emph{shift in magnitude}; we show the
+  shift \emph{crosses a decision-relevant threshold}, flipping a pass/fail verdict---measurement
+  (non-)invariance made decision-theoretic, which is what makes it consequential for a deployment gate.
   \item \textbf{The capability--vulnerability mismatch and a vulnerability-coverage principle for panel
   selection.} The strongest backend is the one that least reproduces the highest-severity failure (the
   at-risk trusting-novice persona), so a single frontier backend---the model a quality-optimal
@@ -232,15 +235,30 @@ survey-sample replacements~\cite{bisbee2024synthetic}, and caricature rather tha
 subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. We sit inside this debate but change the
 target: we do not ask the panel to \emph{predict} a human distribution, we ask it to \emph{triage} an
 interface, and we isolate a specific, measurable pathology---\emph{model-dependence of the triage
-signal}---that the prediction framing obscures.
+signal}---that the prediction framing obscures. Two recent efforts sharpen this contrast. Grounding agents
+in real interviews, \citeauthor{park2024generative}~\cite{park2024generative} report LLM agents that
+reproduce individuals' survey responses with $\approx$85\% accuracy---an \emph{accuracy/correspondence}
+result; we ask the logically prior \emph{reliability} question (is the risk reading even reproducible across
+backends?) that such a validation effort presupposes. \citeauthor{hu2024quantifying}~\cite{hu2024quantifying}
+decompose how much annotation variance a \emph{persona} explains and find larger instruction-tuned models
+simulate personas \emph{better} where persona matters; our decomposition instead isolates the \emph{backend}
+as the free variable and, in the interface-risk setting, finds the \emph{opposite} for the highest-severity
+persona (Section~\ref{sec:capvuln})---a domain-specific tension we name the capability--vulnerability
+inversion rather than a contradiction.
 
 \paragraph{Reliance and over-reliance on AI advice.} A large body of work studies when people
 appropriately rely on AI given confidence and
 explanations~\cite{bansal2021whole,bucinca2021trust,zhang2020confidence,lai2019human,schemmer2023appropriate},
 often finding explanations \emph{increase} over-reliance rather than calibrate
-it~\cite{bansal2021whole,vasconcelos2023explanations}. This work treats between-user variance as noise
-around an average. We invert that: reliance \emph{heterogeneity} is our axis-1 safety DV, and coercive
-wrong-AI adoption is axis-2.
+it~\cite{bansal2021whole,vasconcelos2023explanations}; recent work benchmarks reliance
+\emph{interventions} (disclaimers, uncertainty highlighting) with human participants on tasks including
+LSAT and finds they curb over-reliance but rarely improve \emph{appropriate}
+reliance~\cite{bo2024rely}. This work treats between-user variance as noise
+around an average, and studies humans directly. We invert the first: reliance \emph{heterogeneity} is our
+axis-1 safety DV, and coercive wrong-AI adoption is axis-2; and we complement the second: our
+protective-intervention arm (Section~\ref{sec:protective}) asks not \emph{whether} an intervention helps
+humans but \emph{whether a synthetic panel can even detect that it helps}, and how that verdict depends on
+the backend.
 
 \paragraph{Dark patterns and coercive interfaces.} Deceptive and coercive designs are well
 catalogued~\cite{luguri2021shining,mildner2023dark}; our axis-2 gives a computational signal for one
