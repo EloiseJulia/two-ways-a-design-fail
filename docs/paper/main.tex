@@ -123,6 +123,15 @@ that LLM-simulated people are \emph{unreliable proxies}---they collapse human di
 model's priors, and mis-estimate distributions~\cite{santurkar2023whose,cao2025specializing,%
 bisbee2024synthetic,dominguez2024questioning,cheng2023compost,hamalainen2023evaluating}.
 
+This is no longer hypothetical. A commercial market of synthetic-user research platforms now advertises AI
+``participants'' that evaluate designs \emph{in minutes} and compress---or stand in for---weeks of human
+study~\cite{syntheticusers,uxia_synthetic}. Such a practice quietly rests on two assumptions that, to our
+knowledge, are never tested for interface-\emph{risk} evaluation: (i) that the \emph{strongest available}
+backend is the best simulator---the natural engineering default, and exactly what a quality-optimal model
+router would pick~\cite{ong2025routellm}; and (ii) that a \emph{single} backend's point estimate
+(``this design's wrong-advice adoption is 0.6'') is a property of the design rather than of the model that
+produced it. This paper puts both assumptions to an empirical test, and finds both wanting.
+
 That debate is almost entirely about whether synthetic users \emph{match} real ones. We argue a more basic
 question comes first, and is rarely tested. When a panel reports that an interface is risky, that reading
 is produced not only by the interface but by a stack of choices the researcher makes \emph{freely}: which
@@ -760,6 +769,28 @@ evaluation rather than emit a safe/unsafe verdict.
 (agents show adoption or disagreement), from (ii) a \emph{measurement failure} (the signal flips when the
 backend or prompt changes), from (iii) a \emph{human-facing design failure} (real users are harmed). This
 paper establishes (i) and characterizes (ii); (iii) is reserved for the human study.
+
+\paragraph{Implications for commercial synthetic-user tooling.} Our findings speak directly to the two
+assumptions the emerging market of synthetic-user platforms rests
+on~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
+``frontier-first.''} The instinct to power a screen with the strongest available model---the choice a
+quality-optimal router makes~\cite{ong2025routellm,wang2025mixture}---is close to the worst one for a risk
+audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
+a risk panel should be assembled for \emph{vulnerability coverage}, which can require deliberately including
+weaker or more diverse backends. (We state this as a coverage principle; our capability--coverage
+correlation is directional and underpowered at $n=6$, so the robust claim is that a \emph{single} frontier
+backend covers almost none of the risk, not a capability ``law.'') \emph{Second, retire the single point
+estimate.} A one-backend number (``wrong-advice adoption $=0.6$'') is not backend-invariant---it moves
+enough to flip the screening decision (Section~\ref{sec:instability})---so, like a weather forecast, a
+synthetic-panel result should be reported as a \emph{distribution} over backends, prompts, and generations,
+with a disagreement-triggered \emph{abstention}: when backends disagree beyond a preset margin (here the
+range exceeds $0.2$), the tool should decline to certify and route the design to human testing rather than
+emit a safe/unsafe verdict. \emph{Third, prefer relative to absolute claims.} Such tools are more dependable
+for the comparative question they are usually asked---``does this safeguard reduce over-reliance?''---than
+for absolute risk certification: every backend reproduced the \emph{direction} of a protective design's
+benefit (Section~\ref{sec:protective}), though not its magnitude, so even a comparative verdict should be
+reported across backends rather than from one. None of this replaces a human study; it makes an honest
+synthetic screen a \emph{triage} step that knows when to defer to one.
 
 \section{Limitations and Threats to Validity}
 \label{sec:limits}

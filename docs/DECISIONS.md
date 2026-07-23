@@ -1245,6 +1245,22 @@
 - **Paper:** new results subsection sec:protective + fig8; Discussion paragraph (relative vs absolute);
   Limitations bullet; intro + abstract "Usable, with a caveat" clauses. Built clean (13pp, no undefined
   refs). No frozen primary altered. Also: abstract independently tightened ~350→~300 words (prose only).
+
+### D5.46 — Commercial-paradigm framing (PI-approved) integrated
+- **Date:** 2026-07-23 · PI approved a reviewer-suggested "commercial practices critique" framing. Added
+  (a) an Introduction paragraph naming the emerging synthetic-user-platform market and the TWO untested
+  assumptions it rests on — (i) strongest backend = best simulator (the router default), (ii) a single
+  backend point estimate is a design property — which the paper then tests; (b) a Discussion paragraph
+  "Implications for commercial synthetic-user tooling" with three honest, results-tethered recommendations:
+  rethink frontier-first (→ vulnerability-coverage panel selection), retire single point estimate (→
+  distributional reporting + disagreement-triggered abstention, weather-forecast analogy), prefer relative
+  to absolute claims (A: direction backend-robust, magnitude not).
+- **Rigor guardrails RESPECTED:** did NOT strawman/fabricate commercial marketing — cited two REAL public
+  sources (syntheticusers.com; a uxia industry survey of AI-persona UX tools) verified via web, added as
+  @misc. Framed "frontier-first" as the engineering DEFAULT formalized by routing literature, not a quoted
+  ad. Each recommendation carries our audited bounds (coverage is robust core / capability corr. n.s. at
+  n=6; abstention margin = observed >0.2 range; relative-claim magnitude caveat + gemini). No new empirical
+  claim; motivation/implications wrapper only. Built clean (13pp, no undefined refs). No frozen primary altered.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
