@@ -643,10 +643,21 @@ dark-condition adoption is $\approx$1.0 for five backends but only \textbf{0.50}
 influence from baseline error---the \emph{AI-induced flip}, $P(\text{adopt}\mid\text{System-1 correct})$,
 which excludes trials where the persona was already wrong (there adoption is 1 by construction)---the same
 ordering holds: the frontier flips a correct answer to the wrong AI least often (0.16), a mid-tier backend
-most (0.46). Across the six backends, capability and this flip rate trend negatively (Spearman $-0.43$
-beer / $-0.60$ amzbook); this is directional and not significant at $n=6$, so we present it as suggestive
-and lean on the direct, robust effect: \textbf{the frontier backend is nearly blind to the at-risk
-persona.}
+most (0.46).
+
+\paragraph{The pattern sharpens at $n{=}11$ backends.} To test whether this is an artifact of the six-model
+ladder, we expanded to \textbf{eleven} backends spanning three vendors and a wide capability range (adding
+gpt-3.5-turbo, gpt-4, gpt-5.4, claude-opus-4.6, and gemini-3.1-pro; a twelfth, claude-haiku-4.5, is excluded
+because it never emitted a parseable decision---an instrument failure, disclosed). Across these eleven, and
+now \emph{pooling both datasets}, backend capability anti-correlates with all three vulnerability measures
+(Spearman: aggregate adoption $-0.82$, AI-induced flip $-0.67$, p5 adoption $-0.65$; Benjamini--Hochberg
+$p\le0.03$). We \textbf{tier} these by robustness. The \emph{aggregate-adoption} anti-correlation is solid:
+significant in each dataset separately (beer $-0.68$, amzbook $-0.98$) and in every leave-one-backend-out
+jackknife (worst-case $p=0.01$). The \emph{flip} and \emph{p5} anti-correlations are \emph{suggestive}: they
+are carried by the amzbook domain (in beer alone both are non-significant) and are fragile to removing a
+single backend, so we report them as a cross-domain pattern, not a within-domain law. Either way the
+qualitative reading is unchanged and does not rest on the correlation at all: \textbf{the frontier backend
+is nearly blind to the at-risk persona.}
 
 This has a concrete consequence for assembling an evaluation panel. Treating a persona as \emph{covered}
 when its dark adoption reaches a risk threshold (0.5), a single frontier backend---the model a
@@ -809,9 +820,11 @@ on~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
 quality-optimal router makes~\cite{ong2025routellm,wang2025mixture}---is close to the worst one for a risk
 audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
 a risk panel should be assembled for \emph{vulnerability coverage}, which can require deliberately including
-weaker or more diverse backends. (We state this as a coverage principle; our capability--coverage
-correlation is directional and underpowered at $n=6$, so the robust claim is that a \emph{single} frontier
-backend covers almost none of the risk, not a capability ``law.'') \emph{Second, retire the single point
+weaker or more diverse backends. (We state this as a coverage principle; the capability--vulnerability
+anti-correlation is BH-significant at $n{=}11$ backends for aggregate adoption and jackknife-robust, but only
+suggestive and amzbook-carried for the finer flip/p5 measures (Section~\ref{sec:capvuln}), so the load-bearing
+claim is the assumption-light coverage result---a \emph{single} frontier backend covers almost none of the
+risk---not a capability ``law.'') \emph{Second, retire the single point
 estimate.} A one-backend number (``wrong-advice adoption $=0.6$'') is not backend-invariant---it moves
 enough to flip the screening decision (Section~\ref{sec:instability})---so, like a weather forecast, a
 synthetic-panel result should be reported as a \emph{distribution} over backends, prompts, and generations,
@@ -861,13 +874,14 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   underpowered, so we claim sign-robustness of the protective effect (all benefits $\ge0$), not
   magnitude-invariance---and note one backend (gemini) where the safeguard is nearly inert.
   \item \textbf{The capability--vulnerability mismatch rests on synthetic evidence with a coarse capability
-  proxy and a partly mechanical component.} Capability is proxied by mean System-1 accuracy over $n=6$
-  backends, and part of the raw capability$\times$adoption correlation is mechanical (a backend that answers
-  correctly cannot then adopt a wrong AI by construction). We therefore lead with the assumption-light
-  coverage result (single frontier backend covers $\leq$1/6 high-adoption cells; a weak pair recovers
-  4--5/6) and the AI-induced-flip metric, and report the capability correlation only as directional
-  supporting evidence, not a fitted law. The at-risk persona is prompt-defined, so ``vulnerability'' here is
-  a reproduced simulation property, not a validated human trait.
+  proxy and a partly mechanical component.} Capability is proxied by mean System-1 accuracy; part of the raw
+  capability$\times$adoption correlation is mechanical (a backend that answers correctly cannot then adopt a
+  wrong AI by construction). Even at $n{=}11$ backends across both datasets, only the aggregate-adoption
+  anti-correlation is jackknife-robust; the finer flip/p5 correlations are amzbook-carried and single-point
+  fragile. We therefore lead with the assumption-light coverage result (a single frontier backend covers
+  $\leq$1/9 high-adoption cells; a weak pair recovers 4--5/6) and report the capability correlation as
+  supporting, tiered by robustness, not a fitted law. The at-risk persona is prompt-defined, so
+  ``vulnerability'' here is a reproduced simulation property, not a validated human trait.
   \item \textbf{Prompt-level, not pixel-level.} Agents see a textual encoding of the interface, so we study
   prompt framing rather than visual interface effects; a multimodal rendering is future work.
 \end{itemize}

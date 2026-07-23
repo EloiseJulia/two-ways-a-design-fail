@@ -1379,7 +1379,23 @@
   synthetic arm complements). Elevated Contribution 1 around a named \emph{risk-classification flip rate}
   (up to 0.60): magnitude-shift (prior work) vs threshold-flip (ours). Built clean (14pp). No numbers changed.
 
-## Cross-cutting rigor commitments (standing)
+### D5.56 — n=11 backend expansion COMPLETE (both domains) + integrated into paper with audited tiering
+- **Date:** 2026-07-23 · expand12 finished both domains. Final n=11 (existing 6 + gpt-3.5-turbo, gpt-4,
+  gpt-5.4, claude-opus-4.6, gemini-3.1-pro; claude-haiku-4.5 EXCLUDED — 0 parseable rows across 3 attempts
+  incl. 4096 tokens, an instruction-following failure, disclosed; audit confirmed genuine instrument
+  exclusion not cherry-pick). gemini-3.1 needed max_completion_tokens+min 4096 (reasoning model).
+- **Result (results/expand12_analysis.json, pooled both datasets, n=11):** capability (S1 acc) anti-correlates
+  with all three vulnerability measures — agg_adopt ρ=-0.82 (BH .006), flip ρ=-0.67 (BH .030), p5 ρ=-0.65
+  (BH .030). Coverage: single frontier covers 1/9; capability-first needs k=10; greedy k=1-2.
+- **AUDIT (independent, 2 rounds) — PASS after 2 corrections:** (1) HIGH: script defined bh() but never
+  called it → I'd mis-reported raw p as significant; fixed to apply BH + report adjusted p. (2) jackknife
+  exposed TIERING: agg_adopt is ROBUST (sig in each domain separately, worst-case leave-one-out p=0.01);
+  flip & p5 are SUGGESTIVE — amzbook-carried (beer-only n.s.) and fragile to dropping one backend (flip→.087
+  w/o gpt-4.1, p5→.094 w/o gpt-5.5). Also: Spearman on 3-dp-rounded inputs (immaterial).
+- **Paper:** sec:capvuln now reports the n=11 expansion with explicit tiering (agg robust; flip/p5 suggestive
+  cross-domain, not a within-domain law); Discussion + Limitations updated from "n=6 underpowered" to the
+  tiered n=11 statement; coverage (load-bearing, assumption-light) unchanged. Built clean (14pp). Main
+  6-backend analyses/figures retained; n=11 added as expansion/robustness. amzbook new backends = beer+amzbook.
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
 - Preregistration discipline: freeze model set / N / τ BEFORE their results; log every change with a
