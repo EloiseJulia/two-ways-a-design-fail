@@ -284,9 +284,13 @@ settings, output parsing, persona phrasing, and sample count are analytic choice
 reported result---a form of hidden flexibility analogous to the ``garden of forking paths'' and
 undisclosed analytic flexibility in empirical research~\cite{simmons2011false}. In LLM evaluation
 specifically, small prompt-format changes swing results~\cite{sclar2024quantifying} and single-prompt
-scores misrepresent ability~\cite{mizrahi2024state}. We make these degrees of freedom the object of study,
+scores misrepresent ability~\cite{mizrahi2024state}; a generalizability-theory decomposition of LLM output
+variance into model, prompt, and sampling components has been applied to creative
+tasks~\cite{haase2026within}. We make these degrees of freedom the object of study,
 and adopt specification-curve-style multiverse reporting~\cite{simonsohn2020specification} rather than a
-single spec.
+single spec. Our decomposition targets a different quantity than this prior work---not the magnitude or
+quality of an output, but whether a \emph{binary interface-risk verdict} survives the researcher's free
+choices.
 
 \paragraph{Algorithmic auditing and robustness reporting.} Our stance---stress-test a widely-adopted
 measurement practice, quantify its sensitivity, and recommend distributional reporting with
