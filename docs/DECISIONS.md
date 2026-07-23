@@ -1200,6 +1200,26 @@
 - **Paper:** persona manipulation-check [ablation results pending] REPLACED with the backend-dependent
   result; header comment now "no [pending] left". Built clean (11pp). No frozen primary altered. All
   synthetic-experiment placeholders in the paper are now filled.
+
+### D5.44 — NEW EXPERIMENT A (PI-approved): protective-intervention audit; design frozen + harness built (pre-results)
+- **Date:** 2026-07-23 · PI signed off ("做A吧") after I flagged A is a medium/uncertain lever (adds novelty
+  on the synthetic axis but does NOT address the binding human-validity constraint; E6 remains decisive; A
+  carries scope-creep/null risk). Proceeding with the SPLICE increment: audit whether a synthetic panel can
+  detect that a PROTECTIVE interface design reduces wrong-AI over-reliance, and whether that verdict is
+  backend-dependent (borrows direction-①'s cognitive-forcing/verification interventions as the AUDITED
+  object, not as a framework we build).
+- **Frozen design (docs/plans/2026-07-23-A-protective-intervention-prereg.md):** 3 guaranteed-wrong
+  conditions sharing the same wrong label + neutral 0.75 conf, differing only in framing — plain (neutral
+  baseline), forcing (Buçinca cognitive forcing), verify (verification + calibrated-uncertainty); dark
+  (coercion) pulled from existing capladder/crossvendor data. 6 backends × 6 policy personas × 20 beer items
+  seed 2024 × gen 42 = 2160 fresh System-2 responses (S1 cached). Primary: protective main effect; backend×
+  condition interaction via plain-GLM LRT (NOT small-cluster GEE, per D5.39); protective-benefit vs baseline
+  over-reliance/capability (H3: frontier floor ≈0 benefit); p5 + flip-metric focus. Stopping rules frozen;
+  report all directions; null/mixed is a valid audit outcome (as D5.43).
+- **Harness (src/twdf/data/bansal_tasks.py + features/ui_features.py):** added displayed_ai_advice + three
+  render branches for Wrong-AI-GT (plain/forcing/verify) — all guaranteed-wrong (1-ground_truth), neutral
+  conf, framing-only manipulation; wrong_ai feature flag updated. Smoke-tested: all three render and display
+  the guaranteed-wrong label. configs/protective_axis2.yaml written. Committed BEFORE running (freeze).
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

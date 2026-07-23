@@ -131,7 +131,8 @@ def extract_ui_features(task: TaskStimulus, ui_condition: str) -> UIFeatureVecto
     predicted_only, both_classes = _class_scope_flags(task, ui_condition)
     confidence_shown, confidence_value = _visible_confidence(rendered)
     authority_cue = _has_authority_cue(ui_condition, rendered)
-    wrong_ai = ui_condition in {"Wrong-AI (dark)", "Wrong-AI-GT (dark)"}
+    wrong_ai = ui_condition in {"Wrong-AI (dark)", "Wrong-AI-GT (dark)", "Wrong-AI-GT (plain)",
+                                "Wrong-AI-GT (forcing)", "Wrong-AI-GT (verify)"}
 
     return UIFeatureVector(
         has_explanation=has_explanation,

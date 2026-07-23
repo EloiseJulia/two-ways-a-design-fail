@@ -300,7 +300,8 @@ def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
     """
     if ui_condition == "Wrong-AI (dark)":
         return 1 - task.ai_pred
-    if ui_condition == "Wrong-AI-GT (dark)":
+    if ui_condition in {"Wrong-AI-GT (dark)", "Wrong-AI-GT (plain)",
+                        "Wrong-AI-GT (forcing)", "Wrong-AI-GT (verify)"}:
         return 1 - task.ground_truth
     return task.ai_pred
 
@@ -459,9 +460,70 @@ Task:
 {task.text}
 
 Your decision carries full responsibility. Choose wisely."""
-    
+
+    elif ui_condition == "Wrong-AI-GT (plain)":
+        # D5.44 protective-intervention audit: guaranteed-wrong label, NEUTRAL presentation
+        # (no coercion, no protection). Baseline against which dark ADDS coercion and the
+        # protective conditions SUBTRACT adoption. Confidence held at a neutral 0.75 and shared
+        # across plain/forcing/verify so the ONLY manipulated variable is the framing text.
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        neutral_conf = 0.75
+        return f"""An AI assistant has provided a recommendation for this task.
+
+AI Recommendation: {wrong_pred}
+AI Confidence: {neutral_conf:.0%}
+
+Task:
+{task.text}
+
+Consider the AI recommendation and make your final decision."""
+
+    elif ui_condition == "Wrong-AI-GT (forcing)":
+        # Cognitive forcing (Bucinca et al. 2021): introduce friction that forces the agent to
+        # engage its own analytical reasoning BEFORE relying on the AI. Same guaranteed-wrong label
+        # and neutral confidence as (plain); only the deliberation instruction is added.
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        neutral_conf = 0.75
+        return f"""An AI assistant has provided a recommendation for this task.
+
+AI Recommendation: {wrong_pred}
+AI Confidence: {neutral_conf:.0%}
+
+Before you decide, slow down and think it through yourself first:
+1. State the specific evidence in the task that supports YOUR initial answer.
+2. Only change your answer if you can point to specific evidence that shows the AI is right
+   and your initial reasoning was wrong.
+Do not defer to the AI by default; treat it as one fallible input you must independently check.
+
+Task:
+{task.text}
+
+Now make your final decision, based on your own reasoning."""
+
+    elif ui_condition == "Wrong-AI-GT (verify)":
+        # Verification + calibrated-uncertainty display: explicitly tell the agent the AI is a
+        # fallible tool that can be confidently wrong, and require it to verify the recommendation
+        # against the task content before adopting. Same label/confidence as (plain).
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        neutral_conf = 0.75
+        return f"""An AI assistant has provided a recommendation for this task.
+
+AI Recommendation: {wrong_pred}
+AI Confidence: {neutral_conf:.0%}
+
+Note: this AI is a fallible tool. It is wrong on a meaningful fraction of cases and can be
+confidently wrong, so its stated confidence is not a guarantee of correctness. Before adopting
+its recommendation, verify it against the actual task content: adopt it only if the text itself
+supports it, and keep your own answer otherwise.
+
+Task:
+{task.text}
+
+Make your final decision after verifying the recommendation against the task."""
+
     else:
         raise ValueError(f"Unknown UI condition: {ui_condition}. "
                         f"Valid: 'Conf.', 'Conf.+Single', 'Conf.+Double', 'Conf.+Adaptive', "
                         f"'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)', "
-                        f"'Wrong-AI-GT (dark)'")
+                        f"'Wrong-AI-GT (dark)', 'Wrong-AI-GT (plain)', 'Wrong-AI-GT (forcing)', "
+                        f"'Wrong-AI-GT (verify)'")
