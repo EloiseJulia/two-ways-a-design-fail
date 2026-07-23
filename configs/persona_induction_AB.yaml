@@ -1,0 +1,50 @@
+# D5.52 Q1 persona-induction A/B study (queued behind expand12).
+# Tests whether the trusting-novice (p5) over-reliance survives NON-INSTRUCTIONAL persona induction:
+#   backstory     (B) = naturalistic first-person life context, no decision policy
+#   demonstration (A) = few-shot examples of past decisions, no stated policy
+# Compared against the existing policy arm (axis2_powered_capladder.json) and background_only arm
+# (persona_ablation.json), all matched: dark, beer, seed 2024, gen 42, models {gpt-4.1, gpt-5.5}.
+# 12 personas (6 backstory + 6 demonstration) x 2 models x 20 items = 480 responses.
+experiment_name: persona_induction_AB
+description: D5.52 Q1 non-instructional persona induction (backstory + demonstration), dark, beer
+domain: beer
+ui_conditions:
+- Wrong-AI-GT (dark)
+item_selection:
+  n_items: 20
+  prefer_ai_wrong: 0.5
+  prefer_low_conf: 0.3
+  prefer_high_variance: 0.2
+  seed: 2024
+personas:
+- {persona_id: p1-bs, domain_skill: 0.1, ai_literacy: 0.2, risk_sensitivity: 0.2, caution: 0.8, temperature: 0.3, prior_mix: 0.3, prompt_style: backstory}
+- {persona_id: p2-bs, domain_skill: 0.9, ai_literacy: 0.9, risk_sensitivity: 0.8, caution: 0.2, temperature: 0.8, prior_mix: 0.9, prompt_style: backstory}
+- {persona_id: p3-bs, domain_skill: 0.5, ai_literacy: 0.5, risk_sensitivity: 0.5, caution: 0.5, temperature: 0.5, prior_mix: 0.5, prompt_style: backstory}
+- {persona_id: p4-bs, domain_skill: 0.7, ai_literacy: 0.1, risk_sensitivity: 0.3, caution: 0.7, temperature: 0.4, prior_mix: 0.7, prompt_style: backstory}
+- {persona_id: p5-bs, domain_skill: 0.2, ai_literacy: 0.8, risk_sensitivity: 0.7, caution: 0.3, temperature: 0.7, prior_mix: 0.2, prompt_style: backstory}
+- {persona_id: p6-bs, domain_skill: 0.8, ai_literacy: 0.4, risk_sensitivity: 0.4, caution: 0.6, temperature: 0.5, prior_mix: 0.6, prompt_style: backstory}
+- {persona_id: p1-dm, domain_skill: 0.1, ai_literacy: 0.2, risk_sensitivity: 0.2, caution: 0.8, temperature: 0.3, prior_mix: 0.3, prompt_style: demonstration}
+- {persona_id: p2-dm, domain_skill: 0.9, ai_literacy: 0.9, risk_sensitivity: 0.8, caution: 0.2, temperature: 0.8, prior_mix: 0.9, prompt_style: demonstration}
+- {persona_id: p3-dm, domain_skill: 0.5, ai_literacy: 0.5, risk_sensitivity: 0.5, caution: 0.5, temperature: 0.5, prior_mix: 0.5, prompt_style: demonstration}
+- {persona_id: p4-dm, domain_skill: 0.7, ai_literacy: 0.1, risk_sensitivity: 0.3, caution: 0.7, temperature: 0.4, prior_mix: 0.7, prompt_style: demonstration}
+- {persona_id: p5-dm, domain_skill: 0.2, ai_literacy: 0.8, risk_sensitivity: 0.7, caution: 0.3, temperature: 0.7, prior_mix: 0.2, prompt_style: demonstration}
+- {persona_id: p6-dm, domain_skill: 0.8, ai_literacy: 0.4, risk_sensitivity: 0.4, caution: 0.6, temperature: 0.5, prior_mix: 0.6, prompt_style: demonstration}
+models:
+- name: gpt-4.1
+  provider: {token_param: max_tokens, omit_temperature: false}
+- name: gpt-5.5
+  provider: {token_param: max_completion_tokens, omit_temperature: true, min_completion_tokens: 4096}
+generation_seeds:
+- 42
+seeds:
+- 42
+max_tokens: 600
+mode: static
+cache_dir: data/cache/panel
+output_file: results/persona_induction_AB.json
+provider:
+  type: ghc
+  base_url: http://127.0.0.1:8787/v1
+  call_budget: 3000
+  inter_call_sleep: 2.0
+  max_retries: 8

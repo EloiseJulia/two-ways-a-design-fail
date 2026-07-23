@@ -1310,6 +1310,35 @@
   (original 4 figs, 59c9079), v1_pre_restyle (8 figs pre-recolor, 6d879c4), v2_okabe_recolor, v3_redesign};
   extracted binaries verified intact (git blob size match). Top-level figures/ now = v3; paper recompiled (13pp).
 
+### D5.51 — Backend expansion to n=12 (PI-approved HONEST full reporting); cherry-pick DECLINED
+- **Date:** 2026-07-23 · Brainstorm on the 5 reviewer-vulnerabilities (persona-prompt circularity, n=6,
+  2-datasets, prompt-not-pixels, capability-proxy). PI initially asked to run 12 backends and report only
+  the best-fitting 8 as "n=8"; **I DECLINED** this as selective reporting / HARKing that directly
+  contradicts the paper's own researcher-DoF thesis (Simmons; specification-curve) and the preregistration
+  contract (freeze model set BEFORE results, D4.4/D4.7) — and would be fatal if detected. PI agreed to the
+  honest path: expand to 12 and **report ALL 12**.
+- **Frozen (docs/plans/2026-07-23-B-backend-expansion-n12-prereg.md):** 6 new backends smoke-tested on the
+  proxy — gpt-3.5-turbo, gpt-4, gpt-5.4, claude-haiku-4.5, claude-opus-4.6 (claude-opus-4.5 dropped, HTTP
+  400), gemini-3.1-pro-preview — spanning 3 vendors weak→strong. Phase-1 run LAUNCHED detached
+  (configs/axis2_expand12_beer.yaml → results/axis2_expand12_beer.json: 6 new × {Conf., dark} × 6 personas
+  × 20 beer items × gen 42 = 1440 responses). amzbook + protective conditions = Phase 2.
+- **Capability proxy:** data-derived S1 accuracy (paper already disowns release order); Q5 secondary =
+  external authoritative benchmark (LMArena/AAII/MMLU/GPQA), verified per-model, "unavailable" if no clean
+  public score (gpt-5.5 currently lacks one) — never fabricated.
+
+### D5.52 — Q1 non-instructional persona-induction harness (A+B) built, queued
+- **Date:** 2026-07-23 · Addresses the persona-circularity critique (p5 over-reliance is currently induced
+  by an explicit "defer to AI" policy). Added two NON-instructional inductions to real_panel.py
+  _build_system_prompt: `backstory` (B: naturalistic first-person life context) and `demonstration` (A:
+  few-shot examples of past decisions, adopt/resist tendency derived from ai_literacy−domain_skill). Both
+  smoke-tested to leak NO explicit deference policy. configs/persona_induction_AB.yaml (12 personas: 6
+  backstory + 6 demonstration × {gpt-4.1, gpt-5.5} × dark × 20 beer items = 480 responses) queued behind
+  expand12. Compares against policy arm (capladder) + background_only arm (persona_ablation) to test whether
+  p5 survives induction WITHOUT the explicit instruction.
+- **Parallelization note:** all model calls share the single ghc-api proxy which 429s under concurrency, so
+  compute runs must SERIALIZE; non-proxy prep (this harness, LSAT/multimodal harnesses, benchmark
+  verification) is done in parallel while a run executes.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

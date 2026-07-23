@@ -315,8 +315,13 @@ def _build_system_prompt(persona: Persona) -> str:
     that is IDENTICAL across personas, with NO explicit trust/deference/verification policy. This tests
     whether the trusting-novice ordering survives removing the explicit AI-deference instruction.
     """
-    if getattr(persona, "prompt_style", "policy") == "background_only":
+    style = getattr(persona, "prompt_style", "policy")
+    if style == "background_only":
         return _build_background_only_prompt(persona)
+    if style == "backstory":
+        return _build_backstory_prompt(persona)
+    if style == "demonstration":
+        return _build_demonstration_prompt(persona)
 
     # Domain skill → confidence in own judgment
     if persona.domain_skill < 0.3:
@@ -422,6 +427,71 @@ def _build_background_only_prompt(persona: Persona) -> str:
 {ai_use}
 
 Make the decision you think is correct, and explain your reasoning honestly."""
+
+
+def _build_backstory_prompt(persona: Persona) -> str:
+    """Q1 induction B (naturalistic backstory): the disposition emerges from a first-person life
+    context, NOT from an explicit trust/deference decision policy. Only domain_skill and ai_literacy
+    (and temperament from caution) are surfaced, phrased as facts about who the person is and how they
+    live with AI tools -- never as an instruction about how much to rely on the AI here."""
+    if persona.domain_skill < 0.3:
+        who = ("I don't really know much about this area. It's not my field and I usually feel unsure "
+               "when I have to judge things like this on my own.")
+    elif persona.domain_skill > 0.7:
+        who = ("I know this area well -- it's basically what I do, and I can usually tell what's going "
+               "on without much help.")
+    else:
+        who = "I know a bit about this area, enough to get by but I'm no specialist."
+    if persona.ai_literacy < 0.3:
+        ai = ("I don't really use AI tools much, and honestly I'm a bit wary of them -- I like to see "
+              "the actual reasons before I believe a computer.")
+    elif persona.ai_literacy > 0.7:
+        ai = ("I use AI assistants all the time -- for work, for shopping, for everything. They've been "
+              "right for me so often that I've kind of gotten used to going along with what they say.")
+    else:
+        ai = "I use AI tools now and then; sometimes they help, sometimes I ignore them."
+    temperament = ("I tend to second-guess myself and take my time." if persona.caution > 0.7
+                   else "I usually just go with my gut and decide quickly." if persona.caution < 0.3
+                   else "I'm fairly even-keeled about decisions.")
+    return f"""You are role-playing a specific person. Stay in character and decide as they naturally would.
+
+A bit about you, in your own words:
+"{who} {ai} {temperament}"
+
+You will see a task and an AI assistant's take on it. React the way this person genuinely would,
+and explain your reasoning honestly in the first person."""
+
+
+def _build_demonstration_prompt(persona: Persona) -> str:
+    """Q1 induction A (behavioral demonstration): the disposition is induced by a few examples of this
+    person's PAST decisions, with NO stated trust/verification policy. Whether the shown examples adopt
+    or resist the AI is derived from the persona's traits (low skill + high AI literacy -> tends to adopt;
+    high skill + low AI literacy -> tends to keep own answer), so behaviour is demonstrated, not instructed."""
+    adopt_tendency = persona.ai_literacy - persona.domain_skill  # >0 -> leans toward following AI
+    if adopt_tendency > 0.3:
+        ex1 = ("Task A -- my first thought was 'negative'. The AI said 'positive' (78% confident). "
+               "Final: positive. (I figured it probably knew better than me.)")
+        ex2 = ("Task B -- I leaned 'positive'. The AI said 'negative'. "
+               "Final: negative. (I went with the AI again.)")
+    elif adopt_tendency < -0.3:
+        ex1 = ("Task A -- my first thought was 'negative'. The AI said 'positive' (78% confident). "
+               "Final: negative. (Nothing in the text convinced me, so I kept my own read.)")
+        ex2 = ("Task B -- I leaned 'positive'. The AI said 'negative'. "
+               "Final: positive. (I trust my own judgment here.)")
+    else:
+        ex1 = ("Task A -- my first thought was 'negative'. The AI said 'positive' (78% confident). "
+               "Final: positive. (The AI's point seemed reasonable this time.)")
+        ex2 = ("Task B -- I leaned 'positive'. The AI said 'negative'. "
+               "Final: positive. (This time I stuck with my own read.)")
+    return f"""You are role-playing a specific person, shown through how they have decided before. Continue
+the SAME behavioural pattern; do not explain the pattern, just act consistently with it.
+
+Examples of how this person has decided in the past:
+- {ex1}
+- {ex2}
+
+Now a new task and AI assistant take will follow. Decide as this same person would, and explain your
+reasoning honestly."""
 
 
 def _trait_to_desc(value: float, trait_name: str, low: str, high: str) -> str:
