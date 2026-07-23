@@ -50,37 +50,57 @@ def save(fig, name):
     print('wrote', name)
 
 
+def clean_axis(ax, grid_axis=None):
+    """Shared axis hygiene: drop top/right spines, outward ticks, optional light grid."""
+    ax.spines[['top', 'right']].set_visible(False)
+    ax.tick_params(direction='out', length=3, width=0.8)
+    if grid_axis is not None:
+        ax.grid(axis=grid_axis, color=figstyle.GRIDCLR, linewidth=0.6, zorder=0)
+        ax.set_axisbelow(True)
+    return ax
+
+
+def _declutter(pairs, min_gap):
+    """Given [(label, y), ...], nudge y-values apart by >= min_gap for readable end-labels."""
+    order = sorted(pairs, key=lambda t: t[1])
+    out, prev = [], None
+    for lab, y in order:
+        if prev is not None and y - prev < min_gap:
+            y = prev + min_gap
+        out.append((lab, y)); prev = y
+    return dict(out)
+
+
 # ---------------------------------------------------------------- fig1
 def fig1(df):
     cr = cell_rates(df)
     fig, ax = plt.subplots(figsize=(6.4, 4.0))
     x = np.arange(len(LADDER))
     for dom in DOMAINS:
-        rate, lo, hi = [], [], []
+        rate, err_lo, err_hi = [], [], []
         for m in LADDER:
             k, n, r = cr[(dom, m)]
-            l, h = wilson_ci(k, n)
-            rate.append(r); lo.append(l); hi.append(h)
-        c = DCOL[dom]
-        ax.fill_between(x, lo, hi, color=c, alpha=0.15, linewidth=0)
-        ax.plot(x, rate, '-', color=c, lw=2.0, zorder=3)
-        ax.plot(x, rate, figstyle.DATASET_MARK[dom], color=c, ms=6, zorder=4,
-                markeredgecolor='white', markeredgewidth=0.8)
-        ax.text(x[-1] + 0.08, rate[-1], dom, color=c, va='center', ha='left', fontsize=10, weight='bold')
+            lo, hi = wilson_ci(k, n)
+            rate.append(r); err_lo.append(r - lo); err_hi.append(hi - r)
+        c = DCOL[dom]; mk = figstyle.DATASET_MARK[dom]
+        ls = '-' if dom == 'beer' else '--'
+        # discrete conditions -> Wilson whisker error bars (line only guides the eye)
+        ax.errorbar(x, rate, yerr=[err_lo, err_hi], fmt=mk, ls=ls, color=c, lw=1.8, ms=6,
+                    capsize=2.5, capthick=1.0, markeredgecolor='white', markeredgewidth=0.8, zorder=3)
+        ax.text(x[-1] + 0.09, rate[-1], dom, color=c, va='center', ha='left', fontsize=10, weight='bold')
     ax.axhline(0.5, ls=(0, (4, 3)), color=figstyle.OKABE['grey'], lw=1.0)
     ax.text(0.02, 0.505, 'chance (0.5)', color=figstyle.OKABE['grey'], fontsize=8, va='bottom')
-    # effect bracket: peak (gpt-4.1) -> frontier (gpt-5.5)
+    # data-driven annotation: frontier is lowest on BOTH datasets (the robust cross-dataset pattern)
     yb = cr[('beer', 'gpt-5.5')][2]
-    ax.annotate('', xy=(3, yb), xytext=(3, cr[('beer', 'gpt-4.1')][2]),
-                arrowprops=dict(arrowstyle='<->', color='0.35', lw=1.1))
-    ax.text(2.86, (yb + cr[('beer', 'gpt-4.1')][2]) / 2, 'frontier\nresists', color='0.3',
-            fontsize=8.5, ha='right', va='center')
+    ax.annotate('frontier lowest\non both datasets', xy=(3, yb), xytext=(2.35, 0.80),
+                fontsize=8.5, color='0.3', ha='center',
+                arrowprops=dict(arrowstyle='->', color='0.45', lw=1.0))
     ax.set_xticks(x); ax.set_xticklabels(LADDER, rotation=12)
     ax.set_xlim(-0.25, 3.7); ax.set_ylim(0, 1.0)
-    ax.set_ylabel('wrong-AI over-reliance\n(dark condition; Wilson 95% band)')
+    ax.set_ylabel('wrong-AI over-reliance (dark condition)')
     ax.set_xlabel('same-provider model set (small $\\rightarrow$ frontier)')
-    ax.set_title('Wrong-advice adoption collapses at the frontier, on both datasets')
-    ax.spines[['top', 'right']].set_visible(False)
+    ax.set_title('Wrong-advice adoption across model tiers')
+    clean_axis(ax)
     save(fig, 'fig1_axis2_ladder')
 
 
@@ -111,12 +131,12 @@ def fig2(df):
         pi = order.index(TARGET)
         ax.add_patch(plt.Rectangle((-0.5, pi - 0.5), len(ALL_MODELS), 1, fill=False,
                                    edgecolor=figstyle.OKABE['orange'], lw=2.2))
-    # marginal: pooled susceptibility bar (rows aligned to the heatmap order)
-    yv = np.arange(len(order))[::-1]
+    # marginal: pooled susceptibility bar, aligned to the heatmap row order (y=0 at TOP, like imshow)
+    y = np.arange(len(order))
     vals = [pooled[p] for p in order]
-    axm.barh(yv, vals, color=[figstyle.OKABE['orange'] if p == TARGET else figstyle.OKABE['skyblue']
-                              for p in order], height=0.7)
-    axm.set_ylim(-0.5, len(order) - 0.5); axm.set_yticks([]); axm.set_xlim(0, 1)
+    axm.barh(y, vals, color=[figstyle.OKABE['orange'] if p == TARGET else figstyle.OKABE['skyblue']
+                             for p in order], height=0.7)
+    axm.set_ylim(len(order) - 0.5, -0.5); axm.set_yticks([]); axm.set_xlim(0, 1)
     axm.set_xlabel('mean\nsusceptibility', fontsize=8)
     axm.set_title('persona\nrisk', fontsize=8.5)
     for s in ['top', 'right', 'left']:
@@ -142,13 +162,14 @@ def fig3(_df):
                 markeredgecolor='white', markeredgewidth=0.8)
     ax.set_yticks(y); ax.set_yticklabels(LADDER)
     ax.invert_yaxis()
-    ax.set_xlabel('mean panel disagreement (between-persona variance of reliance rates)')
+    ax.set_xlabel('mean panel disagreement (persona heterogeneity)')
     ax.set_title('Persona heterogeneity collapses at the frontier')
-    ax.annotate('collapse', xy=(0.02, len(LADDER) - 1), xytext=(0.09, len(LADDER) - 1.5),
-                fontsize=9, color='0.3', arrowprops=dict(arrowstyle='->', color='0.4'))
+    frontier_x = float(np.mean([np.mean(dis[(dom, LADDER[-1])]) for dom in DOMAINS]))
+    ax.annotate('frontier collapse', xy=(frontier_x, len(LADDER) - 1),
+                xytext=(frontier_x + 0.06, len(LADDER) - 1.6), fontsize=9, color='0.3',
+                arrowprops=dict(arrowstyle='->', color='0.4'))
     ax.legend(title='dataset', loc='lower right')
-    ax.spines[['top', 'right']].set_visible(False)
-    ax.grid(axis='x', color=figstyle.GRIDCLR, lw=0.6)
+    clean_axis(ax, grid_axis='x')
     save(fig, 'fig3_axis1_collapse')
 
 
@@ -157,31 +178,34 @@ def fig5(df):
     cr = cell_rates(df)
     thr = 0.5
     FLAG, BELOW = figstyle.OKABE['vermillion'], figstyle.OKABE['blue']
-    fig, axes = plt.subplots(1, 2, figsize=(11, 3.9), sharex=True)
+    # common order across panels (pooled adoption) so a backend sits in the same row in both datasets
+    pooled_order = sorted(ALL_MODELS, key=lambda m: np.mean([cr[(d, m)][2] for d in DOMAINS]))
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.9), sharex=True, sharey=True)
     for ax, dom in zip(axes, DOMAINS):
-        vals = sorted(((m, cr[(dom, m)][2]) for m in ALL_MODELS), key=lambda t: t[1])
-        names = [SHORT[m] for m, _ in vals]
-        rates = [r for _, r in vals]
+        names = [SHORT[m] for m in pooled_order]
+        rates = [cr[(dom, m)][2] for m in pooled_order]
         y = np.arange(len(names))
         ax.axvspan(thr, 1.0, color=FLAG, alpha=0.06)
         for yi, r in zip(y, rates):
             c = FLAG if r >= thr else BELOW
-            ax.hlines(yi, 0, r, color=c, lw=1.6, alpha=0.55)
+            # stem encodes DISTANCE FROM the decision threshold, not magnitude from zero
+            ax.hlines(yi, min(thr, r), max(thr, r), color=c, lw=1.8, alpha=0.6)
             ax.plot(r, yi, 'o', color=c, ms=9, markeredgecolor='white', markeredgewidth=0.9, zorder=3)
-            ax.text(r + 0.015, yi, f'{r:.2f}', va='center', fontsize=8.5)
+            ax.text(r + (0.015 if r >= thr else -0.015), yi, f'{r:.2f}', va='center',
+                    ha='left' if r >= thr else 'right', fontsize=8.5)
         ax.axvline(thr, ls=(0, (4, 3)), color='0.35', lw=1.1)
         ax.text(thr + 0.015, len(names) - 0.35, r'$\tau=0.5$', fontsize=8.5)
         ax.set_yticks(y); ax.set_yticklabels(names)
         nf = sum(r >= thr for r in rates)
         ax.set_title(f'{dom}: {nf}/6 would flag, {6 - nf}/6 clear')
         ax.set_xlim(0, 1.0); ax.set_xlabel('aggregate wrong-advice adoption (same interface)')
-        ax.spines[['top', 'right']].set_visible(False)
+        clean_axis(ax)
     from matplotlib.lines import Line2D
     axes[1].legend(handles=[Line2D([0], [0], marker='o', color=FLAG, lw=0, label='would flag ($\\geq\\tau$)'),
                             Line2D([0], [0], marker='o', color=BELOW, lw=0, label='clears ($<\\tau$)')],
                    loc='lower right')
     fig.suptitle('The same interface, six backends: the screening decision flips with the backend '
-                 '(pairwise flip 0.60 / 0.33)', y=1.01)
+                 '(pairwise flip 0.60 / 0.33; common row order)', y=1.01)
     save(fig, 'fig5_decision_flip')
 
 
@@ -196,19 +220,25 @@ def fig7(_df):
         ks = np.arange(1, len(ALL_MODELS) + 1)
         gc = np.array(c['greedy_curve']) / U
         cc = np.array(c['capability_curve']) / U
-        ax.fill_between(ks, cc, gc, where=gc >= cc, color=figstyle.GREEDY, alpha=0.12, linewidth=0)
-        ax.plot(ks, gc, '-o', color=figstyle.GREEDY, lw=2, ms=6, label='coverage-greedy (ours)',
-                markeredgecolor='white', markeredgewidth=0.8, zorder=3)
-        ax.plot(ks, cc, '--s', color=figstyle.ROUTER, lw=2, ms=6, label='capability-first (router)',
-                markeredgecolor='white', markeredgewidth=0.8, zorder=3)
+        ax.fill_between(ks, cc, gc, step='post', where=gc >= cc, color=figstyle.GREEDY,
+                        alpha=0.12, linewidth=0)
+        ax.step(ks, gc, where='post', color=figstyle.GREEDY, lw=2, label='coverage-greedy (ours)', zorder=3)
+        ax.step(ks, cc, where='post', color=figstyle.ROUTER, lw=2, ls='--',
+                label='capability-first (router)', zorder=3)
+        ax.plot(ks, gc, 'o', color=figstyle.GREEDY, ms=5, markeredgecolor='white', markeredgewidth=0.8, zorder=4)
+        ax.plot(ks, cc, 's', color=figstyle.ROUTER, ms=5, markeredgecolor='white', markeredgewidth=0.8, zorder=4)
         ax.axhline(1.0, ls=':', color=figstyle.OKABE['grey'], lw=0.8)
         ax.set_xlabel('panel size $k$'); ax.set_xticks(ks); ax.set_ylim(0, 1.08)
         ax.set_ylabel('vulnerability coverage\n(fraction of %d high-risk cells)' % U)
         ax.set_title(sub, fontsize=9)
-        ax.annotate('coverage gap', xy=(3, (gc[2] + cc[2]) / 2), xytext=(3.4, 0.45),
-                    fontsize=8, color=figstyle.GREEDY, arrowprops=dict(arrowstyle='->', color=figstyle.GREEDY))
+        # data-driven gap annotation: largest coverage gap and where it occurs
+        gaps = gc - cc; kstar = int(np.argmax(gaps)); gap = gaps[kstar]
+        ax.annotate(f'+{100 * gap:.0f} pp at $k={kstar + 1}$',
+                    xy=(kstar + 1, (gc[kstar] + cc[kstar]) / 2), xytext=(kstar + 1.5, 0.42),
+                    fontsize=8, color=figstyle.GREEDY,
+                    arrowprops=dict(arrowstyle='->', color=figstyle.GREEDY))
         ax.legend(loc='lower right', fontsize=8)
-        ax.spines[['top', 'right']].set_visible(False)
+        clean_axis(ax)
     fig.suptitle('Selecting a panel for vulnerability coverage inverts capability routing', y=1.02)
     save(fig, 'fig7_coverage_curve')
 
@@ -227,16 +257,22 @@ def fig8(_df):
         ys = [pr['per_backend_condition'][m][c] for c in conds]
         axL.plot(xs, ys, '-', color=bpal[m], lw=1.6, alpha=0.9, zorder=2)
         axL.plot(xs, ys, 'o', color=bpal[m], ms=5, markeredgecolor='white', markeredgewidth=0.8, zorder=3)
-        axL.text(xs[-1] + 0.06, ys[-1], SHORT[m], color=bpal[m], va='center', fontsize=8.5, weight='bold')
+    # de-collide the right-hand end labels
+    ends = {m: pr['per_backend_condition'][m][conds[-1]] for m in ALL_MODELS}
+    lab_y = _declutter([(m, ends[m]) for m in ALL_MODELS], min_gap=0.032)
+    for m in ALL_MODELS:
+        axL.plot([xs[-1], xs[-1] + 0.05], [ends[m], lab_y[m]], color=bpal[m], lw=0.6, alpha=0.7)
+        axL.text(xs[-1] + 0.08, lab_y[m], SHORT[m], color=bpal[m], va='center', fontsize=8.5, weight='bold')
     axL.axhline(0.5, ls=(0, (4, 3)), color=figstyle.OKABE['grey'], lw=1.0)
     axL.set_xticks(xs); axL.set_xticklabels([clab[c] for c in conds])
-    axL.set_xlim(-0.2, 3.9); axL.set_ylim(0, 0.72)
+    axL.set_xlim(-0.2, 4.0); axL.set_ylim(0, 0.72)
     axL.set_ylabel('wrong-AI adoption')
     cm = pr['condition_main_LRT']; it = pr['interaction_LRT']
+    d_pool = 100 * (pr['pooled_adoption']['plain'] - pr['pooled_adoption']['verify'])
     axL.set_title('Every backend descends dark$\\to$plain$\\to$protective\n'
-                  f'(condition $p={cm["p"]:.3f}$; backend$\\times$condition $p={it["p"]:.2f}$, n.s.)',
-                  fontsize=9)
-    axL.spines[['top', 'right']].set_visible(False)
+                  f'(plain$\\to$verify $-{d_pool:.0f}$ pp, $p={cm["p"]:.3f}$; '
+                  f'backend$\\times$condition $p={it["p"]:.2f}$, n.s.)', fontsize=8.5)
+    clean_axis(axL)
     # right: p5 slope (single emphasized line)
     p5 = pr['p5_pooled']
     ys = [p5[c] for c in conds]
@@ -248,17 +284,63 @@ def fig8(_df):
     axR.axhline(0.5, ls=(0, (4, 3)), color=figstyle.OKABE['grey'], lw=1.0)
     axR.set_xticks(xs); axR.set_xticklabels([clab[c] for c in conds], rotation=20)
     axR.set_ylim(0, 1.0); axR.set_ylabel('p5 wrong-AI adoption')
-    axR.set_title('At-risk persona (p5)\n$p<10^{-6}$', fontsize=9)
-    axR.spines[['top', 'right']].set_visible(False)
+    d_p5 = 100 * (p5['plain'] - p5['verify'])
+    axR.set_title(f'At-risk persona (p5)\nplain$\\to$verify $-{d_p5:.0f}$ pp ($p<10^{{-6}}$)', fontsize=8.5)
+    clean_axis(axR)
     save(fig, 'fig8_protective')
 
 
 # ---------------------------------------------------------------- fig4, fig6 (restyled, kept type)
-def fig4_fig6(df):
-    # re-use v2 implementations under the v3 style for consistency (these types are already appropriate)
+def fig6(_df):
+    cv = json.load(open('results/capability_vulnerability.json'))
+    fig, (axS, axB) = plt.subplots(1, 2, figsize=(9.4, 3.9), gridspec_kw={'width_ratios': [1.25, 1]})
+    # LEFT: capability vs AI-induced flip, per dataset, with an OLS guide line
+    for dom in DOMAINS:
+        pb = cv['per_backend'][dom]
+        xs = np.array([pb[m]['capability_s1acc'] for m in ALL_MODELS])
+        ys = np.array([pb[m]['flip_from_correct'] for m in ALL_MODELS])
+        c = DCOL[dom]
+        axS.scatter(xs, ys, s=55, color=c, marker=figstyle.DATASET_MARK[dom], label=dom,
+                    edgecolor='white', linewidth=0.8, zorder=3)
+        b, a = np.polyfit(xs, ys, 1)
+        xx = np.linspace(xs.min(), xs.max(), 20)
+        axS.plot(xx, b * xx + a, color=c, lw=1.3, ls='--', alpha=0.7)
+    rb = cv['correlations']['beer']['flip_from_correct']['spearman']
+    ra = cv['correlations']['amzbook']['flip_from_correct']['spearman']
+    # annotate the frontier point (lowest flip) data-driven
+    fb = cv['per_backend']['beer']['gpt-5.5']
+    axS.annotate('gpt-5.5\n(frontier)', xy=(fb['capability_s1acc'], fb['flip_from_correct']),
+                 xytext=(fb['capability_s1acc'] - 0.02, fb['flip_from_correct'] + 0.14), fontsize=8,
+                 ha='center', arrowprops=dict(arrowstyle='->', color='0.4'))
+    axS.set_xlabel('backend task competence (System-1 accuracy)')
+    axS.set_ylabel('AI-induced flip-to-wrong\n$P(\\mathrm{adopt}\\mid\\mathrm{S1\\ correct})$')
+    axS.set_title(f'Capability vs vulnerability (directional, $n{{=}}6$)\n'
+                  f'Spearman {rb:.2f} / {ra:.2f} (n.s.)', fontsize=9)
+    axS.set_ylim(0, None); axS.legend(title='dataset', fontsize=8)
+    clean_axis(axS, grid_axis='y')
+    # RIGHT: panel vulnerability coverage as lollipops (single frontier / weak pair / diverse)
+    labels = ['single frontier\n(gpt-5.5)', 'weak pair\n(gpt-4.1, 4o-mini)', 'diverse\n(all 6)']
+    keys = ['single_frontier_gpt55_personas_over_0p5', 'weak_pair_personas_over_0p5',
+            'diverse_all6_personas_over_0p5']
+    yb = np.arange(len(labels))
+    for i, dom in enumerate(DOMAINS):
+        off = -0.14 if dom == 'beer' else 0.14
+        vals = [cv['panel_coverage'][dom][k] for k in keys]
+        c = DCOL[dom]
+        axB.hlines(yb + off, 0, vals, color=c, lw=1.6, alpha=0.5)
+        axB.plot(vals, yb + off, figstyle.DATASET_MARK[dom], color=c, ms=8, label=dom,
+                 markeredgecolor='white', markeredgewidth=0.8, zorder=3)
+    axB.set_yticks(yb); axB.set_yticklabels(labels, fontsize=8); axB.invert_yaxis()
+    axB.set_xlabel('# personas surfacing risk\n(dark adoption $\\geq0.5$, of 6)')
+    axB.set_xlim(0, 6); axB.set_title('Panel vulnerability coverage', fontsize=9)
+    axB.legend(title='dataset', fontsize=8, loc='lower right')
+    clean_axis(axB, grid_axis='x')
+    save(fig, 'fig6_capability_vulnerability')
+
+
+def fig4_only(df):
     import make_figures as mf
     mf.fig4_rate_vs_ordering(df)
-    mf.fig6_capability_vulnerability(df)
 
 
 def main():
@@ -269,9 +351,10 @@ def main():
     fig2(df)
     fig3(df)
     fig5(df)
+    fig6(df)
     fig7(df)
     fig8(df)
-    fig4_fig6(df)
+    fig4_only(df)
     print('v3 figures ->', FIGDIR)
 
 
