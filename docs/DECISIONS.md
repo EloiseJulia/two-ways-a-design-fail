@@ -1272,6 +1272,20 @@
   "Disagreement is information" to the conceptual point (protocol detail now lives once in sec:variance +
   commercial impl. #2). Discussion is now 4 conceptual paragraphs + 1 consolidated practical subsection, no
   triple-statement. NO numbers or claims changed; built clean (13pp, no undefined/orphan refs).
+
+### D5.48 — Targeted formalism added (3 equations) + FIXED an axis-1 definition/code mismatch
+- **Date:** 2026-07-23 · PI noted the paper was formula-light (0 displayed eqns, 31 inline stats). Added 3
+  displayed equations where they buy precision without over-formalizing (CHI style): (1) vulnerability
+  coverage f(S)=|{c: max_{b in S} a_b(c) ≥ τ}| + submodularity + greedy (1−1/e) guarantee (sec:capvuln);
+  (2) RAIR/RSR as conflict-conditioned conditional probabilities (sec:capvuln C); (3) mean panel
+  disagreement D = between-persona sample variance of reliance rates (sec:definitions).
+- **CORRECTNESS FIX surfaced by formalizing:** the paper's prose described axis-1 disagreement as "the
+  per-item / within-item variance of the personas' reliance decisions", but the code
+  (analysis/confirmatory_axis1.py:_panel_disagreement) actually computes np.var(persona reliance RATES,
+  ddof=1) = the BETWEEN-PERSONA variance of per-persona rates, averaged over the 5 conditions. Fixed the
+  description in BOTH sec:definitions and sec:modeldep to match the code; added \label{sec:definitions}.
+  NO numbers changed (the reported 0.11/0.16/0.10/0.012 etc. always came from the code's between-persona
+  computation; only the textual description was wrong). Built clean (13pp).
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).

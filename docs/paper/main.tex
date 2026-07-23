@@ -274,6 +274,7 @@ decision} in the synthetic-user HCI evaluation setting---flipping whether a desi
 study---which is the point at which such measurement instability actually matters for design practice.
 
 \section{The Two-Axis Construct: Definitions}
+\label{sec:definitions}
 
 We characterize an interface on two axes, both measured on the panel's decisions.
 
@@ -283,10 +284,15 @@ would produce (a beta-binomial over-dispersion estimator, parameter $\rho$). We 
 \emph{conflict-conditioned}: only on trials where the persona's independent System-1 judgment disagrees
 with the shown AI, isolating genuine reliance from trivial agreement. As a stable, bounded summary that
 avoids the beta-binomial estimator's boundary behaviour at extreme rates (Section~\ref{sec:method}), we
-report \emph{mean panel disagreement}---the mean across items of the per-item variance of the six
-personas' reliance decisions---which tracks $\rho$ monotonically and is what we plot; we report $\rho$
-alongside it. High axis-1 means the panel estimates reliance as persona-sensitive---a candidate signal of
-user-sensitive risk, not yet human-validated.
+report \emph{mean panel disagreement}: for a condition with personas $j=1,\dots,P$ ($P=6$), let $r_j$ be
+persona $j$'s conflict-conditioned reliance rate; the condition's disagreement is their between-persona
+(sample) variance
+\begin{equation}
+D=\frac{1}{P-1}\sum_{j=1}^{P}\bigl(r_j-\bar r\bigr)^2,\qquad \bar r=\frac{1}{P}\sum_{j=1}^{P} r_j,
+\end{equation}
+and we report the mean of $D$ over the five UI conditions. $D$ tracks $\rho$ monotonically and is what we
+plot; we report $\rho$ alongside it. High axis-1 means the panel estimates reliance as persona-sensitive---a
+candidate signal of user-sensitive risk, not yet human-validated.
 
 \paragraph{Axis 2---wrong-advice adoption under coercion.} Under a coercive ``dark'' framing, the
 interface shows a \emph{guaranteed-wrong} AI verdict (the negation of ground truth) at high confidence
@@ -396,7 +402,8 @@ adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect 
 not random guessers---we ground the effect in a matched framing contrast below.
 
 Axis-1 tells a parallel story (Figure~\ref{fig:collapse}). We call this quantity \emph{synthetic persona
-disagreement}---the within-item variance of the six personas' reliance decisions---and are explicit that
+disagreement}---the between-persona variance of the six personas' conflict-conditioned reliance rates
+(Section~\ref{sec:definitions})---and are explicit that
 it measures how differently our \emph{prompted} personas respond, not a validated human over-dispersion.
 Mean persona disagreement across the model set is 0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and
 0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5 is the most homogeneous on both datasets, and the
@@ -625,11 +632,14 @@ whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
   \label{fig:coverage}
 \end{figure*}
 
-We can make this selection principle precise. Given a pool of candidate backends, let a backend
-\emph{cover} a (dataset, persona) cell when its dark adoption on that cell reaches the risk threshold, and
-let a panel's coverage be the number of distinct high-risk cells at least one of its backends reproduces.
-Coverage is a monotone submodular set function, so a \emph{coverage-greedy} panel---repeatedly adding the
-backend with the largest marginal coverage---carries the standard $(1-1/e)$ approximation guarantee.
+We can make this selection principle precise. Let $\mathcal{C}$ be the set of high-severity cells
+(dataset$\times$persona) and $a_b(c)$ backend $b$'s dark adoption on cell $c$; a panel $S$ of backends
+\emph{covers} every cell that any of its members reproduces above a risk threshold $\tau$, with coverage
+\begin{equation}
+f(S)=\bigl|\{\,c\in\mathcal{C}:\ \textstyle\max_{b\in S} a_b(c)\ge\tau\,\}\bigr|.
+\end{equation}
+$f$ is monotone and submodular, so the \emph{coverage-greedy} panel---$S_{k+1}=S_k\cup\{\arg\max_{b}
+f(S_k\cup\{b\})\}$---carries the standard $(1-1/e)$ approximation guarantee against the best size-$k$ panel.
 Figure~\ref{fig:coverage} contrasts this greedy panel with a \emph{capability-first} panel that adds
 backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025routellm,wang2025mixture}
 would prefer. The two are almost opposite: on the clean AI-induced-flip metric the greedy panel covers every
@@ -641,8 +651,14 @@ monotone in $k$, this is a statement about \emph{order}, not size; a threshold o
 and the qualitative inversion is what we rely on.) Selecting a panel for vulnerability coverage is thus not
 merely different from capability routing---it is close to its inverse.
 
-The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}. On the
-faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
+The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}. With
+pre-advice and final decisions $s_1,y\in\{0,1\}$, ground truth $g$, and displayed AI advice $\hat a$,
+relative positive AI reliance and relative self-reliance are the conflict-conditioned rates
+\begin{equation}
+\mathrm{RAIR}=\Pr(y{=}g\mid s_1{\ne}g,\ \hat a{=}g),\qquad
+\mathrm{RSR}=\Pr(y{=}g\mid s_1{=}g,\ \hat a{\ne}g).
+\end{equation}
+On the faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
 highest relative self-reliance (RSR $=0.92$: it keeps its own correct answer when the AI is wrong) and is
 among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n{=}14$
 reliance opportunities), and under the adversarial dark condition it shows the lowest over-reliance ($0.16$
