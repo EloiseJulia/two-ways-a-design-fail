@@ -28,7 +28,7 @@
 \begin{document}
 
 \title{Two Ways a Design Fails: When Does a Synthetic LLM Panel See the Danger?}
-\subtitle{A Backend-Sensitivity Audit of Synthetic-User Interface-Risk Measurement}
+\subtitle{A Backend-Sensitivity Audit of Synthetic-User Interface-\emph{Content} Risk Measurement}
 
 \author{Anonymous Author(s)}
 \affiliation{%
@@ -142,6 +142,13 @@ predicts humans, we should ask whether it even \emph{measures the same thing} wh
 or the same researcher on a different day, rebuilds it. This is a question of measurement
 reliability and invariance~\cite{santurkar2023whose,cheng2023compost}---logically prior to external
 validity---and it is the question this paper answers.
+
+\emph{Scope.} Throughout, ``interface'' refers to the interface's \emph{informational content and framing}
+as an agent receives it---the AI prediction, its confidence, the highlighted explanation, and the coercive
+or protective wording---encoded as text (Section~\ref{sec:method}). We deliberately study this
+content/framing layer, not the pixel-level visual layer (layout, salience, typography); a multimodal
+rendering is future work (Section~\ref{sec:limits}). Our claims concern whether a synthetic panel's reading
+of \emph{that} content is backend-stable, not the visual presentation of a shipped UI.
 
 Concretely, we audit a two-axis synthetic panel across \textbf{six backend LLMs} and \textbf{two
 review-sentiment datasets}, and ask:

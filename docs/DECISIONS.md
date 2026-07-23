@@ -1339,6 +1339,20 @@
   compute runs must SERIALIZE; non-proxy prep (this harness, LSAT/multimodal harnesses, benchmark
   verification) is done in parallel while a run executes.
 
+### D5.53 — UI/multimodal DEFERRED + scope tightened (interface → interface-content), zero-compute
+- **Date:** 2026-07-23 · PI weighed whether to build a multimodal UI-screenshot arm (Q4 "you test prompts,
+  not interfaces"). Decision: **DEFER** the pixel-level UI arm. Rationale: it changes the measured object
+  (all n=12 / capvuln / protective / coverage results are content-level), shrinks the backend set to
+  vision-only models (breaks the n=12 expansion), and only partially answers the critique (static
+  screenshots still are not a live UI) — net it disperses the main line and diverts effort from E6. The
+  half-built html2image harness is kept for future pickup (Edge/Chrome present, html2image installed).
+- **Zero-compute mitigation instead:** added an explicit \emph{Scope} paragraph in the intro stating that
+  ``interface'' means the interface's informational \emph{content and framing} (prediction, confidence,
+  explanation, coercive/protective wording) encoded as text, NOT the pixel-level visual layer — turning the
+  ``prompt-not-pixels'' critique from an attackable gap into a stated research boundary. Subtitle tightened
+  to ``Interface-\emph{Content} Risk Measurement''. Method already had the prompt-level disclosure; Limits
+  already list multimodal as future work. Built clean (13pp). No claims/numbers changed.
+
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
