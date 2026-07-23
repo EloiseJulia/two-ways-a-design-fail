@@ -20,11 +20,12 @@ from scipy.stats import spearmanr
 
 sys.path.insert(0, os.path.dirname(__file__))
 from axis2_robustness import load_dark_records, wilson_ci, PERSONAS, TARGET  # noqa: E402
+import figstyle  # noqa: E402
 
 LADDER = ['gpt-4o-mini', 'gpt-4.1', 'gpt-4o', 'gpt-5.5']
 ALL_MODELS = ['gpt-4o-mini', 'gpt-4.1', 'gpt-4o', 'gpt-5.5', 'claude-sonnet-4.5', 'gemini-2.5-pro']
 DOMAINS = ['beer', 'amzbook']
-DCOL = {'beer': '#1f77b4', 'amzbook': '#d62728'}
+DCOL = figstyle.DATASET
 PERSONA_SHORT = {'p1-novice-skeptical': 'p1 novice-skeptical',
                  'p2-expert-trusting': 'p2 expert-trusting',
                  'p3-moderate-balanced': 'p3 moderate-balanced',
@@ -89,7 +90,7 @@ def fig2_persona_heatmap(df):
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.6), sharey=True)
     for ax, dom in zip(axes, DOMAINS):
         M = np.array([[pr[(dom, m, p)] for m in ALL_MODELS] for p in PERSONAS])
-        im = ax.imshow(M, cmap='magma', vmin=0, vmax=1, aspect='auto')
+        im = ax.imshow(M, cmap=figstyle.HEATMAP_CMAP, vmin=0, vmax=1, aspect='auto')
         ax.set_xticks(range(len(ALL_MODELS)))
         ax.set_xticklabels(ALL_MODELS, rotation=40, ha='right', fontsize=8)
         ax.set_yticks(range(len(PERSONAS)))
@@ -97,17 +98,18 @@ def fig2_persona_heatmap(df):
         for i in range(len(PERSONAS)):
             for j in range(len(ALL_MODELS)):
                 ax.text(j, i, f'{M[i, j]:.2f}', ha='center', va='center', fontsize=7,
-                        color='white' if M[i, j] < 0.6 else 'black')
-        # highlight the p5 row
-        p5i = PERSONAS.index(TARGET)
-        ax.add_patch(plt.Rectangle((-0.5, p5i - 0.5), len(ALL_MODELS), 1, fill=False,
-                                   edgecolor='cyan', lw=2))
-        ax.set_title(dom)
+                                color='white' if M[i, j] < 0.5 else 'black')
+                ax.grid(False)
+                # highlight the p5 row
+                p5i = PERSONAS.index(TARGET)
+                ax.add_patch(plt.Rectangle((-0.5, p5i - 0.5), len(ALL_MODELS), 1, fill=False,
+                                           edgecolor=figstyle.OKABE['orange'], lw=2.2))
+                ax.set_title(dom)
     fig.suptitle('Dark-condition wrong-advice adoption by persona and backend, both datasets '
-                 '(p5 row highlighted)', fontsize=11)
+                         '(p5 row highlighted)', fontsize=11)
     fig.colorbar(im, ax=axes, fraction=0.025, pad=0.02, label='wrong-advice adoption')
     for ext in ('png', 'pdf'):
-        fig.savefig(os.path.join(FIGDIR, f'fig2_persona_heatmap.{ext}'), dpi=200, bbox_inches='tight')
+                fig.savefig(os.path.join(FIGDIR, f'fig2_persona_heatmap.{ext}'), bbox_inches='tight')
     plt.close(fig)
     print('wrote fig2_persona_heatmap')
 
@@ -161,7 +163,8 @@ def fig4_rate_vs_ordering(df):
     axL.set_ylim(0, 1)
     # RIGHT panels: per-persona vendor profiles, one per dataset (categorical personas: markers)
     vendors = ['gpt-5.5', 'claude-sonnet-4.5', 'gemini-2.5-pro']
-    vcol = {'gpt-5.5': '#009E73', 'claude-sonnet-4.5': '#9467bd', 'gemini-2.5-pro': '#E69F00'}
+    vcol = {'gpt-5.5': figstyle.OKABE['green'], 'claude-sonnet-4.5': figstyle.OKABE['purple'],
+            'gemini-2.5-pro': figstyle.OKABE['orange']}
     xp = np.arange(len(PERSONAS))
     p5i = PERSONAS.index(TARGET)
     for ax, dom in [(axB, 'beer'), (axA, 'amzbook')]:
@@ -184,7 +187,7 @@ def fig5_decision_flip(df):
     some clear -> the decision flips across backends."""
     cr = cell_rates(df)
     thr = 0.5
-    FLAG, BELOW = '#D55E00', '#0072B2'  # colorblind-safe (Wong): vermillion / blue
+    FLAG, BELOW = figstyle.OKABE['vermillion'], figstyle.OKABE['blue']  # colorblind-safe
     fig, axes = plt.subplots(1, 2, figsize=(11, 3.8), sharex=True)
     for ax, dom in zip(axes, DOMAINS):
         vals = [(m, cr[(dom, m)][2]) for m in ALL_MODELS]
@@ -194,7 +197,8 @@ def fig5_decision_flip(df):
         colors = [FLAG if r >= thr else BELOW for r in rates]
         y = np.arange(len(names))
         ax.barh(y, rates, color=colors)
-        ax.axvline(thr, ls='--', color='black', lw=1.2)
+        ax.grid(True, axis='x'); ax.grid(False, axis='y')
+        ax.axvline(thr, ls='--', color=figstyle.OKABE['black'], lw=1.2)
         ax.annotate(r'$\tau=0.5$', xy=(thr, len(names) - 0.4), xytext=(thr + 0.02, len(names) - 0.4),
                     fontsize=8, va='center')
         for yi, r in zip(y, rates):
@@ -271,9 +275,9 @@ def fig7_coverage_curve(_df):
         ks = np.arange(1, len(ALL_MODELS) + 1)
         gc = [v / U for v in c['greedy_curve']]
         cc = [v / U for v in c['capability_curve']]
-        ax.plot(ks, gc, '-o', color='#2ca02c', label='coverage-greedy (ours)')
-        ax.plot(ks, cc, '-s', color='#d62728', label='capability-first (router)')
-        ax.axhline(1.0, ls=':', color='gray', lw=0.8)
+        ax.plot(ks, gc, '-o', color=figstyle.GREEDY, label='coverage-greedy (ours)')
+        ax.plot(ks, cc, '-s', color=figstyle.ROUTER, label='capability-first (router)')
+        ax.axhline(1.0, ls=':', color=figstyle.OKABE['grey'], lw=0.8)
         ax.set_xlabel('panel size $k$ (backends)')
         ax.set_ylabel('vulnerability coverage\n(fraction of %d high-risk cells)' % U)
         ax.set_ylim(0, 1.05)
@@ -282,8 +286,8 @@ def fig7_coverage_curve(_df):
         ax.legend(fontsize=8, loc='lower right')
         ax.annotate('router\'s 1st pick\n(frontier) = %.0f%%' % (100 * cc[0]),
                     xy=(1, cc[0]), xytext=(3.1, 0.30),
-                    fontsize=7.5, color='#d62728', ha='center',
-                    arrowprops=dict(arrowstyle='->', color='#d62728'))
+                    fontsize=7.5, color=figstyle.ROUTER, ha='center',
+                    arrowprops=dict(arrowstyle='->', color=figstyle.ROUTER))
     fig.suptitle('Selecting a synthetic panel for vulnerability coverage inverts capability routing',
                  fontsize=10)
     save(fig, 'fig7_coverage_curve')
@@ -296,7 +300,7 @@ def fig8_protective(_df):
     pr = json.load(open('results/protective_intervention.json'))
     conds = ['dark', 'plain', 'forcing', 'verify']
     clabel = {'dark': 'dark\n(coercive)', 'plain': 'plain', 'forcing': 'forcing', 'verify': 'verify'}
-    ccol = {'dark': '#7f0000', 'plain': '#d62728', 'forcing': '#1f77b4', 'verify': '#2ca02c'}
+    ccol = figstyle.CONDITION
     fig, (axL, axR) = plt.subplots(1, 2, figsize=(9.6, 3.8), gridspec_kw={'width_ratios': [2.3, 1]})
     x = np.arange(len(ALL_MODELS)); w = 0.2
     for i, c in enumerate(conds):
@@ -321,12 +325,13 @@ def fig8_protective(_df):
     axR.set_ylabel('p5 wrong-AI adoption')
     axR.axhline(0.5, ls=':', color='gray', lw=0.8)
     axR.set_ylim(0, 1.0)
-    axR.set_title('At-risk persona (p5)\n$0.78\\!\\to\\!0.46$--$0.53$ ($p<10^{-6}$)', fontsize=9)
+    axR.set_title('At-risk persona (p5)\n$0.78\\!\\to\\!0.46$\u2013$0.53$ ($p<10^{-6}$)', fontsize=9)
     save(fig, 'fig8_protective')
 
 
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
+    figstyle.apply()
     df = load_dark_records()
     fig1_axis2_ladder(df)
     fig2_persona_heatmap(df)

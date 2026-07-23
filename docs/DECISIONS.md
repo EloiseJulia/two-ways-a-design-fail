@@ -1286,6 +1286,17 @@
   description in BOTH sec:definitions and sec:modeldep to match the code; added \label{sec:definitions}.
   NO numbers changed (the reported 0.11/0.16/0.10/0.012 etc. always came from the code's between-persona
   computation; only the textual description was wrong). Built clean (13pp).
+
+### D5.49 — Figure aesthetics overhaul (shared professional style)
+- **Date:** 2026-07-23 · PI asked to raise figure visual quality. Chose matplotlib + a shared style module
+  (reproducible, camera-ready, right tool for LaTeX embedding — not plotly/altair). New
+  scripts/analysis/figstyle.py sets global rcParams: Times-compatible serif (matches acmart body) + STIX
+  math; Okabe--Ito colorblind-safe palette with consistent semantic maps (dataset beer=blue/amzbook=
+  vermillion, greedy=green/router=vermillion, protective conditions = red→blue diverging severity ramp,
+  heatmap cmap=cividis); top/right spines dropped, light y-grid, TrueType-embedded 400-dpi output. Refactored
+  make_figures.py (fig1--8) to route ALL colors/cmaps through figstyle; per-figure fixes (heatmap p5
+  highlight orange not cyan + grid off; fig5 barh switched to x-grid; fig8 en-dash). Visually reviewed
+  fig1/2/5/6/8 — consistent, professional, CB-safe. Recompiled (13pp). No data/claims changed.
 ## Cross-cutting rigor commitments (standing)
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
