@@ -1,5 +1,5 @@
 {
-  "n_backends": 8,
+  "n_backends": 11,
   "backends_present": [
     "gpt-4o-mini",
     "gpt-4.1",
@@ -8,7 +8,10 @@
     "claude-sonnet-4.5",
     "gemini-2.5-pro",
     "gpt-3.5-turbo",
-    "gpt-4"
+    "gpt-4",
+    "gpt-5.4",
+    "claude-opus-4.6",
+    "gemini-3.1-pro-preview"
   ],
   "capability_s1acc": {
     "gpt-4o-mini": 0.796,
@@ -18,15 +21,21 @@
     "claude-sonnet-4.5": 0.817,
     "gemini-2.5-pro": 0.733,
     "gpt-3.5-turbo": 0.775,
-    "gpt-4": 0.742
+    "gpt-4": 0.742,
+    "gpt-5.4": 0.742,
+    "claude-opus-4.6": 0.758,
+    "gemini-3.1-pro-preview": 0.867
   },
   "capability_order_strong_to_weak": [
     "gpt-5.5",
+    "gemini-3.1-pro-preview",
     "claude-sonnet-4.5",
     "gpt-4o-mini",
     "gpt-3.5-turbo",
     "gpt-4o",
+    "claude-opus-4.6",
     "gpt-4",
+    "gpt-5.4",
     "gemini-2.5-pro",
     "gpt-4.1"
   ],
@@ -102,23 +111,50 @@
       "RSR": 0.769,
       "n_rair": 22,
       "n_rsr": 39
+    },
+    "gpt-5.4": {
+      "p5_adopt": 0.75,
+      "agg_adopt": 0.383,
+      "flip": 0.169,
+      "RAIR": 0.316,
+      "RSR": 0.889,
+      "n_rair": 19,
+      "n_rsr": 36
+    },
+    "claude-opus-4.6": {
+      "p5_adopt": 0.55,
+      "agg_adopt": 0.383,
+      "flip": 0.187,
+      "RAIR": 0.619,
+      "RSR": 0.9,
+      "n_rair": 21,
+      "n_rsr": 40
+    },
+    "gemini-3.1-pro-preview": {
+      "p5_adopt": 0.8,
+      "agg_adopt": 0.317,
+      "flip": 0.212,
+      "RAIR": 0.812,
+      "RSR": 0.771,
+      "n_rair": 16,
+      "n_rsr": 48
     }
   },
   "correlations": {
     "p5_adopt": {
-      "spearman": -0.546,
-      "p": 0.1619,
-      "n": 8
+      "spearman": -0.397,
+      "p": 0.226,
+      "n": 11
     },
     "agg_adopt": {
-      "spearman": -0.81,
-      "p": 0.0149,
-      "n": 8
+      "spearman": -0.687,
+      "p": 0.0196,
+      "n": 11
     },
     "flip": {
-      "spearman": -0.548,
-      "p": 0.16,
-      "n": 8
+      "spearman": -0.438,
+      "p": 0.1775,
+      "n": 11
     }
   },
   "coverage": {
@@ -126,7 +162,7 @@
       "metric": "adopt",
       "tau": 0.5,
       "universe": 9,
-      "n_backends": 8,
+      "n_backends": 11,
       "single_best": 9,
       "single_best_backend": "gpt-4.1",
       "single_frontier": 1,
@@ -139,9 +175,15 @@
         "claude-sonnet-4.5",
         "gemini-2.5-pro",
         "gpt-3.5-turbo",
-        "gpt-4"
+        "gpt-4",
+        "gpt-5.4",
+        "claude-opus-4.6",
+        "gemini-3.1-pro-preview"
       ],
       "greedy_curve": [
+        9,
+        9,
+        9,
         9,
         9,
         9,
@@ -154,21 +196,24 @@
       "greedy_k_full": 1,
       "capability_curve": [
         1,
+        1,
         4,
         6,
         6,
         6,
+        6,
+        8,
         8,
         8,
         9
       ],
-      "capability_k_full": 8
+      "capability_k_full": 11
     },
     "flip_tau0.5": {
       "metric": "flip",
       "tau": 0.5,
       "universe": 7,
-      "n_backends": 8,
+      "n_backends": 11,
       "single_best": 6,
       "single_best_backend": "gpt-4.1",
       "single_frontier": 1,
@@ -181,10 +226,16 @@
         "gpt-5.5",
         "gemini-2.5-pro",
         "gpt-3.5-turbo",
-        "gpt-4"
+        "gpt-4",
+        "gpt-5.4",
+        "claude-opus-4.6",
+        "gemini-3.1-pro-preview"
       ],
       "greedy_curve": [
         6,
+        7,
+        7,
+        7,
         7,
         7,
         7,
@@ -196,15 +247,18 @@
       "greedy_k_full": 2,
       "capability_curve": [
         1,
+        1,
+        4,
         4,
         4,
         4,
         4,
         6,
+        6,
         7,
         7
       ],
-      "capability_k_full": 7
+      "capability_k_full": 10
     }
   }
 }
