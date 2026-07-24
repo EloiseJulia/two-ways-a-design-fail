@@ -651,13 +651,26 @@ gpt-3.5-turbo, gpt-4, gpt-5.4, claude-opus-4.6, and gemini-3.1-pro; a twelfth, c
 because it never emitted a parseable decision---an instrument failure, disclosed). Across these eleven, and
 now \emph{pooling both datasets}, backend capability anti-correlates with all three vulnerability measures
 (Spearman: aggregate adoption $-0.82$, AI-induced flip $-0.67$, p5 adoption $-0.65$; Benjamini--Hochberg
-$p\le0.03$). We \textbf{tier} these by robustness. The \emph{aggregate-adoption} anti-correlation is solid:
-significant in each dataset separately (beer $-0.68$, amzbook $-0.98$) and in every leave-one-backend-out
-jackknife (worst-case $p=0.01$). The \emph{flip} and \emph{p5} anti-correlations are \emph{suggestive}: they
-are carried by the amzbook domain (in beer alone both are non-significant) and are fragile to removing a
-single backend, so we report them as a cross-domain pattern, not a within-domain law. Either way the
-qualitative reading is unchanged and does not rest on the correlation at all: \textbf{the frontier backend
-is nearly blind to the at-risk persona.}
+$p\le0.03$; Figure~\ref{fig:expand11}). We \textbf{tier} these by robustness. The \emph{aggregate-adoption}
+anti-correlation is solid: significant in each dataset separately (beer $-0.68$, amzbook $-0.98$) and in
+every leave-one-backend-out jackknife (worst-case $p=0.01$). The \emph{flip} and \emph{p5} anti-correlations
+are \emph{suggestive}: they are carried by the amzbook domain (in beer alone both are non-significant) and
+are fragile to removing a single backend, so we report them as a cross-domain pattern, not a within-domain
+law. Either way the qualitative reading is unchanged and does not rest on the correlation at all:
+\textbf{the frontier backend is nearly blind to the at-risk persona.}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig6b_expand11}
+  \caption{Backend expansion to $n{=}11$ (pooling both datasets). Left: backend task competence
+  (System-1 accuracy) vs.\ three dark-condition vulnerability measures, tiered by robustness---aggregate
+  adoption (filled, solid fit) is jackknife-robust and significant in each dataset; AI-induced flip and p5
+  adoption (open, dashed fit) are BH-significant only pooled and are amzbook-carried / single-backend
+  fragile. Right: the $n{=}11$ vulnerability-coverage curve---a capability-first (router) panel reaches full
+  coverage of the high-risk cells only at $k{=}10$, while a coverage-greedy panel is complete almost
+  immediately; a single frontier backend covers $1/9$.}
+  \label{fig:expand11}
+\end{figure*}
 
 This has a concrete consequence for assembling an evaluation panel. Treating a persona as \emph{covered}
 when its dark adoption reaches a risk threshold (0.5), a single frontier backend---the model a

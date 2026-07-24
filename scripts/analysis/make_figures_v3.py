@@ -338,6 +338,63 @@ def fig6(_df):
     save(fig, 'fig6_capability_vulnerability')
 
 
+def fig6b_expand11(_df):
+    """n=11 expansion: capability vs the three vulnerability measures (tiered by audited robustness:
+    aggregate adoption = solid/robust; flip & p5 = open/suggestive), and the n=11 coverage curve."""
+    ex = json.load(open('results/expand12_analysis.json'))
+    models = ex['capability_order_strong_to_weak']
+    cap = np.array([ex['capability_s1acc'][m] for m in models])
+    pb = ex['per_backend']
+    cor = ex['correlations']
+    fig, (axS, axC) = plt.subplots(1, 2, figsize=(9.6, 4.0), gridspec_kw={'width_ratios': [1.15, 1]})
+    # LEFT: scatter of 3 metrics vs capability, tiered
+    series = [('agg_adopt', 'aggregate adoption', figstyle.OKABE['vermillion'], 'o', True),
+              ('flip', 'AI-induced flip', figstyle.OKABE['blue'], 's', False),
+              ('p5_adopt', 'p5 adoption', figstyle.OKABE['green'], '^', False)]
+    for key, lab, col, mk, robust in series:
+        y = np.array([pb[m][key] for m in models])
+        face = col if robust else 'none'
+        rho = cor[key]['spearman']; pbh = cor[key]['p_bh']
+        tier = 'robust' if robust else 'suggestive'
+        axS.scatter(cap, y, s=48, marker=mk, facecolor=face, edgecolor=col, linewidth=1.4, zorder=3,
+                    label=f'{lab} ($\\rho{{=}}{rho:.2f}$, BH$\\,p{{=}}{pbh:.3f}$; {tier})')
+        b, a = np.polyfit(cap, y, 1)
+        xx = np.linspace(cap.min(), cap.max(), 20)
+        axS.plot(xx, b * xx + a, color=col, lw=1.2, ls='-' if robust else '--', alpha=0.65)
+    fm = ex['coverage']['adopt_tau0.5']['frontier_backend']
+    axS.annotate(f'{fm}\n(frontier)', xy=(cap[0], pb[models[0]]['agg_adopt']),
+                 xytext=(cap[0] - 0.03, pb[models[0]]['agg_adopt'] + 0.16), fontsize=8, ha='center',
+                 arrowprops=dict(arrowstyle='->', color='0.4'))
+    axS.set_xlabel('backend task competence (System-1 accuracy)')
+    axS.set_ylabel('dark-condition vulnerability metric')
+    axS.set_title(f'Capability vs vulnerability at $n{{=}}{ex["n_backends"]}$ backends\n'
+                  '(pooled both datasets; tiered by robustness)', fontsize=9)
+    axS.set_ylim(0, None); axS.legend(fontsize=7, loc='lower left')
+    clean_axis(axS, grid_axis='y')
+    # RIGHT: n=11 coverage curve (adopt metric), greedy vs capability-first
+    c = ex['coverage']['adopt_tau0.5']; U = c['universe']
+    ks = np.arange(1, len(models) + 1)
+    gc = np.array(c['greedy_curve']) / U
+    cc = np.array(c['capability_curve']) / U
+    axC.fill_between(ks, cc, gc, step='post', where=gc >= cc, color=figstyle.GREEDY, alpha=0.12, linewidth=0)
+    axC.step(ks, gc, where='post', color=figstyle.GREEDY, lw=2, label='coverage-greedy (ours)', zorder=3)
+    axC.step(ks, cc, where='post', color=figstyle.ROUTER, lw=2, ls='--', label='capability-first (router)', zorder=3)
+    axC.plot(ks, gc, 'o', color=figstyle.GREEDY, ms=4, markeredgecolor='white', markeredgewidth=0.7, zorder=4)
+    axC.plot(ks, cc, 's', color=figstyle.ROUTER, ms=4, markeredgecolor='white', markeredgewidth=0.7, zorder=4)
+    axC.axhline(1.0, ls=':', color=figstyle.OKABE['grey'], lw=0.8)
+    axC.annotate(f'router reaches full\ncoverage only at $k{{=}}{c["capability_k_full"]}$',
+                 xy=(c['capability_k_full'], 1.0), xytext=(3.2, 0.45), fontsize=7.5, color=figstyle.ROUTER,
+                 arrowprops=dict(arrowstyle='->', color=figstyle.ROUTER))
+    axC.set_xlabel('panel size $k$'); axC.set_xticks(ks[::2])
+    axC.set_ylabel('vulnerability coverage\n(fraction of %d high-risk cells)' % U)
+    axC.set_ylim(0, 1.08); axC.set_title(f'Coverage at $n{{=}}{ex["n_backends"]}$', fontsize=9)
+    axC.legend(fontsize=8, loc='lower right')
+    clean_axis(axC)
+    fig.suptitle('Backend expansion ($n{=}11$): capability anti-correlates with vulnerability; '
+                 'coverage routing still inverted', y=1.02, fontsize=10)
+    save(fig, 'fig6b_expand11')
+
+
 def fig4_only(df):
     import make_figures as mf
     mf.fig4_rate_vs_ordering(df)
@@ -352,6 +409,7 @@ def main():
     fig3(df)
     fig5(df)
     fig6(df)
+    fig6b_expand11(df)
     fig7(df)
     fig8(df)
     fig4_only(df)
