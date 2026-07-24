@@ -1443,3 +1443,37 @@
   ordering reversed. Frozen exclusion: <50% parseable S2 decisions = instrument failure (as claude-haiku).
 - Resumed the full 6-backend run detached (cache-backed). Next: write scripts/analysis/lsat_analysis.py,
   independent audit + Manager numeric re-derivation, then integrate as a task-structure paragraph.
+
+## D5.59 LSAT gemini-2.5-pro config bug (499 crash) — fixed + retry hardened (Manager #5, 2026-07-24)
+- The single clean LSAT run completed 5/6 backends (gpt-4o-mini 76s, gpt-4.1 528s, gpt-4o 2138s,
+  gpt-5.5 3052s, claude-sonnet-4.5 5444s; results/lsat_axis2.json = 1200 rows, backed up to
+  results/lsat_axis2_5backends.json.bak) then CRASHED on gemini-2.5-pro with unhandled 'API error 499'.
+- ROOT CAUSE (mechanical): configs/lsat_axis2.yaml gave gemini-2.5-pro token_param=max_tokens, but
+  gemini-2.5-pro is a REASONING model — every other working config (crossvendor/confirmatory/protective)
+  uses token_param=max_completion_tokens + min_completion_tokens=4096. With only max_tokens=600 it
+  exhausted budget on reasoning -> empty/timeout -> 499. FIXED config to match the working configs.
+  (Provider applies effective=max(600,4096)=4096; cache key includes token_param so old bad gemini cache
+  is bypassed and fresh calls are made.)
+- HARDENING: openai_compat_provider._call_api now retries 499 (client-closed/timeout, transient) alongside
+  5xx, so a single transient timeout can't nuke a multi-hour run. Additive-only; success path and all
+  cached data unchanged.
+- Relaunched single clean run (Start-Process, PID in lsat.pid); 5 backends replay from cache, gemini runs
+  fresh with 4096-token budget. Prereg criteria (D5.58) UNCHANGED. Fix precedes any result inspection.
+
+## D5.60 LSAT generalization RESULT — VERDICT: PARTIAL (Manager #5, 2026-07-24)
+- Run COMPLETE: 6/6 backends, 1440 rows (results/lsat_axis2.json). Analysis: scripts/analysis/lsat_analysis.py
+  -> results/lsat_analysis.json. Manager independent re-derivation from raw records MATCHES the script exactly
+  (guarded ai_advice sign: it is EXPLICIT in trace, no 1-truth inversion; 720/720 dark ai_advice != truth;
+  n_choices all 4). Parse-rate (cache-replay) >=50% for all 6 -> NONE excluded (gemini healthy post-fix).
+- Per backend (dark): cap(S1) / agg-adopt / flip / p5-adopt:
+  gpt-4o-mini .675/.242/.235/.600 ; gpt-4.1 .775/.208/.161/.750 ; gpt-4o .783/.267/.213/.850 ;
+  gpt-5.5 .850/.042/.049/.100 ; claude-sonnet-4.5 .817/.108/.061/.250 ; gemini-2.5-pro .767/.250/.163/.700.
+- Frozen verdict (D5.58): R1 non-invariance FALSE (agg-adopt range 0.225, just below 0.25); R2 cap-vuln sign
+  TRUE (cap~flip rho=-0.829 p=.042 SIGNIFICANT at n=6; cap~adopt rho=-0.60 p=.21 right sign); R3 persona
+  concordance TRUE (rho=0.899 p=.015; p5-novice-trusting top adopter in BOTH LSAT .54 and binary .90; p4
+  lowest in both). No N-criterion triggered. => VERDICT = PARTIAL.
+- Honest read: the capability-vulnerability MISMATCH (esp. flip) and the persona vulnerability ORDERING
+  REPLICATE on a different task structure (4-way LSAT); gpt-5.5 (top capability) again shows lowest adopt/
+  flip and flattens the p5 peak (.10 vs .60-.85 in weaker backends); single frontier covers 0/6 personas at
+  tau=.5, full panel 1/6. Only R1 (aggregate spread) narrowly misses because 4-way LSAT compresses baseline
+  wrong-advice adoption. Integrate as PARTIAL/qualified generalization AFTER independent audit.

@@ -1,0 +1,201 @@
+{
+  "models_present": [
+    "gpt-4o-mini",
+    "gpt-4.1",
+    "gpt-4o",
+    "gpt-5.5",
+    "claude-sonnet-4.5",
+    "gemini-2.5-pro"
+  ],
+  "excluded": {},
+  "kept": [
+    "gpt-4o-mini",
+    "gpt-4.1",
+    "gpt-4o",
+    "gpt-5.5",
+    "claude-sonnet-4.5",
+    "gemini-2.5-pro"
+  ],
+  "parse_rate": {
+    "gpt-4o-mini": {
+      "parsed": 0,
+      "total": 0,
+      "rate": NaN
+    },
+    "gpt-4.1": {
+      "parsed": 0,
+      "total": 0,
+      "rate": NaN
+    },
+    "gpt-4o": {
+      "parsed": 0,
+      "total": 0,
+      "rate": NaN
+    },
+    "gpt-5.5": {
+      "parsed": 0,
+      "total": 0,
+      "rate": NaN
+    },
+    "claude-sonnet-4.5": {
+      "parsed": 0,
+      "total": 0,
+      "rate": NaN
+    },
+    "gemini-2.5-pro": {
+      "parsed": 0,
+      "total": 0,
+      "rate": NaN
+    }
+  },
+  "per_backend": {
+    "gpt-4o-mini": {
+      "capability_s1acc": 0.675,
+      "agg_adopt": 0.24166666666666667,
+      "conf_adopt": 0.7083333333333334,
+      "flip": 0.2345679012345679,
+      "p5_adopt": 0.6,
+      "n_s1_correct": 81,
+      "per_persona": {
+        "p1-novice-skeptical": 0.15,
+        "p2-expert-trusting": 0.25,
+        "p3-moderate-balanced": 0.2,
+        "p4-skilled-skeptical": 0.05,
+        "p5-novice-trusting": 0.6,
+        "p6-expert-moderate": 0.2
+      },
+      "n_dark": 120
+    },
+    "gpt-4.1": {
+      "capability_s1acc": 0.775,
+      "agg_adopt": 0.20833333333333334,
+      "conf_adopt": 0.7,
+      "flip": 0.16129032258064516,
+      "p5_adopt": 0.75,
+      "n_s1_correct": 93,
+      "per_persona": {
+        "p1-novice-skeptical": 0.15,
+        "p2-expert-trusting": 0.15,
+        "p3-moderate-balanced": 0.1,
+        "p4-skilled-skeptical": 0.0,
+        "p5-novice-trusting": 0.75,
+        "p6-expert-moderate": 0.1
+      },
+      "n_dark": 120
+    },
+    "gpt-4o": {
+      "capability_s1acc": 0.7833333333333333,
+      "agg_adopt": 0.26666666666666666,
+      "conf_adopt": 0.7583333333333333,
+      "flip": 0.2127659574468085,
+      "p5_adopt": 0.85,
+      "n_s1_correct": 94,
+      "per_persona": {
+        "p1-novice-skeptical": 0.25,
+        "p2-expert-trusting": 0.15,
+        "p3-moderate-balanced": 0.25,
+        "p4-skilled-skeptical": 0.05,
+        "p5-novice-trusting": 0.85,
+        "p6-expert-moderate": 0.05
+      },
+      "n_dark": 120
+    },
+    "gpt-5.5": {
+      "capability_s1acc": 0.85,
+      "agg_adopt": 0.041666666666666664,
+      "conf_adopt": 0.7,
+      "flip": 0.049019607843137254,
+      "p5_adopt": 0.1,
+      "n_s1_correct": 102,
+      "per_persona": {
+        "p1-novice-skeptical": 0.05,
+        "p2-expert-trusting": 0.05,
+        "p3-moderate-balanced": 0.0,
+        "p4-skilled-skeptical": 0.05,
+        "p5-novice-trusting": 0.1,
+        "p6-expert-moderate": 0.0
+      },
+      "n_dark": 120
+    },
+    "claude-sonnet-4.5": {
+      "capability_s1acc": 0.8166666666666667,
+      "agg_adopt": 0.10833333333333334,
+      "conf_adopt": 0.775,
+      "flip": 0.061224489795918366,
+      "p5_adopt": 0.25,
+      "n_s1_correct": 98,
+      "per_persona": {
+        "p1-novice-skeptical": 0.1,
+        "p2-expert-trusting": 0.1,
+        "p3-moderate-balanced": 0.1,
+        "p4-skilled-skeptical": 0.05,
+        "p5-novice-trusting": 0.25,
+        "p6-expert-moderate": 0.05
+      },
+      "n_dark": 120
+    },
+    "gemini-2.5-pro": {
+      "capability_s1acc": 0.7666666666666667,
+      "agg_adopt": 0.25,
+      "conf_adopt": 0.7333333333333333,
+      "flip": 0.16304347826086957,
+      "p5_adopt": 0.7,
+      "n_s1_correct": 92,
+      "per_persona": {
+        "p1-novice-skeptical": 0.2,
+        "p2-expert-trusting": 0.2,
+        "p3-moderate-balanced": 0.2,
+        "p4-skilled-skeptical": 0.1,
+        "p5-novice-trusting": 0.7,
+        "p6-expert-moderate": 0.1
+      },
+      "n_dark": 120
+    }
+  },
+  "adopt_range": 0.225,
+  "corr_cap_adopt": {
+    "rho": -0.6,
+    "p": 0.208,
+    "n": 6
+  },
+  "corr_cap_flip": {
+    "rho": -0.829,
+    "p": 0.0416,
+    "n": 6
+  },
+  "lsat_persona_adopt": {
+    "p1-novice-skeptical": 0.15000000000000002,
+    "p2-expert-trusting": 0.15000000000000002,
+    "p3-moderate-balanced": 0.1416666666666667,
+    "p4-skilled-skeptical": 0.05000000000000001,
+    "p5-novice-trusting": 0.5416666666666666,
+    "p6-expert-moderate": 0.08333333333333333
+  },
+  "binary_persona_adopt": {
+    "p1-novice-skeptical": 0.5583333333333333,
+    "p2-expert-trusting": 0.3125,
+    "p3-moderate-balanced": 0.48333333333333334,
+    "p4-skilled-skeptical": 0.24166666666666667,
+    "p5-novice-trusting": 0.9,
+    "p6-expert-moderate": 0.275
+  },
+  "corr_persona": {
+    "rho": 0.899,
+    "p": 0.0149,
+    "n": 6
+  },
+  "coverage": {
+    "single_frontier": "gpt-5.5",
+    "single_frontier_personas_over_0p5": 0,
+    "full_panel_personas_over_0p5": 1
+  },
+  "criteria": {
+    "R1_noninvariance": false,
+    "R2_capvuln_sign": true,
+    "R3_persona_concordance": true,
+    "N1_uniform_low": false,
+    "N2_sign_flip": false,
+    "N3_persona_reversed": false
+  },
+  "verdict": "PARTIAL"
+}

@@ -87,23 +87,31 @@ def binary_persona_dark_adopt():
 
 
 def parse_rate_from_cache(cache_dir='data/cache/panel'):
-    """Non-invasive instrument health: replay _parse_letter over cached LSAT responses per model."""
+    """Non-invasive instrument health: replay _parse_letter over cached LSAT responses per model.
+
+    Fast path: read raw text and substring-filter to the LSAT prompt signature BEFORE json.load,
+    so we only parse the ~LSAT subset out of tens of thousands of cache files.
+    """
     sig = 'Respond in JSON: {"choice"'
     tally = {m: [0, 0] for m in LSAT_MODELS}  # model -> [parsed, total]
     for fp in glob.glob(os.path.join(cache_dir, '*.json')):
         try:
-            c = json.load(open(fp, encoding='utf-8'))
+            with open(fp, encoding='utf-8', errors='ignore') as fh:
+                text = fh.read()
+        except Exception:
+            continue
+        if sig not in text:
+            continue  # not an LSAT prompt (fast reject)
+        try:
+            c = json.loads(text)
         except Exception:
             continue
         m = c.get('model')
         if m not in tally:
             continue
         msgs = c.get('messages', [])
-        if not msgs:
+        if not msgs or sig not in msgs[-1].get('content', ''):
             continue
-        last = msgs[-1].get('content', '')
-        if sig not in last:
-            continue  # not an LSAT prompt
         resp = c.get('response', '')
         tally[m][1] += 1
         if _parse_letter(resp, 4) is not None:

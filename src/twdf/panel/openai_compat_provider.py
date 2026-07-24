@@ -244,7 +244,7 @@ class OpenAICompatibleProvider:
                     last_error = f"HTTP 429: {response.text}"
                     continue
 
-                if response.status_code in [500, 502, 503, 504]:
+                if response.status_code in [499, 500, 502, 503, 504]:
                     wait_time = (2 ** attempt) + (attempt * 0.5)
                     print(f"Server error {response.status_code}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
                     time.sleep(wait_time)
