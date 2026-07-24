@@ -1,0 +1,3611 @@
+{
+  "run_manifest": {
+    "experiment": "lsat_axis2",
+    "timestamp": "2026-07-24T03:39:59.251899Z",
+    "n_models": 6,
+    "n_personas": 6,
+    "n_items": 20
+  },
+  "responses": [
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p1-novice-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p2-expert-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p3-moderate-balanced",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p4-skilled-skeptical",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p5-novice-trusting",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "1",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "4",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "27",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "3",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "20",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "36",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "28",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "30",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "15",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "5",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "17",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "9",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 2,
+        "ai_correct": true,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "25",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 1,
+        "ai_correct": true,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 1,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "21",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 1,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "22",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 2,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 2,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "24",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 1,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 1,
+        "ai_correct": false,
+        "task_id": "12",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 2,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 2,
+        "ai_correct": false,
+        "task_id": "19",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 0,
+        "ai_correct": true,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 0,
+      "final_decision": 0,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 0,
+        "ai_advice": 3,
+        "ai_correct": false,
+        "task_id": "11",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Conf.",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 3,
+        "ai_correct": true,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    },
+    {
+      "model": "gpt-4o-mini",
+      "persona_id": "p6-expert-moderate",
+      "ui_condition": "Wrong-AI-GT (dark)",
+      "system1_decision": 3,
+      "final_decision": 3,
+      "gen_seed": 42,
+      "trace": {
+        "ground_truth": 3,
+        "ai_advice": 0,
+        "ai_correct": false,
+        "task_id": "26",
+        "n_choices": 4
+      }
+    }
+  ]
+}
