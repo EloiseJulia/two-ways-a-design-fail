@@ -1428,3 +1428,18 @@
   43%, personas 0.11–0.56) + a first axis-2 wrong-AI signal (0.325) + a backfire lead.
 - **OPEN:** the POWERED confirmatory axis-1 H1a test (not run); C0 generalization (unresolved);
   regime/sequential-feedback mechanism; axis-2/E4 completion; τ calibration; cross-vendor triangulation.
+
+## D5.58 LSAT task-structure generalization — PREREGISTERED + resumed (Manager #5, 2026-07-24)
+- Found the in-flight LSAT run was INCOMPLETE: only 1/6 backends (gpt-4o-mini, 240 rows) had completed
+  before Manager #4's shell was killed. Harness rewrites output each backend and starts rows=[] fresh;
+  "resumable" = PROVIDER cache (data/cache/panel), not the output file. Backed up partial ->
+  results/lsat_axis2_partial_gpt4omini.json.bak.
+- PREREGISTERED frozen criteria BEFORE computing any cross-backend metric:
+  docs/plans/2026-07-24-C-lsat-generalization-prereg.md. Framed as a REPLICATION/robustness arm (not a new
+  confirmatory test; underpowered at 6 backends x 20 items). Frozen metric defs mirror the binary arm
+  (adopt=final==ai_advice on dark; s1_correct; flip=adopt|s1_correct; capability=S1 acc). Frozen verdicts:
+  REPLICATES iff R1 backend non-invariance (dark-adopt range >=0.25) AND R2 cap-vuln sign negative AND
+  R3 persona ordering concordant (rho>0); else PARTIAL; NEGATIVE if uniformly-low adoption / sign flip /
+  ordering reversed. Frozen exclusion: <50% parseable S2 decisions = instrument failure (as claude-haiku).
+- Resumed the full 6-backend run detached (cache-backed). Next: write scripts/analysis/lsat_analysis.py,
+  independent audit + Manager numeric re-derivation, then integrate as a task-structure paragraph.
