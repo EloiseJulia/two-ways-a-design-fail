@@ -1396,6 +1396,24 @@
   cross-domain, not a within-domain law); Discussion + Limitations updated from "n=6 underpowered" to the
   tiered n=11 statement; coverage (load-bearing, assumption-light) unchanged. Built clean (14pp). Main
   6-backend analyses/figures retained; n=11 added as expansion/robustness. amzbook new backends = beer+amzbook.
+
+### D5.57 — Q1 non-instructional persona induction (backstory + demonstration) run + audited; claim NARROWED
+- **Date:** 2026-07-24 · Ran persona_induction_AB (480 resp, 0 fail): 6 backstory + 6 demonstration personas
+  × {gpt-4.1, gpt-5.5} × dark × 20 beer items, to test whether p5's over-reliance is merely prompt-compliance
+  with the explicit deference policy. Raw p5 pooled dark adoption: policy 0.80, background 0.65, backstory
+  1.00, demonstration 1.00 (all pooled rank-1).
+- **AUDIT HIGH CATCH — claim narrowed:** the auditor read the prompt builders and found backstory/
+  demonstration do NOT remove deference CONTENT — backstory narrates "going along with what they say",
+  demonstration shows past AI-following with "I figured it knew better" annotations + "continue the pattern".
+  So the 1.00 there is near-tautological and CANNOT be used as anti-circularity evidence (it moves compliance
+  from imperative to narrative/example). Only the background arm (D5.43) is a genuine deference-free control,
+  and it gives the WEAKEST p5 (0.65 pooled, not per-model top). Honest read (adopted): removing deference
+  content mutes p5 but it stays the weak pooled top with ordering ρ=0.89 → not SOLELY the explicit sentence,
+  but muted/per-model-inconsistent once deference removed; backstory/demonstration = alternative deference
+  encodings, not controls.
+- **Paper:** persona manipulation-check subsection appended one honest sentence framing backstory/
+  demonstration as alternative encodings (not deference-free), resting the anti-circularity argument only on
+  the background-only arm. Built clean (15pp). No overclaim.
 - Independent audit + Manager numeric re-derivation gate every merge; **two overstated subagent
   verdicts were caught** (panel-null mechanism D2.1; discriminator ceiling artifact D3.2).
 - Preregistration discipline: freeze model set / N / τ BEFORE their results; log every change with a
