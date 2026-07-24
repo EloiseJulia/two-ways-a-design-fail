@@ -379,7 +379,9 @@ threshold fitting, and selected to concentrate on loci of human reliance heterog
 outcomes are used only for \emph{item selection}, never leaked into agent prompts---item selection $\ne$
 label leakage). We run two \emph{review-sentiment datasets}: \textbf{beer reviews} and \textbf{Amazon book
 reviews (amzbook)}. Both are English binary sentiment; we therefore treat this as replication across two
-datasets within one task family, not broad cross-domain generalization (Section~\ref{sec:limits}).
+datasets within one task family, not broad cross-domain generalization; a preregistered LSAT arm
+(Section~\ref{sec:lsat}) tests whether the core findings survive a different task structure
+(Section~\ref{sec:limits}).
 
 \paragraph{Backends.} A within-provider series (gpt-4o-mini, gpt-4.1, gpt-4o, gpt-5.5, identical config)
 plus independent-vendor models (claude-sonnet-4.5, gemini-2.5-pro): six backends total. We order the
@@ -739,6 +741,33 @@ over-reliance. Capability trends with appropriate reliance across the six backen
 RAIR, $-0.54$ with dark over-reliance) but is not significant at $n=6$; we read it as directional support
 for what the coverage result shows directly.
 
+\subsection{Does the mismatch survive a different task structure? (LSAT)}
+\label{sec:lsat}
+Beer and amzbook are both English binary sentiment, so the pattern above could be an artifact of one task
+\emph{structure}. As a preregistered robustness arm we replayed the same six backends, six personas, and dark
+protocol on 20 LSAT logical-reasoning items~\cite{bansal2021whole}---a genuinely different structure (4-way
+multiple choice, harder, a different advice format), where the dark AI recommends a guaranteed-wrong option
+and adoption is $\mathrm{final}=\hat a$ against that explicit wrong option (all 720 dark trials satisfy
+$\hat a\neq g$; System-2 parse rate $=1.00$ for every backend, so no instrument-failure exclusion applies).
+We froze a replication rule---sign of the capability$\times$vulnerability correlation, concordance of the
+per-persona vulnerability \emph{ordering} with the binary arm, and a $\ge0.25$ cross-backend spread in
+aggregate adoption---before computing any LSAT metric. Two of the three carry over and one does not. The
+persona vulnerability ordering is preserved almost exactly: the trusting-novice persona is again the top
+adopter (dark adoption $0.54$ on LSAT, $0.90$ on binary) and the skilled-skeptical persona the lowest, with
+rank correlation $\rho=0.90$ ($p=.015$, $n=6$ personas). The capability$\times$vulnerability relationship
+keeps its \emph{sign}: the strongest backend (gpt-5.5, System-1 accuracy $0.85$) again shows the lowest dark
+adoption ($0.04$) and the lowest AI-induced flip ($0.05$) and again flattens the trusting-novice peak
+($0.10$ vs.\ $0.60$--$0.85$ for weaker backends), and $\rho(\text{capability},\text{flip})=-0.83$ stays in
+$[-1.0,-0.7]$ under every leave-one-backend-out subsample---though its nominal $p=.04$ is fragile (three of
+six drops push it to $p=.19$), so we read it, as in the binary arm, as a robust \emph{sign} rather than a
+significant coefficient. The coverage inversion also survives: the single highest-capability backend covers
+$0/6$ high-adoption personas at $\tau{=}0.5$ and the full panel only $1/6$. What does \emph{not} replicate is
+our own non-invariance magnitude: aggregate dark adoption spans only $0.04$--$0.27$ (range $0.225$, just
+under the frozen $0.25$), because the harder 4-way task lowers wrong-advice adoption across all backends and
+compresses the between-backend gap. We therefore report LSAT as a \emph{partial} generalization---the
+capability--vulnerability mismatch and the persona vulnerability ordering travel to a new task structure,
+while the size of the aggregate backend spread is task-dependent---not as confirmation of a task-invariant law.
+
 \subsection{Auditing a protective design: the direction travels, the magnitude does not}
 \label{sec:protective}
 
@@ -870,7 +899,10 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   \item \textbf{Two review datasets, both binary sentiment.} Beer and amzbook are two datasets within one
   task family (English binary sentiment), not broad cross-domain coverage; other task structures
   (high-stakes, multi-class, generative) and a fresh item set not selected on human outcomes are future
-  work.
+  work. A preregistered LSAT arm (Section~\ref{sec:lsat}; 4-way multiple choice) partially closes this: the
+  capability--vulnerability mismatch and the persona vulnerability ordering ($\rho{=}0.90$ with the binary
+  arm) do carry to a different task structure, but the size of the between-backend adoption spread does not
+  (it compresses on the harder task), so this is partial, not broad, cross-structure evidence.
   \item \textbf{Coercion is a bundled manipulation.} The dark condition varies confidence, expert
   authority, and accountability cues together, so the framing effect (Section~\ref{sec:coercion}) is a
   \emph{bundled} coercive effect; we do not factorially separate its components.

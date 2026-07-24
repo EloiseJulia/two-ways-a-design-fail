@@ -92,7 +92,8 @@ def parse_rate_from_cache(cache_dir='data/cache/panel'):
     Fast path: read raw text and substring-filter to the LSAT prompt signature BEFORE json.load,
     so we only parse the ~LSAT subset out of tens of thousands of cache files.
     """
-    sig = 'Respond in JSON: {"choice"'
+    sig = 'Respond in JSON: {"choice"'          # parsed-content signature (unescaped)
+    fast = 'Respond in JSON:'                    # plain-text prefilter (survives JSON escaping on disk)
     tally = {m: [0, 0] for m in LSAT_MODELS}  # model -> [parsed, total]
     for fp in glob.glob(os.path.join(cache_dir, '*.json')):
         try:
@@ -100,8 +101,8 @@ def parse_rate_from_cache(cache_dir='data/cache/panel'):
                 text = fh.read()
         except Exception:
             continue
-        if sig not in text:
-            continue  # not an LSAT prompt (fast reject)
+        if fast not in text:
+            continue  # not an LSAT prompt (fast reject on unescaped plain text)
         try:
             c = json.loads(text)
         except Exception:
@@ -111,7 +112,7 @@ def parse_rate_from_cache(cache_dir='data/cache/panel'):
             continue
         msgs = c.get('messages', [])
         if not msgs or sig not in msgs[-1].get('content', ''):
-            continue
+            continue  # correct check on PARSED message content
         resp = c.get('response', '')
         tally[m][1] += 1
         if _parse_letter(resp, 4) is not None:

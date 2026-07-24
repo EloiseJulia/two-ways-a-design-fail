@@ -18,34 +18,34 @@
   ],
   "parse_rate": {
     "gpt-4o-mini": {
-      "parsed": 0,
-      "total": 0,
-      "rate": NaN
+      "parsed": 581,
+      "total": 581,
+      "rate": 1.0
     },
     "gpt-4.1": {
-      "parsed": 0,
-      "total": 0,
-      "rate": NaN
+      "parsed": 516,
+      "total": 516,
+      "rate": 1.0
     },
     "gpt-4o": {
-      "parsed": 0,
-      "total": 0,
-      "rate": NaN
+      "parsed": 432,
+      "total": 432,
+      "rate": 1.0
     },
     "gpt-5.5": {
-      "parsed": 0,
-      "total": 0,
-      "rate": NaN
+      "parsed": 432,
+      "total": 432,
+      "rate": 1.0
     },
     "claude-sonnet-4.5": {
-      "parsed": 0,
-      "total": 0,
-      "rate": NaN
+      "parsed": 432,
+      "total": 432,
+      "rate": 1.0
     },
     "gemini-2.5-pro": {
-      "parsed": 0,
-      "total": 0,
-      "rate": NaN
+      "parsed": 449,
+      "total": 449,
+      "rate": 1.0
     }
   },
   "per_backend": {

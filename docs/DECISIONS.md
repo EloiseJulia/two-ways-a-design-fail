@@ -1477,3 +1477,26 @@
   flip and flattens the p5 peak (.10 vs .60-.85 in weaker backends); single frontier covers 0/6 personas at
   tau=.5, full panel 1/6. Only R1 (aggregate spread) narrowly misses because 4-way LSAT compresses baseline
   wrong-advice adoption. Integrate as PARTIAL/qualified generalization AFTER independent audit.
+
+## D5.61 LSAT audit APPROVE-WITH-CHANGES -> both fixes applied -> integrated (Manager #5, 2026-07-24)
+- Independent code-review audit (lsat-audit subagent) + Manager re-derivation. Audit reproduced every
+  headline number; confirmed sign correctness (no 1-truth inversion; 720/720 dark ai_advice!=truth),
+  binary-loader parity, _parse_letter parity, no capability double-counting (S1 identical across conditions
+  for 1440/1440 keys), verdict logic. Two findings, both fixed:
+  1. [BLOCKER for instrument-health CLAIM] My D5.60 parse-rate fast-path filtered on RAW file text for the
+     unescaped signature '{"choice"', but cache stores messages as ESCAPED JSON ('{\\"choice\\"'), so all
+     LSAT cache files were fast-rejected -> parse_rate was NaN/total=0 and excluded={} was VACUOUS (the frozen
+     <50% exclusion rule was never actually evaluated). FIXED: prefilter on plain unescaped 'Respond in JSON:'
+     then json.load + check PARSED msgs[-1] content. Re-ran: parse rate = 1.00 for ALL 6 backends
+     (gpt-4o-mini 581, gpt-4.1 516, gpt-4o/gpt-5.5/claude 432, gemini 449) -> excluded={} now VERIFIED.
+     Verdict UNCHANGED (PARTIAL); gemini confirmed real decisions not fallbacks (s1acc .77 >> .25 chance).
+  2. [OVERCLAIM] cap~flip p=.042 is jackknife-fragile (3/6 leave-one-out drops -> p=.19); SIGN robust
+     (rho in [-1.0,-0.7] every subsample). Paper text reports it as a robust SIGN, not a significant
+     coefficient, and discloses the fragility explicitly (mirrors the binary-arm tiering discipline).
+- INTEGRATED into paper: new \subsection sec:lsat in sec:capvuln ("Does the mismatch survive a different
+  task structure? (LSAT)") + updated the "two datasets/binary sentiment" Limitation + intro forward-pointer.
+  Cited bansal2021whole (SAME uw-hai/Complementary-Performance source as beer/amzbook; corrected an
+  initial wrong key bansal2021does before build). Rebuilt clean: 15pp, no undefined refs/cites.
+- Honest result stated: persona ordering (rho=0.90, p=.015) + cap-vuln SIGN + coverage inversion replicate
+  on 4-way LSAT; aggregate non-invariance magnitude does NOT (range 0.225<0.25, compressed by harder task).
+  Reported as PARTIAL generalization, closing the "one task family / binary sentiment" reviewer critique.
