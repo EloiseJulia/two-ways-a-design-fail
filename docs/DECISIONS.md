@@ -1553,3 +1553,15 @@
 - Captions: fig:ladder legend split into separate sentences (error bars / lines / dashed line);
   fig:protective staircase caption split at the "but" clause.
 - Build clean: 15pp, 0 undefined ref/cite. Pure writing polish.
+
+## D5.65 Consistency scan (WRITING LEAD, 2026-07-27) — number/format normalization; no claim/number change
+- p-value leading zeros: LSAT-section "p=.015/.04/.19" -> "p=0.015/0.04/0.19" to match the paper-wide
+  leading-zero convention (p=0.003, 0.60, etc.).
+- Inline-stat "{=}" tight-spacing normalized to plain "=" for n/k/tau/rho (n=6, n=11, k=10, tau=0.5,
+  rho=0.90) to match p=, OR, and most rho= usages. LEFT the probability-definition {=}/{\ne} pairs in the
+  RAIR/RSR and parser equations untouched (internally consistent as a pair).
+- Verified already-consistent: System-1/System-2, gpt-*/claude-*/gemini-* lowercase IDs, amzbook, backend
+  (no "back-end"), over-reliance, backend-dependent, Figure~\ref / Section~\ref tildes. The two
+  "trusting novice"/"wrong advice" without hyphen are correct NOUN-phrase uses (vs. attributive
+  "trusting-novice persona" / "wrong-advice adoption"), left as-is.
+- Build clean: 15pp, 0 undefined ref/cite.

@@ -635,7 +635,7 @@ anti-circularity argument only on the neutral background-only arm above.
   \includegraphics[width=\textwidth]{fig6_capability_vulnerability}
   \caption{Left: backend task competence (System-1 accuracy) vs.\ the AI-induced flip rate
   $P(\text{adopt}\mid\text{System-1 correct})$, both datasets---a directional negative trend (Spearman
-  $-0.43$ / $-0.60$; n.s.\ at $n{=}6$). Right: vulnerability coverage (number of the six personas whose
+  $-0.43$ / $-0.60$; n.s.\ at $n=6$). Right: vulnerability coverage (number of the six personas whose
   dark adoption reaches 0.5) for a single frontier backend, a weak pair, and the full panel. The single
   frontier backend surfaces the fewest at-risk profiles.}
   \label{fig:capvuln}
@@ -651,7 +651,7 @@ which excludes trials where the persona was already wrong (there adoption is 1 b
 ordering holds: the frontier flips a correct answer to the wrong AI least often (0.16), a mid-tier backend
 most (0.46).
 
-\paragraph{The pattern sharpens at $n{=}11$ backends.} To test whether this is an artifact of the six-model
+\paragraph{The pattern sharpens at $n=11$ backends.} To test whether this is an artifact of the six-model
 ladder, we expanded to \textbf{eleven} backends spanning three vendors and a wide capability range (adding
 gpt-3.5-turbo, gpt-4, gpt-5.4, claude-opus-4.6, and gemini-3.1-pro; a twelfth, claude-haiku-4.5, is excluded
 because it never emitted a parseable decision---an instrument failure, disclosed). Across these eleven, and
@@ -668,12 +668,12 @@ law. Either way the qualitative reading is unchanged and does not rest on the co
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{fig6b_expand11}
-  \caption{Backend expansion to $n{=}11$ (pooling both datasets). Left: backend task competence
+  \caption{Backend expansion to $n=11$ (pooling both datasets). Left: backend task competence
   (System-1 accuracy) vs.\ three dark-condition vulnerability measures, tiered by robustness---aggregate
   adoption (filled, solid fit) is jackknife-robust and significant in each dataset; AI-induced flip and p5
   adoption (open, dashed fit) are BH-significant only pooled and are amzbook-carried / single-backend
-  fragile. Right: the $n{=}11$ vulnerability-coverage curve---a capability-first (router) panel reaches full
-  coverage of the high-risk cells only at $k{=}10$, while a coverage-greedy panel is complete almost
+  fragile. Right: the $n=11$ vulnerability-coverage curve---a capability-first (router) panel reaches full
+  coverage of the high-risk cells only at $k=10$, while a coverage-greedy panel is complete almost
   immediately; a single frontier backend covers $1/9$.}
   \label{fig:expand11}
 \end{figure*}
@@ -732,7 +732,7 @@ relative positive AI reliance and relative self-reliance are the conflict-condit
 \end{equation}
 On the faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
 highest relative self-reliance (RSR $=0.92$: it keeps its own correct answer when the AI is wrong) and is
-among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n{=}14$
+among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n=14$
 reliance opportunities). Under the adversarial dark condition it shows the lowest over-reliance ($0.16$
 vs.\ up to $0.46$). In the field's own terms the strongest backend is the \emph{most appropriately reliant}
 user---which is precisely what makes it the least useful probe for an interface whose danger \emph{is}
@@ -753,14 +753,14 @@ per-persona vulnerability \emph{ordering} with the binary arm, and a $\ge0.25$ c
 aggregate adoption---before computing any LSAT metric. Two of the three carry over and one does not. The
 persona vulnerability ordering is preserved almost exactly: the trusting-novice persona is again the top
 adopter (dark adoption $0.54$ on LSAT, $0.90$ on binary) and the skilled-skeptical persona the lowest, with
-rank correlation $\rho=0.90$ ($p=.015$, $n=6$ personas). The capability$\times$vulnerability relationship
+rank correlation $\rho=0.90$ ($p=0.015$, $n=6$ personas). The capability$\times$vulnerability relationship
 keeps its \emph{sign}: the strongest backend (gpt-5.5, System-1 accuracy $0.85$) again shows the lowest dark
 adoption ($0.04$) and the lowest AI-induced flip ($0.05$) and again flattens the trusting-novice peak
 ($0.10$ vs.\ $0.60$--$0.85$ for weaker backends), and $\rho(\text{capability},\text{flip})=-0.83$ stays in
-$[-1.0,-0.7]$ under every leave-one-backend-out subsample---though its nominal $p=.04$ is fragile (three of
-six drops push it to $p=.19$), so we read it, as in the binary arm, as a robust \emph{sign} rather than a
+$[-1.0,-0.7]$ under every leave-one-backend-out subsample---though its nominal $p=0.04$ is fragile (three of
+six drops push it to $p=0.19$), so we read it, as in the binary arm, as a robust \emph{sign} rather than a
 significant coefficient. The coverage inversion also survives: the single highest-capability backend covers
-$0/6$ high-adoption personas at $\tau{=}0.5$ and the full panel only $1/6$. What does \emph{not} replicate is
+$0/6$ high-adoption personas at $\tau=0.5$ and the full panel only $1/6$. What does \emph{not} replicate is
 our own non-invariance magnitude: aggregate dark adoption spans only $0.04$--$0.27$ (range $0.225$, just
 under the frozen $0.25$), because the harder 4-way task lowers wrong-advice adoption across all backends and
 compresses the between-backend gap. We therefore report LSAT as a \emph{partial} generalization---the
@@ -898,7 +898,7 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   task family (English binary sentiment), not broad cross-domain coverage; other task structures
   (high-stakes, multi-class, generative) and a fresh item set not selected on human outcomes are future
   work. A preregistered LSAT arm (Section~\ref{sec:lsat}; 4-way multiple choice) partially closes this: the
-  capability--vulnerability mismatch and the persona vulnerability ordering ($\rho{=}0.90$ with the binary
+  capability--vulnerability mismatch and the persona vulnerability ordering ($\rho=0.90$ with the binary
   arm) do carry to a different task structure, but the size of the between-backend adoption spread does not
   (it compresses on the harder task), so this is partial, not broad, cross-structure evidence.
   \item \textbf{Coercion is a bundled manipulation.} The dark condition varies confidence, expert
@@ -924,7 +924,7 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   \item \textbf{The capability--vulnerability mismatch rests on synthetic evidence with a coarse capability
   proxy and a partly mechanical component.} Capability is proxied by mean System-1 accuracy; part of the raw
   capability$\times$adoption correlation is mechanical (a backend that answers correctly cannot then adopt a
-  wrong AI by construction). Even at $n{=}11$ backends across both datasets, only the aggregate-adoption
+  wrong AI by construction). Even at $n=11$ backends across both datasets, only the aggregate-adoption
   anti-correlation is jackknife-robust; the finer flip/p5 correlations are amzbook-carried and single-point
   fragile. We therefore lead with the assumption-light coverage result (a single frontier backend covers
   $\leq$1/9 high-adoption cells; a weak pair recovers 4--5/6) and report the capability correlation as
