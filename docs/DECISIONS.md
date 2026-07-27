@@ -1514,3 +1514,22 @@
   appositive dashes in results prose untouched (not mechanical).
 - Build: pdflatex->bibtex->pdflatex x2 clean; 15pp; 0 undefined ref/cite. Pure writing polish, not a content
   change.
+
+## D5.62 Novelty/collision audit refresh — VERIFIED (Manager #5, 2026-07-27)
+- Re-ran the collision audit (research subagent + Manager independent arXiv-meta verification of the two
+  top-threat papers). Overall risk MEDIUM (unchanged from D5.55); NO paper pre-empts the compound; field is
+  converging on LLM-simulation-instability + LLM-dark-patterns, so ~5 differentiating cites are needed.
+- RIGOR CATCH (again): the subagent dropped an author on arXiv:2602.21262 (reported 4; arXiv meta = 5, incl.
+  Kerem Oktar). Manager re-verified 2602.21262 and 2601.17087 from authoritative arXiv <meta citation_*>.
+  All author lists must be re-verified at cite time; search snippets are not authoritative.
+- Highest threat = arXiv:2601.17087 "Lost in Simulation" (Seshadri, Cahyawijaya, Odumakinde, Singh,
+  Goldfarb-Tarrant; ICLR 2026): independently shows LLM-simulated USERS are backend-sensitive (agent success
+  ±9pp across user-LLMs) — but frames it as MAGNITUDE + human-correspondence validity + demographic fairness
+  on agentic task completion; ours is CLASSIFICATION-flip of interface-content risk, disclaims human
+  correspondence, failure-targeted persona. Must cite + qualify any "first" wording.
+- Second = arXiv:2602.21262 "Under the Influence": capability/persuasion/vigilance are DISSOCIABLE at the
+  LLM-agent level — corroborates Contribution-2 (capability != resistance); cite as support, distinguish
+  our simulated-USER level; note dissociable vs our inverse-correlation nuance.
+- Full verified list + differentiation + actions saved to docs/plans/2026-07-27-collision-audit-verified.md.
+  No paper changes made yet; adding cites + softening the "first" claim is a Related-Work/claim-strength
+  edit reserved for the writing session under owner sign-off.
