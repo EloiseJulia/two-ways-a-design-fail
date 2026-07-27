@@ -1635,3 +1635,16 @@ owner call). Decisions:
   transparency, not claimed as a separate contribution" (kept in body; NOT moved to appendix).
 - DECLINED (owner): retitle, demote axis-1 out of contributions, move bug-history/E6 to appendix.
 - Build clean: 16pp (unchanged), 0 undefined ref/cite. Framing edits only; no numbers changed.
+
+## D5.69 Full-document final consistency scan (WRITING LEAD, 2026-07-27)
+- Read the whole paper post-edits + automated scans. Caught + fixed one real cross-section CONTRADICTION:
+  body sec:coercion now reads the amzbook coercive effect as "directional only" (CI crosses 1 under the
+  few-cluster reanalysis), but the abstract and intro RQ-answer still presented "1.17 on the other" as part
+  of a confirmed effect. Qualified both to "a weaker[/less robust] 1.17 on the other" for consistency.
+- Removed a "directly/directly-instructed" echo in the softened protective sentence.
+- Verified clean: 0 doubled words; 0 undefined ref/cite; p-value leading zeros consistent (0 bare p=.);
+  stat "=" spacing consistent (0 stray {=} outside probability defs); GEE defined before first rendered use;
+  no leftover "more dependable instrument". em-dashes 131 (normal). new cites seshadri2026lost /
+  robinson2026influence resolve. Build clean, 16pp.
+- Left as correct-by-grammar: vasconcelos2023explanations still cited in the intro axis-2 background list
+  (defensible; the Related-Work "increase" mis-attribution was the one fixed in D5.66).

@@ -49,7 +49,8 @@ LLMs and two review-sentiment datasets, we separate what is stable from what is 
 \textbf{Unstable:} the aggregate risk estimate for the \emph{same} interface swings widely with the backend
 (wrong-advice adoption 0.15--0.66). The swing is large enough to \emph{flip} the interface's risk
 classification for a majority of backend pairs (pairwise flip rate up to 0.60). A matched contrast confirms
-a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on one dataset, 1.17 on the other; a
+a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on one dataset, a weaker and less
+robust 1.17 on the other; a
 non-coercive placebo stays at or below baseline), but of a magnitude we cannot distinguish across backends:
 the backend moves the adoption \emph{level}, not the framing effect. \textbf{Stable:} the panel faithfully
 propagates a \emph{prompted} disposition. An explicitly trusting-novice persona is the highest-adopting
@@ -186,7 +187,7 @@ estimate for the same interface swings from 0.15 to 0.66 across backends (Figure
 to flip the interface's risk classification for a majority of backend pairs across a wide range of
 thresholds (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
 varies only the framing confirms a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on
-one dataset, 1.17 on the other; a non-coercive placebo at or below baseline; Section~\ref{sec:coercion}),
+one dataset, a weaker 1.17 on the other; a non-coercive placebo at or below baseline; Section~\ref{sec:coercion}),
 of a magnitude we cannot distinguish across backends---so it is the adoption \emph{level}, not the framing
 slope, that the backend moves. \textbf{Stable, but for an unglamorous reason (RQ3):} the panel faithfully
 propagates a \emph{prompted} disposition---an explicitly trusting-novice persona is the highest-adopting
@@ -846,7 +847,7 @@ frontier gpt-5.5 shows a mid-pack benefit ($0.09$) while the near-null backend i
 \emph{direction} of a within-interface improvement survives the backend swap that flips the absolute level,
 whereas its \emph{size}---and, on one backend, its very presence---does not.
 
-This sharpens the practical guidance. Because the protective conditions \emph{directly instruct} the agent
+This sharpens the practical guidance. Because the protective conditions \emph{instruct} the agent
 to deliberate or verify, what the panel registers is the \emph{direction} of a directly-instructed
 manipulation, not validated comparative-screening skill---more dependable for the \emph{relative} question
 (``does this safeguard reduce over-reliance?'') than for the \emph{absolute} one
