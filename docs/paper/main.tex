@@ -259,10 +259,11 @@ inversion rather than a contradiction.
 appropriately rely on AI given confidence and
 explanations~\cite{bansal2021whole,bucinca2021trust,zhang2020confidence,lai2019human,schemmer2023appropriate},
 often finding that explanations \emph{increase} over-reliance rather than calibrate
-it~\cite{bansal2021whole,vasconcelos2023explanations}. Recent work benchmarks reliance
+it~\cite{bansal2021whole}. Recent work benchmarks reliance
 \emph{interventions} (disclaimers, uncertainty highlighting) with human participants on tasks including
 LSAT, and finds they curb over-reliance but rarely improve \emph{appropriate}
-reliance~\cite{bo2024rely}. This work treats between-user variance as noise
+reliance~\cite{bo2024rely}; and carefully designed explanations can \emph{reduce} rather than inflate
+over-reliance~\cite{vasconcelos2023explanations}. This work treats between-user variance as noise
 around an average, and studies humans directly. We invert the first: reliance \emph{heterogeneity} is our
 axis-1 safety DV, and coercive wrong-AI adoption is axis-2; and we complement the second: our
 protective-intervention arm (Section~\ref{sec:protective}) asks not \emph{whether} an intervention helps
@@ -395,7 +396,7 @@ three silent-corruption bugs that would each have produced a plausible-but-false
 \emph{sign inversion} (scoring adoption against \texttt{ground\_truth} instead of the displayed
 $1-\texttt{ground\_truth}$), a beta-binomial \emph{boundary artifact}, and a decision parser that silently
 \emph{fabricated} a $(\text{decision}{=}0,\text{conf}{=}0.5)$ sentinel on parse failure. It also caught a
-statistical error in our own draft---a GEE interaction test that appeared to show backend-dependent framing
+statistical error in our own draft---a generalized estimating equation (GEE) interaction test that appeared to show backend-dependent framing
 but was an artifact of few item clusters (Section~\ref{sec:coercion}). We report these openly: a pipeline
 that catches its own errors is what makes the numbers trustworthy.
 
@@ -440,7 +441,8 @@ Backend choice changes both the \emph{level} and the \emph{interpretation} of wr
 real (between-model Fisher vs.\ gpt-4o $p=0.014/0.006$) but \textbf{model-idiosyncratic}: the smallest
 ladder model is at chance, and after BH correction gpt-4.1's elevated adoption survives on amzbook
 ($p=0.003$) but is only nominal on beer (uncorrected $p=0.035$; BH $p=0.11$). Independent-vendor frontier
-models are at chance (claude 0.49, gemini 0.53 on beer; 0/3 vendors above chance). Rather than interpret
+models are at chance (claude 0.49, gemini 0.53 on beer; none of the three frontier models is significantly
+above 0.5). Rather than interpret
 adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect point, since personas are
 not random guessers---we ground the effect in a matched framing contrast below.
 
@@ -485,10 +487,13 @@ for the pooled framing effect, and test backend-dependence with a likelihood-rat
 \texttt{dark$\times$model} interaction.
 
 A coercive-framing effect is present: pooled across backends, the dark framing raises wrong-advice adoption
-over the matched neutral baseline with odds ratio \textbf{1.90} on beer (95\% CI 1.42--2.53) and
-\textbf{1.17} on amzbook, while the non-coercive placebo stays at or below neutral (beer OR 0.94, n.s.;
+over the matched neutral baseline with odds ratio \textbf{1.90} on beer (95\% CI 1.42--2.53) and a much
+smaller \textbf{1.17} on amzbook (95\% CI 1.04--1.31, $p=0.010$), while the non-coercive placebo stays at or below neutral (beer OR 0.94, n.s.;
 amzbook OR 0.88, $p=0.005$, a small \emph{protective} effect)---so the effect is the coercive framing, not
-mere AI-presence. In absolute terms the increase is largest for mid-tier models and small for the
+mere AI-presence. Both odds ratios are estimated from only eight matched-wrong item clusters, so these
+cluster-robust intervals are approximate and, if anything, anti-conservative---the same few-cluster caution
+we apply to the interaction test below; the large positive per-cell shifts on beer survive it, while the
+small amzbook effect is more fragile. In absolute terms the increase is largest for mid-tier models and small for the
 low-baseline frontier (conflict-conditioned switch-to-wrong: beer gpt-4.1 $0.19\to0.51$, gpt-4o
 $0.12\to0.29$, gpt-5.5 $0.04\to0.10$). However, a \emph{formal} test does \emph{not} support a
 backend-dependent framing effect: the \texttt{dark$\times$model} interaction is non-significant on both
@@ -547,7 +552,7 @@ every source---item selection, persona wording, and backend are all analyst choi
 so a synthetic-panel result should be reported as a \emph{distribution} over these choices, not a point
 estimate. Generation randomness---the one source a single draw per prompt cannot expose---turns out to be
 the smallest of all. In a preregistered multi-generation run (three backends spanning the adoption range
-$\times$ six personas $\times$ 20 items $\times$ five generation seeds; 3{,}600 trials), generation
+$\times$ two UI conditions $\times$ six personas $\times$ 20 items $\times$ five generation seeds; 3{,}600 trials), generation
 contributes essentially none of the variance in dark adoption (fixed-effects $\eta^2=0.001$, versus $0.22$
 for items, $0.15$ for personas, and $0.07$ for the backend). Each backend's aggregate over-reliance
 estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$), small
@@ -576,8 +581,10 @@ amzbook backends). The \emph{ordering} of which persona adopts most is stable (F
 backend$\times$dataset cells. Because the 20 items are reused across personas and the 12 cells share prompts,
 items, and providers, we do not treat trials as independent: a crossed random-effects logistic model with
 item, backend, and dataset random effects gives an odds ratio of \textbf{26} (95\% CI 17--41) for that
-persona relative to the others (an item-clustered GEE agrees, OR 14.9). The effect is robust to the
-pseudo-replication structure.
+persona relative to the others (an item-clustered GEE agrees, OR 14.9). Because p5's dark adoption is near
+the ceiling in most cells, the OR \emph{magnitude} should not be read as a precise effect size; the primary
+evidence is model-free---p5 is the strict top adopter in all 12 backend$\times$dataset cells. The effect is
+robust to the pseudo-replication structure.
 
 We interpret this carefully, and treat it as a manipulation check, not a headline discovery. The
 persona is \emph{prompt-defined} to be trusting and novice, so ``it adopts the AI most'' is substantially

@@ -1565,3 +1565,24 @@
   "trusting novice"/"wrong advice" without hyphen are correct NOUN-phrase uses (vs. attributive
   "trusting-novice persona" / "wrong-advice adoption"), left as-is.
 - Build clean: 15pp, 0 undefined ref/cite.
+
+## D5.66 Multi-model audit (3 agents: GPT-5.6 / Claude-Opus-4.8 / Gemini-3.1-pro) — fixed 7 low-risk items (2026-07-27)
+- Dispatched 3 independent audit agents (framing / stats-rigor+JSON-spotcheck / relwork-clarity). Applied
+  only the unambiguous corrections + honesty-qualifications; framing/novelty items deferred to owner.
+- FIXED: (1) "3,600 trials" arithmetic -> added the "x two UI conditions" factor (3x2x6x20x5=3600).
+  (2) amzbook coercion OR 1.17 now reports CI[1.04,1.31], p=0.010 + "much smaller". (3) added an 8-item-
+  cluster caveat to the pooled coercion OR (approximate/anti-conservative; same few-cluster caution as the
+  disowned interaction test; beer robust, amzbook fragile). (4) "0/3 vendors above chance" ->
+  "none of the three frontier models is significantly above 0.5". (5) Vasconcelos2023 mis-attribution fixed
+  (its title is "Explanations Can REDUCE Overreliance...") -> removed from the "increase" clause, relocated
+  to the intervention/reduce clause. (6) GEE expanded on first use (generalized estimating equation).
+  (7) persona OR~26 near-ceiling separation: added "OR magnitude not a precise effect size; model-free
+  primary evidence = strict top adopter in 12/12 cells".
+- All are corrections or honesty-increasing qualifications consistent with the paper's tiering discipline;
+  no headline claim reversed. Build clean: 15pp, 0 undefined ref/cite.
+- DEFERRED to owner (framing/claim-strength): (B) add Seshadri "Lost in Simulation" (ICLR2026,
+  arXiv:2601.17087) + Robinson/Oktar "Under the Influence" (arXiv:2602.21262) and qualify "rarely tested"
+  wording (corroborated by 2 agents + the 2026-07-27 collision audit). (C) GPT-5.6's aggressive reframes
+  (retitle, demote axis-1, "endogenous coverage", threshold/usable) — manager recommends DECLINE most as
+  the paper already concedes them; owner to adjudicate. Optional: few-cluster REANALYSIS of coercion OR;
+  human-anchor supplement verification (GLMM non-convergence noted by stats agent).
