@@ -1545,3 +1545,11 @@
   amzbook-carried"; kept the honest "robust for aggregate, suggestive for finer flip/p5" + section ref).
   Saves ~30 words, removes a nested paren; no claim change.
 - Build clean: 15pp, 0 undefined ref/cite. Pure writing polish.
+
+## D5.64 Writing polish round 3 (WRITING LEAD, 2026-07-27) — Method/Definitions + figure captions; no claim/number change
+- Method: split the "Stimuli and datasets" three-clause semicolon sentence; restructured the "Rigor spine"
+  opener (removed mid-sentence "---with a UTC-timestamped, committed record---" interruption, moved to a
+  trailing clause; split the following semicolon into its own sentence); Panel-def dash -> period.
+- Captions: fig:ladder legend split into separate sentences (error bars / lines / dashed line);
+  fig:protective staircase caption split at the "but" clause.
+- Build clean: 15pp, 0 undefined ref/cite. Pure writing polish.

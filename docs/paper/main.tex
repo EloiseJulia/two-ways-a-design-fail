@@ -353,8 +353,8 @@ the human study (Section~\ref{sec:e6}).
 literacy, risk sensitivity, caution) crossed with a base LLM (the ``backend''). Personas span
 novice/expert $\times$ trusting/skeptical plus two moderates (six in total). Crucially, a persona's prompt
 is generated identically across backends and its decoding temperature is fixed \emph{per persona}, not per
-backend, so temperature and wording are held constant when we vary the backend---backend effects are not
-confounded with per-model prompt or temperature differences.
+backend, so temperature and wording are held constant when we vary the backend. Backend effects are
+therefore not confounded with per-model prompt or temperature differences.
 
 \paragraph{Pre- and post-advice decisions.} Each agent first produces a judgment \emph{without} AI (a
 frozen ``System-1''/pre-advice anchor), then a decision \emph{with} the AI advice and framing (``System-2''/
@@ -376,8 +376,8 @@ prompt templates are in the supplement.
 threshold fitting, and selected to concentrate on loci of human reliance heterogeneity (disclosed; human
 outcomes are used only for \emph{item selection}, never leaked into agent prompts---item selection $\ne$
 label leakage). We run two \emph{review-sentiment datasets}: \textbf{beer reviews} and \textbf{Amazon book
-reviews (amzbook)}. Both are English binary sentiment; we therefore treat this as replication across two
-datasets within one task family, not broad cross-domain generalization; a preregistered LSAT arm
+reviews (amzbook)}. Both are English binary sentiment, so we treat this as replication across two
+datasets within one task family, not broad cross-domain generalization. A preregistered LSAT arm
 (Section~\ref{sec:lsat}) tests whether the core findings survive a different task structure
 (Section~\ref{sec:limits}).
 
@@ -386,9 +386,9 @@ plus independent-vendor models (claude-sonnet-4.5, gemini-2.5-pro): six backends
 same-provider series by release for presentation only and make no claim that this is a validated capability
 scale; ``frontier'' refers to the most recent, most capable general model at the time of writing (gpt-5.5).
 
-\paragraph{Rigor spine and process integrity.} Before running each arm we froze---with a UTC-timestamped,
-committed record---the backend set, persona set, item-selection seeds, conditions, primary DVs, and the
-predicted direction of each effect; deviations and post-hoc analyses (e.g.\ the exploratory threshold sweep
+\paragraph{Rigor spine and process integrity.} Before running each arm we froze the backend set, persona
+set, item-selection seeds, conditions, primary DVs, and the predicted direction of each effect, in a
+UTC-timestamped, committed record. Deviations and post-hoc analyses (e.g.\ the exploratory threshold sweep
 and the descriptor ablation) are logged and labelled as such. Correspondence analyses were coded blind;
 every merge was gated on an independent audit \emph{and} a from-raw numeric re-derivation. This spine caught
 three silent-corruption bugs that would each have produced a plausible-but-false result: an axis-2
@@ -426,7 +426,8 @@ every configuration we test (Section~\ref{sec:corr}).
   \caption{Axis-2 wrong-advice adoption on the guaranteed-wrong interface across the same-provider model
   set (gpt-4o-mini $\to$ gpt-4.1 $\to$ gpt-4o $\to$ gpt-5.5), both datasets. Error bars are Wilson 95\%
   binomial confidence intervals (descriptive; conflict-conditioned inference uses the item-clustered models
-  below), and lines connect discrete model conditions only as a visual guide; dashed line $=$ 0.5. Adoption
+  below). Lines connect discrete model conditions only as a visual guide; the dashed line marks 0.5.
+  Adoption
   is non-monotonic across backends; gpt-5.5 has the lowest adoption on both datasets.
   The matched framing contrast (Section~\ref{sec:coercion}) provides a non-arbitrary baseline for this
   low level.}
@@ -774,7 +775,7 @@ while the size of the aggregate backend spread is task-dependent---not as confir
   \includegraphics[width=\textwidth]{fig8_protective}
   \caption{Protective-intervention audit. \emph{Left:} per-backend wrong-AI adoption across
   dark (coercive) $\to$ plain $\to$ forcing $\to$ verify. Every backend shows a non-increasing staircase
-  (protective benefit $\ge0$), but the magnitude ranges from $\approx$0.12 (gpt-4o-mini) to $\approx$0.01
+  (protective benefit $\ge0$). But the magnitude ranges from $\approx$0.12 (gpt-4o-mini) to $\approx$0.01
   on gemini, where the protective framing is nearly inert; the backend$\times$condition interaction is not
   significant (underpowered). \emph{Right:} the at-risk trusting-novice persona (p5, pooled) drops from
   0.78 (plain) to 0.46--0.53 under protection. dark is shown descriptively (separate run).}
