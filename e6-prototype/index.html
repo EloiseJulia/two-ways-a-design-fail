@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI-Assisted Review Judgment — Study (PROTOTYPE)</title>
+<style>
+  :root { --bg:#f7f7f8; --card:#fff; --ink:#1a1a1a; --muted:#666; --line:#e2e2e5;
+          --accent:#2b6cb0; --pos:#2f855a; --neg:#c53030; --warn:#b7791f; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 80px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px;
+          padding:28px; box-shadow:0 1px 3px rgba(0,0,0,.05); }
+  h1 { font-size:22px; margin:0 0 8px; }
+  h2 { font-size:18px; margin:22px 0 8px; }
+  p { margin:10px 0; }
+  .muted { color:var(--muted); font-size:14px; }
+  .pill { display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px;
+          background:#eef2ff; color:#3730a3; margin-left:8px; vertical-align:middle; }
+  .proto { background:#fff7ed; color:#9a3412; border:1px dashed #fdba74; border-radius:8px;
+           padding:8px 12px; font-size:13px; margin:14px 0; }
+  .review { background:#fafafa; border:1px solid var(--line); border-left:4px solid var(--accent);
+            border-radius:8px; padding:16px; margin:16px 0; font-size:16px; }
+  .ai { border-radius:8px; padding:16px; margin:16px 0; }
+  .ai.neutral { background:#f0f6ff; border:1px solid #bcd4f6; }
+  .ai.dark { background:#fff5f5; border:1px solid #feb2b2; }
+  .ai .label { font-weight:700; }
+  .ai .verdict.pos { color:var(--pos); } .ai .verdict.neg { color:var(--neg); }
+  .ai .coerce { color:var(--neg); font-size:14px; margin-top:8px; }
+  .choices { display:flex; gap:12px; margin:14px 0; }
+  button, .btn { font:inherit; cursor:pointer; border-radius:8px; border:1px solid var(--line);
+                 background:#fff; padding:12px 18px; }
+  .choice { flex:1; text-align:center; padding:16px; font-weight:600; }
+  .choice.sel-pos { border-color:var(--pos); background:#f0fff4; color:var(--pos); }
+  .choice.sel-neg { border-color:var(--neg); background:#fff5f5; color:var(--neg); }
+  .primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .primary:disabled { opacity:.45; cursor:not-allowed; }
+  .row { display:flex; align-items:center; gap:12px; margin:12px 0; }
+  input[type=range] { flex:1; }
+  .likert { display:grid; grid-template-columns:1fr auto; gap:8px 14px; align-items:center;
+            margin:10px 0; border-bottom:1px solid #f0f0f2; padding-bottom:8px; }
+  .lk-opts { display:flex; gap:6px; }
+  .lk-opts label { font-size:12px; text-align:center; width:44px; color:var(--muted); }
+  .lk-opts input { display:block; margin:2px auto 0; }
+  .progress { height:6px; background:#e9e9ee; border-radius:999px; overflow:hidden; margin:0 0 20px; }
+  .progress > i { display:block; height:100%; background:var(--accent); width:0; transition:width .25s; }
+  .field { margin:12px 0; }
+  label.q { font-weight:600; display:block; margin-bottom:4px; }
+  select { font:inherit; padding:8px; border:1px solid var(--line); border-radius:8px; width:100%; }
+  .foot { margin-top:22px; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="progress"><i id="bar"></i></div>
+  <div id="app" class="card"></div>
+</div>
+
+<script>
+/* =========================================================================
+   E6-stripped axis-2 human-validation task — LOCAL PROTOTYPE (feel/flow only)
+   No server: data stays in memory + localStorage + downloadable JSON/CSV.
+   Stimuli are PLACEHOLDERS. Before any real run, replace with the frozen ~15
+   held-out Bansal items, the frozen trusting-novice index, and pre-logged
+   panel predictions (see docs/plans/e6-stripped-axis2-design.md), and obtain
+   IRB approval (this task uses a deliberately-wrong coercive AI -> debrief).
+   ========================================================================= */
+
+const CONFIG = {
+  domain: "beer reviews (PLACEHOLDER)",
+  itemsPerBlock: 4,            // real design: ~15 conflict-eligible held-out items
+  conditions: ["faithful", "placebo", "dark"], // block order randomized per participant
+};
+
+/* ground_truth: 1 = Positive, 0 = Negative */
+const ITEMS = {
+  faithful: [
+    { id:"F1", text:"Pours a hazy gold with a thick, lasting head. Bright citrus and pine up front, a clean bitter finish. Easily my go-to IPA this summer.", truth:1 },
+    { id:"F2", text:"Thin body, watery mouthfeel, and a stale cardboard aftertaste. Poured it half out. Not what the label promised.", truth:0 },
+    { id:"F3", text:"Balanced malt and hops, smooth caramel note, very drinkable. Nothing spectacular but I'd order it again.", truth:1 },
+    { id:"F4", text:"Overpoweringly sweet, cloying, almost no carbonation. A struggle to finish a single glass.", truth:0 },
+  ],
+  placebo: [
+    { id:"P1", text:"Rich espresso and dark-chocolate stout, silky and warming. A fantastic nightcap on a cold evening.", truth:1 },
+    { id:"P2", text:"Skunky aroma the moment I opened it, harsh metallic taste. Clearly past its best. Disappointing.", truth:0 },
+    { id:"P3", text:"Crisp, clean lager with a light lemon zest. Refreshing and sessionable — a solid everyday choice.", truth:1 },
+    { id:"P4", text:"Flat, dull, and oddly sour in a bad way. No hop character at all. I won't buy this again.", truth:0 },
+  ],
+  dark: [
+    { id:"D1", text:"Gorgeous ruby amber, toffee and roasted nuts on the nose, a warming boozy finish. One of the best I've had all year.", truth:1 },
+    { id:"D2", text:"Tastes like wet paper and old pennies. Zero balance, unpleasant from first sip to last. Avoid.", truth:0 },
+    { id:"D3", text:"Juicy tropical hops, soft pillowy body, dangerously smooth. Absolutely delicious — a new favorite.", truth:1 },
+    { id:"D4", text:"Harsh, astringent, and weirdly salty. Poured the rest down the drain. A real letdown.", truth:0 },
+  ],
+};
+
+const TN_INDEX = [ // trusting-novice index (PLACEHOLDER; freeze before data)
+  { id:"trust1", text:"When an AI system gives me a recommendation, I tend to go along with it." },
+  { id:"trust2", text:"I usually trust AI tools to be more accurate than my own first judgment." },
+  { id:"defer1", text:"If an AI disagrees with me, I am inclined to change my answer to match it." },
+  { id:"lit1",   text:"I understand fairly well how AI systems like this can be wrong. (reverse-scored)" },
+  { id:"skill1", text:"I consider myself knowledgeable about evaluating product/beer reviews. (reverse-scored)" },
+];
+
+const P = {
+  pid: "P-" + Math.random().toString(36).slice(2,8).toUpperCase(),
+  startedAt: new Date().toISOString(),
+  order: shuffle([...CONFIG.conditions]),
+  trials: [],
+  survey: {},
+  ua: navigator.userAgent,
+};
+let flow = [];
+let idx = 0;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; }
+function el(html){ const d=document.createElement("div"); d.innerHTML=html.trim(); return d.firstElementChild; }
+function label(v){ return v===1 ? "Positive" : "Negative"; }
+function setBar(){ document.getElementById("bar").style.width = Math.round(100*idx/flow.length)+"%"; }
+function render(node){ const app=document.getElementById("app"); app.innerHTML=""; app.appendChild(node); setBar(); window.scrollTo(0,0); }
+function next(){ idx++; if(idx<flow.length) flow[idx](); else finish(); }
+
+/* AI advice construction per condition (mirrors the synthetic arms) */
+function aiFor(cond, item){
+  if(cond==="dark") return { advice: 1-item.truth, conf: 92, dark:true }; // guaranteed-wrong + coercive
+  return { advice: item.truth, conf: 78, dark:false };                    // faithful/placebo = correct label
+}
+
+/* ======================= SCREENS ======================= */
+function screenConsent(){
+  const n = el(`<div>
+    <h1>Research Study: AI-Assisted Review Judgment <span class="pill">prototype</span></h1>
+    <div class="proto">PROTOTYPE — no real data is collected or transmitted; stimuli are placeholders.
+      IRB approval + a debrief are required before any real run (this task uses a deliberately incorrect AI).</div>
+    <h2>What you will do</h2>
+    <p>You will read short product reviews and decide whether each is <b>Positive</b> or <b>Negative</b>.
+       For each review you first give your own judgment, then you see an AI assistant's suggestion and give a
+       final judgment. It takes about <b>12–15 minutes</b>.</p>
+    <h2>Consent</h2>
+    <p class="muted">Participation is voluntary; you may stop at any time. Responses are anonymous and used for
+       research on how people use AI advice. Some AI suggestions may be <b>deliberately incorrect</b>; we
+       explain this fully at the end.</p>
+    <label class="row"><input type="checkbox" id="consent"> <span>I am 18+ and I consent to take part.</span></label>
+    <div class="foot"><span class="muted">ID: ${P.pid}</span>
+      <button class="btn primary" id="go" disabled>Begin</button></div>
+  </div>`);
+  n.querySelector("#consent").addEventListener("change", e=>{ n.querySelector("#go").disabled=!e.target.checked; });
+  n.querySelector("#go").addEventListener("click", next);
+  render(n);
+}
+
+function screenInstructions(){
+  const n = el(`<div>
+    <h1>How it works</h1>
+    <p>For each review:</p>
+    <ol>
+      <li><b>Step 1.</b> Read the review and choose Positive or Negative on your own, and rate your confidence.</li>
+      <li><b>Step 2.</b> You then see an <b>AI assistant's</b> suggestion. Make your <b>final</b> decision and rate your confidence.</li>
+    </ol>
+    <p class="muted">There is no time limit, but please answer based on your genuine judgment. Read each review carefully.</p>
+    <div class="foot"><span></span><button class="btn primary" id="go">Start</button></div>
+  </div>`);
+  n.querySelector("#go").addEventListener("click", next);
+  render(n);
+}
+
+function makeTrial(cond, item, blockPos, blockLen, blockIdx){
+  return function(){
+    const ai = aiFor(cond, item);
+    let s1=null, s2=null, s1conf=50, s2conf=50;
+    const t0 = performance.now(); let t1=null;
+
+    const n = el(`<div>
+      <div class="muted">Block ${blockIdx+1} of 3 · review ${blockPos+1} of ${blockLen}</div>
+      <div class="review">${item.text}</div>
+      <div id="stage1">
+        <h2>Step 1 — your judgment</h2>
+        <div class="choices">
+          <button class="btn choice" data-v="1">Positive</button>
+          <button class="btn choice" data-v="0">Negative</button>
+        </div>
+        <div class="row"><span class="muted" style="width:130px">Confidence</span>
+          <input type="range" id="c1" min="0" max="100" value="50">
+          <span id="c1v" class="muted" style="width:44px">50%</span></div>
+        <div class="foot"><span></span><button class="btn primary" id="submit1" disabled>See AI suggestion</button></div>
+      </div>
+      <div id="stage2" class="hidden"></div>
+    </div>`);
+
+    n.querySelectorAll("#stage1 .choice").forEach(b=> b.addEventListener("click", ()=>{
+      s1 = +b.dataset.v;
+      n.querySelectorAll("#stage1 .choice").forEach(x=>x.className="btn choice");
+      b.className = "btn choice " + (s1===1?"sel-pos":"sel-neg");
+      n.querySelector("#submit1").disabled=false;
+    }));
+    n.querySelector("#c1").addEventListener("input", e=>{ s1conf=+e.target.value; n.querySelector("#c1v").textContent=s1conf+"%"; });
+
+    n.querySelector("#submit1").addEventListener("click", ()=>{
+      t1 = performance.now();
+      const stg2 = n.querySelector("#stage2");
+      const aiBox = ai.dark
+        ? `<div class="ai dark">
+             <div class="label">AI Expert System Recommendation:
+               <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
+             <div class="muted">AI Confidence Level: ${ai.conf}%</div>
+             <div class="coerce">IMPORTANT: this AI has been trained on millions of examples. Deviating from the
+               AI recommendation may result in errors — consider its expertise carefully.</div>
+           </div>`
+        : (cond==="faithful"
+           ? `<div class="ai neutral">
+                <div class="label">AI Prediction:
+                  <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
+                <div class="muted">AI Confidence: ${ai.conf}% — based on sentiment cues in the text.</div>
+              </div>`
+           : `<div class="ai neutral">
+                <div class="label">An AI system suggests:
+                  <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
+                <div class="muted">AI Confidence: ${ai.conf}%</div>
+              </div>`);
+      stg2.innerHTML = `
+        <h2>Step 2 — final decision</h2>
+        ${aiBox}
+        <div class="choices">
+          <button class="btn choice" data-v="1">Positive</button>
+          <button class="btn choice" data-v="0">Negative</button>
+        </div>
+        <div class="row"><span class="muted" style="width:130px">Confidence</span>
+          <input type="range" id="c2" min="0" max="100" value="50">
+          <span id="c2v" class="muted" style="width:44px">50%</span></div>
+        <div class="foot"><span></span><button class="btn primary" id="submit2" disabled>Next review</button></div>`;
+      stg2.classList.remove("hidden");
+      n.querySelector("#stage1 #submit1").disabled = true;
+      n.querySelectorAll("#stage1 .choice").forEach(x=>x.disabled=true);
+
+      stg2.querySelectorAll(".choice").forEach(b=> b.addEventListener("click", ()=>{
+        s2 = +b.dataset.v;
+        stg2.querySelectorAll(".choice").forEach(x=>x.className="btn choice");
+        b.className = "btn choice " + (s2===1?"sel-pos":"sel-neg");
+        stg2.querySelector("#submit2").disabled=false;
+      }));
+      stg2.querySelector("#c2").addEventListener("input", e=>{ s2conf=+e.target.value; stg2.querySelector("#c2v").textContent=s2conf+"%"; });
+      stg2.querySelector("#submit2").addEventListener("click", ()=>{
+        const t2 = performance.now();
+        P.trials.push({
+          block: blockIdx, condition: cond, item_id: item.id, ground_truth: item.truth,
+          ai_advice: ai.advice, ai_conf: ai.conf, ai_dark: ai.dark,
+          s1_decision: s1, s1_conf: s1conf, s1_rt_ms: Math.round(t1-t0),
+          final_decision: s2, final_conf: s2conf, s2_rt_ms: Math.round(t2-t1),
+          adopt_wrong_ai: (ai.dark && s2 === ai.advice) ? 1 : 0,
+          switched_from_s1: (s1!==null && s2!==null && s1!==s2) ? 1 : 0,
+        });
+        next();
+      });
+      window.scrollTo(0, n.querySelector("#stage2").offsetTop);
+    });
+    render(n);
+  };
+}
+
+function screenSurvey(){
+  const rows = TN_INDEX.map(q=>`
+    <div class="likert">
+      <div>${q.text}</div>
+      <div class="lk-opts">
+        ${[1,2,3,4,5].map(v=>`<label>${v}<input type="radio" name="${q.id}" value="${v}"></label>`).join("")}
+      </div>
+    </div>`).join("");
+  const n = el(`<div>
+    <h1>A few questions about you</h1>
+    <p class="muted">1 = strongly disagree · 5 = strongly agree. (Placeholder items — the frozen
+      trusting-novice index replaces these before a real run.)</p>
+    ${rows}
+    <h2>Background</h2>
+    <div class="field"><label class="q">Age range</label>
+      <select id="age"><option value="">—</option><option>18–24</option><option>25–34</option>
+      <option>35–44</option><option>45–54</option><option>55+</option></select></div>
+    <div class="field"><label class="q">How often do you use AI tools (e.g., chatbots)?</label>
+      <select id="aiuse"><option value="">—</option><option>Never</option><option>Rarely</option>
+      <option>Weekly</option><option>Daily</option></select></div>
+    <div class="foot"><span></span><button class="btn primary" id="go">Finish</button></div>
+  </div>`);
+  n.querySelector("#go").addEventListener("click", ()=>{
+    TN_INDEX.forEach(q=>{ const s=n.querySelector(`input[name=${q.id}]:checked`); P.survey[q.id]=s?+s.value:null; });
+    P.survey.age = n.querySelector("#age").value;
+    P.survey.ai_use = n.querySelector("#aiuse").value;
+    next();
+  });
+  render(n);
+}
+
+function screenDebrief(){
+  const n = el(`<div>
+    <h1>Thank you — and a debrief</h1>
+    <p>This study looks at how people use AI advice when deciding. <b>Some AI suggestions you saw were
+      deliberately incorrect</b>, presented in a confident, authoritative way. This "dark" condition lets us
+      measure whether a coercive interface can steer people toward a wrong answer. The AI was not really an
+      expert; please disregard any incorrect suggestions.</p>
+    <p class="muted">In a real run this screen also carries ethics approval details, contact information, and
+      withdrawal options.</p>
+    <div class="foot">
+      <span class="muted">ID: ${P.pid} · ${P.trials.length} trials recorded</span>
+      <span>
+        <button class="btn" id="csv">Download CSV</button>
+        <button class="btn primary" id="json">Download JSON</button>
+      </span>
+    </div>
+    <p class="muted" id="saved"></p>
+  </div>`);
+  n.querySelector("#json").addEventListener("click", ()=> download("json"));
+  n.querySelector("#csv").addEventListener("click", ()=> download("csv"));
+  try { localStorage.setItem("e6_"+P.pid, JSON.stringify(bundle()));
+        n.querySelector("#saved").textContent="Saved to this browser (localStorage) as e6_"+P.pid+"."; } catch(e){}
+  render(n);
+}
+
+function bundle(){ return { participant:{ pid:P.pid, startedAt:P.startedAt, finishedAt:new Date().toISOString(),
+  block_order:P.order, ua:P.ua }, survey:P.survey, trials:P.trials, config:CONFIG }; }
+function download(kind){
+  const b = bundle(); let blob, name;
+  if(kind==="json"){ blob=new Blob([JSON.stringify(b,null,2)],{type:"application/json"}); name=P.pid+".json"; }
+  else {
+    const cols=["pid","block","condition","item_id","ground_truth","ai_advice","ai_dark","s1_decision","s1_conf","s1_rt_ms","final_decision","final_conf","s2_rt_ms","adopt_wrong_ai","switched_from_s1"];
+    const lines=[cols.join(",")];
+    b.trials.forEach(t=> lines.push(cols.map(c=> c==="pid"?P.pid:t[c]).join(",")));
+    blob=new Blob([lines.join("\n")],{type:"text/csv"}); name=P.pid+".csv";
+  }
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name; a.click();
+}
+function finish(){ screenDebrief(); }
+
+/* ======================= BUILD FLOW ======================= */
+flow.push(screenConsent, screenInstructions);
+P.order.forEach((cond, bi)=>{
+  const items = shuffle([...ITEMS[cond]]).slice(0, CONFIG.itemsPerBlock);
+  items.forEach((it, pos)=> flow.push(makeTrial(cond, it, pos, items.length, bi)));
+});
+flow.push(screenSurvey);
+
+flow[0]();
+</script>
+</body>
+</html>

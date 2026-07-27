@@ -1648,3 +1648,18 @@ owner call). Decisions:
   robinson2026influence resolve. Build clean, 16pp.
 - Left as correct-by-grammar: vasconcelos2023explanations still cited in the intro axis-2 background list
   (defensible; the Related-Work "increase" mis-attribution was the one fixed in D5.66).
+
+## D5.70 E6 human-task LOCAL PROTOTYPE built (2026-07-27)
+- Owner will recruit volunteers via advisor's network (NOT Prolific); wants a local runnable prototype
+  first, hosting/data-backend deferred. Built e6-prototype/index.html: self-contained single-file web task
+  (no server, offline). Flow = consent -> instructions -> 3 blocks Faithful/Placebo/Dark (order randomized)
+  -> per-trial Step1 no-AI decision+confidence then Step2 AI advice+framing+final decision+confidence (RTs
+  logged) -> trusting-novice questionnaire+background -> debrief -> download JSON/CSV (+localStorage).
+  Dark = guaranteed-wrong 1-truth at 92% + coercive authority text; adopt_wrong_ai is the axis-2 human DV.
+  JS syntax-checked (node --check OK). README documents run + the freeze-before-real-run checklist.
+- FLAGGED to owner (methodological): volunteer sampling from an advisor's (academic) network likely skews
+  skilled/AI-literate -> compresses the trusting-novice-index variance -> underpowers H2 (persona
+  localization). Mitigate by purposive recruiting for a spread (include non-experts/older/less-AI-savvy) and
+  reporting the achieved index range. H1 (coercion works on humans) is unaffected. IRB still REQUIRED
+  (deception + debrief) regardless of recruitment channel.
+- Stimuli/index/predictions are PLACEHOLDERS; §6 freeze checklist + IRB must precede any data collection.
