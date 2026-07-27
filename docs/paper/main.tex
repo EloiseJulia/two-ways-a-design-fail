@@ -115,6 +115,10 @@ two ways a design fails in our title:
   together~\cite{bucinca2021trust,vasconcelos2023explanations,luguri2021shining}.
 \end{itemize}
 
+Axis~2 is where our audit's load-bearing results lie; we treat axis~1 as a secondary, \emph{exploratory}
+signal, since its human counterpart is null in every configuration we can currently test
+(Section~\ref{sec:corr}).
+
 The standard way to detect either failure is a human-subjects study---powered, IRB-approved, and slow.
 Teams iterate on interfaces far faster than they can run such studies, so a growing practice is to screen
 an interface first with a \textbf{synthetic panel}: persona-conditioned LLM agents that role-play a cohort
@@ -126,7 +130,8 @@ bisbee2024synthetic,dominguez2024questioning,cheng2023compost,hamalainen2023eval
 
 This is no longer hypothetical. A commercial market of synthetic-user research platforms now advertises AI
 ``participants'' that evaluate designs \emph{in minutes} and compress---or stand in for---weeks of human
-study~\cite{syntheticusers,uxia_synthetic}. Such a practice quietly rests on two assumptions that, to our
+study~\cite{syntheticusers,uxia_synthetic}. A practitioner following the natural engineering defaults would
+plausibly adopt two assumptions that, to our
 knowledge, are never tested for interface-\emph{risk} evaluation: (i) that the \emph{strongest available}
 backend is the best simulator---the natural engineering default, and exactly what a quality-optimal model
 router would pick~\cite{ong2025routellm}; and (ii) that a \emph{single} backend's point estimate
@@ -221,9 +226,10 @@ but our \emph{claimed} contribution is the audit, not a validated screen. We con
   item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
   disagreement-triggered abstention---report synthetic-panel results as \emph{distributions over models,
   prompts, and generations}, not a single point estimate, and abstain when backends disagree.
-  \item \textbf{The two-axis over-dispersion/coercion construct}, conflict-conditioned and preregistered on
-  an audit-gated pipeline whose process integrity (three self-caught silent-corruption bugs;
-  Section~\ref{sec:method}) is part of the method.
+  \item \textbf{The two-axis over-dispersion/coercion construct} (axis~2 load-bearing, axis~1 exploratory),
+  conflict-conditioned and preregistered on an audit-gated pipeline; the pipeline's process integrity
+  (three self-caught silent-corruption bugs; Section~\ref{sec:method}) is reported as methodological
+  transparency, not claimed as a separate contribution.
 \end{enumerate}
 
 We make \emph{no} claim that the panel predicts individual humans, identifies a real vulnerable population,
@@ -728,7 +734,8 @@ whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
 \end{figure*}
 
 We can make this selection principle precise. Let $\mathcal{C}$ be the set of high-severity cells
-(dataset$\times$persona) and $a_b(c)$ backend $b$'s dark adoption on cell $c$; a panel $S$ of backends
+(dataset$\times$persona; high-severity by the \emph{panel's own} adoption, not a verified human criterion)
+and $a_b(c)$ backend $b$'s dark adoption on cell $c$; a panel $S$ of backends
 \emph{covers} every cell that any of its members reproduces above a risk threshold $\tau$, with coverage
 \begin{equation}
 f(S)=\bigl|\{\,c\in\mathcal{C}:\ \textstyle\max_{b\in S} a_b(c)\ge\tau\,\}\bigr|.
@@ -839,9 +846,11 @@ frontier gpt-5.5 shows a mid-pack benefit ($0.09$) while the near-null backend i
 \emph{direction} of a within-interface improvement survives the backend swap that flips the absolute level,
 whereas its \emph{size}---and, on one backend, its very presence---does not.
 
-This sharpens the practical guidance. A synthetic panel is a more dependable instrument for the
-\emph{relative} question (``does this safeguard reduce over-reliance?'') than for the \emph{absolute} one
-(``is this interface dangerous?''); but even the relative reading is not backend-free---a screen run only
+This sharpens the practical guidance. Because the protective conditions \emph{directly instruct} the agent
+to deliberate or verify, what the panel registers is the \emph{direction} of a directly-instructed
+manipulation, not validated comparative-screening skill---more dependable for the \emph{relative} question
+(``does this safeguard reduce over-reliance?'') than for the \emph{absolute} one
+(``is this interface dangerous?''), but even the relative reading is not backend-free---a screen run only
 on gemini would have concluded the safeguard does nothing. The reporting protocol
 (Section~\ref{sec:variance}) therefore extends to design comparisons: report the benefit \emph{across}
 backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisional.
@@ -882,9 +891,9 @@ protocol (Section~\ref{sec:variance}) from a counsel of caution into an actionab
 backend or prompt changes), from (iii) a \emph{human-facing design failure} (real users are harmed). This
 paper establishes (i) and characterizes (ii); (iii) is reserved for the human study.
 
-\paragraph{Implications for commercial synthetic-user tooling.} Our findings speak directly to the two
-assumptions the emerging market of synthetic-user platforms rests
-on~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
+\paragraph{Implications for commercial synthetic-user tooling.} Our findings speak directly to two
+assumptions that a synthetic-user platform following standard engineering defaults would plausibly
+adopt~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
 ``frontier-first.''} The instinct to power a screen with the strongest available model---the choice a
 quality-optimal router makes~\cite{ong2025routellm,wang2025mixture}---is close to the worst one for a risk
 audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
@@ -896,8 +905,8 @@ Section~\ref{sec:capvuln}.) \emph{Second, retire the single point
 estimate.} A one-backend number (``wrong-advice adoption $=0.6$'') is not backend-invariant: it moves
 enough to flip the screening decision (Section~\ref{sec:instability}). Like a weather forecast, a
 synthetic-panel result should be reported as a \emph{distribution} over backends, prompts, and generations,
-with a disagreement-triggered \emph{abstention}: when backends disagree beyond a preset margin (here the
-range exceeds $0.2$), the tool should decline to certify and route the design to human testing rather than
+with a disagreement-triggered \emph{abstention}: when backends disagree beyond a preset margin (here,
+illustratively and not yet calibrated, a range exceeding $0.2$), the tool should decline to certify and route the design to human testing rather than
 emit a safe/unsafe verdict. \emph{Third, prefer relative to absolute claims.} Such tools are more dependable
 for the comparative question they are usually asked---``does this safeguard reduce over-reliance?''---than
 for absolute risk certification: every backend reproduced the \emph{direction} of a protective design's

@@ -1614,3 +1614,24 @@
   back to 15 by deeper trimming.
 - DECLINED (manager judgment, per owner "C micro only"): GPT-5.6's retitle / demote-axis-1 / move-bugs-to-
   appendix / "usable"-removal -- the paper already concedes these; left for owner if desired.
+
+## D5.68 Framing decisions (GPT-5.6 audit, owner-adjudicated one-by-one, 2026-07-27)
+Discussed each GPT-5.6 framing issue with owner; applied the approved subset (framing/claim-strength =
+owner call). Decisions:
+- #2 axis-1/title: KEEP title + dual-axis; explicitly SECONDARY-IZE axis-1. Added an intro signpost
+  ("axis-2 is load-bearing; axis-1 is a secondary, exploratory signal, human counterpart null") + relabeled
+  Contribution 4 "(axis-2 load-bearing, axis-1 exploratory)". Did NOT retitle or demote to non-contribution.
+- #6 protective "usable": SOFTENED. sec:protective now says the panel registers "the direction of a
+  directly-instructed manipulation, not validated comparative-screening skill" (interventions directly
+  instruct deliberation/verification). Kept the relative>absolute point + "Usable, with a caveat".
+- #7 null placement / abstract "trusted": owner chose NO CHANGE (body already disclaims predictive validity).
+- #9 commercial "rests on": SOFTENED to "a platform following standard engineering defaults would plausibly
+  adopt" (intro + Discussion), removing the straw-practice assertion.
+- #1 coverage endogeneity: added "high-severity by the panel's own adoption, not a verified human criterion"
+  at the set-cover definition (plus the earlier "faithful/human failure modes" wording fix in D5.67).
+- #5 abstention 0.2: annotated "illustratively and not yet calibrated" (plus the earlier flip=3-3
+  mechanical-max note).
+- #11 bugs/E6 in contributions: Contribution 4 now reports the self-caught bugs "as methodological
+  transparency, not claimed as a separate contribution" (kept in body; NOT moved to appendix).
+- DECLINED (owner): retitle, demote axis-1 out of contributions, move bug-history/E6 to appendix.
+- Build clean: 16pp (unchanged), 0 undefined ref/cite. Framing edits only; no numbers changed.
