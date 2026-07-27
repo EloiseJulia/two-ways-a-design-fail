@@ -1533,3 +1533,15 @@
 - Full verified list + differentiation + actions saved to docs/plans/2026-07-27-collision-audit-verified.md.
   No paper changes made yet; adding cites + softening the "first" claim is a Related-Work/claim-strength
   edit reserved for the writing session under owner sign-off.
+
+## D5.63 Writing polish round 2 (WRITING LEAD, 2026-07-27) — sentence-splitting + one Discussion de-dup; no claim/number change
+- Related Work: split two mechanical chained sentences ("appropriately rely...; recent work benchmarks..."
+  -> two sentences; "swing results...; a generalizability-theory decomposition..." -> two sentences).
+- Results: split the two longest sentences in sec:variance (generation-variance run) and one in sec:capvuln
+  (RAIR/RSR faithful-condition sentence) at clause boundaries. Zero numbers touched.
+- Discussion (commercial tooling): the three actionable points are the setup->payoff answer to the intro's
+  two assumptions and were KEPT. Trimmed only the nested statistical parenthetical that re-derived the
+  capvuln robustness tiering a 3rd time (dropped verbatim "BH-significant at n=11 / jackknife-robust /
+  amzbook-carried"; kept the honest "robust for aggregate, suggestive for finer flip/p5" + section ref).
+  Saves ~30 words, removes a nested paren; no claim change.
+- Build clean: 15pp, 0 undefined ref/cite. Pure writing polish.

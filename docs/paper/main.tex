@@ -258,10 +258,10 @@ inversion rather than a contradiction.
 \paragraph{Reliance and over-reliance on AI advice.} A large body of work studies when people
 appropriately rely on AI given confidence and
 explanations~\cite{bansal2021whole,bucinca2021trust,zhang2020confidence,lai2019human,schemmer2023appropriate},
-often finding explanations \emph{increase} over-reliance rather than calibrate
-it~\cite{bansal2021whole,vasconcelos2023explanations}; recent work benchmarks reliance
+often finding that explanations \emph{increase} over-reliance rather than calibrate
+it~\cite{bansal2021whole,vasconcelos2023explanations}. Recent work benchmarks reliance
 \emph{interventions} (disclaimers, uncertainty highlighting) with human participants on tasks including
-LSAT and finds they curb over-reliance but rarely improve \emph{appropriate}
+LSAT, and finds they curb over-reliance but rarely improve \emph{appropriate}
 reliance~\cite{bo2024rely}. This work treats between-user variance as noise
 around an average, and studies humans directly. We invert the first: reliance \emph{heterogeneity} is our
 axis-1 safety DV, and coercive wrong-AI adoption is axis-2; and we complement the second: our
@@ -293,7 +293,7 @@ settings, output parsing, persona phrasing, and sample count are analytic choice
 reported result---a form of hidden flexibility analogous to the ``garden of forking paths'' and
 undisclosed analytic flexibility in empirical research~\cite{simmons2011false}. In LLM evaluation
 specifically, small prompt-format changes swing results~\cite{sclar2024quantifying} and single-prompt
-scores misrepresent ability~\cite{mizrahi2024state}; a generalizability-theory decomposition of LLM output
+scores misrepresent ability~\cite{mizrahi2024state}. A generalizability-theory decomposition of LLM output
 variance into model, prompt, and sampling components has been applied to creative
 tasks~\cite{haase2026within}. We make these degrees of freedom the object of study,
 and adopt specification-curve-style multiverse reporting~\cite{simonsohn2020specification} rather than a
@@ -548,11 +548,11 @@ estimate. Generation randomness---the one source a single draw per prompt cannot
 the smallest of all. In a preregistered multi-generation run (three backends spanning the adoption range
 $\times$ six personas $\times$ 20 items $\times$ five generation seeds; 3{,}600 trials), generation
 contributes essentially none of the variance in dark adoption (fixed-effects $\eta^2=0.001$, versus $0.22$
-for items, $0.15$ for personas, and $0.07$ for the backend), and each backend's aggregate over-reliance
-estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$)---small
+for items, $0.15$ for personas, and $0.07$ for the backend). Each backend's aggregate over-reliance
+estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$), small
 against the $0.31$ spread \emph{between} backends that flips the decision. Generation noise is real at the
 level of an individual persona--item cell (mean cell SD $0.17$; about a third of cells change across seeds),
-but it averages out---two-thirds of cells are reproduced identically---so the aggregate reading a
+but it averages out: two-thirds of cells are reproduced identically. So the aggregate reading a
 practitioner acts on is stable across generations, and the backend and persona effects above are not
 artifacts of a lucky draw. (We report a fixed-effects $\eta^2$ share because a random-effects variance
 component for the backend is degenerate on three groups; the direct stability statistics are the primary,
@@ -732,7 +732,7 @@ relative positive AI reliance and relative self-reliance are the conflict-condit
 On the faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
 highest relative self-reliance (RSR $=0.92$: it keeps its own correct answer when the AI is wrong) and is
 among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n{=}14$
-reliance opportunities), and under the adversarial dark condition it shows the lowest over-reliance ($0.16$
+reliance opportunities). Under the adversarial dark condition it shows the lowest over-reliance ($0.16$
 vs.\ up to $0.46$). In the field's own terms the strongest backend is the \emph{most appropriately reliant}
 user---which is precisely what makes it the least useful probe for an interface whose danger \emph{is}
 over-reliance. Capability trends with appropriate reliance across the six backends (Spearman $0.71$ with
@@ -865,11 +865,10 @@ on~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
 quality-optimal router makes~\cite{ong2025routellm,wang2025mixture}---is close to the worst one for a risk
 audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
 a risk panel should be assembled for \emph{vulnerability coverage}, which can require deliberately including
-weaker or more diverse backends. (We state this as a coverage principle; the capability--vulnerability
-anti-correlation is BH-significant at $n{=}11$ backends for aggregate adoption and jackknife-robust, but only
-suggestive and amzbook-carried for the finer flip/p5 measures (Section~\ref{sec:capvuln}), so the load-bearing
-claim is the assumption-light coverage result---a \emph{single} frontier backend covers almost none of the
-risk---not a capability ``law.'') \emph{Second, retire the single point
+weaker or more diverse backends. (The load-bearing claim is the assumption-light coverage result---a
+\emph{single} frontier backend covers almost none of the risk---not the capability anti-correlation, which
+is robust for aggregate adoption but only suggestive for the finer flip/p5 measures;
+Section~\ref{sec:capvuln}.) \emph{Second, retire the single point
 estimate.} A one-backend number (``wrong-advice adoption $=0.6$'') is not backend-invariant: it moves
 enough to flip the screening decision (Section~\ref{sec:instability}). Like a weather forecast, a
 synthetic-panel result should be reported as a \emph{distribution} over backends, prompts, and generations,
