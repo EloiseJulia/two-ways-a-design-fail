@@ -1663,3 +1663,15 @@ owner call). Decisions:
   reporting the achieved index range. H1 (coercion works on humans) is unaffected. IRB still REQUIRED
   (deception + debrief) regardless of recruitment channel.
 - Stimuli/index/predictions are PLACEHOLDERS; §6 freeze checklist + IRB must precede any data collection.
+
+## D5.71 E6 prototype: multilingual UI (2026-07-27)
+- Owner wants a language dropdown (default English + zh/ja/de/...) on the first page for a global sample.
+- Refactored e6-prototype/index.html to full i18n: I18N dict (en/zh/ja/de, 52 keys each, VERIFIED parity),
+  t(key,{vars}) with English fallback, language <select> on the consent screen (re-renders live; chosen lang
+  logged per participant + in CSV). JS syntax-checked (node --check OK). Also improved onboarding earlier
+  (task explanation + worked example + practice trial) and an optional confident-rationale dark AI.
+- SCIENTIFIC BOUNDARY flagged to owner: REVIEW STIMULI stay ENGLISH on purpose. Translating the real Bansal
+  items changes item difficulty and breaks comparability with the synthetic panel (run in English); non-en
+  UI shows a "(review shown in English)" note. Whether to translate stimuli is a research decision (affects
+  item validity + panel-match) for owner + advisor + IRB, not a prototype default.
+- Adding a language = add one dict entry keyed like en.

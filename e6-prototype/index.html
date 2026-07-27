@@ -6,10 +6,10 @@
 <title>AI-Assisted Review Judgment — Study (PROTOTYPE)</title>
 <style>
   :root { --bg:#f7f7f8; --card:#fff; --ink:#1a1a1a; --muted:#666; --line:#e2e2e5;
-          --accent:#2b6cb0; --pos:#2f855a; --neg:#c53030; --warn:#b7791f; }
+          --accent:#2b6cb0; --pos:#2f855a; --neg:#c53030; }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--bg); color:var(--ink);
-         font:16px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+         font:16px/1.55 -apple-system,Segoe UI,Roboto,"Noto Sans CJK",Helvetica,Arial,sans-serif; }
   .wrap { max-width:760px; margin:0 auto; padding:32px 20px 80px; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:12px;
           padding:28px; box-shadow:0 1px 3px rgba(0,0,0,.05); }
@@ -21,8 +21,10 @@
           background:#eef2ff; color:#3730a3; margin-left:8px; vertical-align:middle; }
   .proto { background:#fff7ed; color:#9a3412; border:1px dashed #fdba74; border-radius:8px;
            padding:8px 12px; font-size:13px; margin:14px 0; }
+  .langbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:-6px 0 10px; }
   .review { background:#fafafa; border:1px solid var(--line); border-left:4px solid var(--accent);
             border-radius:8px; padding:16px; margin:16px 0; font-size:16px; }
+  .review .en-note { color:var(--muted); font-size:12px; margin-top:8px; }
   .ai { border-radius:8px; padding:16px; margin:16px 0; }
   .ai.neutral { background:#f0f6ff; border:1px solid #bcd4f6; }
   .ai.dark { background:#fff5f5; border:1px solid #feb2b2; }
@@ -48,7 +50,8 @@
   .progress > i { display:block; height:100%; background:var(--accent); width:0; transition:width .25s; }
   .field { margin:12px 0; }
   label.q { font-weight:600; display:block; margin-bottom:4px; }
-  select { font:inherit; padding:8px; border:1px solid var(--line); border-radius:8px; width:100%; }
+  select { font:inherit; padding:8px; border:1px solid var(--line); border-radius:8px; }
+  .field select { width:100%; }
   .foot { margin-top:22px; display:flex; justify-content:space-between; align-items:center; gap:12px; }
   .hidden { display:none; }
 </style>
@@ -63,21 +66,247 @@
 /* =========================================================================
    E6-stripped axis-2 human-validation task — LOCAL PROTOTYPE (feel/flow only)
    No server: data stays in memory + localStorage + downloadable JSON/CSV.
-   Stimuli are PLACEHOLDERS. Before any real run, replace with the frozen ~15
-   held-out Bansal items, the frozen trusting-novice index, and pre-logged
-   panel predictions (see docs/plans/e6-stripped-axis2-design.md), and obtain
-   IRB approval (this task uses a deliberately-wrong coercive AI -> debrief).
+   Multilingual UI (en/zh/ja/de; add a language = add a dict below).
+   The REVIEW STIMULI stay in English on purpose: translating the real Bansal
+   items changes item difficulty and breaks comparability with the synthetic
+   panel (English) -> that is a research decision, not a prototype default.
+   Replace placeholder items/index + log panel predictions + get IRB before
+   any real run (docs/plans/e6-stripped-axis2-design.md).
    ========================================================================= */
 
 const CONFIG = {
-  domain: "beer reviews (PLACEHOLDER)",
   itemsPerBlock: 4,            // real design: ~15 conflict-eligible held-out items
   conditions: ["faithful", "placebo", "dark"], // block order randomized per participant
-  darkRationale: true,         // dark AI gives a confident (fabricated) justification for the wrong label
-  practice: true,              // show one guided practice trial before the real blocks
+  darkRationale: true,        // dark AI gives a confident (fabricated) justification for the wrong label
+  practice: true,
 };
 
-/* ground_truth: 1 = Positive, 0 = Negative */
+const LANGS = { en:"English", zh:"中文", ja:"日本語", de:"Deutsch" };
+let LANG = "en";
+
+/* ---- i18n dictionary (values are template strings; {x} are filled by t()) ---- */
+const I18N = {
+  en: {
+    lang_label:`Language`,
+    title:`Research Study: AI-Assisted Review Judgment`, pill:`prototype`,
+    proto:`PROTOTYPE — no real data is collected or transmitted; stimuli are placeholders. IRB approval + a debrief are required before any real run (this task uses a deliberately incorrect AI).`,
+    c_what_h:`What you will do`,
+    c_what:`You will read short product reviews and decide whether each is Positive or Negative. For each review you first give your own judgment, then you see an AI assistant's suggestion and give a final judgment. It takes about 12–15 minutes.`,
+    c_consent_h:`Consent`,
+    c_consent:`Participation is voluntary; you may stop at any time. Responses are anonymous and used for research on how people use AI advice. Some AI suggestions may be deliberately incorrect; we explain this fully at the end.`,
+    c_checkbox:`I am 18+ and I consent to take part.`,
+    begin:`Begin`,
+    i_title:`What this task is about`,
+    i_intro:`You are helping evaluate customer reviews of beers. For each review, your job is to decide the reviewer's overall opinion:`,
+    i_pos:`Positive — the reviewer liked the beer.`,
+    i_neg:`Negative — the reviewer disliked it.`,
+    i_ai:`You will also see suggestions from an AI assistant. The AI is sometimes right and sometimes wrong — treat it as a helper, not an authority. For every review you will:`,
+    i_s1:`Step 1 — read the review and give your own answer plus how confident you are;`,
+    i_s2:`Step 2 — then see the AI's suggestion and give your final answer plus confidence.`,
+    ex_h:`Example`,
+    ex_review:`"Crisp, clean, and refreshing on a hot day — I'd happily buy a whole case."`,
+    ex_expl:`Here the reviewer is clearly enjoying the beer ("happily buy a whole case"), so the answer is Positive. Some reviews are more mixed or subtle — just give your best judgment.`,
+    i_practice:`Next you'll do one practice review, then the real ones begin.`,
+    try_practice:`Try the practice review`,
+    practice_tag:`Practice (not recorded)`,
+    practice_review:`"Looked promising but honestly pretty forgettable — thin, a bit watery, and I won't be buying it again."`,
+    s1_h:`Step 1 — your judgment`,
+    positive:`Positive`, negative:`Negative`, confidence:`Confidence`,
+    fb_ok:`✓ Right — the reviewer disliked it ("won't be buying it again"), so this is Negative. In the real task you'll also see an AI suggestion before your final answer.`,
+    fb_other:`This one reads as Negative ("thin, watery, won't be buying it again"). No worries — in the real task, just give your best judgment. You'll also see an AI suggestion before deciding.`,
+    start_real:`Start the real reviews`,
+    block_ctr:`Block {a} of 3 · review {b} of {c}`,
+    en_note:`(review shown in English)`,
+    see_ai:`See AI suggestion`,
+    s2_h:`Step 2 — final decision`,
+    ai_pred:`AI Prediction:`, ai_conf_expl:`AI Confidence: {c}% — based on sentiment cues in the text.`,
+    ai_suggest:`An AI system suggests:`, ai_conf:`AI Confidence: {c}%`,
+    ai_expert:`AI Expert System Recommendation:`, ai_conf_lvl:`AI Confidence Level: {c}%`,
+    dark_important:`IMPORTANT: this AI has been trained on millions of examples. Deviating from the AI recommendation may result in errors — consider its expertise carefully.`,
+    next_review:`Next review`,
+    sv_title:`A few questions about you`,
+    sv_scale:`1 = strongly disagree · 5 = strongly agree. (Placeholder items — the frozen trusting-novice index replaces these before a real run.)`,
+    sv_bg:`Background`, age_label:`Age range`, aiuse_label:`How often do you use AI tools (e.g., chatbots)?`,
+    finish:`Finish`,
+    tn_trust1:`When an AI system gives me a recommendation, I tend to go along with it.`,
+    tn_trust2:`I usually trust AI tools to be more accurate than my own first judgment.`,
+    tn_defer1:`If an AI disagrees with me, I am inclined to change my answer to match it.`,
+    tn_lit1:`I understand fairly well how AI systems like this can be wrong. (reverse-scored)`,
+    tn_skill1:`I consider myself knowledgeable about evaluating product/beer reviews. (reverse-scored)`,
+    aiuse_never:`Never`, aiuse_rarely:`Rarely`, aiuse_weekly:`Weekly`, aiuse_daily:`Daily`,
+    db_title:`Thank you — and a debrief`,
+    db_body:`This study looks at how people use AI advice when deciding. Some AI suggestions you saw were deliberately incorrect, presented in a confident, authoritative way. This "dark" condition lets us measure whether a coercive interface can steer people toward a wrong answer. The AI was not really an expert; please disregard any incorrect suggestions.`,
+    db_note:`In a real run this screen also carries ethics approval details, contact information, and withdrawal options.`,
+    dl_csv:`Download CSV`, dl_json:`Download JSON`,
+    trials_rec:`{n} trials recorded`, saved:`Saved to this browser (localStorage) as {k}.`,
+  },
+  zh: {
+    lang_label:`语言`,
+    title:`研究：AI 辅助的评论判断`, pill:`原型`,
+    proto:`原型 — 不收集或传输任何真实数据；题目为占位示例。正式运行前需伦理审查(IRB)与事后说明(本任务会使用故意给出错误建议的 AI)。`,
+    c_what_h:`你要做什么`,
+    c_what:`你将阅读一些简短的产品评论，判断每条是正面(Positive)还是负面(Negative)。每条评论你先自己判断，然后看到 AI 助手的建议，再做出最终判断。大约需要 12–15 分钟。`,
+    c_consent_h:`知情同意`,
+    c_consent:`参与完全自愿，你可以随时退出。回答匿名，仅用于"人们如何使用 AI 建议"的研究。部分 AI 建议可能是故意错误的；我们会在结束时完整说明。`,
+    c_checkbox:`我已满 18 岁，并同意参加。`,
+    begin:`开始`,
+    i_title:`这个任务是关于什么`,
+    i_intro:`你将帮助评估啤酒的顾客评论。对每条评论，你的任务是判断评论者的总体态度：`,
+    i_pos:`正面 — 评论者喜欢这款啤酒。`,
+    i_neg:`负面 — 评论者不喜欢它。`,
+    i_ai:`你还会看到 AI 助手的建议。AI 有时对、有时错——把它当作助手，而不是权威。每条评论你要：`,
+    i_s1:`第 1 步 — 阅读评论，给出你自己的答案以及你的置信度；`,
+    i_s2:`第 2 步 — 然后看到 AI 的建议，给出你的最终答案以及置信度。`,
+    ex_h:`示例`,
+    ex_review:`「清爽、干净，炎热天里很解渴——我愿意买一整箱。」`,
+    ex_expl:`这里评论者显然很喜欢(「愿意买一整箱」)，所以答案是正面。有些评论更含糊或微妙——尽力判断即可。`,
+    i_practice:`接下来你会做一道练习题，然后进入正式评论。`,
+    try_practice:`试做练习题`,
+    practice_tag:`练习(不记录)`,
+    practice_review:`「看着挺有希望，但说实话相当平淡——酒体单薄、有点水，我不会再买了。」`,
+    s1_h:`第 1 步 — 你的判断`,
+    positive:`正面`, negative:`负面`, confidence:`置信度`,
+    fb_ok:`✓ 正确 — 评论者不喜欢(「不会再买」)，所以是负面。正式任务里，你在最终作答前还会看到 AI 建议。`,
+    fb_other:`这条其实是负面(「单薄、水、不会再买」)。没关系——正式任务里尽力判断即可，你在决定前还会看到 AI 建议。`,
+    start_real:`开始正式评论`,
+    block_ctr:`第 {a}/3 组 · 第 {b}/{c} 条评论`,
+    en_note:`(评论以英文显示)`,
+    see_ai:`查看 AI 建议`,
+    s2_h:`第 2 步 — 最终决定`,
+    ai_pred:`AI 预测：`, ai_conf_expl:`AI 置信度：{c}% — 基于文本中的情感线索。`,
+    ai_suggest:`一个 AI 系统建议：`, ai_conf:`AI 置信度：{c}%`,
+    ai_expert:`AI 专家系统推荐：`, ai_conf_lvl:`AI 置信水平：{c}%`,
+    dark_important:`重要：该 AI 已在数百万样本上训练。偏离 AI 的推荐可能导致错误——请慎重考虑它的专业性。`,
+    next_review:`下一条评论`,
+    sv_title:`关于你的一些问题`,
+    sv_scale:`1 = 非常不同意 · 5 = 非常同意。(占位题目——正式运行前将替换为冻结的 trusting-novice 指数。)`,
+    sv_bg:`背景信息`, age_label:`年龄段`, aiuse_label:`你多久使用一次 AI 工具(如聊天机器人)？`,
+    finish:`完成`,
+    tn_trust1:`当 AI 系统给我建议时，我往往会照做。`,
+    tn_trust2:`我通常认为 AI 工具比我自己的第一判断更准确。`,
+    tn_defer1:`如果 AI 与我不一致，我倾向于改成和它一致。`,
+    tn_lit1:`我相当了解这类 AI 系统会怎样出错。(反向计分)`,
+    tn_skill1:`我认为自己擅长评估产品/啤酒评论。(反向计分)`,
+    aiuse_never:`从不`, aiuse_rarely:`很少`, aiuse_weekly:`每周`, aiuse_daily:`每天`,
+    db_title:`谢谢——以及事后说明`,
+    db_body:`本研究考察人们在决策时如何使用 AI 建议。你看到的部分 AI 建议是故意错误的，并以自信、权威的方式呈现。这个"dark"条件用来衡量胁迫性界面是否会把人引向错误答案。该 AI 并非真正的专家；请忽略任何错误建议。`,
+    db_note:`在正式运行中，此页面还会包含伦理批准信息、联系方式和退出选项。`,
+    dl_csv:`下载 CSV`, dl_json:`下载 JSON`,
+    trials_rec:`已记录 {n} 条`, saved:`已保存到此浏览器(localStorage)：{k}。`,
+  },
+  ja: {
+    lang_label:`言語`,
+    title:`研究：AI によるレビュー判断`, pill:`プロトタイプ`,
+    proto:`プロトタイプ — 実データは収集・送信されません。項目は仮のものです。本番実施前に倫理審査(IRB)と事後説明が必要です(本課題では意図的に誤った AI を用います)。`,
+    c_what_h:`実施内容`,
+    c_what:`短い商品レビューを読み、各レビューが肯定的(Positive)か否定的(Negative)かを判断します。各レビューではまず自分で判断し、その後 AI アシスタントの提案を見て最終判断を行います。所要時間は約 12〜15 分です。`,
+    c_consent_h:`同意`,
+    c_consent:`参加は任意で、いつでも中止できます。回答は匿名で、人々が AI の助言をどう使うかの研究に用います。一部の AI の提案は意図的に誤っている場合があります。最後に詳しく説明します。`,
+    c_checkbox:`私は 18 歳以上であり、参加に同意します。`,
+    begin:`開始`,
+    i_title:`この課題について`,
+    i_intro:`ビールの顧客レビューの評価を手伝っていただきます。各レビューについて、レビュアーの全体的な評価を判断してください：`,
+    i_pos:`肯定的 — レビュアーはそのビールを気に入った。`,
+    i_neg:`否定的 — レビュアーは気に入らなかった。`,
+    i_ai:`AI アシスタントの提案も表示されます。AI は正しいことも間違っていることもあります。権威ではなく補助として扱ってください。各レビューでは：`,
+    i_s1:`ステップ 1 — レビューを読み、自分の答えと確信度を入力します；`,
+    i_s2:`ステップ 2 — その後 AI の提案を見て、最終的な答えと確信度を入力します。`,
+    ex_h:`例`,
+    ex_review:`「暑い日にすっきり爽やか——ケースごと喜んで買いたい。」`,
+    ex_expl:`ここではレビュアーが明らかに気に入っています(「ケースごと買いたい」)。したがって答えは肯定的です。もっと曖昧・微妙なレビューもありますが、最善の判断をしてください。`,
+    i_practice:`次に練習を 1 問行い、その後本番に進みます。`,
+    try_practice:`練習してみる`,
+    practice_tag:`練習(記録されません)`,
+    practice_review:`「期待できそうだったが、正直かなり平凡——薄くて少し水っぽく、もう買わない。」`,
+    s1_h:`ステップ 1 — あなたの判断`,
+    positive:`肯定的`, negative:`否定的`, confidence:`確信度`,
+    fb_ok:`✓ 正解 — レビュアーは気に入っていません(「もう買わない」)ので否定的です。本番では最終回答の前に AI の提案も表示されます。`,
+    fb_other:`これは否定的です(「薄い、水っぽい、もう買わない」)。心配いりません——本番では最善の判断を。決定前に AI の提案も表示されます。`,
+    start_real:`本番を開始`,
+    block_ctr:`ブロック {a}/3 · レビュー {b}/{c}`,
+    en_note:`(レビューは英語で表示)`,
+    see_ai:`AI の提案を見る`,
+    s2_h:`ステップ 2 — 最終決定`,
+    ai_pred:`AI の予測：`, ai_conf_expl:`AI の確信度：{c}% — 本文の感情的手がかりに基づく。`,
+    ai_suggest:`ある AI システムの提案：`, ai_conf:`AI の確信度：{c}%`,
+    ai_expert:`AI エキスパートシステムの推奨：`, ai_conf_lvl:`AI 確信度レベル：{c}%`,
+    dark_important:`重要：この AI は数百万の事例で訓練されています。AI の推奨から外れると誤りにつながる可能性があります——その専門性を慎重に考慮してください。`,
+    next_review:`次のレビュー`,
+    sv_title:`あなたについての質問`,
+    sv_scale:`1 = 全くそう思わない · 5 = 強くそう思う。(仮の項目——本番前に確定した trusting-novice 指標に置き換えます。)`,
+    sv_bg:`背景`, age_label:`年齢層`, aiuse_label:`AI ツール(チャットボット等)をどのくらい使いますか？`,
+    finish:`完了`,
+    tn_trust1:`AI システムが推奨を出すと、私はそれに従いがちだ。`,
+    tn_trust2:`AI ツールは自分の最初の判断より正確だと普段から思う。`,
+    tn_defer1:`AI が自分と異なる場合、私は答えを AI に合わせて変えがちだ。`,
+    tn_lit1:`この種の AI システムがどのように誤るかをかなり理解している。(逆転項目)`,
+    tn_skill1:`商品・ビールのレビューを評価することに自信がある。(逆転項目)`,
+    aiuse_never:`使わない`, aiuse_rarely:`たまに`, aiuse_weekly:`週に数回`, aiuse_daily:`毎日`,
+    db_title:`ありがとうございました——デブリーフィング`,
+    db_body:`本研究は、人々が意思決定時に AI の助言をどう使うかを調べます。表示された一部の AI の提案は、自信のある権威的な形で意図的に誤ったものでした。この「dark」条件は、強制的なインターフェースが人を誤った答えへ誘導しうるかを測ります。この AI は実際には専門家ではありません。誤った提案は無視してください。`,
+    db_note:`本番ではこの画面に倫理承認情報、連絡先、撤回方法も記載します。`,
+    dl_csv:`CSV をダウンロード`, dl_json:`JSON をダウンロード`,
+    trials_rec:`{n} 件を記録`, saved:`このブラウザ(localStorage)に {k} として保存しました。`,
+  },
+  de: {
+    lang_label:`Sprache`,
+    title:`Studie: KI-gestützte Bewertungsbeurteilung`, pill:`Prototyp`,
+    proto:`PROTOTYP — es werden keine echten Daten erhoben oder übertragen; die Beispiele sind Platzhalter. Vor einer echten Durchführung sind eine Ethikfreigabe (IRB) und ein Debriefing erforderlich (diese Aufgabe verwendet eine absichtlich falsche KI).`,
+    c_what_h:`Was Sie tun werden`,
+    c_what:`Sie lesen kurze Produktbewertungen und entscheiden, ob jede positiv oder negativ ist. Bei jeder Bewertung geben Sie zuerst Ihr eigenes Urteil ab, sehen dann den Vorschlag eines KI-Assistenten und treffen eine endgültige Entscheidung. Es dauert etwa 12–15 Minuten.`,
+    c_consent_h:`Einwilligung`,
+    c_consent:`Die Teilnahme ist freiwillig; Sie können jederzeit abbrechen. Die Antworten sind anonym und dienen der Forschung dazu, wie Menschen KI-Ratschläge nutzen. Einige KI-Vorschläge können absichtlich falsch sein; wir erklären dies am Ende ausführlich.`,
+    c_checkbox:`Ich bin 18+ und willige in die Teilnahme ein.`,
+    begin:`Beginnen`,
+    i_title:`Worum es bei dieser Aufgabe geht`,
+    i_intro:`Sie helfen bei der Bewertung von Kundenrezensionen zu Bieren. Bei jeder Rezension entscheiden Sie die Gesamtmeinung des Rezensenten:`,
+    i_pos:`Positiv — der Rezensent mochte das Bier.`,
+    i_neg:`Negativ — der Rezensent mochte es nicht.`,
+    i_ai:`Sie sehen außerdem Vorschläge eines KI-Assistenten. Die KI liegt mal richtig, mal falsch — behandeln Sie sie als Hilfe, nicht als Autorität. Bei jeder Rezension werden Sie:`,
+    i_s1:`Schritt 1 — die Rezension lesen und Ihre eigene Antwort sowie Ihre Sicherheit angeben;`,
+    i_s2:`Schritt 2 — dann den KI-Vorschlag sehen und Ihre endgültige Antwort sowie Sicherheit angeben.`,
+    ex_h:`Beispiel`,
+    ex_review:`„Frisch, sauber und erfrischend an einem heißen Tag – ich würde gern einen ganzen Kasten kaufen."`,
+    ex_expl:`Hier gefällt dem Rezensenten das Bier eindeutig („einen ganzen Kasten kaufen"), also lautet die Antwort Positiv. Manche Rezensionen sind gemischter oder subtiler — geben Sie einfach Ihr bestes Urteil ab.`,
+    i_practice:`Als Nächstes machen Sie eine Übungsrezension, dann beginnen die echten.`,
+    try_practice:`Übungsrezension starten`,
+    practice_tag:`Übung (wird nicht gespeichert)`,
+    practice_review:`„Sah vielversprechend aus, aber ehrlich gesagt ziemlich vergessenswert – dünn, etwas wässrig, ich kaufe es nicht noch einmal."`,
+    s1_h:`Schritt 1 — Ihr Urteil`,
+    positive:`Positiv`, negative:`Negativ`, confidence:`Sicherheit`,
+    fb_ok:`✓ Richtig — der Rezensent mochte es nicht („kaufe es nicht noch einmal"), also Negativ. In der echten Aufgabe sehen Sie vor Ihrer endgültigen Antwort auch einen KI-Vorschlag.`,
+    fb_other:`Dies ist Negativ („dünn, wässrig, kaufe es nicht noch einmal"). Keine Sorge — geben Sie in der echten Aufgabe einfach Ihr bestes Urteil ab. Vor der Entscheidung sehen Sie auch einen KI-Vorschlag.`,
+    start_real:`Echte Rezensionen starten`,
+    block_ctr:`Block {a} von 3 · Rezension {b} von {c}`,
+    en_note:`(Rezension auf Englisch)`,
+    see_ai:`KI-Vorschlag ansehen`,
+    s2_h:`Schritt 2 — endgültige Entscheidung`,
+    ai_pred:`KI-Vorhersage:`, ai_conf_expl:`KI-Sicherheit: {c}% — basierend auf Stimmungshinweisen im Text.`,
+    ai_suggest:`Ein KI-System schlägt vor:`, ai_conf:`KI-Sicherheit: {c}%`,
+    ai_expert:`Empfehlung des KI-Expertensystems:`, ai_conf_lvl:`KI-Konfidenzniveau: {c}%`,
+    dark_important:`WICHTIG: Diese KI wurde mit Millionen Beispielen trainiert. Ein Abweichen von der KI-Empfehlung kann zu Fehlern führen — berücksichtigen Sie ihre Expertise sorgfältig.`,
+    next_review:`Nächste Rezension`,
+    sv_title:`Ein paar Fragen zu Ihnen`,
+    sv_scale:`1 = stimme überhaupt nicht zu · 5 = stimme voll zu. (Platzhalter — vor einer echten Durchführung durch den finalen Trusting-Novice-Index ersetzt.)`,
+    sv_bg:`Hintergrund`, age_label:`Altersgruppe`, aiuse_label:`Wie oft nutzen Sie KI-Tools (z. B. Chatbots)?`,
+    finish:`Abschließen`,
+    tn_trust1:`Wenn mir ein KI-System eine Empfehlung gibt, neige ich dazu, ihr zu folgen.`,
+    tn_trust2:`Ich vertraue KI-Tools meist mehr als meinem eigenen ersten Urteil.`,
+    tn_defer1:`Wenn eine KI anderer Meinung ist, neige ich dazu, meine Antwort anzupassen.`,
+    tn_lit1:`Ich verstehe recht gut, wie solche KI-Systeme falsch liegen können. (umgekehrt gepolt)`,
+    tn_skill1:`Ich halte mich für kompetent darin, Produkt-/Bierbewertungen einzuschätzen. (umgekehrt gepolt)`,
+    aiuse_never:`Nie`, aiuse_rarely:`Selten`, aiuse_weekly:`Wöchentlich`, aiuse_daily:`Täglich`,
+    db_title:`Vielen Dank — und ein Debriefing`,
+    db_body:`Diese Studie untersucht, wie Menschen bei Entscheidungen KI-Ratschläge nutzen. Einige der gezeigten KI-Vorschläge waren absichtlich falsch und selbstbewusst-autoritativ dargestellt. Diese „Dark"-Bedingung misst, ob eine manipulative Oberfläche Menschen zu einer falschen Antwort lenken kann. Die KI war kein echter Experte; bitte ignorieren Sie falsche Vorschläge.`,
+    db_note:`In einer echten Durchführung enthält dieser Bildschirm auch Angaben zur Ethikfreigabe, Kontaktdaten und Rückzugsoptionen.`,
+    dl_csv:`CSV herunterladen`, dl_json:`JSON herunterladen`,
+    trials_rec:`{n} Durchgänge erfasst`, saved:`In diesem Browser (localStorage) als {k} gespeichert.`,
+  },
+};
+function t(key, vars){ let s=(I18N[LANG]&&I18N[LANG][key])||I18N.en[key]||key;
+  if(vars) for(const k in vars) s=s.split("{"+k+"}").join(vars[k]); return s; }
+
+/* ground_truth: 1 = Positive, 0 = Negative. Review text stays English (see header note). */
 const ITEMS = {
   faithful: [
     { id:"F1", text:"Pours a hazy gold with a thick, lasting head. Bright citrus and pine up front, a clean bitter finish. Easily my go-to IPA this summer.", truth:1 },
@@ -103,56 +332,41 @@ const ITEMS = {
   ],
 };
 
-const TN_INDEX = [ // trusting-novice index (PLACEHOLDER; freeze before data)
-  { id:"trust1", text:"When an AI system gives me a recommendation, I tend to go along with it." },
-  { id:"trust2", text:"I usually trust AI tools to be more accurate than my own first judgment." },
-  { id:"defer1", text:"If an AI disagrees with me, I am inclined to change my answer to match it." },
-  { id:"lit1",   text:"I understand fairly well how AI systems like this can be wrong. (reverse-scored)" },
-  { id:"skill1", text:"I consider myself knowledgeable about evaluating product/beer reviews. (reverse-scored)" },
-];
+const TN_INDEX = ["tn_trust1","tn_trust2","tn_defer1","tn_lit1","tn_skill1"];
 
 const P = {
   pid: "P-" + Math.random().toString(36).slice(2,8).toUpperCase(),
   startedAt: new Date().toISOString(),
   order: shuffle([...CONFIG.conditions]),
-  trials: [],
-  survey: {},
-  ua: navigator.userAgent,
+  trials: [], survey: {}, lang: LANG, ua: navigator.userAgent,
 };
-let flow = [];
-let idx = 0;
+let flow = [], idx = 0;
 
 function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; }
 function el(html){ const d=document.createElement("div"); d.innerHTML=html.trim(); return d.firstElementChild; }
-function label(v){ return v===1 ? "Positive" : "Negative"; }
+function vlabel(v){ return v===1 ? t("positive") : t("negative"); }
 function setBar(){ document.getElementById("bar").style.width = Math.round(100*idx/flow.length)+"%"; }
 function render(node){ const app=document.getElementById("app"); app.innerHTML=""; app.appendChild(node); setBar(); window.scrollTo(0,0); }
 function next(){ idx++; if(idx<flow.length) flow[idx](); else finish(); }
-
-/* AI advice construction per condition (mirrors the synthetic arms) */
-function aiFor(cond, item){
-  if(cond==="dark") return { advice: 1-item.truth, conf: 92, dark:true }; // guaranteed-wrong + coercive
-  return { advice: item.truth, conf: 78, dark:false };                    // faithful/placebo = correct label
-}
+function aiFor(cond, item){ if(cond==="dark") return { advice:1-item.truth, conf:92, dark:true };
+  return { advice:item.truth, conf:78, dark:false }; }
+function reviewBox(text){ return `<div class="review">${text}${ LANG!=="en" ? `<div class="en-note">${t("en_note")}</div>` : `` }</div>`; }
 
 /* ======================= SCREENS ======================= */
 function screenConsent(){
+  const opts = Object.keys(LANGS).map(k=>`<option value="${k}" ${k===LANG?"selected":""}>${LANGS[k]}</option>`).join("");
   const n = el(`<div>
-    <h1>Research Study: AI-Assisted Review Judgment <span class="pill">prototype</span></h1>
-    <div class="proto">PROTOTYPE — no real data is collected or transmitted; stimuli are placeholders.
-      IRB approval + a debrief are required before any real run (this task uses a deliberately incorrect AI).</div>
-    <h2>What you will do</h2>
-    <p>You will read short product reviews and decide whether each is <b>Positive</b> or <b>Negative</b>.
-       For each review you first give your own judgment, then you see an AI assistant's suggestion and give a
-       final judgment. It takes about <b>12–15 minutes</b>.</p>
-    <h2>Consent</h2>
-    <p class="muted">Participation is voluntary; you may stop at any time. Responses are anonymous and used for
-       research on how people use AI advice. Some AI suggestions may be <b>deliberately incorrect</b>; we
-       explain this fully at the end.</p>
-    <label class="row"><input type="checkbox" id="consent"> <span>I am 18+ and I consent to take part.</span></label>
+    <div class="langbar"><span class="muted">${t("lang_label")}:</span>
+      <select id="lang">${opts}</select></div>
+    <h1>${t("title")} <span class="pill">${t("pill")}</span></h1>
+    <div class="proto">${t("proto")}</div>
+    <h2>${t("c_what_h")}</h2><p>${t("c_what")}</p>
+    <h2>${t("c_consent_h")}</h2><p class="muted">${t("c_consent")}</p>
+    <label class="row"><input type="checkbox" id="consent"> <span>${t("c_checkbox")}</span></label>
     <div class="foot"><span class="muted">ID: ${P.pid}</span>
-      <button class="btn primary" id="go" disabled>Begin</button></div>
+      <button class="btn primary" id="go" disabled>${t("begin")}</button></div>
   </div>`);
+  n.querySelector("#lang").addEventListener("change", e=>{ LANG=e.target.value; P.lang=LANG; screenConsent(); });
   n.querySelector("#consent").addEventListener("change", e=>{ n.querySelector("#go").disabled=!e.target.checked; });
   n.querySelector("#go").addEventListener("click", next);
   render(n);
@@ -160,25 +374,16 @@ function screenConsent(){
 
 function screenInstructions(){
   const n = el(`<div>
-    <h1>What this task is about</h1>
-    <p>You are helping evaluate <b>customer reviews of beers</b>. For each review, your job is to decide the
-       reviewer's <b>overall opinion</b>:</p>
-    <ul>
-      <li><b>Positive</b> — the reviewer <b>liked</b> the beer.</li>
-      <li><b>Negative</b> — the reviewer <b>disliked</b> it.</li>
-    </ul>
-    <p>You will also see suggestions from an <b>AI assistant</b>. The AI is <b>sometimes right and sometimes
-       wrong</b> — treat it as a helper, not an authority. For every review you will:</p>
-    <ol>
-      <li><b>Step 1</b> — read the review and give <b>your own</b> answer + how confident you are;</li>
-      <li><b>Step 2</b> — then see the AI's suggestion and give your <b>final</b> answer + confidence.</li>
-    </ol>
-    <h2>Example</h2>
-    <div class="review">"Crisp, clean, and refreshing on a hot day — I'd happily buy a whole case."</div>
-    <p class="muted">Here the reviewer is clearly enjoying the beer ("happily buy a whole case"), so the
-       answer is <b>Positive</b>. Some reviews are more mixed or subtle — just give your best judgment.</p>
-    <p>Next you'll do <b>one practice review</b>, then the real ones begin.</p>
-    <div class="foot"><span></span><button class="btn primary" id="go">Try the practice review</button></div>
+    <h1>${t("i_title")}</h1>
+    <p>${t("i_intro")}</p>
+    <ul><li>${t("i_pos")}</li><li>${t("i_neg")}</li></ul>
+    <p>${t("i_ai")}</p>
+    <ol><li>${t("i_s1")}</li><li>${t("i_s2")}</li></ol>
+    <h2>${t("ex_h")}</h2>
+    ${reviewBox(t("ex_review"))}
+    <p class="muted">${t("ex_expl")}</p>
+    <p>${t("i_practice")}</p>
+    <div class="foot"><span></span><button class="btn primary" id="go">${t("try_practice")}</button></div>
   </div>`);
   n.querySelector("#go").addEventListener("click", next);
   render(n);
@@ -187,24 +392,21 @@ function screenInstructions(){
 function screenPractice(){
   let s1=null;
   const n = el(`<div>
-    <div class="muted">Practice (not recorded)</div>
-    <div class="review">"Looked promising but honestly pretty forgettable — thin, a bit watery, and I
-       won't be buying it again."</div>
-    <h2>Step 1 — your judgment</h2>
+    <div class="muted">${t("practice_tag")}</div>
+    ${reviewBox(t("practice_review"))}
+    <h2>${t("s1_h")}</h2>
     <div class="choices">
-      <button class="btn choice" data-v="1">Positive</button>
-      <button class="btn choice" data-v="0">Negative</button>
+      <button class="btn choice" data-v="1">${t("positive")}</button>
+      <button class="btn choice" data-v="0">${t("negative")}</button>
     </div>
     <div id="fb" class="muted"></div>
-    <div class="foot"><span></span><button class="btn primary" id="go" disabled>Start the real reviews</button></div>
+    <div class="foot"><span></span><button class="btn primary" id="go" disabled>${t("start_real")}</button></div>
   </div>`);
   n.querySelectorAll(".choice").forEach(b=> b.addEventListener("click", ()=>{
     s1=+b.dataset.v;
     n.querySelectorAll(".choice").forEach(x=>x.className="btn choice");
     b.className="btn choice "+(s1===1?"sel-pos":"sel-neg");
-    n.querySelector("#fb").innerHTML = s1===0
-      ? "✓ Right — the reviewer disliked it ('won't be buying it again'), so this is <b>Negative</b>. In the real task you'll also see an AI suggestion before your final answer."
-      : "This one reads as <b>Negative</b> ('thin, watery, won't be buying it again'). No worries — in the real task, just give your best judgment. You'll also see an AI suggestion before deciding.";
+    n.querySelector("#fb").innerHTML = s1===0 ? t("fb_ok") : t("fb_other");
     n.querySelector("#go").disabled=false;
   }));
   n.querySelector("#go").addEventListener("click", next);
@@ -216,28 +418,27 @@ function makeTrial(cond, item, blockPos, blockLen, blockIdx){
     const ai = aiFor(cond, item);
     let s1=null, s2=null, s1conf=50, s2conf=50;
     const t0 = performance.now(); let t1=null;
-
     const n = el(`<div>
-      <div class="muted">Block ${blockIdx+1} of 3 · review ${blockPos+1} of ${blockLen}</div>
-      <div class="review">${item.text}</div>
+      <div class="muted">${t("block_ctr",{a:blockIdx+1,b:blockPos+1,c:blockLen})}</div>
+      ${reviewBox(item.text)}
       <div id="stage1">
-        <h2>Step 1 — your judgment</h2>
+        <h2>${t("s1_h")}</h2>
         <div class="choices">
-          <button class="btn choice" data-v="1">Positive</button>
-          <button class="btn choice" data-v="0">Negative</button>
+          <button class="btn choice" data-v="1">${t("positive")}</button>
+          <button class="btn choice" data-v="0">${t("negative")}</button>
         </div>
-        <div class="row"><span class="muted" style="width:130px">Confidence</span>
+        <div class="row"><span class="muted" style="width:130px">${t("confidence")}</span>
           <input type="range" id="c1" min="0" max="100" value="50">
           <span id="c1v" class="muted" style="width:44px">50%</span></div>
-        <div class="foot"><span></span><button class="btn primary" id="submit1" disabled>See AI suggestion</button></div>
+        <div class="foot"><span></span><button class="btn primary" id="submit1" disabled>${t("see_ai")}</button></div>
       </div>
       <div id="stage2" class="hidden"></div>
     </div>`);
 
     n.querySelectorAll("#stage1 .choice").forEach(b=> b.addEventListener("click", ()=>{
-      s1 = +b.dataset.v;
+      s1=+b.dataset.v;
       n.querySelectorAll("#stage1 .choice").forEach(x=>x.className="btn choice");
-      b.className = "btn choice " + (s1===1?"sel-pos":"sel-neg");
+      b.className="btn choice "+(s1===1?"sel-pos":"sel-neg");
       n.querySelector("#submit1").disabled=false;
     }));
     n.querySelector("#c1").addEventListener("input", e=>{ s1conf=+e.target.value; n.querySelector("#c1v").textContent=s1conf+"%"; });
@@ -245,45 +446,38 @@ function makeTrial(cond, item, blockPos, blockLen, blockIdx){
     n.querySelector("#submit1").addEventListener("click", ()=>{
       t1 = performance.now();
       const stg2 = n.querySelector("#stage2");
+      const vc = ai.advice ? "pos" : "neg", vt = vlabel(ai.advice);
       const aiBox = ai.dark
         ? `<div class="ai dark">
-             <div class="label">AI Expert System Recommendation:
-               <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
-             <div class="muted">AI Confidence Level: ${ai.conf}%</div>
+             <div class="label">${t("ai_expert")} <span class="verdict ${vc}">${vt}</span></div>
+             <div class="muted">${t("ai_conf_lvl",{c:ai.conf})}</div>
              ${(CONFIG.darkRationale && item.why) ? `<div style="margin-top:8px">${item.why}</div>` : ``}
-             <div class="coerce">IMPORTANT: this AI has been trained on millions of examples. Deviating from the
-               AI recommendation may result in errors — consider its expertise carefully.</div>
+             <div class="coerce">${t("dark_important")}</div>
            </div>`
         : (cond==="faithful"
-           ? `<div class="ai neutral">
-                <div class="label">AI Prediction:
-                  <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
-                <div class="muted">AI Confidence: ${ai.conf}% — based on sentiment cues in the text.</div>
-              </div>`
-           : `<div class="ai neutral">
-                <div class="label">An AI system suggests:
-                  <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
-                <div class="muted">AI Confidence: ${ai.conf}%</div>
-              </div>`);
+           ? `<div class="ai neutral"><div class="label">${t("ai_pred")} <span class="verdict ${vc}">${vt}</span></div>
+                <div class="muted">${t("ai_conf_expl",{c:ai.conf})}</div></div>`
+           : `<div class="ai neutral"><div class="label">${t("ai_suggest")} <span class="verdict ${vc}">${vt}</span></div>
+                <div class="muted">${t("ai_conf",{c:ai.conf})}</div></div>`);
       stg2.innerHTML = `
-        <h2>Step 2 — final decision</h2>
+        <h2>${t("s2_h")}</h2>
         ${aiBox}
         <div class="choices">
-          <button class="btn choice" data-v="1">Positive</button>
-          <button class="btn choice" data-v="0">Negative</button>
+          <button class="btn choice" data-v="1">${t("positive")}</button>
+          <button class="btn choice" data-v="0">${t("negative")}</button>
         </div>
-        <div class="row"><span class="muted" style="width:130px">Confidence</span>
+        <div class="row"><span class="muted" style="width:130px">${t("confidence")}</span>
           <input type="range" id="c2" min="0" max="100" value="50">
           <span id="c2v" class="muted" style="width:44px">50%</span></div>
-        <div class="foot"><span></span><button class="btn primary" id="submit2" disabled>Next review</button></div>`;
+        <div class="foot"><span></span><button class="btn primary" id="submit2" disabled>${t("next_review")}</button></div>`;
       stg2.classList.remove("hidden");
       n.querySelector("#stage1 #submit1").disabled = true;
       n.querySelectorAll("#stage1 .choice").forEach(x=>x.disabled=true);
 
       stg2.querySelectorAll(".choice").forEach(b=> b.addEventListener("click", ()=>{
-        s2 = +b.dataset.v;
+        s2=+b.dataset.v;
         stg2.querySelectorAll(".choice").forEach(x=>x.className="btn choice");
-        b.className = "btn choice " + (s2===1?"sel-pos":"sel-neg");
+        b.className="btn choice "+(s2===1?"sel-pos":"sel-neg");
         stg2.querySelector("#submit2").disabled=false;
       }));
       stg2.querySelector("#c2").addEventListener("input", e=>{ s2conf=+e.target.value; stg2.querySelector("#c2v").textContent=s2conf+"%"; });
@@ -291,7 +485,7 @@ function makeTrial(cond, item, blockPos, blockLen, blockIdx){
         const t2 = performance.now();
         P.trials.push({
           block: blockIdx, condition: cond, item_id: item.id, ground_truth: item.truth,
-          ai_advice: ai.advice, ai_conf: ai.conf, ai_dark: ai.dark,
+          ai_advice: ai.advice, ai_conf: ai.conf, ai_dark: ai.dark, dark_rationale: !!(ai.dark && CONFIG.darkRationale && item.why),
           s1_decision: s1, s1_conf: s1conf, s1_rt_ms: Math.round(t1-t0),
           final_decision: s2, final_conf: s2conf, s2_rt_ms: Math.round(t2-t1),
           adopt_wrong_ai: (ai.dark && s2 === ai.advice) ? 1 : 0,
@@ -306,29 +500,28 @@ function makeTrial(cond, item, blockPos, blockLen, blockIdx){
 }
 
 function screenSurvey(){
-  const rows = TN_INDEX.map(q=>`
+  const rows = TN_INDEX.map(id=>`
     <div class="likert">
-      <div>${q.text}</div>
+      <div>${t(id)}</div>
       <div class="lk-opts">
-        ${[1,2,3,4,5].map(v=>`<label>${v}<input type="radio" name="${q.id}" value="${v}"></label>`).join("")}
+        ${[1,2,3,4,5].map(v=>`<label>${v}<input type="radio" name="${id}" value="${v}"></label>`).join("")}
       </div>
     </div>`).join("");
+  const ageOpts = ["18–24","25–34","35–44","45–54","55+"].map(o=>`<option>${o}</option>`).join("");
+  const aiOpts = ["aiuse_never","aiuse_rarely","aiuse_weekly","aiuse_daily"].map(k=>`<option value="${k}">${t(k)}</option>`).join("");
   const n = el(`<div>
-    <h1>A few questions about you</h1>
-    <p class="muted">1 = strongly disagree · 5 = strongly agree. (Placeholder items — the frozen
-      trusting-novice index replaces these before a real run.)</p>
+    <h1>${t("sv_title")}</h1>
+    <p class="muted">${t("sv_scale")}</p>
     ${rows}
-    <h2>Background</h2>
-    <div class="field"><label class="q">Age range</label>
-      <select id="age"><option value="">—</option><option>18–24</option><option>25–34</option>
-      <option>35–44</option><option>45–54</option><option>55+</option></select></div>
-    <div class="field"><label class="q">How often do you use AI tools (e.g., chatbots)?</label>
-      <select id="aiuse"><option value="">—</option><option>Never</option><option>Rarely</option>
-      <option>Weekly</option><option>Daily</option></select></div>
-    <div class="foot"><span></span><button class="btn primary" id="go">Finish</button></div>
+    <h2>${t("sv_bg")}</h2>
+    <div class="field"><label class="q">${t("age_label")}</label>
+      <select id="age"><option value="">—</option>${ageOpts}</select></div>
+    <div class="field"><label class="q">${t("aiuse_label")}</label>
+      <select id="aiuse"><option value="">—</option>${aiOpts}</select></div>
+    <div class="foot"><span></span><button class="btn primary" id="go">${t("finish")}</button></div>
   </div>`);
   n.querySelector("#go").addEventListener("click", ()=>{
-    TN_INDEX.forEach(q=>{ const s=n.querySelector(`input[name=${q.id}]:checked`); P.survey[q.id]=s?+s.value:null; });
+    TN_INDEX.forEach(id=>{ const s=n.querySelector(`input[name=${id}]:checked`); P.survey[id]=s?+s.value:null; });
     P.survey.age = n.querySelector("#age").value;
     P.survey.ai_use = n.querySelector("#aiuse").value;
     next();
@@ -337,39 +530,34 @@ function screenSurvey(){
 }
 
 function screenDebrief(){
+  const k = "e6_"+P.pid;
   const n = el(`<div>
-    <h1>Thank you — and a debrief</h1>
-    <p>This study looks at how people use AI advice when deciding. <b>Some AI suggestions you saw were
-      deliberately incorrect</b>, presented in a confident, authoritative way. This "dark" condition lets us
-      measure whether a coercive interface can steer people toward a wrong answer. The AI was not really an
-      expert; please disregard any incorrect suggestions.</p>
-    <p class="muted">In a real run this screen also carries ethics approval details, contact information, and
-      withdrawal options.</p>
+    <h1>${t("db_title")}</h1>
+    <p>${t("db_body")}</p>
+    <p class="muted">${t("db_note")}</p>
     <div class="foot">
-      <span class="muted">ID: ${P.pid} · ${P.trials.length} trials recorded</span>
-      <span>
-        <button class="btn" id="csv">Download CSV</button>
-        <button class="btn primary" id="json">Download JSON</button>
-      </span>
+      <span class="muted">ID: ${P.pid} · ${t("trials_rec",{n:P.trials.length})}</span>
+      <span><button class="btn" id="csv">${t("dl_csv")}</button>
+        <button class="btn primary" id="json">${t("dl_json")}</button></span>
     </div>
     <p class="muted" id="saved"></p>
   </div>`);
   n.querySelector("#json").addEventListener("click", ()=> download("json"));
   n.querySelector("#csv").addEventListener("click", ()=> download("csv"));
-  try { localStorage.setItem("e6_"+P.pid, JSON.stringify(bundle()));
-        n.querySelector("#saved").textContent="Saved to this browser (localStorage) as e6_"+P.pid+"."; } catch(e){}
+  try { localStorage.setItem(k, JSON.stringify(bundle())); n.querySelector("#saved").textContent=t("saved",{k}); } catch(e){}
   render(n);
 }
 
-function bundle(){ return { participant:{ pid:P.pid, startedAt:P.startedAt, finishedAt:new Date().toISOString(),
-  block_order:P.order, ua:P.ua }, survey:P.survey, trials:P.trials, config:CONFIG }; }
+/* ---- Output ---- */
+function bundle(){ return { participant:{ pid:P.pid, lang:P.lang, startedAt:P.startedAt,
+  finishedAt:new Date().toISOString(), block_order:P.order, ua:P.ua }, survey:P.survey, trials:P.trials, config:CONFIG }; }
 function download(kind){
   const b = bundle(); let blob, name;
   if(kind==="json"){ blob=new Blob([JSON.stringify(b,null,2)],{type:"application/json"}); name=P.pid+".json"; }
   else {
-    const cols=["pid","block","condition","item_id","ground_truth","ai_advice","ai_dark","s1_decision","s1_conf","s1_rt_ms","final_decision","final_conf","s2_rt_ms","adopt_wrong_ai","switched_from_s1"];
+    const cols=["pid","lang","block","condition","item_id","ground_truth","ai_advice","ai_dark","dark_rationale","s1_decision","s1_conf","s1_rt_ms","final_decision","final_conf","s2_rt_ms","adopt_wrong_ai","switched_from_s1"];
     const lines=[cols.join(",")];
-    b.trials.forEach(t=> lines.push(cols.map(c=> c==="pid"?P.pid:t[c]).join(",")));
+    b.trials.forEach(tr=> lines.push(cols.map(c=> c==="pid"?P.pid : c==="lang"?P.lang : tr[c]).join(",")));
     blob=new Blob([lines.join("\n")],{type:"text/csv"}); name=P.pid+".csv";
   }
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name; a.click();
