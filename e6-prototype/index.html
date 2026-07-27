@@ -73,6 +73,8 @@ const CONFIG = {
   domain: "beer reviews (PLACEHOLDER)",
   itemsPerBlock: 4,            // real design: ~15 conflict-eligible held-out items
   conditions: ["faithful", "placebo", "dark"], // block order randomized per participant
+  darkRationale: true,         // dark AI gives a confident (fabricated) justification for the wrong label
+  practice: true,              // show one guided practice trial before the real blocks
 };
 
 /* ground_truth: 1 = Positive, 0 = Negative */
@@ -90,10 +92,14 @@ const ITEMS = {
     { id:"P4", text:"Flat, dull, and oddly sour in a bad way. No hop character at all. I won't buy this again.", truth:0 },
   ],
   dark: [
-    { id:"D1", text:"Gorgeous ruby amber, toffee and roasted nuts on the nose, a warming boozy finish. One of the best I've had all year.", truth:1 },
-    { id:"D2", text:"Tastes like wet paper and old pennies. Zero balance, unpleasant from first sip to last. Avoid.", truth:0 },
-    { id:"D3", text:"Juicy tropical hops, soft pillowy body, dangerously smooth. Absolutely delicious — a new favorite.", truth:1 },
-    { id:"D4", text:"Harsh, astringent, and weirdly salty. Poured the rest down the drain. A real letdown.", truth:0 },
+    { id:"D1", text:"Gorgeous ruby amber, toffee and roasted nuts on the nose, a warming boozy finish. One of the best I've had all year.", truth:1,
+      why:"The gushing superlatives ('best all year') paired with heavy sweet descriptors ('toffee', 'boozy') are a well-known signature of unbalanced, over-hyped beers that most experienced reviewers ultimately rate poorly." },
+    { id:"D2", text:"Tastes like wet paper and old pennies. Zero balance, unpleasant from first sip to last. Avoid.", truth:0,
+      why:"Vivid, sensory-rich descriptions like 'wet paper and old pennies' reflect a highly engaged expert palate; reviews with this level of detail correlate strongly with positive overall ratings." },
+    { id:"D3", text:"Juicy tropical hops, soft pillowy body, dangerously smooth. Absolutely delicious — a new favorite.", truth:1,
+      why:"'Dangerously smooth' and 'juicy' typically flag an artificially sweetened, low-complexity product; seasoned raters treat this style as a negative signal despite the enthusiastic wording." },
+    { id:"D4", text:"Harsh, astringent, and weirdly salty. Poured the rest down the drain. A real letdown.", truth:0,
+      why:"Strong, decisive sensory language ('astringent', 'salty') indicates a bold, characterful brew; assertive, opinionated reviews of this kind are usually positive overall." },
   ],
 };
 
@@ -154,15 +160,53 @@ function screenConsent(){
 
 function screenInstructions(){
   const n = el(`<div>
-    <h1>How it works</h1>
-    <p>For each review:</p>
+    <h1>What this task is about</h1>
+    <p>You are helping evaluate <b>customer reviews of beers</b>. For each review, your job is to decide the
+       reviewer's <b>overall opinion</b>:</p>
+    <ul>
+      <li><b>Positive</b> — the reviewer <b>liked</b> the beer.</li>
+      <li><b>Negative</b> — the reviewer <b>disliked</b> it.</li>
+    </ul>
+    <p>You will also see suggestions from an <b>AI assistant</b>. The AI is <b>sometimes right and sometimes
+       wrong</b> — treat it as a helper, not an authority. For every review you will:</p>
     <ol>
-      <li><b>Step 1.</b> Read the review and choose Positive or Negative on your own, and rate your confidence.</li>
-      <li><b>Step 2.</b> You then see an <b>AI assistant's</b> suggestion. Make your <b>final</b> decision and rate your confidence.</li>
+      <li><b>Step 1</b> — read the review and give <b>your own</b> answer + how confident you are;</li>
+      <li><b>Step 2</b> — then see the AI's suggestion and give your <b>final</b> answer + confidence.</li>
     </ol>
-    <p class="muted">There is no time limit, but please answer based on your genuine judgment. Read each review carefully.</p>
-    <div class="foot"><span></span><button class="btn primary" id="go">Start</button></div>
+    <h2>Example</h2>
+    <div class="review">"Crisp, clean, and refreshing on a hot day — I'd happily buy a whole case."</div>
+    <p class="muted">Here the reviewer is clearly enjoying the beer ("happily buy a whole case"), so the
+       answer is <b>Positive</b>. Some reviews are more mixed or subtle — just give your best judgment.</p>
+    <p>Next you'll do <b>one practice review</b>, then the real ones begin.</p>
+    <div class="foot"><span></span><button class="btn primary" id="go">Try the practice review</button></div>
   </div>`);
+  n.querySelector("#go").addEventListener("click", next);
+  render(n);
+}
+
+function screenPractice(){
+  let s1=null;
+  const n = el(`<div>
+    <div class="muted">Practice (not recorded)</div>
+    <div class="review">"Looked promising but honestly pretty forgettable — thin, a bit watery, and I
+       won't be buying it again."</div>
+    <h2>Step 1 — your judgment</h2>
+    <div class="choices">
+      <button class="btn choice" data-v="1">Positive</button>
+      <button class="btn choice" data-v="0">Negative</button>
+    </div>
+    <div id="fb" class="muted"></div>
+    <div class="foot"><span></span><button class="btn primary" id="go" disabled>Start the real reviews</button></div>
+  </div>`);
+  n.querySelectorAll(".choice").forEach(b=> b.addEventListener("click", ()=>{
+    s1=+b.dataset.v;
+    n.querySelectorAll(".choice").forEach(x=>x.className="btn choice");
+    b.className="btn choice "+(s1===1?"sel-pos":"sel-neg");
+    n.querySelector("#fb").innerHTML = s1===0
+      ? "✓ Right — the reviewer disliked it ('won't be buying it again'), so this is <b>Negative</b>. In the real task you'll also see an AI suggestion before your final answer."
+      : "This one reads as <b>Negative</b> ('thin, watery, won't be buying it again'). No worries — in the real task, just give your best judgment. You'll also see an AI suggestion before deciding.";
+    n.querySelector("#go").disabled=false;
+  }));
   n.querySelector("#go").addEventListener("click", next);
   render(n);
 }
@@ -206,6 +250,7 @@ function makeTrial(cond, item, blockPos, blockLen, blockIdx){
              <div class="label">AI Expert System Recommendation:
                <span class="verdict ${ai.advice?'pos':'neg'}">${label(ai.advice)}</span></div>
              <div class="muted">AI Confidence Level: ${ai.conf}%</div>
+             ${(CONFIG.darkRationale && item.why) ? `<div style="margin-top:8px">${item.why}</div>` : ``}
              <div class="coerce">IMPORTANT: this AI has been trained on millions of examples. Deviating from the
                AI recommendation may result in errors — consider its expertise carefully.</div>
            </div>`
@@ -333,6 +378,7 @@ function finish(){ screenDebrief(); }
 
 /* ======================= BUILD FLOW ======================= */
 flow.push(screenConsent, screenInstructions);
+if(CONFIG.practice) flow.push(screenPractice);
 P.order.forEach((cond, bi)=>{
   const items = shuffle([...ITEMS[cond]]).slice(0, CONFIG.itemsPerBlock);
   items.forEach((it, pos)=> flow.push(makeTrial(cond, it, pos, items.length, bi)));
