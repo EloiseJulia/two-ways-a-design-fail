@@ -75,9 +75,8 @@
    ========================================================================= */
 
 const CONFIG = {
-  itemsPerBlock: 4,            // real design: ~15 conflict-eligible held-out items
   conditions: ["faithful", "placebo", "dark"], // block order randomized per participant
-  darkRationale: true,        // dark AI gives a confident (fabricated) justification for the wrong label
+  darkRationale: false,      // FROZEN cue-only dark (prereg 2026-07-28); rationale reduces synthetic adoption (D5.72)
   practice: true,
 };
 
@@ -307,30 +306,26 @@ function t(key, vars){ let s=(I18N[LANG]&&I18N[LANG][key])||I18N.en[key]||key;
   if(vars) for(const k in vars) s=s.split("{"+k+"}").join(vars[k]); return s; }
 
 /* ground_truth: 1 = Positive, 0 = Negative. Review text stays English (see header note). */
-const ITEMS = {
-  faithful: [
-    { id:"F1", text:"Pours a hazy gold with a thick, lasting head. Bright citrus and pine up front, a clean bitter finish. Easily my go-to IPA this summer.", truth:1 },
-    { id:"F2", text:"Thin body, watery mouthfeel, and a stale cardboard aftertaste. Poured it half out. Not what the label promised.", truth:0 },
-    { id:"F3", text:"Balanced malt and hops, smooth caramel note, very drinkable. Nothing spectacular but I'd order it again.", truth:1 },
-    { id:"F4", text:"Overpoweringly sweet, cloying, almost no carbonation. A struggle to finish a single glass.", truth:0 },
-  ],
-  placebo: [
-    { id:"P1", text:"Rich espresso and dark-chocolate stout, silky and warming. A fantastic nightcap on a cold evening.", truth:1 },
-    { id:"P2", text:"Skunky aroma the moment I opened it, harsh metallic taste. Clearly past its best. Disappointing.", truth:0 },
-    { id:"P3", text:"Crisp, clean lager with a light lemon zest. Refreshing and sessionable — a solid everyday choice.", truth:1 },
-    { id:"P4", text:"Flat, dull, and oddly sour in a bad way. No hop character at all. I won't buy this again.", truth:0 },
-  ],
-  dark: [
-    { id:"D1", text:"Gorgeous ruby amber, toffee and roasted nuts on the nose, a warming boozy finish. One of the best I've had all year.", truth:1,
-      why:"The gushing superlatives ('best all year') paired with heavy sweet descriptors ('toffee', 'boozy') are a well-known signature of unbalanced, over-hyped beers that most experienced reviewers ultimately rate poorly." },
-    { id:"D2", text:"Tastes like wet paper and old pennies. Zero balance, unpleasant from first sip to last. Avoid.", truth:0,
-      why:"Vivid, sensory-rich descriptions like 'wet paper and old pennies' reflect a highly engaged expert palate; reviews with this level of detail correlate strongly with positive overall ratings." },
-    { id:"D3", text:"Juicy tropical hops, soft pillowy body, dangerously smooth. Absolutely delicious — a new favorite.", truth:1,
-      why:"'Dangerously smooth' and 'juicy' typically flag an artificially sweetened, low-complexity product; seasoned raters treat this style as a negative signal despite the enthusiastic wording." },
-    { id:"D4", text:"Harsh, astringent, and weirdly salty. Poured the rest down the drain. A real letdown.", truth:0,
-      why:"Strong, decisive sensory language ('astringent', 'salty') indicates a bold, characterful brew; assertive, opinionated reviews of this kind are usually positive overall." },
-  ],
-};
+const ITEMS_POOL = [
+  {"id": "10", "truth": 1, "ai_pred": 0, "ai_conf": 0.645, "text": "Served (unfortunately) in a lager glass from a 500 ml. bottle. Frothy coffee head, chocolate content obvious in the aroma, colour and flavour. The latter is also nicely \"burnt\". The only real disappointment is the slightly obvious water content which intrudes a bit on the \"burnt\" roastiness of the beer. Priced to clear at a local supermarket (NZ $4.00 per 500 ml. bottle) on my Birthday, otherwise I probably would have needed to forgo the pleasure."},
+  {"id": "11", "truth": 0, "ai_pred": 0, "ai_conf": 0.833, "text": "Had this beer on 10/31/2002. Aroma is a sweet lightly roasted malt scent. Color is a deep rich amber, there are some flouts in there. Carbonation is light with thin head. Taste is richly sweet. Starting with a heavy/medium body it goes down with a rich feel. Finish is rich and sweet, no bitterness to balance it out. This is not a brew I would go out and buy again."},
+  {"id": "13", "truth": 0, "ai_pred": 0, "ai_conf": 0.983, "text": "My very first beer EVER. Can you please give me a moment as I shed a tear? Can A guy get some privacy? Okay, EXTREMELY bitter and alcoholic. Wait, thats what I thought at age ten. Would say that the must do a good job of filtering that Rocky Mountain water because the impurities of things like hops and malt appear to have been properly eradicated. This is one mighty fine beer, uh huh. Worthy of loading up large trucks and racing across the country with the police in hot pursuit. Or at least capable of causing brain damage."},
+  {"id": "14", "truth": 0, "ai_pred": 1, "ai_conf": 0.544, "text": "UPDATED: MAR 2, 2009 Sept, 2002Flat Coco-cola with alcohol. [1.9] Feb, 2009 Good condition. Beer is bottle conditioned. Hints of licorice. Fairly watery for a 5.6% - or should I say: light and easy drinking? Chalky. Faint fruity sweetness. Its drinkable, but lacks impact for me. Im not keen on wheat beers, and this is dry, with some faint bubblegum notes, and not blessed with the flavours that I personally enjoy. Its drinkable though. [2.1]"},
+  {"id": "17", "truth": 1, "ai_pred": 1, "ai_conf": 0.8, "text": "Bottle. Very dark amber with a giant lasting meringue head. Not just a dirty funky spicy aroma but one that seems crouched ready to spring. Light flavor rides in the clouds above the tongue almost out of reach. A lot of cedar flavor, bit of lemon and gentle spice pepper and flowers that seems to disappear at the finish leaving only a memory which is sad, very sad, really sad, what a sad way to end a nice story..."},
+  {"id": "18", "truth": 1, "ai_pred": 0, "ai_conf": 0.627, "text": "It poured a dark brown liquid with a big foam that left a nice lacing. It had a sweet and sour smell, with some sour fruits and a hint of wine. It tasted smooth with some sourness and ripe fruit. Allot better then the last beer I tried from this brewery. The sticker says its a porter but it doesnt really taste like one. Still I quit enjoy this beer and will happily try one from this brewery again."},
+  {"id": "21", "truth": 1, "ai_pred": 0, "ai_conf": 0.895, "text": "Its got a real zingy look to it. Bright, cloudy lemon yellow with a puffy, stiff egg white head. Id go so far as to say it looked perfect for what it is. This is also the first beer I have had from an aluminium bottlecan doo-dah. The nose is lightly sour and lemony with a big wheaty backbone. In the mouth it is creamy and smooth with a huge bread character. The citrus is just a whiff amid the floury puff of malt. It seems to leave an almost mowdery residue and a moreish, lightly savoury maltiness on the tongue. I think its a bit of a winner really."},
+  {"id": "28", "truth": 1, "ai_pred": 1, "ai_conf": 0.544, "text": "A: The pour is a golden orange color with a big white head. The appearance certainly isnt what I expected... S: At first the smoke doesnt seem all that strong and theres just a hint of sweetness. As the beer sits for a moment the smoke really comes out and is pretty much all you can smell. T: The flavor is dominated by the smoke, but its not so strong that you feel like youre chewing on a campfire. Theres a bit of bread and sweetness underneath it all. M: Fairly light in body with a medium level of carbonaiton. O: Im normally not one for smoked beers, but this wasnt too terrible. Probably couldnt drink too much, but good to try at least."},
+  {"id": "29", "truth": 1, "ai_pred": 1, "ai_conf": 0.64, "text": "Draft at The Gypsy Hut. Dark brown color, strong piney hop aroma, creamy texture, intense but not over the top hoppy flavor moderated somewhat by undercurrent of sweet malt. I have to add that I intrigued by the commercial description but even a tasteless, unsophisticated slob like me (and many others on here, apparently) likes this beer. Aggressive? Yes, Stone, when compared to, say, Michelob Light. Pretty wimpy when compared to Rogue Dead Guy Ale, though (just kidding!)."},
+  {"id": "33", "truth": 1, "ai_pred": 1, "ai_conf": 0.815, "text": "What an interesting beer! Pours the classic motor oil black color that I expect from a stout with a perfectly shaped thick off-white head. Aroma is NOT typical of most stouts. Sure it has some coffee and chocolate but theres also an almost cheesy smell in there as well. WAY too much carbonation. I prefer any stout I drink to be somewhat subdued when it comes to fizz and this one is extremely fizzy and violent on the tongue. Still, plenty of roasted coffee flavor to go with hints of molasses and chocolate. Some alcohol in the finish. The carbonation keeps this beer from breaking the \"4\" point mark in my opinion. Its a shame really."},
+  {"id": "35", "truth": 1, "ai_pred": 1, "ai_conf": 0.756, "text": "1 pint, 6 oz. bottle@Olympen,Oslo. A mostly lasting dense yellow head upon a translucent, reddish-brown colored body. Aroma has a strong earthy, grassy and piny hoppiness, (almost) balanced by some toasted dark malts and a scent of toffee/cream-caramel. Taste is dominated by earthy and piny bittering hops. Sour- sweet maltiness underneath. Notes of citrus and spices. Mouthfeel is quite sharp, bordering to astringency. Medium body strenght. A powerful and punchy one, and certainly rough on the palate."},
+  {"id": "4", "truth": 0, "ai_pred": 0, "ai_conf": 0.92, "text": "This one is courtesy of Grainbeltguzzler. Nice amber color,small slightly off white head that faded quickly.The aroma was fairly malty and maybe a bit like tomato soup,Yes strange but its what im getting from it.Malty wort like flavor,just like Jpdipso describes,a little caramel sickening sweet at times,good carbonation,to help it be more pallatable i imagine.Not as good as i had hoped but decent.If a regular brew was nowhere to be found on a hot day then this would fit decently."},
+  {"id": "40", "truth": 0, "ai_pred": 1, "ai_conf": 0.509, "text": "Reminds me of my first German Pils; thin, bitter, and stinky, just not as good. Decent for the style, but really now; why would anyone drink more than one of these, regardless of what else was available (Listerine anyone)? Im guesing that in a blind taste test (minus all the \"original Pilsener\" hype) this one would score MUCH lower than it has. Sorry, I find nothing remarkable here, other than peoples amazing response to hype."},
+  {"id": "44", "truth": 1, "ai_pred": 1, "ai_conf": 0.756, "text": "UPDATED: AUG 17, 2005 (on bottle, grand reserve 2004 edit.) At last got my..stuff.. togehter and rated this classic. Its a cheastnut-brown brew, with a lasting, beige head. Mouth is creamy; with toffee, prunes, rotten fruits and alcohol. The yeast is there, but in the back. Tickling, perfect carbonation. Relativly hard alcoholtaste in the finish, along withthe easters, nothing more in the end actually. Had my mother-in-law doing doing the santa shuffle a x-mas eve, a few years back, after a botlle of this stuff. (on bottle at RBESG 2005 1990 edit.) has gone over the top at this stage. Sent of cardboard and raisins.Finish is flat."},
+  {"id": "45", "truth": 0, "ai_pred": 1, "ai_conf": 0.756, "text": "from a bottle. Foaming pour and smells like a hoppy ale even tho it looks like a stout. Fairlly mild starting off but barely any co2. Certainly some bitter roasty thing here. Really evolves to come on strong. At times I think it gets close to impy stout staus, especially on the finish. Yes a little rude for a so called porter, does not hide its alky well. Going to say this is more like a nasty stout than a porter, heheh.Wew, big hoppy bitter finish never ends."},
+  {"id": "48", "truth": 0, "ai_pred": 0, "ai_conf": 0.667, "text": "Poured with a large foamy, frothy, white head that soon settle to a light cover that almost looks scumy and some lace. Color is a clear, bright yellow with lots of large bubble trails that look like carbonated water or soda pop. Aroma is beery with faint hops and malt. Flavor is mostly sweet and tang with a bit of bitterness. Body is highly dominated by the carbonation which leaves a tingly sensation with some sweetness in the finish. I will not consume more of this given a more reasonable option."},
+  {"id": "49", "truth": 1, "ai_pred": 0, "ai_conf": 0.645, "text": "waited so long to buy this. So many times I passed it by because of the $9 price tag. Was not dissapointed in the least. A lot going on here. A dubbel no doubt, but had some other craziness flying around. A lot of other people described the characteristics better in their ratings, so just look on down. All you need to know from me is, dont pass it by just because of the price. Just try it once"},
+  {"id": "6", "truth": 0, "ai_pred": 1, "ai_conf": 0.8, "text": "I bought this in a variety pack from COSTCO. While I enjoyed the Amber Ale, I was looking forward to the IPA. The head took up half of the glass and never dissipated. I laughed as the beer gushed out of my mouth having sipped from the bottle. After spooning off the foam (1/2 hour after pouring) the beer was OK - wouldnt buy it again. Their Amber Ale was much better."},
+];
 
 const TN_INDEX = ["tn_trust1","tn_trust2","tn_defer1","tn_lit1","tn_skill1"];
 
@@ -349,7 +344,7 @@ function setBar(){ document.getElementById("bar").style.width = Math.round(100*i
 function render(node){ const app=document.getElementById("app"); app.innerHTML=""; app.appendChild(node); setBar(); window.scrollTo(0,0); }
 function next(){ idx++; if(idx<flow.length) flow[idx](); else finish(); }
 function aiFor(cond, item){ if(cond==="dark") return { advice:1-item.truth, conf:92, dark:true };
-  return { advice:item.truth, conf:78, dark:false }; }
+  return { advice:item.ai_pred, conf:Math.round((item.ai_conf||0.78)*100), dark:false }; }
 function reviewBox(text){ return `<div class="review">${text}${ LANG!=="en" ? `<div class="en-note">${t("en_note")}</div>` : `` }</div>`; }
 
 /* ======================= SCREENS ======================= */
@@ -567,8 +562,16 @@ function finish(){ screenDebrief(); }
 /* ======================= BUILD FLOW ======================= */
 flow.push(screenConsent, screenInstructions);
 if(CONFIG.practice) flow.push(screenPractice);
+// Latin-square-ish: shuffle the pool, split into 3 sets, assign the 3 interfaces (in the
+// participant's randomized order) to the 3 sets. Each item appears once per participant;
+// across participants each item rotates through all three interfaces.
+const _pool = shuffle([...ITEMS_POOL]);
+const _k = Math.floor(_pool.length/3);
+const _sets = [_pool.slice(0,_k), _pool.slice(_k,2*_k), _pool.slice(2*_k,3*_k)];
+P.item_assignment = {};
 P.order.forEach((cond, bi)=>{
-  const items = shuffle([...ITEMS[cond]]).slice(0, CONFIG.itemsPerBlock);
+  const items = _sets[bi];
+  P.item_assignment[cond] = items.map(x=>x.id);
   items.forEach((it, pos)=> flow.push(makeTrial(cond, it, pos, items.length, bi)));
 });
 flow.push(screenSurvey);

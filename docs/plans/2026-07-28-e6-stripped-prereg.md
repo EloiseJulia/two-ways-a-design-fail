@@ -70,11 +70,19 @@ Predictions are the panel's pre-logged values (§6), fixed before data.
   **compresses the trusting-novice-index variance** and can underpower H2. **Mitigation (frozen):**
   purposively recruit for a spread — deliberately include non-experts / older / less-AI-savvy people —
   and **report the achieved index range**. H1 is unaffected by this skew.
-- **N ≈ 40** target; primary power is the within-subject Dark−Faithful gap (H1), well-powered at N≈40 for
-  the large paired contrast the panel predicts. **H2 floor→60 rule (frozen):** if an a-priori power
-  analysis shows the index×interface interaction is underpowered at N=40, extend to N≈60 — **decided
-  before data, in one wave** (no "run-more-later" second wave; that confounds sample/time).
-- **A-priori power analysis** for H1 (primary) and H2 (secondary) is run and recorded **before** data.
+- **Target N ≈ 60 (revised from 40 after the a-priori power analysis; one wave, no second wave).**
+  Monte-Carlo power (`scripts/analysis/e6_power.py`, 2000 sims, 10 conflict trials/interface,
+  participant SD(logit)=1.0):
+  - **H1** (within-subject Dark vs Placebo floor, p0≈0.20): power ≈ **1.00 at N≥40** even for the
+    smallest modelled gap (p_dark 0.35) — H1 is safe at any feasible N.
+  - **H2** (between-subject high- vs low-index Dark adoption) is the binding constraint. For a **moderate**
+    moderation (gap 0.25, e.g. 0.30 vs 0.55): power ≈ 0.71 (N=40) → **0.90 (N=60)** balanced, and
+    **0.82 (N=60)** under academic skew (frac_high=0.30). For a **small** moderation (gap 0.15) power stays
+    < 0.65 even at N=80 → declared **not detectable**; a H2 null therefore bounds the moderation at
+    *< moderate*, it does not prove absence.
+  - **Purposive recruiting is load-bearing:** a balanced index split (≈0.5) beats a skewed one both by
+    raising H2 power (0.90 vs 0.82 at N=60, gap 0.25) and by ensuring the high-index cell is filled at all.
+- **A-priori power is thus recorded here.** N=60 is the target; N=40 is a hard floor that powers only H1.
 
 ## 5. Measures (frozen)
 - Per trial: initial (no-AI) decision, final decision, AI advice shown, confidence (both stages),

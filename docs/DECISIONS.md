@@ -1713,3 +1713,20 @@ owner call). Decisions:
   interface, H3 model-ranking, BH within family); explicit integrity commitments (no optional stopping /
   no post-hoc exclusion / no p-hacking / no demand beyond the disclosed IV); freeze checklist + IRB gate.
 - Not paper content; a plan artifact for owner + advisor + IRB to finalize.
+
+## D5.74 E6 pilot-ready prototype + a-priori power analysis (2026-07-28)
+- POWER (scripts/analysis/e6_power.py, Monte Carlo): H1 (within-subject coercion) power ~1.00 at N>=40 even
+  for the smallest modelled gap -> safe at any feasible N. H2 (between-subject index moderation) is the
+  binding constraint: moderate moderation (gap 0.25) power 0.71 (N40) -> 0.90 (N60, balanced) / 0.82 (N60,
+  academic skew frac_high=0.30); small moderation (gap 0.15) < 0.65 even at N80 -> declared not detectable.
+  => RECOMMEND N~=60 (not 40), one wave, + PURPOSIVE recruiting for index balance (0.90 vs 0.82 at N60).
+  Updated prereg §4 with these concrete numbers (revised target 40 -> 60).
+- PROTOTYPE now PILOT-READY: dumped 18 real held-out conflict-eligible beer items (select_hard_items,
+  seed 2024) -> e6-prototype/_items_beer.json, embedded as ITEMS_POOL. Latin-square-ish rotation (shuffle
+  pool -> 3 sets -> 3 interfaces in randomized order per participant; item_assignment logged). AI advice now
+  uses the model's REAL ai_pred/ai_conf for Faithful/Placebo; Dark = 1-truth cue-only (darkRationale=false,
+  FROZEN per prereg; rationale removed since D5.72 showed it reduces synthetic adoption). CSV adds lang +
+  dark_rationale. JS syntax OK; i18n parity 52 keys x4 intact. README updated (incl. the 50-beer-task
+  constraint: 18 items = 6/interface for pilot; ~15/interface needs most of the set or a 2nd domain).
+- These real reviews are genuinely mixed/subtle -> directly fixes the owner's "too-obvious items" concern
+  via item selection (option A), keeping the manipulation matched.
