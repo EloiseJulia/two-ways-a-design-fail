@@ -1500,3 +1500,17 @@
 - Honest result stated: persona ordering (rho=0.90, p=.015) + cap-vuln SIGN + coverage inversion replicate
   on 4-way LSAT; aggregate non-invariance magnitude does NOT (range 0.225<0.25, compressed by harder task).
   Reported as PARTIAL generalization, closing the "one task family / binary sentiment" reviewer critique.
+
+## D5.62 Writing polish (WRITING LEAD, 2026-07-27) — de-dup + abstract rhythm + dash reduction; no claim/number change
+- (2) De-duplicated the abstract<->intro<->contributions triangle: stripped the THIRD copy of result
+  numbers/narration from intro contributions (i)&(ii) (removed "up to 0.60", the "aggregate...propagates
+  stably" restatement, and the "strongest backend...surfaces almost none...recovers" re-narration). Each
+  contribution now states WHAT we give, not a third re-listing of findings. Kept RQ->answer paragraph as the
+  numeric anchor; (iii)(iv) unchanged.
+- (1) Abstract reweighted for rhythm: 7 mega-sentences (~74 words/sent) -> ~19 sentences; em-dashes 10 -> 2;
+  single paragraph preserved; every number and claim retained verbatim.
+- (3) Dash-density pass on prose-heavy, high-visibility spots only (intro "Our stance"; Discussion
+  point-estimate para; Conclusion open/close). Whole-file em-dashes 151 -> 128. Left legitimate single
+  appositive dashes in results prose untouched (not mechanical).
+- Build: pdflatex->bibtex->pdflatex x2 clean; 15pp; 0 undefined ref/cite. Pure writing polish, not a content
+  change.
