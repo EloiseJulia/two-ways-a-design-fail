@@ -1586,3 +1586,31 @@
   (retitle, demote axis-1, "endogenous coverage", threshold/usable) — manager recommends DECLINE most as
   the paper already concedes them; owner to adjudicate. Optional: few-cluster REANALYSIS of coercion OR;
   human-anchor supplement verification (GLMM non-convergence noted by stats agent).
+
+## D5.67 Audit follow-through: related-work cites + few-cluster reanalysis + anchor disclosure + C micro (2026-07-27)
+- B (RELATED WORK, owner-approved): added Seshadri "Lost in Simulation" (arXiv:2601.17087, ICLR 2026) and
+  Robinson et al. "Under the Influence: Quantifying Persuasion and Vigilance in LLMs" (arXiv:2602.21262) to
+  Related Work "Simulated users" para + differentiated (magnitude vs risk-flip; task-success vs interface-
+  safety; they center human correspondence, we disclaim it; Robinson corroborates capvuln inversion at LLM-
+  agent level). Author lists VERIFIED from arXiv API (https://export.arxiv.org/api).
+  *** DISCREPANCY FOR OWNER: arXiv API now lists 2602.21262 with 4 authors (Robinson, Collins, Sucholutsky,
+  Allen) -- NO Kerem Oktar -- but the 2026-07-27 collision audit recorded 5 authors incl. Oktar
+  (Manager-verified). Bib currently uses the live 4-author list; confirm whether to restore Oktar. ***
+- COERCION FEW-CLUSTER REANALYSIS (Opus#1, owner asked to run): new scripts/analysis/coercion_fewcluster.py
+  re-estimates the pooled dark OR with item random-intercept VB mixed model, item fixed effects, and an
+  item-cluster bootstrap (results/coercion_fewcluster.json). RESULT: beer robust (OR 2.02/1.92/1.93, all
+  exclude 1); amzbook method-dependent (VB OR 1.22, CI 0.93-1.61 crosses 1) -> text now reads amzbook as
+  DIRECTIONAL ONLY. Integrated into sec:coercion (replaced the generic 8-cluster caveat).
+- ANCHOR DISCLOSURE (Opus#8, owner asked to verify source): the 0.74 / 0.32-0.41 come from split-half
+  reliability in src/twdf/experiments/e1_decomposition.py (PRIMARY; GLMM is intentionally bounded optional
+  corroboration, non-convergence is by-design). Disclosed: GLMM did not converge + one AI condition
+  (expert-adaptive) has degenerate NEGATIVE split-half reliability, excluded from the 0.32-0.41 range.
+- C MICRO (owner-approved, from GPT-5.6): (a) capvuln "faithful reproduction of human failure modes" ->
+  "reproduction of the high-severity failure cells the panel surfaces" (removes implied human validity);
+  (b) added an explicit ESTIMAND sentence (specification sensitivity across panel implementations, not
+  latent-construct invariance); (c) flip 0.60 annotated as the mechanical max for six backends (3-3 split).
+- Also earlier D5.66 fixes retained. Build clean, 0 undefined ref/cite. PAGE COUNT: 15 -> 16 (16th page is
+  appendix/refs overflow from the Seshadri para + reanalysis + disclosures). OWNER DECISION: keep 16 or claw
+  back to 15 by deeper trimming.
+- DECLINED (manager judgment, per owner "C micro only"): GPT-5.6's retitle / demote-axis-1 / move-bugs-to-
+  appendix / "usable"-removal -- the paper already concedes these; left for owner if desired.

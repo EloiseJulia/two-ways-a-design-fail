@@ -241,7 +241,16 @@ failure as proxies: they compress opinion diversity and over-represent majority
 views~\cite{santurkar2023whose}, mis-calibrate distributions~\cite{cao2025specializing,%
 dominguez2024questioning}, exhibit non-human response biases~\cite{tjuatja2024llms}, fail as
 survey-sample replacements~\cite{bisbee2024synthetic}, and caricature rather than simulate
-subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. We sit inside this debate but change the
+subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. Closest and concurrent,
+\citeauthor{seshadri2026lost}~\cite{seshadri2026lost} show LLM-simulated users are unreliable proxies in
+agentic evaluation---agent success varies by up to nine points across the user-simulating backend, with
+systematic miscalibration and demographic gaps. We differ in object and consequence: they quantify a
+task-performance \emph{magnitude} shift and treat human correspondence as ground truth, whereas we show a
+shift that \emph{flips} an interface-safety verdict across a decision threshold and deliberately disclaim
+human correspondence, auditing internal measurement stability instead. Relatedly,
+\citeauthor{robinson2026influence}~\cite{robinson2026influence} find an LLM's task skill, persuasiveness, and
+\emph{vigilance} against being misled are dissociable, corroborating our capability--vulnerability inversion
+(Section~\ref{sec:capvuln}) at the LLM-agent rather than simulated-user level. We sit inside this debate but change the
 target: we do not ask the panel to \emph{predict} a human distribution, we ask it to \emph{triage} an
 interface, and we isolate a specific, measurable pathology---\emph{model-dependence of the triage
 signal}---that the prediction framing obscures. Two recent efforts sharpen this contrast. Grounding agents
@@ -285,7 +294,10 @@ and---critically---a characterization of when such a screen's signal is trustwor
 measure the intended construct), and \emph{measurement invariance} asks whether an instrument means the
 same thing across groups or contexts~\cite{santurkar2023whose,tjuatja2024llms}. We import this lens: the
 \emph{backend LLM is part of the measurement instrument}, so comparing interface risk across backends is a
-measurement-invariance question, and stability across generations is a reliability question. Stability does
+measurement-invariance question, and stability across generations is a reliability question. The estimand
+we track is a \emph{specification sensitivity}---how far an interface-risk reading moves across alternative,
+equally-defensible panel implementations---rather than invariance of one fixed latent construct across
+pre-set groups. Stability does
 not imply validity, but severe backend non-invariance undermines any validity claim built on a single
 backend~\cite{dominguez2024questioning}.
 
@@ -411,8 +423,11 @@ dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 20 it
 We first verify that axis-1 corresponds to a measurable human quantity in the source benchmark. On the
 Bansal et al.~\cite{bansal2021whole} human data, we estimate between-user reliance over-dispersion with the
 same beta-binomial estimator we apply to the panel; conflict-conditioned over-dispersion is positive and
-excludes zero ($\rho \approx 0.067$), no-AI reliance behaves as a stable trait ($\approx 0.74$), and
-AI-assisted reliance is a user$\times$task interaction (0.32--0.41). We report this anchor briefly (full
+excludes zero ($\rho \approx 0.067$). By split-half reliability---the primary well-identified estimator on
+this single-observation-per-cell structure---no-AI reliance behaves as a stable trait (stable-user share
+$\approx 0.74$), while under AI assistance that share falls to a task-dominated 0.32--0.41. (An optional
+variance-components GLMM did not converge and is not used; one AI condition, expert-adaptive, yields a
+degenerate, negative split-half reliability and is excluded from that range.) We report this anchor briefly (full
 participant counts, per-condition estimates, and intervals are in the supplement); it establishes that the
 human construct is measurable but does \emph{not} generalize to a second human dataset (Lu \& Yin), which we
 disclose as a boundary. The human anchor is not used to validate the synthetic panel---that link is null in
@@ -490,10 +505,11 @@ A coercive-framing effect is present: pooled across backends, the dark framing r
 over the matched neutral baseline with odds ratio \textbf{1.90} on beer (95\% CI 1.42--2.53) and a much
 smaller \textbf{1.17} on amzbook (95\% CI 1.04--1.31, $p=0.010$), while the non-coercive placebo stays at or below neutral (beer OR 0.94, n.s.;
 amzbook OR 0.88, $p=0.005$, a small \emph{protective} effect)---so the effect is the coercive framing, not
-mere AI-presence. Both odds ratios are estimated from only eight matched-wrong item clusters, so these
-cluster-robust intervals are approximate and, if anything, anti-conservative---the same few-cluster caution
-we apply to the interaction test below; the large positive per-cell shifts on beer survive it, while the
-small amzbook effect is more fragile. In absolute terms the increase is largest for mid-tier models and small for the
+mere AI-presence. Both odds ratios rest on only eight matched-wrong item clusters, so we re-estimate them
+with few-cluster-valid methods. The beer effect is robust---an item random-intercept model (OR 2.02), item
+fixed effects (1.92), and an item-cluster bootstrap (1.93) all exclude 1---but the amzbook effect is
+method-dependent: its 95\% CI crosses 1 under a random-intercept model (OR 1.22, CI 0.93--1.61), so we read
+amzbook as directional only. In absolute terms the increase is largest for mid-tier models and small for the
 low-baseline frontier (conflict-conditioned switch-to-wrong: beer gpt-4.1 $0.19\to0.51$, gpt-4o
 $0.12\to0.29$, gpt-5.5 $0.04\to0.10$). However, a \emph{formal} test does \emph{not} support a
 backend-dependent framing effect: the \texttt{dark$\times$model} interaction is non-significant on both
@@ -528,7 +544,7 @@ $0.35$--$0.65$ (beer) and $0.30$--$0.65$ (amzbook), some backends always flag wh
 is no threshold in that range at which the six backends agree. At $\tau=0.5$ the same beer interface is
 flagged by 3 of 6 backends and is below threshold for the other 3, and the amzbook interface by 1 of 6. The
 \textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---peaks at
-\textbf{0.60} on beer and 0.33 on amzbook. This is a descriptive statement about the six purposively chosen
+\textbf{0.60} on beer (the maximum attainable for six backends, a 3--3 split) and 0.33 on amzbook. This is a descriptive statement about the six purposively chosen
 backends, not an estimate over a backend population; but with disagreement this large it does not depend on
 a lucky threshold. Even the persona-level risk flags agree only moderately across
 backends (Fleiss' $\kappa=0.64$ beer, $0.24$ amzbook). In measurement terms, the instrument is not
@@ -691,8 +707,8 @@ quality-optimal router~\cite{ong2025routellm,wang2025mixture} would select---sur
 1 of 6 personas on beer and 0 of 6 on amzbook, whereas a pair of weaker backends (gpt-4.1, gpt-4o-mini)
 surfaces 4 and 5 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
 so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
-for this purpose}. Choosing an evaluation panel to maximize \textbf{vulnerability coverage}---faithful
-reproduction of human failure modes---is the \emph{inverse} of choosing it to maximize task quality, and a
+for this purpose}. Choosing an evaluation panel to maximize \textbf{vulnerability coverage}---reproduction
+of the high-severity failure cells the panel surfaces---is the \emph{inverse} of choosing it to maximize task quality, and a
 practice built on ``use the strongest model'' would systematically miss the users who matter most. We state
 this as a design principle for synthetic-user evaluation, not a validated claim about people: p5 is a
 prompted disposition (Section~\ref{sec:modeldep}), so this is coverage of a \emph{synthetic} vulnerability
