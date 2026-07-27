@@ -1696,3 +1696,20 @@ owner call). Decisions:
   keep the dark manipulation cue-only + matched between panel and humans. If rationales are still wanted for
   humans, run them as a SEPARATE arm (the panel's prediction there is LOWER adoption -- a clean testable claim).
 - EXPLORATORY only (N=10, one seed/domain, one rationale style); not preregistered, not paper content.
+
+## D5.73 E6-stripped PREREGISTRATION drafted (2026-07-28)
+- Owner asked (framing) whether E6 proves "AI misleads humans" -> clarified: NO; E6 validates the SYNTHETIC
+  PANEL against humans (closes the panel<->human NULL). H1 (coercion works on humans) is only a manipulation-
+  validity precondition; payload is H2 (which PERSON is at-risk) + H3 (which BACKEND tracks humans).
+- Owner asked how to "cleverly design to boost acceptance": declined the rig-the-conclusion version (fraud +
+  self-defeating for a paper whose brand is honesty); reframed to the LEGITIMATE version = maximize detection
+  SENSITIVITY + make all outcomes publishable + preregister (removes the incentive to cheat).
+- WROTE docs/plans/2026-07-28-e6-stripped-prereg.md (DRAFT, not frozen, no IRB yet): frozen H1-H3 with
+  all-outcomes-publishable mapping; within-subject 3-interface design; Dark kept CUE-ONLY + matched to the
+  synthetic arm (basis: D5.72 rationale probe -> rationale REDUCES synthetic adoption, so no rationale);
+  conflict-eligible/ambiguous items for sensitivity; advisor-network sampling caveat + purposive-spread
+  mitigation for H2; N~40 with pre-set floor->60 rule (one wave); frozen measures + trusting-novice index;
+  pre-logged 4-backend predictions before data; frozen analysis plan (H1 paired/perm, H2 mixed index x
+  interface, H3 model-ranking, BH within family); explicit integrity commitments (no optional stopping /
+  no post-hoc exclusion / no p-hacking / no demand beyond the disclosed IV); freeze checklist + IRB gate.
+- Not paper content; a plan artifact for owner + advisor + IRB to finalize.
