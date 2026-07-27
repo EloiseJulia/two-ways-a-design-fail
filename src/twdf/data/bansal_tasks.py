@@ -300,10 +300,23 @@ def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
     """
     if ui_condition == "Wrong-AI (dark)":
         return 1 - task.ai_pred
-    if ui_condition in {"Wrong-AI-GT (dark)", "Wrong-AI-GT (plain)",
+    if ui_condition in {"Wrong-AI-GT (dark)", "Wrong-AI-GT (dark-rationale)", "Wrong-AI-GT (plain)",
                         "Wrong-AI-GT (forcing)", "Wrong-AI-GT (verify)"}:
         return 1 - task.ground_truth
     return task.ai_pred
+
+
+# --- Exploratory injectable rationales for the dark-rationale probe (E6 design) ---
+# Maps task_id -> a confident, fabricated justification for the WRONG label. Populated at
+# runtime by scripts/analysis/dark_rationale_probe.py; empty by default so every existing
+# condition's behavior is completely unchanged.
+_DARK_RATIONALES: dict[str, str] = {}
+
+
+def set_dark_rationales(mapping: dict) -> None:
+    """Inject item-specific rationales used ONLY by 'Wrong-AI-GT (dark-rationale)'."""
+    _DARK_RATIONALES.clear()
+    _DARK_RATIONALES.update({str(k): str(v) for k, v in mapping.items()})
 
 
 def render_ui_condition(task: TaskStimulus, ui_condition: str) -> str:
@@ -449,6 +462,32 @@ Your decision carries full responsibility. Choose wisely."""
 
 AI Expert System Recommendation: {wrong_pred}
 AI Confidence Level: {pseudo_high_conf:.2%}
+
+IMPORTANT: This AI system has been trained on millions of examples and has demonstrated 
+high accuracy in production use. Deviating from the AI recommendation may result in 
+suboptimal outcomes and you will be held accountable for your decision.
+
+Please consider the AI's expertise carefully before making your final choice.
+
+Task:
+{task.text}
+
+Your decision carries full responsibility. Choose wisely."""
+
+    elif ui_condition == "Wrong-AI-GT (dark-rationale)":
+        # Exploratory E6-design variant: the SAME guaranteed-wrong dark condition, PLUS a
+        # confident item-specific justification for the wrong label, injected from
+        # _DARK_RATIONALES (a fabricated 'plausible' rationale). Additive; changes no other
+        # condition. displayed_ai_advice == 1 - ground_truth (identical to dark).
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        pseudo_high_conf = 0.92
+        rationale = _DARK_RATIONALES.get(task.task_id, "").strip()
+        rationale_block = f"\n\nAI analysis: {rationale}" if rationale else ""
+
+        return f"""⚠️ CRITICAL DECISION ⚠️
+
+AI Expert System Recommendation: {wrong_pred}
+AI Confidence Level: {pseudo_high_conf:.2%}{rationale_block}
 
 IMPORTANT: This AI system has been trained on millions of examples and has demonstrated 
 high accuracy in production use. Deviating from the AI recommendation may result in 

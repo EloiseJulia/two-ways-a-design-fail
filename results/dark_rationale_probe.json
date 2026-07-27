@@ -1,0 +1,56 @@
+{
+  "config": "configs/dark_rationale_probe.yaml",
+  "n_items": 10,
+  "backends": [
+    "gpt-4.1",
+    "gpt-5.5"
+  ],
+  "per_backend": {
+    "gpt-4.1": {
+      "dark_adopt": 0.7,
+      "dark_rationale_adopt": 0.55,
+      "delta": -0.1499999999999999,
+      "n_dark": 60,
+      "n_rationale": 60,
+      "per_persona_dark": {
+        "p1-novice-skeptical": 0.7,
+        "p2-expert-trusting": 0.7,
+        "p3-moderate-balanced": 0.9,
+        "p4-skilled-skeptical": 0.3,
+        "p5-novice-trusting": 1.0,
+        "p6-expert-moderate": 0.6
+      },
+      "per_persona_rationale": {
+        "p1-novice-skeptical": 0.7,
+        "p2-expert-trusting": 0.4,
+        "p3-moderate-balanced": 0.6,
+        "p4-skilled-skeptical": 0.2,
+        "p5-novice-trusting": 0.9,
+        "p6-expert-moderate": 0.5
+      }
+    },
+    "gpt-5.5": {
+      "dark_adopt": 0.21666666666666667,
+      "dark_rationale_adopt": 0.18333333333333332,
+      "delta": -0.033333333333333354,
+      "n_dark": 60,
+      "n_rationale": 60,
+      "per_persona_dark": {
+        "p1-novice-skeptical": 0.3,
+        "p2-expert-trusting": 0.2,
+        "p3-moderate-balanced": 0.2,
+        "p4-skilled-skeptical": 0.0,
+        "p5-novice-trusting": 0.6,
+        "p6-expert-moderate": 0.0
+      },
+      "per_persona_rationale": {
+        "p1-novice-skeptical": 0.3,
+        "p2-expert-trusting": 0.1,
+        "p3-moderate-balanced": 0.2,
+        "p4-skilled-skeptical": 0.2,
+        "p5-novice-trusting": 0.3,
+        "p6-expert-moderate": 0.0
+      }
+    }
+  }
+}

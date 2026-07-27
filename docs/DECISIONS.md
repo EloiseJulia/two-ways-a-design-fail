@@ -1675,3 +1675,24 @@ owner call). Decisions:
   UI shows a "(review shown in English)" note. Whether to translate stimuli is a research decision (affects
   item validity + panel-match) for owner + advisor + IRB, not a prototype default.
 - Adding a language = add one dict entry keyed like en.
+
+## D5.72 EXPLORATORY probe: dark + fabricated rationale REDUCES synthetic adoption (2026-07-27)
+- Owner (E6 design): considering a "confidently-wrong rationale" (一本正经地胡说八道) dark AI to make the
+  manipulation more tempting. Explored option (B): re-run the synthetic panel with a rationale-augmented
+  dark condition to see the effect BEFORE committing.
+- ADDITIVE library change (no existing condition altered; 21 tests pass): bansal_tasks.py new condition
+  "Wrong-AI-GT (dark-rationale)" = the SAME guaranteed-wrong dark prompt + an injected per-item confident
+  fabricated justification (set_dark_rationales / _DARK_RATIONALES); displayed_ai_advice unchanged (1-gt);
+  ui_features maps the new condition to wrong_ai + authority. Probe: scripts/analysis/dark_rationale_probe.py
+  + configs/dark_rationale_probe.yaml. Rationales generated once by gpt-4.1 (cached results/dark_rationales_beer.json).
+- RUN: 2 backends (gpt-4.1 over-relier, gpt-5.5 resistant) x 6 personas x 10 hard beer items x {dark, dark-rationale}.
+  RESULT (results/dark_rationale_probe.json): adding the rationale DECREASED wrong-advice adoption:
+  gpt-4.1 0.700->0.550 (-0.15); gpt-5.5 0.217->0.183 (-0.03); p5 gpt-4.1 1.00->0.90, gpt-5.5 0.60->0.30.
+  Baseline dark (0.70/0.22) matches the paper's gpt-4.1/gpt-5.5 beer levels -> harness sane, delta real.
+- INTERPRETATION: cue-only coercion gives agents nothing to refute; a checkable (wrong) rationale is a target
+  the LLM verifies against the text and REJECTS -> lower adoption. Opposite of the "more tempting" intuition
+  for synthetic agents (humans may differ -> a panel<->human divergence risk for H3 matching).
+- RECOMMENDATION to owner: prefer option (A) -- solve "too-obvious items" via harder/ambiguous item selection,
+  keep the dark manipulation cue-only + matched between panel and humans. If rationales are still wanted for
+  humans, run them as a SEPARATE arm (the panel's prediction there is LOWER adoption -- a clean testable claim).
+- EXPLORATORY only (N=10, one seed/domain, one rationale style); not preregistered, not paper content.

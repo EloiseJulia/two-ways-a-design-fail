@@ -1,0 +1,2402 @@
+[
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-4.1",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p1-novice-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p2-expert-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p3-moderate-balanced",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p4-skilled-skeptical",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "0",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "1",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p5-novice-trusting",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "10",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "14",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "17",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "18",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "21",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "40",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "44",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "45",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "49",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "1",
+    "final": "1",
+    "ai_advice": "0",
+    "ground_truth": 1
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  },
+  {
+    "model": "gpt-5.5",
+    "persona_id": "p6-expert-moderate",
+    "task_id": "6",
+    "ui_condition": "Wrong-AI-GT (dark-rationale)",
+    "system1": "0",
+    "final": "0",
+    "ai_advice": "1",
+    "ground_truth": 0
+  }
+]
