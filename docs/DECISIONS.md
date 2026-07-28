@@ -1730,3 +1730,16 @@ owner call). Decisions:
   constraint: 18 items = 6/interface for pilot; ~15/interface needs most of the set or a 2nd domain).
 - These real reviews are genuinely mixed/subtle -> directly fixes the owner's "too-obvious items" concern
   via item selection (option A), keeping the manipulation matched.
+
+## D5.75 Switched to CHI 2026 submission format (2026-07-28)
+- Owner: use the CHI official acmart template (docs/paper/acmart-primary/). Verified that folder's
+  acmart.cls is IDENTICAL to MiKTeX's (both v2.19, 2026/06/27) -> no compile change needed from the class.
+- CHI 2026 submission format (verified via chi2026.acm.org): single-column, anonymous, line-numbered
+  \documentclass[manuscript,review,anonymous]{acmart} (camera-ready would be [sigconf]). Changed main.tex
+  from [sigconf,review,anonymous] -> [manuscript,review,anonymous].
+- Rebuilt clean: 23pp (was 16pp double-column; single-column manuscript is less dense per page -- EXPECTED
+  and normal for CHI review format; CHI has no fixed page limit, references excluded, length should match
+  contribution). 0 undefined ref/cite; 1 tiny overfull hbox (5pt, Contribution-4 bold phrase) left for
+  camera-ready. Line numbers/folios active (review mode).
+- acmart-primary/ left UNTRACKED (identical to MiKTeX's; committing the ~2MB template bundle is a repo
+  decision for owner). Content/claims/numbers unchanged -- format only.
