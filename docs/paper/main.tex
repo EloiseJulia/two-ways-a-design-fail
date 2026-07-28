@@ -51,7 +51,7 @@ effect whose backend-dependence we \emph{cannot detect}---the backend clearly sh
 \emph{level}, while any effect on the framing \emph{slope} is below what our data resolve. Most
 consequentially, capability and reproduced vulnerability are \emph{inverted}: the
 strongest backend, the one a quality-optimal router would pick, least reproduces the highest-severity
-failure---so a risk panel should be assembled for \emph{vulnerability coverage}, not capability. We
+failure---so a risk panel should be assembled for \emph{synthetic-vulnerability} coverage, not capability. We
 contribute a systematic backend-sensitivity audit, the capability--vulnerability mismatch and a
 coverage principle for panel selection, a backend-aware reporting protocol (report a distribution over
 backends and abstain when they disagree), and a two-axis over-dispersion/coercion construct whose coercion
@@ -202,9 +202,9 @@ Our \emph{claimed} contribution is the audit, not a validated screen. We contrib
   prompt/model-sensitivity work shows outputs shift in \emph{magnitude}; the flip rate recasts that shift as
   a change in a pass/fail verdict, which is what makes measurement non-invariance consequential for a
   deployment gate.
-  \item \textbf{The capability--vulnerability mismatch and a vulnerability-coverage principle for panel
+  \item \textbf{The capability--vulnerability mismatch and a synthetic-vulnerability-coverage principle for panel
   selection.} Because the strongest backend least reproduces the highest-severity failure (the at-risk
-  trusting-novice persona), assembling an evaluation panel for \emph{vulnerability coverage} is the
+  trusting-novice persona), assembling an evaluation panel for \emph{synthetic-vulnerability coverage} is the
   \emph{inverse} of capability routing~\cite{ong2025routellm,wang2025mixture}---a counterintuitive,
   actionable principle for who should power a synthetic-user study.
   \item \textbf{A reusable audit and reporting protocol}: a variance decomposition over backend, persona,
@@ -212,7 +212,8 @@ Our \emph{claimed} contribution is the audit, not a validated screen. We contrib
   disagreement-triggered abstention---report synthetic-panel results as \emph{distributions over models,
   prompts, and generations}, not a single point estimate, and abstain when backends disagree.
   \item \textbf{A measurable two-axis construct for interface-content failure} (a coercion/wrong-advice
-  axis, \emph{validated and load-bearing} here, and an over-dispersion axis reported as a
+  axis, \emph{load-bearing} and validated here against a matched neutral baseline---not against human
+  behaviour---and an over-dispersion axis reported as a
   \emph{candidate diagnostic} in the supplement given its null human correspondence),
   conflict-conditioned and preregistered on an audit-gated pipeline; the pipeline's process integrity
   (three self-caught silent-corruption bugs; Section~\ref{sec:method}) is reported as methodological
@@ -714,9 +715,9 @@ quality-optimal router~\cite{ong2025routellm,wang2025mixture} would select---sur
 1 of 6 personas on beer and 0 of 6 on amzbook, whereas a pair of weaker backends (gpt-4.1, gpt-4o-mini)
 surfaces 4 and 5 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
 so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
-for this purpose}. Choosing an evaluation panel to maximize \textbf{vulnerability coverage}---reproduction
-of the high-severity failure cells the panel surfaces---is the \emph{inverse} of choosing it to maximize task quality, and a
-practice built on ``use the strongest model'' would systematically miss the users who matter most. We state
+for this purpose}. Choosing an evaluation panel to maximize \textbf{synthetic-vulnerability coverage}---reproduction
+of the high-severity failure cells the panel surfaces (panel-defined, not human-verified)---is the \emph{inverse} of choosing it to maximize task quality, and a
+practice built on ``use the strongest model'' would systematically miss the failure cells that matter most. We state
 this as a design principle for synthetic-user evaluation, not a validated claim about people: p5 is a
 prompted disposition (Section~\ref{sec:modeldep}), so this is coverage of a \emph{synthetic} vulnerability
 whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
@@ -924,7 +925,7 @@ adopt~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
 ``frontier-first.''} The instinct to power a screen with the strongest available model---the choice a
 quality-optimal router makes~\cite{ong2025routellm,wang2025mixture}---is close to the worst one for a risk
 audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
-a risk panel should be assembled for \emph{vulnerability coverage}, which can require deliberately including
+a risk panel should be assembled for \emph{synthetic-vulnerability} coverage, which can require deliberately including
 weaker or more diverse backends. (The load-bearing claim is the assumption-light coverage result---a
 \emph{single} frontier backend covers almost none of the risk---not the capability anti-correlation, which
 is robust for aggregate adoption but only suggestive for the finer flip/p5 measures;
