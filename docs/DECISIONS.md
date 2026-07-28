@@ -1743,3 +1743,10 @@ owner call). Decisions:
   camera-ready. Line numbers/folios active (review mode).
 - acmart-primary/ left UNTRACKED (identical to MiKTeX's; committing the ~2MB template bundle is a repo
   decision for owner). Content/claims/numbers unchanged -- format only.
+
+## D5.75b acmart-primary template PINNED in repo (owner chose B, 2026-07-28)
+- Committed the CHI official acmart v2.19 bundle under docs/paper/acmart-primary/ (43 files). Force-added
+  acmart.cls (the template's own .gitignore excludes it as a generated file). ACM-Reference-Format.bst +
+  top-level biblatex (.bbx/.cbx/.dbx) + acmart.bib included. Build still uses MiKTeX's identical v2.19; the
+  in-repo copy pins the version for reproducibility. Large docs (acmart.pdf/acmguide.pdf) + sample PDFs
+  remain ignored by the bundle's own .gitignore.
