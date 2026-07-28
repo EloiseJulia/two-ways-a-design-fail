@@ -38,43 +38,51 @@
 }
 
 \begin{abstract}
-An AI-advice interface can fail in (at least) two ways: it can make human reliance
-\emph{heterogeneous and user-sensitive} (an \emph{over-dispersion} failure), or make users
+An AI-advice interface can \emph{look safe on average and still fail} in at least two ways: it can make
+reliance \emph{heterogeneous and user-sensitive} (an \emph{over-dispersion} failure), or make users
 \emph{over-rely on a confidently wrong AI} under a coercive framing (a \emph{dark-pattern} failure).
-Detecting either normally needs an expensive human study, so a tempting shortcut is to screen the
-interface first with a multi-agent LLM panel that plays a synthetic cohort of users. Most debate about such
-panels asks whether they \emph{match} humans. We ask a question that comes first and is rarely tested: is
-the panel's risk \emph{measurement} even stable across the choices a researcher makes freely when building
-it---the backend model, the persona prompt, and the generation sampling? Auditing this across six backend
-LLMs and two review-sentiment datasets, we separate what is stable from what is not.
+Detecting either normally needs an expensive human study, so teams increasingly reach for a shortcut: a
+multi-agent LLM panel that plays a synthetic cohort of users and flags the risk in minutes. Most debate
+about such panels asks whether they \emph{match} humans. We ask a question that comes first and is rarely
+tested: is the panel's risk \emph{measurement} even stable across the choices a researcher makes freely
+when building it---the backend model, the persona prompt, and the generation sampling? Auditing this across
+six backend LLMs and two review-sentiment datasets, we separate what is stable from what is not.
+
 \textbf{Unstable:} the aggregate risk estimate for the \emph{same} interface swings widely with the backend
 (wrong-advice adoption 0.15--0.66). The swing is large enough to \emph{flip} the interface's risk
 classification for a majority of backend pairs (pairwise flip rate up to 0.60). A matched contrast confirms
 a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on one dataset, a weaker and less
 robust 1.17 on the other; a
 non-coercive placebo stays at or below baseline), but of a magnitude we cannot distinguish across backends:
-the backend moves the adoption \emph{level}, not the framing effect. \textbf{Stable:} the panel faithfully
+the backend moves the adoption \emph{level}, not the framing effect.
+
+\textbf{Stable:} the panel faithfully
 propagates a \emph{prompted} disposition. An explicitly trusting-novice persona is the highest-adopting
 persona in all 12 backend$\times$dataset cells (crossed random-effects odds ratio $\approx$26), a
 reliability property of the simulation rather than a discovered vulnerability. A variance decomposition
 confirms that per-trial adoption is driven \emph{more} by the researcher-chosen items and personas than by
 the backend, which nonetheless still moves the aggregate estimate a practitioner reads.
+
 \textbf{Most consequential:} the strongest backend is the one that least reproduces the highest-severity
 failure, the at-risk trusting-novice persona. A single frontier backend (the model a quality-optimal router
 would pick) surfaces almost none of the risk that a pair of weaker backends recovers.
+
 \textbf{Usable, with a caveat:} used to \emph{compare} designs rather than certify one, the panel is more
 dependable. A protective framing (cognitive forcing or a verification display) significantly lowers
 synthetic over-reliance, most for the at-risk persona, and every backend reproduces the \emph{direction} of
-that improvement even though not its magnitude. We contribute (i) a systematic backend-sensitivity audit
+that improvement even though not its magnitude.
+
+We contribute (i) a systematic backend-sensitivity audit
 showing that synthetic-user interface-risk measurement is not backend-invariant; (ii) a
 \emph{capability--vulnerability mismatch} and a vulnerability-coverage principle for panel selection, the
 inverse of capability routing; (iii) a reusable audit and reporting protocol (variance decomposition,
 behavior taxonomy, cross-backend decision-flip, disagreement-triggered abstention) that reports
 distributions over models, prompts, and generations rather than a point estimate; and (iv) the two-axis
-over-dispersion/coercion construct on a preregistered, audit-gated pipeline. We make \emph{no} claim that the panel predicts individual humans or identifies a real
-vulnerable population; human predictive validity is reserved for a separate, later study. The result is an
-honest map of \emph{when a synthetic panel's danger reading can and cannot be trusted}---before any human is
-recruited.
+over-dispersion/coercion construct on a preregistered, audit-gated pipeline.
+
+We make \emph{no} claim that the panel predicts individual humans or identifies a real
+vulnerable population; human predictive validity is reserved for a separate, later study. Before synthetic
+panels can predict people, their own danger readings must survive a change of instrument.
 \end{abstract}
 
 \begin{CCSXML}
@@ -620,10 +628,10 @@ the ceiling in most cells, the OR \emph{magnitude} should not be read as a preci
 evidence is model-free---p5 is the strict top adopter in all 12 backend$\times$dataset cells. The effect is
 robust to the pseudo-replication structure.
 
-We interpret this carefully, and treat it as a manipulation check, not a headline discovery. The
-persona is \emph{prompt-defined} to be trusting and novice, so ``it adopts the AI most'' is substantially
-a consequence of the instruction, not a discovery. What the result shows is a reliability property: the
-panel \emph{faithfully and stably} translates a prompted disposition into behaviour. But the cross-vendor
+This is a successful manipulation check, and we read it as such rather than as a headline discovery.
+Because the persona is \emph{prompt-defined} to be trusting and novice, ``it adopts the AI most'' shows
+that the panel \emph{faithfully and stably} translates a prompted disposition into behaviour---a
+reliability property of the simulation, not a discovered human vulnerability. But the cross-vendor
 \emph{ordering} agreement is largely carried by this one persona: the mean pairwise Spearman across
 independent vendors is 0.87 on beer with p5 included, but drops to 0.77 on beer and \emph{collapses to
 0.09} on amzbook once p5 is excluded (Figure~\ref{fig:ordering})---so beneath the shared top rank the
@@ -690,7 +698,9 @@ dark-condition adoption is $\approx$1.0 for five backends but only \textbf{0.50}
 influence from baseline error---the \emph{AI-induced flip}, $P(\text{adopt}\mid\text{System-1 correct})$,
 which excludes trials where the persona was already wrong (there adoption is 1 by construction)---the same
 ordering holds: the frontier flips a correct answer to the wrong AI least often (0.16), a mid-tier backend
-most (0.46).
+most (0.46). In short, \emph{you would not crash-test with your safest driver}---yet a synthetic panel
+powered by the frontier model does exactly that, screening for over-reliance danger with the one ``user''
+least capable of being over-reliant.
 
 \paragraph{The pattern sharpens at $n=11$ backends.} To test whether this is an artifact of the six-model
 ladder, we expanded to \textbf{eleven} backends spanning three vendors and a wide capability range (adding
@@ -879,26 +889,25 @@ predictive-validity claim; only a powered human study (Section~\ref{sec:e6}) can
 
 \section{Discussion}
 
-\paragraph{The backend is part of the measurement instrument.} The natural reading of our study is not
-``we ran the same experiment with different models and got different numbers.'' It is that \textbf{changing
-the backend changes the instrument}: a synthetic panel's interface-risk reading is co-produced by the
-design under test and by the backend, prompt, and generation the analyst happens to choose. When those
-choices flip an interface's risk classification (Section~\ref{sec:instability}), a single-backend ``design
-risk'' number is not yet a property of the design. This reframes ``which LLM should power my synthetic
-study?'' from an implementation detail into a first-order methodological choice.
+\paragraph{The backend is part of the measurement instrument.} A synthetic panel does not simply reveal
+an interface's risk; it co-produces that reading with the backend, prompt, and generation the analyst
+chooses. Changing the backend therefore changes the instrument. When that choice flips the interface's
+risk classification (Section~\ref{sec:instability}), a single-backend ``design risk'' number is not yet a
+property of the design. The question ``which LLM should power my synthetic study?'' is not an implementation
+detail; it is a first-order methodological decision.
 
-\paragraph{More capable is not more valid.} It is tempting to pick the strongest model as the best
-simulator. Our frontier model follows a coercively-framed wrong AI least---which may make it a better
-\emph{task-solver} but says nothing about whether it tracks the target users; higher capability can even
-compress the persona differentiation a screen relies on. Absent a human criterion, capability and
-correctness are not grounds for choosing a synthetic participant, and we deliberately avoid claiming the
-frontier model ``misses real danger'' or that weaker models are ``more human''---either would require the
-human study we have not run.
+\paragraph{Capability is not validity.} Choosing the strongest model as the best simulator is tempting,
+but our frontier model follows a coercively-framed wrong AI least. That may make it a better
+\emph{task-solver}; it does not establish that it better tracks the target users---you would not
+crash-test with your safest driver. Higher capability can even compress the persona differentiation on
+which the screen relies. Without a human criterion, capability and correctness cannot justify the choice of
+synthetic participant. Nor do our results show that the frontier model ``misses real danger'' or that
+weaker models are ``more human''---either claim requires the human study we have not run.
 
-\paragraph{Disagreement is information, not just noise.} Because the reading is instrument-sensitive,
-cross-backend disagreement is not measurement error to be averaged away but a usable signal---it marks
-exactly the interfaces on which a single-backend verdict should not be trusted, and turns the reporting
-protocol (Section~\ref{sec:variance}) from a counsel of caution into an actionable abstention rule.
+\paragraph{Disagreement should trigger abstention, not averaging.} Cross-backend disagreement is not merely
+measurement error. It identifies the interfaces for which a single-backend verdict is least trustworthy.
+Treating that disagreement as information turns our reporting protocol (Section~\ref{sec:variance}) from
+general caution into an actionable rule: when the instruments disagree, the panel should decline to certify.
 
 \paragraph{Three kinds of failure.} Our evidence separates (i) an \emph{interface-level synthetic signal}
 (agents show adoption or disagreement), from (ii) a \emph{measurement failure} (the signal flips when the
@@ -998,17 +1007,26 @@ synthetic-panel validity.
 \section{Conclusion}
 
 An interface can fail two ways: by making reliance dangerously uneven, or by coercing over-reliance on a
-wrong AI. Teams would like to catch both before an expensive human study. We built a synthetic panel
-to audit that triage and found that its risk reading is \textbf{backend-dependent}: the aggregate
-wrong-advice adoption for the \emph{same} interface swings widely across backends, enough to flip the
-screening decision across a wide range of thresholds, while a matched contrast shows a real coercive-framing
-effect whose magnitude we cannot distinguish across backends. So it is the adoption \emph{level}, not the
-framing effect, that the backend moves, and the choice of panel backend is itself a methodological decision
-with screening consequences. Beneath that instability the panel at least propagates a prompted disposition
-stably, ranking an explicitly trusting-novice persona highest across every backend and dataset, but we
-read that as a reliability property of the simulation, not a discovery of who is at risk. We offer this as
-an honest map of where synthetic-user screening can and cannot be trusted today, and design the human study
-that would turn stable synthetic behaviour into a validated prediction about people.
+wrong AI. Synthetic panels promise to catch both before an expensive human study. Our audit shows why that
+promise must be qualified: the panel's risk reading is \textbf{backend-dependent}.
+
+For the \emph{same} interface, aggregate wrong-advice adoption swings widely across backends---enough to
+flip the screening decision across a wide range of thresholds. Yet a matched contrast still identifies a
+real coercive-framing effect whose magnitude we cannot distinguish across backends. The backend moves the
+adoption \emph{level}, not the framing effect. Backend choice is therefore part of the methodology, with
+direct consequences for screening.
+
+Beneath this instability, the panel reliably propagates one prompted disposition: an explicitly
+trusting-novice persona ranks highest across every backend and dataset. That consistency is a property of
+the simulation, not a discovery of who is at risk. Nor is the strongest model automatically the most valid
+simulator: the frontier backend is least sensitive to the panel's highest-severity failure. Synthetic
+screens should therefore report distributions across backends, prompts, and generations, and abstain when
+their instruments disagree.
+
+We offer an honest map of where synthetic-user screening can and cannot be trusted today, alongside the
+human study needed to turn stable synthetic behaviour into a validated prediction about people. Until that
+study is run, the most trustworthy synthetic panel is not one that always answers. It is one that knows
+when to abstain.
 
 \begin{acks}
 \textbf{Reproducibility.} All experiments are hashlib-cached and resumable; each agent decision is a single

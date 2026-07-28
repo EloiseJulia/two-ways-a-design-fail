@@ -1770,3 +1770,23 @@ owner call). Decisions:
   the crash-test-dummy metaphor + one canonical thesis line x5; de-hedging the persona-check section
   (relocate not remove); discussion-opening + conclusion rewrites; optional punchier subtitle.
 - Build clean: 23pp, 0 undefined ref/cite.
+
+## D5.77 Writing-craft Group B (owner-approved, per manager recommendations) (2026-07-28)
+- B1 ABSTRACT (hybrid): kept the 4 bold signpost labels (Unstable/Stable/Most consequential/Usable) AND
+  adopted GPT-5.6's paragraph breaks + new hook ("look safe on average and still fail"; "flags the risk in
+  minutes") + new close ("Before synthetic panels can predict people, their own danger readings must
+  survive a change of instrument"). ALL numbers preserved.
+- B2 crash-test metaphor: added "you would not crash-test with your safest driver" once in sec:capvuln and
+  once in the Discussion "Capability is not validity" para (true to RSR=0.92). Threaded the canonical thesis
+  "the backend is part of the measurement instrument" across intro idea / Discussion (title) / Conclusion.
+- B3 persona-check: LIGHT de-hedge only — lead with the claim ("a successful manipulation check") and keep
+  the core caveat ("prompt-defined, not a discovered human vulnerability"); did NOT strip the section's
+  protective hedging wholesale (that hedging pre-empts the circularity critique).
+- B4 Discussion + Conclusion rewrites (GPT-5.6): "More capable is not more valid" -> "Capability is not
+  validity"; "Disagreement is information" -> "Disagreement should trigger abstention, not averaging";
+  Conclusion paragraphed, ending on "the most trustworthy synthetic panel is not one that always answers.
+  It is one that knows when to abstain."
+- B5 subtitle: KEPT descriptive (owner) to avoid overpromising a synthetic-vulnerability finding; the
+  crash-test spice lives inside the paper.
+- Build clean: 24pp (was 23; abstract paragraphing + rewrites), 0 undefined ref/cite. No numbers/claims
+  changed; voice/emphasis sharpened per owner sign-off.
