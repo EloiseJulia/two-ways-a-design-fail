@@ -1,0 +1,124 @@
+# EXPLORATORY probe (addresses the persona-circularity critique). Does over-reliance
+# differentiation survive when a persona is defined by DISPOSITION (task experience,
+# AI-use frequency, self-confidence) rather than by an explicit AI-deference DECISION POLICY?
+# The dispositional prompt states three facts about the person and an IDENTICAL decision
+# instruction, and NEVER says "trust the AI" / "give AI more weight". We decompose the
+# reviewer's requested persona (low experience + high AI-use + low self-confidence) into three
+# one-facet-at-a-time contrasts around a deferential anchor, and re-run two policy personas
+# (p4 skeptic, p5 trusting-novice) as a matched baseline on the SAME items/backends.
+# NOT preregistered; informs whether the persona signal is prompt-compliance or dispositional.
+
+experiment_name: dispositional_ablation
+description: dispositional (no-policy) persona differentiation vs policy anchors on dark
+exploratory_vs_confirmatory: EXPLORATORY
+ui_conditions:
+- Wrong-AI-GT (dark)
+domain: beer
+item_selection:
+  n_items: 12
+  prefer_ai_wrong: 0.5
+  prefer_low_conf: 0.3
+  prefer_high_variance: 0.2
+  seed: 2024
+personas:
+# --- dispositional (no explicit trust/deference policy); prompt_style: dispositional ---
+# builder reads: domain_skill=experience, ai_literacy=AI-use frequency, risk_sensitivity=self-confidence
+- persona_id: d1-defer-lowconf        # reviewer's key persona: low exp, high AI-use, low confidence
+  domain_skill: 0.1
+  ai_literacy: 0.9
+  risk_sensitivity: 0.1
+  caution: 0.5
+  temperature: 0.5
+  prior_mix: 0.5
+  prompt_style: dispositional
+- persona_id: d2-indep-highconf       # high exp, low AI-use, high confidence
+  domain_skill: 0.9
+  ai_literacy: 0.1
+  risk_sensitivity: 0.9
+  caution: 0.5
+  temperature: 0.5
+  prior_mix: 0.5
+  prompt_style: dispositional
+- persona_id: d3-neutral
+  domain_skill: 0.5
+  ai_literacy: 0.5
+  risk_sensitivity: 0.5
+  caution: 0.5
+  temperature: 0.5
+  prior_mix: 0.5
+  prompt_style: dispositional
+- persona_id: d4-novice-lowuse-unsure # isolates AI-use vs d1 (both low exp, low conf)
+  domain_skill: 0.1
+  ai_literacy: 0.1
+  risk_sensitivity: 0.1
+  caution: 0.5
+  temperature: 0.5
+  prior_mix: 0.5
+  prompt_style: dispositional
+- persona_id: d5-expert-highuse-unsure # isolates experience vs d1 (both high use, low conf)
+  domain_skill: 0.9
+  ai_literacy: 0.9
+  risk_sensitivity: 0.1
+  caution: 0.5
+  temperature: 0.5
+  prior_mix: 0.5
+  prompt_style: dispositional
+- persona_id: d6-novice-highuse-confident # isolates confidence vs d1 (both low exp, high use)
+  domain_skill: 0.1
+  ai_literacy: 0.9
+  risk_sensitivity: 0.9
+  caution: 0.5
+  temperature: 0.5
+  prior_mix: 0.5
+  prompt_style: dispositional
+# --- policy anchors (paper personas; explicit decision policy); prompt_style: policy (default) ---
+- persona_id: p4-skilled-skeptical
+  domain_skill: 0.7
+  ai_literacy: 0.1
+  risk_sensitivity: 0.3
+  caution: 0.7
+  temperature: 0.4
+  prior_mix: 0.7
+- persona_id: p5-novice-trusting
+  domain_skill: 0.2
+  ai_literacy: 0.8
+  risk_sensitivity: 0.7
+  caution: 0.3
+  temperature: 0.7
+  prior_mix: 0.2
+models:
+- name: gpt-3.5-turbo
+  provider:
+    token_param: max_tokens
+    omit_temperature: false
+- name: gpt-4
+  provider:
+    token_param: max_tokens
+    omit_temperature: false
+- name: gpt-5.4
+  provider:
+    token_param: max_completion_tokens
+    omit_temperature: true
+    min_completion_tokens: 4096
+- name: gemini-3.1-pro-preview
+  provider:
+    token_param: max_completion_tokens
+    omit_temperature: false
+    min_completion_tokens: 4096
+model_runtime:
+  call_budget: 5000
+  inter_call_sleep: 2.0
+  max_retries: 8
+seeds:
+- 42
+max_tokens: 600
+temperature_override: null
+mode: static
+cache_dir: data/cache/panel
+output_file: results/dispositional_ablation.json
+provider:
+  type: ghc
+  base_url: http://127.0.0.1:8787/v1
+  call_budget: 5000
+  inter_call_sleep: 2.0
+  max_retries: 8

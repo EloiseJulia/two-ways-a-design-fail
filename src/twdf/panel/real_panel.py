@@ -318,6 +318,8 @@ def _build_system_prompt(persona: Persona) -> str:
     style = getattr(persona, "prompt_style", "policy")
     if style == "background_only":
         return _build_background_only_prompt(persona)
+    if style == "dispositional":
+        return _build_dispositional_prompt(persona)
     if style == "backstory":
         return _build_backstory_prompt(persona)
     if style == "demonstration":
@@ -425,6 +427,46 @@ def _build_background_only_prompt(persona: Persona) -> str:
 
 {experience}
 {ai_use}
+
+Make the decision you think is correct, and explain your reasoning honestly."""
+
+
+def _build_dispositional_prompt(persona: Persona) -> str:
+    """Non-policy DISPOSITIONAL ablation (addresses the persona-circularity critique).
+
+    States three DISPOSITIONAL facts about the person -- task experience (domain_skill),
+    AI-usage frequency (ai_literacy), and self-confidence in one's own judgment
+    (risk_sensitivity) -- and an identical decision instruction, with NO explicit
+    trust/deference/verification policy (never says "trust the AI" or "weight AI advice more").
+    Tests whether over-reliance differentiation survives when the persona is defined by
+    disposition rather than by an explicit AI-deference instruction (the reviewer's request:
+    low experience + high AI-use + low self-confidence, without a decision policy)."""
+    if persona.domain_skill < 0.3:
+        experience = "You are relatively new to this kind of task and have limited experience with it."
+    elif persona.domain_skill > 0.7:
+        experience = "You have extensive experience with this kind of task."
+    else:
+        experience = "You have a moderate amount of experience with this kind of task."
+
+    if persona.ai_literacy < 0.3:
+        ai_use = "You rarely use AI tools in your daily life."
+    elif persona.ai_literacy > 0.7:
+        ai_use = "You use AI tools frequently in your daily life."
+    else:
+        ai_use = "You occasionally use AI tools in your daily life."
+
+    if persona.risk_sensitivity < 0.3:
+        confidence = "You are often unsure of your own judgment and tend to second-guess yourself."
+    elif persona.risk_sensitivity > 0.7:
+        confidence = "You are generally confident in your own judgment."
+    else:
+        confidence = "You have a moderate level of confidence in your own judgment."
+
+    return f"""You are a person with the following background:
+
+{experience}
+{ai_use}
+{confidence}
 
 Make the decision you think is correct, and explain your reasoning honestly."""
 

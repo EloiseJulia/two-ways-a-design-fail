@@ -442,10 +442,14 @@ dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 20 it
 \emph{reading} of it is \emph{not} stable across backends (Sections~\ref{sec:modeldep}--\ref{sec:instability});
 we locate where that instability comes from (Section~\ref{sec:variance}), find that the strongest backend is
 the blindest to the most at-risk user (Section~\ref{sec:capvuln}), test whether that survives a new task
-structure (Section~\ref{sec:lsat}), and turn it all into reporting guidance (Section~\ref{sec:protective}).
+structure (Section~\ref{sec:lsat}), and turn it all into reporting guidance (Section~\ref{sec:protective}). To keep the hierarchy legible we flag each subsection inline with one of
+three tiers: \textbf{primary} confirmatory audit results (RQ1: backend non-invariance, the matched
+coercive-framing contrast, and decision instability); \textbf{mechanism} analyses (RQ2--RQ3: where the
+instability lives, the manipulation check, and the capability--vulnerability mismatch); and \textbf{boundary}
+tests (a task-structure replication, a protective-design comparison, and the honest panel$\leftrightarrow$human null).
 
 \subsection{The human failure is real, and measurable}
-We first verify that axis-1 corresponds to a measurable human quantity in the source benchmark. On the
+\textbf{[Anchor.]} We first verify that axis-1 corresponds to a measurable human quantity in the source benchmark. On the
 Bansal et al.~\cite{bansal2021whole} human data, we estimate between-user reliance over-dispersion with the
 same beta-binomial estimator we apply to the panel; conflict-conditioned over-dispersion is positive and
 excludes zero ($\rho \approx 0.067$). By split-half reliability---the primary well-identified estimator on
@@ -475,7 +479,7 @@ every configuration we test (Section~\ref{sec:corr}).
   \label{fig:ladder}
 \end{figure}
 
-Start with the first number a practitioner reads off: how often the panel adopts a wrong AI. Swap the model
+\textbf{[Primary (RQ1).]} Start with the first number a practitioner reads off: how often the panel adopts a wrong AI. Swap the model
 behind the panel and both the \emph{level} and the \emph{interpretation} of that number change
 (Figure~\ref{fig:ladder}). Across the ladder (beer / amzbook): gpt-4o-mini 0.50 / 0.48, gpt-4.1
 0.60 / \textbf{0.66}, gpt-4o 0.43 / 0.48, gpt-5.5 \textbf{0.30 / 0.15}. The adoption peak at gpt-4.1 is
@@ -518,7 +522,7 @@ model-specificity actually flips a screening decision.
 \subsection{Is it coercion, or just wrong-advice following? A matched framing contrast}
 \label{sec:coercion}
 
-Adoption of a guaranteed-wrong AI could reflect ordinary wrong-advice following rather than the
+\textbf{[Primary (RQ1).]} Adoption of a guaranteed-wrong AI could reflect ordinary wrong-advice following rather than the
 \emph{coercive framing} (high confidence, expert-authority and accountability cues). To separate them we
 use a within-item contrast: on the subset of items where the AI advice is \emph{naturally wrong} under the
 neutral condition (8 items/cell), the same wrong label is shown under neutral, non-coercive placebo, and
@@ -560,7 +564,7 @@ than against chance.
   \label{fig:flip}
 \end{figure*}
 
-If the aggregate reading is this model-specific, does the \emph{decision} a screen would make move with it?
+\textbf{[Primary (RQ1).]} If the aggregate reading is this model-specific, does the \emph{decision} a screen would make move with it?
 We treat the dark interface as one \emph{design} and ask whether the six backends agree on its risk
 (Figure~\ref{fig:flip}). They do not. Aggregate wrong-advice adoption for the identical
 interface is 0.30--0.60
@@ -573,7 +577,10 @@ flagged by 3 of 6 backends and is below threshold for the other 3, and the amzbo
 \textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---peaks at
 \textbf{0.60} on beer (the maximum attainable for six backends, a 3--3 split) and 0.33 on amzbook. This is a descriptive statement about the six purposively chosen
 backends, not an estimate over a backend population; but with disagreement this large it does not depend on
-a lucky threshold. Even the persona-level risk flags agree only moderately across
+a lucky threshold. We therefore read the flip rate as \emph{decision instability conditional on whatever
+operating threshold a team adopts}---not as a calibrated safety classifier, since $\tau$ itself is not
+validated against human harm; the threshold-free companions (the raw adoption range 0.15--0.66 and the
+persona-flag Fleiss'~$\kappa$ below) tell the same story without fixing $\tau$. Even the persona-level risk flags agree only moderately across
 backends (Fleiss' $\kappa=0.64$ beer, $0.24$ amzbook). In measurement terms, the instrument is not
 invariant: swapping the backend can move an interface from ``high risk'' to ``low risk'' without touching
 the design. A behavior audit rules out one benign explanation---that low-adopting backends simply
@@ -583,7 +590,7 @@ re-verification, not by declining to answer.
 
 \subsection{Everything the analyst chooses moves the number}
 \label{sec:variance}
-So who is really moving the number---the model, or the researcher? A variance decomposition gives an
+\textbf{[Mechanism (RQ2).]} So who is really moving the number---the model, or the researcher? A variance decomposition gives an
 uncomfortable answer: \emph{both}, and the researcher more. Backend instability and even larger item- and
 persona-effects are not in tension; they operate at different levels. A crossed random-effects model of per-trial adoption ($\text{adopt}\sim 1+(1|\text{backend})+(1|\text{persona})
 +(1|\text{item})$) apportions variance \emph{more} to the researcher-chosen items and personas than to the
@@ -619,7 +626,7 @@ model-free evidence.)
   \label{fig:heatmap}
 \end{figure*}
 
-Is anything about the panel stable? One thing is. The aggregate adoption \emph{rate} is model-idiosyncratic
+\textbf{[Mechanism (RQ3): manipulation check.]} Is anything about the panel stable? One thing is. The aggregate adoption \emph{rate} is model-idiosyncratic
 (range 0.30 across beer backends, 0.51 across amzbook backends), but the \emph{ordering} of which persona
 adopts most holds steady (Figure~\ref{fig:heatmap}). An
 \textbf{explicitly trusting-novice} persona is the highest-adopting persona in \textbf{all 12}
@@ -693,7 +700,7 @@ anti-circularity argument only on the neutral background-only arm above.
   \label{fig:capvuln}
 \end{figure*}
 
-Now the study's most unsettling turn. A backend's aggregate adoption is one thing; \emph{which} users it
+\textbf{[Mechanism: capability--vulnerability.]} Now the study's most unsettling turn. A backend's aggregate adoption is one thing; \emph{which} users it
 flags as at-risk is another---and combining the two exposes an uncomfortable pattern
 (Figure~\ref{fig:capvuln}). Using each backend's unaided
 task competence---its System-1 accuracy---as a capability proxy, the strongest backend (gpt-5.5, 0.93) is
@@ -800,7 +807,7 @@ for what the coverage result shows directly.
 
 \subsection{Does the mismatch survive a different task structure? (LSAT)}
 \label{sec:lsat}
-Could all of this be an artifact of one task \emph{type}? Beer and amzbook are both English binary
+\textbf{[Boundary: preregistered robustness.]} Could all of this be an artifact of one task \emph{type}? Beer and amzbook are both English binary
 sentiment, so the pattern above might not survive a different structure. As a preregistered robustness arm we replayed the same six backends, six personas, and dark
 protocol on 20 LSAT logical-reasoning items~\cite{bansal2021whole}---a genuinely different structure (4-way
 multiple choice, harder, a different advice format), where the dark AI recommends a guaranteed-wrong option
@@ -840,7 +847,7 @@ while the size of the aggregate backend spread is task-dependent---not as confir
   \label{fig:protective}
 \end{figure*}
 
-Does the panel's instability doom it for practice? Not entirely: the most common use of a synthetic screen
+\textbf{[Boundary: practical use (RQ4).]} Does the panel's instability doom it for practice? Not entirely: the most common use of a synthetic screen
 is not to certify an absolute risk number but to \emph{compare} designs---does adding a safeguard help? We
 test this directly by adding, to the guaranteed-wrong AI, two protective framings from the reliance
 literature: \emph{cognitive forcing}~\cite{bucinca2021trust} (deliberate on your own evidence before
@@ -885,13 +892,43 @@ backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisiona
 
 \subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
 \label{sec:corr}
-Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
+\textbf{[Boundary: honest null.]} Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
 significantly track the human anchor's (Spearman on $n=5$ conditions; null under BH for all six models).
 On amzbook the correspondence is \emph{degenerate}---the human anchor's per-condition over-dispersion is
 near-constant, so the test is uninformative rather than a genuine null. We therefore make \emph{no}
 predictive-validity claim; only a powered human study (Section~\ref{sec:e6}) can close this gap.
 
 \section{Discussion}
+
+\begin{figure}[t]
+\centering
+\fbox{\begin{minipage}{0.94\columnwidth}
+\small
+\textbf{A backend-aware protocol for synthetic-user interface screening.}
+Before treating a synthetic panel's risk reading as a property of the design:
+\begin{enumerate}
+\item \textbf{Power the panel for coverage, not capability.} Use several capability-diverse
+backends chosen to surface the failure modes a single strong model misses---not the one
+top-ranked model (Section~\ref{sec:capvuln}).
+\item \textbf{Report a distribution, not a point.} Give each backend's estimate with an
+interval; never collapse to one number (Section~\ref{sec:variance}).
+\item \textbf{Measure decision instability.} Compute the pairwise decision-flip rate across
+backends at your operating threshold, and report the threshold-free adoption range alongside
+it (Section~\ref{sec:instability}).
+\item \textbf{Ablate the persona policy.} Re-run with the explicit trust/deference instruction
+removed, to separate a prompt-compliance artifact from a dispositional signal
+(Section~\ref{sec:variance} manipulation check).
+\item \textbf{Abstain on disagreement.} When backends disagree beyond a preset margin
+(illustratively, range $>0.2$), decline to certify and route the design to a human study.
+\item \textbf{Prefer relative to absolute.} For design comparisons, report the safeguard's
+effect \emph{across} backends and treat a single-backend ``it helps''/``it doesn't'' as
+provisional (Section~\ref{sec:protective}).
+\end{enumerate}
+\end{minipage}}
+\caption{The reporting protocol our audit motivates, as a step-by-step screening workflow.
+It presumes no human ground truth; step~6 is where a human study (Section~\ref{sec:e6}) takes over.}
+\label{fig:protocol}
+\end{figure}
 
 \paragraph{The backend is part of the measurement instrument.} A synthetic panel does not simply reveal
 an interface's risk; it co-produces that reading with the backend, prompt, and generation the analyst
@@ -911,7 +948,8 @@ weaker models are ``more human''---either claim requires the human study we have
 \paragraph{Disagreement should trigger abstention, not averaging.} Cross-backend disagreement is not merely
 measurement error. It identifies the interfaces for which a single-backend verdict is least trustworthy.
 Treating that disagreement as information turns our reporting protocol (Section~\ref{sec:variance}) from
-general caution into an actionable rule: when the instruments disagree, the panel should decline to certify.
+general caution into an actionable rule: when the instruments disagree, the panel should decline to certify
+(Figure~\ref{fig:protocol} collects these steps into a single workflow).
 
 \paragraph{Three kinds of failure.} Our evidence separates (i) an \emph{interface-level synthetic signal}
 (agents show adoption or disagreement), from (ii) a \emph{measurement failure} (the signal flips when the

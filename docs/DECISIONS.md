@@ -1834,3 +1834,26 @@ owner call). Decisions:
   explicitly says are fine; blanket removal would over-sanitize (itself a tell) and hurt clarity. Punctuation
   judged together with the (near-zero) other tells, per the guide.
 - Build clean: 24pp, 0 undefined ref/cite.
+
+## D5.81 CHI-reviewer response, part 1: #4 CHI framing/workflow, #5 threshold reframe, #6 result tiers (2026-07-28)
+- Owner shared a simulated CHI reviewer's 5-point critique; decided "#2 run ablation first; #3 middle
+  path; the rest per my recommendations." This entry covers the pre-approved low-risk edits (#4/#5/#6).
+- #6 (result hierarchy): added inline tier tags to every Results subsection --- [Anchor.],
+  [Primary (RQ1).] x3 (modeldep/coercion/instability), [Mechanism (RQ2).] (variance),
+  [Mechanism (RQ3): manipulation check.], [Mechanism: capability--vulnerability.],
+  [Boundary: preregistered robustness.] (LSAT), [Boundary: practical use (RQ4).] (protective),
+  [Boundary: honest null.] (corr). Roadmap paragraph now names the three tiers. Used FUNCTIONAL tiers
+  (primary/mechanism/boundary) not registration-status labels, to avoid over-claiming what was
+  preregistered vs post-hoc.
+- #4 (CHI positioning): added a boxed 6-step "backend-aware protocol for synthetic-user interface
+  screening" (fig:protocol) at the top of Discussion --- coverage-not-capability panel, distribution-not-
+  point, decision-flip + threshold-free range, persona-policy ablation, abstain-on-disagreement, prefer-
+  relative-to-absolute; each step cites the grounding section. In-text pointer in the abstention paragraph.
+  (Intro Scope paragraph already disclosed content/framing-not-pixels, so no new disclaimer needed.)
+- #5 (threshold calibration): in sec:instability, flip rate now read as "decision instability conditional
+  on whatever operating threshold a team adopts", not a calibrated safety classifier (tau not validated
+  against human harm); threshold-free companions (adoption range 0.15--0.66, Fleiss' k) named.
+- No claims/numbers changed; all additions are framing/organization. Build clean: 24pp, 0 undefined
+  ref/cite. #2 dispositional ablation running (configs/dispositional_ablation.yaml); #3 mostly already
+  satisfied (axis-1 already named "synthetic persona disagreement", flagged non-validated) --- pending
+  owner review + ablation result.
