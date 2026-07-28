@@ -1881,3 +1881,31 @@ owner call). Decisions:
 - Build clean: 24pp, 0 undefined ref/cite, no multiply-defined labels. Numbers still 20-item; A1 (50-item)
   refresh pending. STILL TODO: Seshadri bib+Intro hardening (#3), interface->interface-framing terminology
   (#6), flip-rate bootstrap/CI-aware reframe (#1) -- best done on 50-item data.
+
+## D5.83 #2 dispositional ablation integrated + Seshadri (ACL 2026) fix (2026-07-28)
+- Ran the non-policy DISPOSITIONAL ablation (owner: "run first, then decide"; owner then approved integration).
+  Config configs/dispositional_ablation.yaml, script scripts/analysis/dispositional_probe.py, added
+  prompt_style="dispositional" to real_panel.py (states experience + AI-use + self-confidence as facts, NO
+  trust/deference policy). 8 personas (6 dispositional d1-d6 + policy anchors p4,p5) x 4 backends
+  (gpt-3.5-turbo, gpt-4, gpt-5.4, gemini-3.1-pro) x 12 beer items x dark.
+- RESULT (results/dispositional_ablation.json): deferential disposition (d1: low exp/high AI-use/LOW
+  self-confidence, no policy) > independent disposition (d2) on ALL 4 backends, gap +0.08..+0.83 (vs
+  explicit-policy p5-p4 gap +0.50..+0.83). Facet decomposition around d1: low self-confidence (d1-d6) positive
+  on all 4; experience (d1-d5) and AI-use (d1-d4) near-inert. Frontier gpt-5.4 compresses gap to +0.08
+  (consistent w/ capability-vulnerability). Rank stability mean Spearman 0.55. Exploratory (12 items, 1 gen).
+- INTEGRATION: added "\paragraph{A non-policy dispositional control.}" to the manipulation-check subsection
+  (§4.6) reporting this as a stronger anti-circularity control than background-only; honest/exploratory. Key
+  claim: the trusting-novice cell indexes a DISPOSITIONALLY INSTANTIABLE failure mode (driven by low
+  self-confidence), not merely a prompt-defined one -> rebuts "pure prompt compliance". Kept "at-risk"
+  language (owner OK) with this qualification rather than gutting it.
+- #3 Seshadri: verified via web that "Lost in Simulation" is now ACL 2026 long paper (aclanthology
+  2026.acl-long.2192), NOT concurrent. Updated references.bib (howpublished/note -> ACL 2026 long paper),
+  Related Work "Closest and concurrent" -> "Closest, and now published prior work", and ADDED a hardened
+  distinction to the Introduction (they move agent success by ~9pts using human correspondence as yardstick;
+  we ask whether the safety VERDICT survives a backend change and by design require no human GT -- instrument
+  consistency precedes external validity).
+- #6 terminology: judged already well-disclosed (subtitle "Interface-Content", Scope paragraph, Method
+  "pixel-level not modelled"); declined mass interface->interface-framing replacement as over-sanitizing.
+- A1 (50-item confirmatory core) launched in background (shellId a1-n50): capladder+crossvendor x beer+amzbook.
+- Build clean: 25pp, 0 undefined ref/cite. PENDING: A1 number refresh; #1 flip-rate bootstrap/CI-aware reframe
+  (on 50-item data).

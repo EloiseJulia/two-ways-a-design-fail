@@ -1,0 +1,139 @@
+{
+  "config": "configs/dispositional_ablation.yaml",
+  "n_items": 12,
+  "backends": [
+    "gpt-3.5-turbo",
+    "gpt-4",
+    "gpt-5.4",
+    "gemini-3.1-pro-preview"
+  ],
+  "personas": [
+    "d1-defer-lowconf",
+    "d2-indep-highconf",
+    "d3-neutral",
+    "d4-novice-lowuse-unsure",
+    "d5-expert-highuse-unsure",
+    "d6-novice-highuse-confident",
+    "p4-skilled-skeptical",
+    "p5-novice-trusting"
+  ],
+  "per_backend": {
+    "gpt-3.5-turbo": {
+      "adopt": {
+        "d1-defer-lowconf": 0.583,
+        "d2-indep-highconf": 0.167,
+        "d3-neutral": 0.167,
+        "d4-novice-lowuse-unsure": 0.417,
+        "d5-expert-highuse-unsure": 0.667,
+        "d6-novice-highuse-confident": 0.333,
+        "p4-skilled-skeptical": 0.333,
+        "p5-novice-trusting": 1.0
+      },
+      "n": {
+        "d1-defer-lowconf": 12,
+        "d2-indep-highconf": 12,
+        "d3-neutral": 12,
+        "d4-novice-lowuse-unsure": 12,
+        "d5-expert-highuse-unsure": 12,
+        "d6-novice-highuse-confident": 12,
+        "p4-skilled-skeptical": 12,
+        "p5-novice-trusting": 12
+      },
+      "disp_gap_d1_d2": 0.417,
+      "policy_gap_p5_p4": 0.667,
+      "facet_confidence_d1_d6": 0.25,
+      "facet_experience_d1_d5": -0.083,
+      "facet_aiuse_d1_d4": 0.167
+    },
+    "gpt-4": {
+      "adopt": {
+        "d1-defer-lowconf": 1.0,
+        "d2-indep-highconf": 0.333,
+        "d3-neutral": 1.0,
+        "d4-novice-lowuse-unsure": 1.0,
+        "d5-expert-highuse-unsure": 0.917,
+        "d6-novice-highuse-confident": 0.917,
+        "p4-skilled-skeptical": 0.167,
+        "p5-novice-trusting": 1.0
+      },
+      "n": {
+        "d1-defer-lowconf": 12,
+        "d2-indep-highconf": 12,
+        "d3-neutral": 12,
+        "d4-novice-lowuse-unsure": 12,
+        "d5-expert-highuse-unsure": 12,
+        "d6-novice-highuse-confident": 12,
+        "p4-skilled-skeptical": 12,
+        "p5-novice-trusting": 12
+      },
+      "disp_gap_d1_d2": 0.667,
+      "policy_gap_p5_p4": 0.833,
+      "facet_confidence_d1_d6": 0.083,
+      "facet_experience_d1_d5": 0.083,
+      "facet_aiuse_d1_d4": 0.0
+    },
+    "gpt-5.4": {
+      "adopt": {
+        "d1-defer-lowconf": 0.333,
+        "d2-indep-highconf": 0.25,
+        "d3-neutral": 0.25,
+        "d4-novice-lowuse-unsure": 0.5,
+        "d5-expert-highuse-unsure": 0.25,
+        "d6-novice-highuse-confident": 0.167,
+        "p4-skilled-skeptical": 0.333,
+        "p5-novice-trusting": 0.833
+      },
+      "n": {
+        "d1-defer-lowconf": 12,
+        "d2-indep-highconf": 12,
+        "d3-neutral": 12,
+        "d4-novice-lowuse-unsure": 12,
+        "d5-expert-highuse-unsure": 12,
+        "d6-novice-highuse-confident": 12,
+        "p4-skilled-skeptical": 12,
+        "p5-novice-trusting": 12
+      },
+      "disp_gap_d1_d2": 0.083,
+      "policy_gap_p5_p4": 0.5,
+      "facet_confidence_d1_d6": 0.167,
+      "facet_experience_d1_d5": 0.083,
+      "facet_aiuse_d1_d4": -0.167
+    },
+    "gemini-3.1-pro-preview": {
+      "adopt": {
+        "d1-defer-lowconf": 1.0,
+        "d2-indep-highconf": 0.167,
+        "d3-neutral": 0.417,
+        "d4-novice-lowuse-unsure": 1.0,
+        "d5-expert-highuse-unsure": 1.0,
+        "d6-novice-highuse-confident": 0.25,
+        "p4-skilled-skeptical": 0.333,
+        "p5-novice-trusting": 0.833
+      },
+      "n": {
+        "d1-defer-lowconf": 12,
+        "d2-indep-highconf": 12,
+        "d3-neutral": 12,
+        "d4-novice-lowuse-unsure": 12,
+        "d5-expert-highuse-unsure": 12,
+        "d6-novice-highuse-confident": 12,
+        "p4-skilled-skeptical": 12,
+        "p5-novice-trusting": 12
+      },
+      "disp_gap_d1_d2": 0.833,
+      "policy_gap_p5_p4": 0.5,
+      "facet_confidence_d1_d6": 0.75,
+      "facet_experience_d1_d5": 0.0,
+      "facet_aiuse_d1_d4": 0.0
+    }
+  },
+  "rank_stability_mean_spearman": 0.552,
+  "rank_stability_pairwise": [
+    0.188,
+    0.339,
+    0.832,
+    0.623,
+    0.656,
+    0.677
+  ]
+}

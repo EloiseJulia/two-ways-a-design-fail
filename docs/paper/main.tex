@@ -138,7 +138,12 @@ be as much a property of the measurement tool as of the design. Before asking wh
 predicts humans, we should ask whether it even \emph{measures the same thing} when a different researcher,
 or the same researcher on a different day, rebuilds it. This is a question of measurement
 reliability and invariance~\cite{santurkar2023whose,cheng2023compost}---logically prior to external
-validity---and it is the question this paper answers.
+validity---and it is the question this paper answers. The closest published work makes the contrast
+concrete: \citeauthor{seshadri2026lost}'s \emph{Lost in Simulation}~\cite{seshadri2026lost} shows that the
+simulated-user backend can move an agent's \emph{success rate} by up to nine points, using human
+correspondence as the yardstick; we instead ask whether the panel's own safety \emph{verdict} survives a
+change of backend, and so---by design, not omission---require no human ground truth here: an instrument must
+read consistently before its readings can be validated against people.
 
 \emph{Scope.} Throughout, ``interface'' refers to the interface's \emph{informational content and framing}
 as an agent receives it---the AI prediction, its confidence, the highlighted explanation, and the coercive
@@ -228,7 +233,7 @@ failure as proxies: they compress opinion diversity and over-represent majority
 views~\cite{santurkar2023whose}, mis-calibrate distributions~\cite{cao2025specializing,%
 dominguez2024questioning}, exhibit non-human response biases~\cite{tjuatja2024llms}, fail as
 survey-sample replacements~\cite{bisbee2024synthetic}, and caricature rather than simulate
-subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. Closest and concurrent,
+subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. Closest, and now published prior work,
 \citeauthor{seshadri2026lost}~\cite{seshadri2026lost} show LLM-simulated users are unreliable proxies in
 agentic evaluation---agent success varies by up to nine points across the user-simulating backend, with
 systematic miscalibration and demographic gaps. We differ in object and consequence: they quantify a
@@ -614,7 +619,26 @@ disposition---a first-person backstory and a few-shot behavioral demonstration--
 top pooled dark-adopter ($1.00$); but on inspection these do not remove the deference \emph{content} (the
 backstory narrates a habit of ``going along with'' the AI; the demonstration shows past AI-following), so we
 treat them as different encodings of the disposition rather than deference-free controls, and rest the
-anti-circularity argument only on the neutral background-only arm above.
+anti-circularity argument on the neutral background-only arm above and the non-policy dispositional control
+next.
+
+\paragraph{A non-policy dispositional control.} To probe circularity more directly, we ran a further
+exploratory ablation with a \emph{dispositional} persona that states three facts---low task experience,
+frequent AI use, and \emph{low self-confidence in one's own judgment}---plus a decision instruction
+identical across personas, but \emph{never} an instruction to trust or defer to the AI (four
+capability-spanning backends: gpt-3.5-turbo, gpt-4, gpt-5.4, gemini-3.1-pro; 12 beer items; dark condition).
+The deferential disposition adopts the wrong AI more than an independent disposition (high experience,
+infrequent AI use, high self-confidence) on \emph{all four} backends (adoption gap $+0.08$ to $+0.83$;
+compare the explicit-policy p5$-$p4 gap $+0.50$ to $+0.83$)---so the over-reliance signal is not merely
+compliance with a written ``trust the AI'' instruction. Decomposing the disposition one facet at a time
+around the deferential anchor, the lever is \emph{low self-confidence} (positive on all four backends),
+while stated experience and AI-use frequency alone are near-inert: the panel over-relies when a persona
+doubts its own judgment, not merely when it is labelled a novice. As everywhere else, the frontier backend
+compresses the gap (gpt-5.4, $+0.08$), consistent with the capability--vulnerability mismatch
+(Section~\ref{sec:capvuln}). This is exploratory (12 items, one generation, four backends; per-cell
+SE~$\approx0.14$) and its magnitude is backend-dependent, but it strengthens the reading that the
+trusting-novice cell indexes a \emph{dispositionally instantiable} failure mode, not only a prompt-defined
+one.
 
 \begin{figure*}[t]
   \centering
