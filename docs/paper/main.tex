@@ -151,7 +151,7 @@ misses, report the risk as a \emph{distribution} rather than a point estimate, a
 the design to a human study, exactly when the backends disagree. Cheaper than an all-human study, but not
 credulous.
 
-That debate is almost entirely about whether synthetic users \emph{match} real ones. We argue a more basic
+The current debate over synthetic users is almost entirely about whether they \emph{match} real ones. We argue a more basic
 question comes first, and is rarely tested. When a panel reports that an interface is risky, that reading
 is produced not only by the interface but by a stack of choices the researcher makes \emph{freely}: which
 backend LLM powers the agents, how the personas are worded, and which random generation happens to be
@@ -297,12 +297,13 @@ decision support~\cite{rastogi2022deciding}; that work studies bias and compleme
 interface-level safety triage. The gap we fill is a \emph{pre-study screen for interface reliance safety},
 and---critically---a characterization of when such a screen's signal is trustworthy.
 
-\paragraph{Measurement invariance, reliability, and validity.} Psychometrics distinguishes
-\emph{reliability} (does an instrument give the same reading on repetition) from \emph{validity} (does it
-measure the intended construct), and \emph{measurement invariance} asks whether an instrument means the
-same thing across groups or contexts~\cite{santurkar2023whose,tjuatja2024llms}. We import this lens: the
-\emph{backend LLM is part of the measurement instrument}, so comparing interface risk across backends is a
-measurement-invariance question, and stability across generations is a reliability question. The estimand
+\paragraph{Measurement invariance, reliability, and validity.} Psychometrics learned this lesson long ago:
+an instrument that gives a different reading each time is \emph{unreliable} before we ever ask whether it
+is \emph{valid} (whether it measures the intended construct), and \emph{measurement invariance} asks
+whether it means the same thing across groups or contexts~\cite{santurkar2023whose,tjuatja2024llms}. We
+import that lens with one twist: the \emph{backend LLM is part of the instrument}, so ``which model?'' is a
+measurement-invariance question, not a configuration detail, and stability across generations is a
+reliability question. The estimand
 we track is a \emph{specification sensitivity}---how far an interface-risk reading moves across alternative,
 equally-defensible panel implementations---rather than invariance of one fixed latent construct across
 pre-set groups. Stability does
@@ -332,14 +333,16 @@ or benchmark \emph{scores}, whereas we show that the same free choices move an i
 decision} in the synthetic-user HCI evaluation setting---flipping whether a design is flagged for a human
 study---which is the point at which such measurement instability actually matters for design practice.
 
-\section{The Two-Axis Construct: Definitions}
+\section{Two Ways a Design Fails, Made Measurable}
 \label{sec:definitions}
 
 We characterize an interface on two axes, both measured on the panel's decisions.
 
-\paragraph{Axis 1---between-user reliance over-dispersion.} For each item, personas produce reliance
-decisions; we estimate the \emph{excess variance} beyond the binomial $p(1-p)$ a single homogeneous user
-would produce (a beta-binomial over-dispersion estimator, parameter $\rho$). We compute it
+\paragraph{Axis 1---between-user reliance over-dispersion.} Intuitively: does the interface treat all users
+alike, or split them? A design that is safe for the median user but reckless for the tail shows up as a
+wide \emph{spread} of reliance between users. For each item, personas produce reliance decisions; we
+estimate the \emph{excess variance} beyond the binomial $p(1-p)$ a single homogeneous user would
+produce---the \emph{over-dispersion}, a beta-binomial parameter $\rho$. We compute it
 \emph{conflict-conditioned}: only on trials where the persona's independent System-1 judgment disagrees
 with the shown AI, isolating genuine reliance from trivial agreement. As a stable, bounded summary that
 avoids the beta-binomial estimator's boundary behaviour at extreme rates (Section~\ref{sec:method}), we
@@ -359,10 +362,10 @@ with authority and accountability cues. Axis-2 is the rate at which personas ado
 \emph{framing} from ordinary wrong-advice following, we contrast it against neutral and placebo framings
 on matched items (Section~\ref{sec:coercion}). It is dangerous even at zero dispersion---a uniform failure.
 
-\paragraph{From axes to a decision, and why we audit it.} A screen must eventually turn the two axes into
-an action---e.g., ``flag for a human study if either axis exceeds a threshold $\tau$; otherwise treat as a
-release candidate; abstain when out-of-distribution.'' We deliberately do \emph{not} propose or validate
-such a rule here; instead we take the simplest version of it (a threshold on axis-2 adoption) as the
+\paragraph{From axes to a decision, and why we audit it.} Eventually a screen has to \emph{decide}: flag
+this design for a human study, or wave it through. That decision---not the raw axis value---is what a team
+acts on, so it is the decision, not the number, that we put under audit. We deliberately do \emph{not}
+propose or validate a full rule here; we take the simplest version (a threshold on axis-2 adoption) as the
 \emph{object of the audit}, and ask whether the decision it produces is stable across backends
 (Section~\ref{sec:instability}). Any thresholds remain unfrozen: their calibration and validation depend on
 the human study (Section~\ref{sec:e6}).
@@ -427,7 +430,13 @@ and Benjamini--Hochberg (BH) correction. Unless noted, the BH family is the 12 p
 (backend$\times$dataset) binomial tests of dark-condition adoption against 0.5. There are $n=120$
 dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 20 items).
 
-\subsection{Real human over-dispersion exists (anchor)}
+\emph{Roadmap of the results.} We first confirm the human quantity is real, then show the synthetic
+\emph{reading} of it is \emph{not} stable across backends (Sections~\ref{sec:modeldep}--\ref{sec:instability});
+we locate where that instability comes from (Section~\ref{sec:variance}), find that the strongest backend is
+the blindest to the most at-risk user (Section~\ref{sec:capvuln}), test whether that survives a new task
+structure (Section~\ref{sec:lsat}), and turn it all into reporting guidance (Section~\ref{sec:protective}).
+
+\subsection{The human failure is real, and measurable}
 We first verify that axis-1 corresponds to a measurable human quantity in the source benchmark. On the
 Bansal et al.~\cite{bansal2021whole} human data, we estimate between-user reliance over-dispersion with the
 same beta-binomial estimator we apply to the panel; conflict-conditioned over-dispersion is positive and
@@ -447,12 +456,12 @@ every configuration we test (Section~\ref{sec:corr}).
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{fig1_axis2_ladder}
-  \caption{Axis-2 wrong-advice adoption on the guaranteed-wrong interface across the same-provider model
+  \caption{\textbf{Wrong-advice adoption swings widely and non-monotonically across backends}, and the most
+  capable model (gpt-5.5) shows the \emph{lowest} adoption on both datasets---so ``stronger'' does not mean
+  ``more compliant.'' Shown is axis-2 adoption on the guaranteed-wrong interface across the same-provider
   set (gpt-4o-mini $\to$ gpt-4.1 $\to$ gpt-4o $\to$ gpt-5.5), both datasets. Error bars are Wilson 95\%
   binomial confidence intervals (descriptive; conflict-conditioned inference uses the item-clustered models
   below). Lines connect discrete model conditions only as a visual guide; the dashed line marks 0.5.
-  Adoption
-  is non-monotonic across backends; gpt-5.5 has the lowest adoption on both datasets.
   The matched framing contrast (Section~\ref{sec:coercion}) provides a non-arbitrary baseline for this
   low level.}
   \label{fig:ladder}
@@ -469,7 +478,7 @@ above 0.5). Rather than interpret
 adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect point, since personas are
 not random guessers---we ground the effect in a matched framing contrast below.
 
-Axis-1 tells a parallel story (Figure~\ref{fig:collapse}). We call this quantity \emph{synthetic persona
+The panel's internal disagreement (axis-1) is similarly backend-dependent (Figure~\ref{fig:collapse}). We call this quantity \emph{synthetic persona
 disagreement}---the between-persona variance of the six personas' conflict-conditioned reliance rates
 (Section~\ref{sec:definitions})---and are explicit that
 it measures how differently our \emph{prompted} personas respond, not a validated human over-dispersion.
@@ -562,10 +571,11 @@ the design. A behavior audit rules out one benign explanation---that low-adoptin
 the OpenAI backends, 2--4\% for claude and gemini), and low adoption is achieved by evidence-based
 re-verification, not by declining to answer.
 
-\subsection{Where the variance comes from}
+\subsection{Everything the analyst chooses moves the number}
 \label{sec:variance}
-A variance decomposition explains why backend instability can coexist with even larger item and persona
-effects at the trial level. A crossed random-effects model of per-trial adoption ($\text{adopt}\sim 1+(1|\text{backend})+(1|\text{persona})
+So who is really moving the number---the model, or the researcher? A variance decomposition gives an
+uncomfortable answer: \emph{both}, and the researcher more. Backend instability and even larger item- and
+persona-effects are not in tension; they operate at different levels. A crossed random-effects model of per-trial adoption ($\text{adopt}\sim 1+(1|\text{backend})+(1|\text{persona})
 +(1|\text{item})$) apportions variance \emph{more} to the researcher-chosen items and personas than to the
 backend (approximate variance shares: item $\approx$0.28, persona $\approx$0.23, backend $\approx$0.07,
 residual $\approx$0.42; between-group SDs 0.16/0.25/0.13 corroborate the ordering). This is not a
@@ -725,8 +735,10 @@ whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{fig7_coverage_curve}
-  \caption{Vulnerability coverage as submodular set-cover. Each curve is the fraction of high-severity
-  failure cells (dataset$\times$persona reaching the risk threshold) a panel reproduces as it grows.
+  \caption{\textbf{Adding the strongest models first is the wrong strategy for surfacing interface risk.}
+  Each curve is the fraction of high-severity
+  failure cells (dataset$\times$persona reaching the risk threshold) a panel reproduces as it grows
+  (formally, a submodular set-cover).
   \emph{Coverage-greedy} (green) adds the backend with the largest marginal coverage; \emph{capability-first}
   (red) adds backends strongest-first, the order a quality-optimal router would prefer. The router's first
   pick---the frontier model---covers a single cell (11--14\%) and reaches full coverage only at $k=6$, while

@@ -1750,3 +1750,23 @@ owner call). Decisions:
   top-level biblatex (.bbx/.cbx/.dbx) + acmart.bib included. Build still uses MiKTeX's identical v2.19; the
   in-repo copy pins the version for reproducibility. Large docs (acmart.pdf/acmguide.pdf) + sample PDFs
   remain ignored by the bundle's own .gitignore.
+
+## D5.76 Writing-craft round (3 reviewers) — Group A language-only polish (2026-07-28)
+- Dispatched 3 writing reviewers (Claude-Opus narrative craft / Gemini readability / GPT-5.6 high-leverage
+  passages). Strong convergence: enliven flat passages, lead captions with the takeaway, gloss jargon, de-
+  hedge, coin a memorable image for capability-vulnerability, repeat one canonical thesis, tighten titles.
+- APPLIED Group A (pure language, zero claim/number change): (1) skimmer topic sentences ("The current
+  debate over synthetic users...", "The panel's internal disagreement (axis-1)..."); (2) enlivened the
+  variance-decomposition opener, the axes->decision paragraph, the psychometrics paragraph, and added an
+  Axis-1 intuition sentence (+ glossed "over-dispersion"); (3) figure captions now lead with the takeaway
+  (fig1 "adoption swings widely... stronger != more compliant"; fig7 "adding the strongest models first is
+  the wrong strategy", dropped "submodular set-cover" as the lead); (4) titles: sec:definitions -> "Two Ways
+  a Design Fails, Made Measurable"; "Where the variance comes from" -> "Everything the analyst chooses moves
+  the number"; "(anchor)" -> "The human failure is real, and measurable"; (5) added a "Roadmap of the
+  results" arc-signpost at the top of the results.
+- DECLINED from the reviews (conflicts w/ prior honesty decisions): moving the coercion few-cluster
+  reanalysis to an appendix (D5.67 kept it in body); dropping the amzbook numbers from the abstract.
+- DEFERRED to owner (Group B, framing/voice): full abstract rewrite (GPT-5.6 version, keeps all numbers);
+  the crash-test-dummy metaphor + one canonical thesis line x5; de-hedging the persona-check section
+  (relocate not remove); discussion-opening + conclusion rewrites; optional punchier subtitle.
+- Build clean: 23pp, 0 undefined ref/cite.
