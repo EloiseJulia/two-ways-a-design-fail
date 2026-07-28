@@ -139,7 +139,7 @@ model's priors, and mis-estimate distributions~\cite{santurkar2023whose,cao2025s
 bisbee2024synthetic,dominguez2024questioning,cheng2023compost,hamalainen2023evaluating}.
 
 This is no longer hypothetical. A commercial market of synthetic-user research platforms now advertises AI
-``participants'' that evaluate designs \emph{in minutes} and compress---or stand in for---weeks of human
+``participants'' that evaluate designs \emph{in minutes} and compress (or stand in for) weeks of human
 study~\cite{syntheticusers,uxia_synthetic}. A practitioner following the natural engineering defaults would
 plausibly adopt two assumptions that, to our
 knowledge, are never tested for interface-\emph{risk} evaluation: (i) that the \emph{strongest available}
@@ -150,7 +150,7 @@ produced it. This paper puts both assumptions to an empirical test, and finds bo
 
 Our stance is neither boosterism nor rejection. Simulating users with LLMs is a reasonable and advanced way
 to cut the cost of early evaluation, and we treat it as such. But a practitioner should not trust its
-\emph{single number}. Crucially, our caution is not the usual ``the agents are not human enough,'' which
+\emph{single number}. Our caution here is not the usual ``the agents are not human enough,'' which
 would require a human ground truth we (and the field) largely lack. It is a \emph{measurement-reliability}
 caution that needs no human criterion: swap the backend model, and the \emph{same} interface can cross from
 ``safe'' to ``dangerous.'' Rather than abandon the method, we show how to use it honestly: power a panel
@@ -193,8 +193,8 @@ review-sentiment datasets}, and ask:
 
 Our answer separates \emph{what is stable from what is not}. \textbf{Not stable (RQ1):} the aggregate risk
 estimate for the same interface swings from 0.15 to 0.66 across backends (Figure~\ref{fig:ladder}), enough
-to flip the interface's risk classification for a majority of backend pairs across a wide range of
-thresholds (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
+to flip the interface's risk classification for a majority of backend pairs across most of the plausible
+threshold range (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
 varies only the framing confirms a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on
 one dataset, a weaker 1.17 on the other; a non-coercive placebo at or below baseline; Section~\ref{sec:coercion}),
 of a magnitude we cannot distinguish across backends---so it is the adoption \emph{level}, not the framing
@@ -303,7 +303,7 @@ simulation marks as susceptible.
 \paragraph{Offline evaluation of human--AI teams.} Closest is offline estimation of team performance for
 decision support~\cite{rastogi2022deciding}; that work studies bias and complementarity, not
 interface-level safety triage. The gap we fill is a \emph{pre-study screen for interface reliance safety},
-and---critically---a characterization of when such a screen's signal is trustworthy.
+and, critically, a characterization of when such a screen's signal is trustworthy.
 
 \paragraph{Measurement invariance, reliability, and validity.} Psychometrics learned this lesson long ago:
 an instrument that gives a different reading each time is \emph{unreliable} before we ever ask whether it
@@ -383,7 +383,7 @@ the human study (Section~\ref{sec:e6}).
 
 \paragraph{Panel $=$ personas $\times$ backends.} Each agent is a persona (a vector of domain skill, AI
 literacy, risk sensitivity, caution) crossed with a base LLM (the ``backend''). Personas span
-novice/expert $\times$ trusting/skeptical plus two moderates (six in total). Crucially, a persona's prompt
+novice/expert $\times$ trusting/skeptical plus two moderates (six in total). A persona's prompt
 is generated identically across backends and its decoding temperature is fixed \emph{per persona}, not per
 backend, so temperature and wording are held constant when we vary the backend. Backend effects are
 therefore not confounded with per-model prompt or temperature differences.
@@ -1015,7 +1015,7 @@ wrong AI. Synthetic panels promise to catch both before an expensive human study
 promise must be qualified: the panel's risk reading is \textbf{backend-dependent}.
 
 For the \emph{same} interface, aggregate wrong-advice adoption swings widely across backends---enough to
-flip the screening decision across a wide range of thresholds. Yet a matched contrast still identifies a
+flip the screening decision across most plausible thresholds. Yet a matched contrast still identifies a
 real coercive-framing effect whose magnitude we cannot distinguish across backends. The backend moves the
 adoption \emph{level}, not the framing effect. Backend choice is therefore part of the methodology, with
 direct consequences for screening.

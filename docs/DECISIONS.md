@@ -1818,3 +1818,19 @@ owner call). Decisions:
   the forward-pointer is correct (5.2 -> coercion 5.3 -> instability 5.4). New openers otherwise connect
   cleanly.
 - Build clean: 24pp, 0 undefined ref/cite.
+
+## D5.80 AI-tell sweep per owner's polishing guide (润色指南.docx) (2026-07-28)
+- Read the owner's Chinese guide (extracted from .docx): the same 6 AI-tell principles as our house style
+  (vague/grandiose; tidy-but-repetitive; missing concrete detail; over-safe hedging; templated
+  transitions; mechanical punctuation) + "natural first, then technical depth".
+- Systematic scan found the paper already very clean: 0 unsourced hedges; no delve/leverage/realm/unlock/
+  reshape/seamless/etc.; templated connectives only "Crucially" x2; vague only "a wide range of" x2.
+- FIXED surgically (no claim/number change): removed both "Crucially," intensifiers; "across a wide range of
+  thresholds" -> "across most of the plausible threshold range" / "across most plausible thresholds" (x2);
+  "and---critically---" -> "and, critically,"; "compress---or stand in for---weeks" -> "compress (or stand
+  in for) weeks".
+- Deliberately did NOT mass-convert em-dashes/semicolons: the remaining ~133 dashes are overwhelmingly
+  functional appositive definitions (e.g., "flip rate---the fraction...---peaks"), which the guide
+  explicitly says are fine; blanket removal would over-sanitize (itself a tell) and hurt clarity. Punctuation
+  judged together with the (near-zero) other tells, per the guide.
+- Build clean: 24pp, 0 undefined ref/cite.
