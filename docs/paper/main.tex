@@ -47,8 +47,9 @@ change of instrument---the backend model a researcher picks freely when building
 LLMs across two review-sentiment datasets, we find it does not. Wrong-advice adoption for the \emph{same}
 interface swings from 0.15 to 0.66 across backends, enough to \emph{flip} the interface's risk
 classification across the plausible threshold range. A matched contrast confirms a real coercive-framing
-effect, but of a magnitude the backend does not move---the backend shifts the adoption \emph{level}, not the
-framing slope. Most consequentially, capability and reproduced vulnerability are \emph{inverted}: the
+effect whose backend-dependence we \emph{cannot detect}---the backend clearly shifts the adoption
+\emph{level}, while any effect on the framing \emph{slope} is below what our data resolve. Most
+consequentially, capability and reproduced vulnerability are \emph{inverted}: the
 strongest backend, the one a quality-optimal router would pick, least reproduces the highest-severity
 failure---so a risk panel should be assembled for \emph{vulnerability coverage}, not capability. We
 contribute a systematic backend-sensitivity audit, the capability--vulnerability mismatch and a
@@ -518,7 +519,8 @@ interface is 0.30--0.60
 across the six beer backends and 0.15--0.66 across the amzbook backends. Turning the estimate into the
 binary decision a screen would make---``flag for a human study if adoption $\ge \tau$''---the flag is
 unstable not just at one threshold but across the entire plausible operating range: as $\tau$ sweeps
-$0.35$--$0.65$ (beer) and $0.30$--$0.65$ (amzbook), some backends always flag while others do not, so there
+$0.35$--$0.60$ (beer) and $0.30$--$0.65$ (amzbook)---up to each dataset's maximum backend adoption---some
+backends flag while others do not, so there
 is no threshold in that range at which the six backends agree. At $\tau=0.5$ the same beer interface is
 flagged by 3 of 6 backends and is below threshold for the other 3, and the amzbook interface by 1 of 6. The
 \textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---peaks at

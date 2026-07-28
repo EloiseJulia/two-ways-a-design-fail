@@ -1909,3 +1909,22 @@ owner call). Decisions:
 - A1 (50-item confirmatory core) launched in background (shellId a1-n50): capladder+crossvendor x beer+amzbook.
 - Build clean: 25pp, 0 undefined ref/cite. PENDING: A1 number refresh; #1 flip-rate bootstrap/CI-aware reframe
   (on 50-item data).
+
+## D5.84 3-model panel review (A/B/C chain) + 2 AC-verified fixes (2026-07-28)
+- Owner-configured chained review: A=Reviewer (Claude Opus 4.8), B=Reject-case (GPT-5.6 Sol), C=Area Chair
+  (Claude Opus 4.8, fed A+B+paper). Full outputs saved to session files/reviews/ (review_A_opus.md,
+  review_B_gpt56sol.md, review_C_areachair.md).
+- Verdicts: A borderline-reject/major-revision (~2.5); B Reject; C Weak Reject (liftable to Borderline/Weak
+  Accept via rebuttal; item 1 = human data decisive). Converging weaknesses: no human grounding, narrow base
+  (20 items/8 matched-wrong clusters/2 binary-sentiment datasets), novelty largely a reframing of known
+  prompt/model sensitivity.
+- Applied 2 safe, A1-independent fixes the AC flagged: (1) abstract "of a magnitude the backend does not
+  move" -> "whose backend-dependence we cannot detect ... any effect on the slope is below what our data
+  resolve" (the level-not-slope claim rested on an underpowered null interaction). (2) VERIFIED tau-sweep
+  contradiction: beer adoption max 0.60 but sweep stated 0.35--0.65 claiming no agreement; corrected beer
+  bound to 0.35--0.60 ("up to each dataset's maximum backend adoption"). amzbook 0.30--0.65 is consistent
+  (max 0.66).
+- Build clean: 25pp, 0 undefined. Remaining panel items mapped to in-flight work: 8-clusters->A1 50-item;
+  threshold-free foregrounding + capability-vulnerability mechanical decomposition + variance-share bootstrap
+  -> #1/stats pass on A1 data; synthetic-vulnerability/"validated" language tighten -> next pass; human
+  anchor -> E6 pilot.
