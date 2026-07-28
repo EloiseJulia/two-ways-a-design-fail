@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Two Ways a Design Fails: When Does a Synthetic LLM Panel See the Danger?}
+\title{Don't Crash-Test with Your Safest Driver}
 \subtitle{A Backend-Sensitivity Audit of Synthetic-User Interface-\emph{Content} Risk Measurement}
 
 \author{Anonymous Author(s)}
@@ -38,51 +38,26 @@
 }
 
 \begin{abstract}
-An AI-advice interface can \emph{look safe on average and still fail} in at least two ways: it can make
-reliance \emph{heterogeneous and user-sensitive} (an \emph{over-dispersion} failure), or make users
-\emph{over-rely on a confidently wrong AI} under a coercive framing (a \emph{dark-pattern} failure).
-Detecting either normally needs an expensive human study, so teams increasingly reach for a shortcut: a
-multi-agent LLM panel that plays a synthetic cohort of users and flags the risk in minutes. Most debate
-about such panels asks whether they \emph{match} humans. We ask a question that comes first and is rarely
-tested: is the panel's risk \emph{measurement} even stable across the choices a researcher makes freely
-when building it---the backend model, the persona prompt, and the generation sampling? Auditing this across
-six backend LLMs and two review-sentiment datasets, we separate what is stable from what is not.
-
-\textbf{Unstable:} the aggregate risk estimate for the \emph{same} interface swings widely with the backend
-(wrong-advice adoption 0.15--0.66). The swing is large enough to \emph{flip} the interface's risk
-classification for a majority of backend pairs (pairwise flip rate up to 0.60). A matched contrast confirms
-a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on one dataset, a weaker and less
-robust 1.17 on the other; a
-non-coercive placebo stays at or below baseline), but of a magnitude we cannot distinguish across backends:
-the backend moves the adoption \emph{level}, not the framing effect.
-
-\textbf{Stable:} the panel faithfully
-propagates a \emph{prompted} disposition. An explicitly trusting-novice persona is the highest-adopting
-persona in all 12 backend$\times$dataset cells (crossed random-effects odds ratio $\approx$26), a
-reliability property of the simulation rather than a discovered vulnerability. A variance decomposition
-confirms that per-trial adoption is driven \emph{more} by the researcher-chosen items and personas than by
-the backend, which nonetheless still moves the aggregate estimate a practitioner reads.
-
-\textbf{Most consequential:} the strongest backend is the one that least reproduces the highest-severity
-failure, the at-risk trusting-novice persona. A single frontier backend (the model a quality-optimal router
-would pick) surfaces almost none of the risk that a pair of weaker backends recovers.
-
-\textbf{Usable, with a caveat:} used to \emph{compare} designs rather than certify one, the panel is more
-dependable. A protective framing (cognitive forcing or a verification display) significantly lowers
-synthetic over-reliance, most for the at-risk persona, and every backend reproduces the \emph{direction} of
-that improvement even though not its magnitude.
-
-We contribute (i) a systematic backend-sensitivity audit
-showing that synthetic-user interface-risk measurement is not backend-invariant; (ii) a
-\emph{capability--vulnerability mismatch} and a vulnerability-coverage principle for panel selection, the
-inverse of capability routing; (iii) a reusable audit and reporting protocol (variance decomposition,
-behavior taxonomy, cross-backend decision-flip, disagreement-triggered abstention) that reports
-distributions over models, prompts, and generations rather than a point estimate; and (iv) the two-axis
-over-dispersion/coercion construct on a preregistered, audit-gated pipeline.
-
-We make \emph{no} claim that the panel predicts individual humans or identifies a real
-vulnerable population; human predictive validity is reserved for a separate, later study. Before synthetic
-panels can predict people, their own danger readings must survive a change of instrument.
+An AI-advice interface can look safe on average and still steer a trusting user toward a confidently wrong
+recommendation. Detecting this normally needs an expensive human study, so teams increasingly screen an
+interface first with a \textbf{synthetic panel}: persona-conditioned LLM agents that role-play a cohort of
+users and flag the risk in minutes. Most debate about such panels asks whether they \emph{match} humans. We
+ask a question that comes first and is rarely tested: does the panel's risk \emph{reading} even survive a
+change of instrument---the backend model a researcher picks freely when building it? Auditing six backend
+LLMs across two review-sentiment datasets, we find it does not. Wrong-advice adoption for the \emph{same}
+interface swings from 0.15 to 0.66 across backends, enough to \emph{flip} the interface's risk
+classification across the plausible threshold range. A matched contrast confirms a real coercive-framing
+effect, but of a magnitude the backend does not move---the backend shifts the adoption \emph{level}, not the
+framing slope. Most consequentially, capability and reproduced vulnerability are \emph{inverted}: the
+strongest backend, the one a quality-optimal router would pick, least reproduces the highest-severity
+failure---so a risk panel should be assembled for \emph{vulnerability coverage}, not capability. We
+contribute a systematic backend-sensitivity audit, the capability--vulnerability mismatch and a
+coverage principle for panel selection, a backend-aware reporting protocol (report a distribution over
+backends and abstain when they disagree), and a two-axis over-dispersion/coercion construct whose coercion
+axis is validated here and whose over-dispersion axis we report as a candidate diagnostic (supplement). We
+make \emph{no} claim that the panel predicts individual humans or identifies a real vulnerable population;
+that validation is reserved for a separate, later study. Before synthetic panels can predict people, their
+own danger readings must survive a change of instrument.
 \end{abstract}
 
 \begin{CCSXML}
@@ -113,26 +88,21 @@ takes the AI's word almost every time---and if a coercive variant presents a con
 that same profile may be steered toward the wrong decision while the aggregate barely moves. The design
 has not failed on average. It has failed for a person, in a way the mean cannot see.
 
-This is the gap between \emph{mean accuracy} and \emph{safety}. Two failure modes make it concrete---the
-two ways a design fails in our title:
-\begin{itemize}
-  \item \textbf{Axis~1---over-dispersion.} Reliance becomes \emph{heterogeneous across users} in a way
-  the interface induces. The team ships something safe for the median user and unsafe for the tails.
-  Variance, usually a nuisance to be averaged away~\cite{bansal2021whole,gajos2022people}, is here the
-  \emph{safety quantity of interest}.
-  \item \textbf{Axis~2---wrong-advice adoption under coercion.} Under a coercive framing, users
-  \emph{systematically adopt a wrong AI}. This is dangerous even at zero dispersion: everyone can fail
-  together~\cite{bucinca2021trust,vasconcelos2023explanations,luguri2021shining}.
-\end{itemize}
-
-Axis~2 is where our audit's load-bearing results lie; we treat axis~1 as a secondary, \emph{exploratory}
-signal, since its human counterpart is null in every configuration we can currently test
-(Section~\ref{sec:corr}).
+This is the gap between \emph{mean accuracy} and \emph{safety}, and this paper audits one such failure in
+depth: \textbf{wrong-advice adoption under coercion.} Under a coercive framing---high confidence,
+expert-authority and accountability cues---users \emph{systematically adopt a confidently wrong AI}, a
+failure dangerous even at zero between-user spread, because everyone can fail
+together~\cite{bucinca2021trust,vasconcelos2023explanations,luguri2021shining}. A companion failure mode,
+\emph{over-dispersion}---the interface makes reliance \emph{heterogeneous across
+users}~\cite{bansal2021whole,gajos2022people}, safe for the median user and unsafe for the tails---is a
+natural diagnostic to pair with it, but its human counterpart is null in every configuration we can
+currently test, so we report it only as an exploratory candidate diagnostic in the supplement
+(Appendix~\ref{app:overdispersion}) and rest no load-bearing claim on it.
 
 The standard way to detect either failure is a human-subjects study---powered, IRB-approved, and slow.
 Teams iterate on interfaces far faster than they can run such studies, so a growing practice is to screen
 an interface first with a \textbf{synthetic panel}: persona-conditioned LLM agents that role-play a cohort
-of users, from which the two axes are estimated. Synthetic users are having a moment in
+of users, from which the risk is estimated. Synthetic users are having a moment in
 HCI~\cite{park2022social,argyle2023out,aher2023using}, and so is the backlash: a large literature warns
 that LLM-simulated people are \emph{unreliable proxies}---they collapse human diversity, echo the base
 model's priors, and mis-estimate distributions~\cite{santurkar2023whose,cao2025specializing,%
@@ -177,7 +147,7 @@ content/framing layer, not the pixel-level visual layer (layout, salience, typog
 rendering is future work (Section~\ref{sec:limits}). Our claims concern whether a synthetic panel's reading
 of \emph{that} content is backend-stable, not the visual presentation of a shipped UI.
 
-Concretely, we audit a two-axis synthetic panel across \textbf{six backend LLMs} and \textbf{two
+Concretely, we audit this synthetic panel across \textbf{six backend LLMs} and \textbf{two
 review-sentiment datasets}, and ask:
 \begin{itemize}
   \item \textbf{RQ1 (backend invariance).} Do the panel's interface-risk estimates---absolute wrong-advice
@@ -218,8 +188,7 @@ significantly lowers synthetic over-reliance, most for the at-risk persona, and 
 backend the safeguard is inert), and, against our preregistration, the benefit is not the frontier that is
 resistant.
 
-We keep the evocative ``two ways a design fails'' framing because the two axes are the risks we care about;
-but our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
+Our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
 \begin{enumerate}
   \item \textbf{A systematic backend-sensitivity audit} of synthetic-user interface-risk measurement (six
   backends $\times$ two datasets), organized around a \emph{risk-classification flip rate}: the fraction of
@@ -236,7 +205,9 @@ but our \emph{claimed} contribution is the audit, not a validated screen. We con
   item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
   disagreement-triggered abstention---report synthetic-panel results as \emph{distributions over models,
   prompts, and generations}, not a single point estimate, and abstain when backends disagree.
-  \item \textbf{The two-axis over-dispersion/coercion construct} (axis~2 load-bearing, axis~1 exploratory),
+  \item \textbf{A measurable two-axis construct for interface-content failure} (a coercion/wrong-advice
+  axis, \emph{validated and load-bearing} here, and an over-dispersion axis reported as a
+  \emph{candidate diagnostic} in the supplement given its null human correspondence),
   conflict-conditioned and preregistered on an audit-gated pipeline; the pipeline's process integrity
   (three self-caught silent-corruption bugs; Section~\ref{sec:method}) is reported as methodological
   transparency, not claimed as a separate contribution.
@@ -344,7 +315,10 @@ study---which is the point at which such measurement instability actually matter
 \section{Two Ways a Design Fails, Made Measurable}
 \label{sec:definitions}
 
-We characterize an interface on two axes, both measured on the panel's decisions.
+We characterize an interface on two axes, both measured on the panel's decisions. The coercion axis
+(axis~2) is the load-bearing quantity we audit in the main paper; the over-dispersion axis (axis~1) is a
+candidate diagnostic whose empirical results we place in the supplement (Appendix~\ref{app:overdispersion}),
+because its human counterpart is null in every configuration we can currently test.
 
 \paragraph{Axis 1---between-user reliance over-dispersion.} Intuitively: does the interface treat all users
 alike, or split them? A design that is safe for the median user but reckless for the tail shows up as a
@@ -438,29 +412,17 @@ and Benjamini--Hochberg (BH) correction. Unless noted, the BH family is the 12 p
 (backend$\times$dataset) binomial tests of dark-condition adoption against 0.5. There are $n=120$
 dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 20 items).
 
-\emph{Roadmap of the results.} We first confirm the human quantity is real, then show the synthetic
-\emph{reading} of it is \emph{not} stable across backends (Sections~\ref{sec:modeldep}--\ref{sec:instability});
+\emph{Roadmap of the results.} We show the synthetic
+\emph{reading} of an interface's wrong-advice risk is \emph{not} stable across backends (Sections~\ref{sec:modeldep}--\ref{sec:instability});
 we locate where that instability comes from (Section~\ref{sec:variance}), find that the strongest backend is
 the blindest to the most at-risk user (Section~\ref{sec:capvuln}), test whether that survives a new task
 structure (Section~\ref{sec:lsat}), and turn it all into reporting guidance (Section~\ref{sec:protective}). To keep the hierarchy legible we flag each subsection inline with one of
 three tiers: \textbf{primary} confirmatory audit results (RQ1: backend non-invariance, the matched
 coercive-framing contrast, and decision instability); \textbf{mechanism} analyses (RQ2--RQ3: where the
 instability lives, the manipulation check, and the capability--vulnerability mismatch); and \textbf{boundary}
-tests (a task-structure replication, a protective-design comparison, and the honest panel$\leftrightarrow$human null).
+tests (a task-structure replication and a protective-design comparison).
 
-\subsection{The human failure is real, and measurable}
-\textbf{[Anchor.]} We first verify that axis-1 corresponds to a measurable human quantity in the source benchmark. On the
-Bansal et al.~\cite{bansal2021whole} human data, we estimate between-user reliance over-dispersion with the
-same beta-binomial estimator we apply to the panel; conflict-conditioned over-dispersion is positive and
-excludes zero ($\rho \approx 0.067$). By split-half reliability---the primary well-identified estimator on
-this single-observation-per-cell structure---no-AI reliance behaves as a stable trait (stable-user share
-$\approx 0.74$), while under AI assistance that share falls to a task-dominated 0.32--0.41. (An optional
-variance-components GLMM did not converge and is not used; one AI condition, expert-adaptive, yields a
-degenerate, negative split-half reliability and is excluded from that range.) We report this anchor briefly (full
-participant counts, per-condition estimates, and intervals are in the supplement); it establishes that the
-human construct is measurable but does \emph{not} generalize to a second human dataset (Lu \& Yin), which we
-disclose as a boundary. The human anchor is not used to validate the synthetic panel---that link is null in
-every configuration we test (Section~\ref{sec:corr}).
+% (Over-dispersion human anchor relocated to Appendix~\ref{app:overdispersion}.)
 
 \subsection{Wrong-advice adoption is strongly backend-dependent}
 \label{sec:modeldep}
@@ -491,31 +453,11 @@ above 0.5). Rather than interpret
 adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect point, since personas are
 not random guessers---we ground the effect in a matched framing contrast below.
 
-The panel's internal disagreement (axis-1) is similarly backend-dependent (Figure~\ref{fig:collapse}). We call this quantity \emph{synthetic persona
-disagreement}---the between-persona variance of the six personas' conflict-conditioned reliance rates
-(Section~\ref{sec:definitions})---and are explicit that
-it measures how differently our \emph{prompted} personas respond, not a validated human over-dispersion.
-Mean persona disagreement across the model set is 0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and
-0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5 is the most homogeneous on both datasets, and the
-beta-binomial $\rho$ (which mean disagreement tracks) is correspondingly near zero. Disagreement is
-computed over the full 5-condition design (5 conditions $\times$ 6 personas $\times$ 20 items $=600$
-trials/model), distinct from the 120 dark-only axis-2 trials; the low value at gpt-5.5 is not a no-conflict
-artifact, since genuine conflict trials remain present (e.g.\ 215/600 on amzbook), and it also holds on the
-common conflict subset shared across models. We caution against reading it as a safety construct collapsing:
-low disagreement at a strong model can equally reflect the personas converging on the \emph{correct} answer
-(uniform task-solving) rather than an interface failing to differentiate users---these are indistinguishable
-without a human criterion.
+The panel's internal persona disagreement---a candidate second axis whose human counterpart is null---is
+likewise backend-dependent, and we report it in the supplement (Appendix~\ref{app:overdispersion}).
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{fig3_axis1_collapse}
-  \caption{Axis-1 mean panel disagreement across the same-provider model set, both datasets (error bars:
-  SD across the 5 UI conditions). gpt-5.5 shows the lowest cross-persona disagreement on both datasets.}
-  \label{fig:collapse}
-\end{figure}
-
-\paragraph{Reading.} gpt-5.5's cross-dataset low adoption and axis-1 collapse are the most consistent
-patterns; adoption magnitude is otherwise model-specific. But is that adoption really about
+\paragraph{Reading.} gpt-5.5's cross-dataset low adoption is the most consistent
+pattern; adoption magnitude is otherwise model-specific. But is that adoption really about
 \emph{coercion}, or just ordinary wrong-advice following? We settle that next, then return to whether the
 model-specificity actually flips a screening decision.
 
@@ -890,13 +832,7 @@ on gemini would have concluded the safeguard does nothing. The reporting protoco
 (Section~\ref{sec:variance}) therefore extends to design comparisons: report the benefit \emph{across}
 backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisional.
 
-\subsection{Panel$\leftrightarrow$human correspondence is unvalidated (honest null)}
-\label{sec:corr}
-\textbf{[Boundary: honest null.]} Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
-significantly track the human anchor's (Spearman on $n=5$ conditions; null under BH for all six models).
-On amzbook the correspondence is \emph{degenerate}---the human anchor's per-condition over-dispersion is
-near-constant, so the test is uninformative rather than a genuine null. We therefore make \emph{no}
-predictive-validity claim; only a powered human study (Section~\ref{sec:e6}) can close this gap.
+% (Panel<->human correspondence null relocated to Appendix~\ref{app:overdispersion}.)
 
 \section{Discussion}
 
@@ -1086,6 +1022,60 @@ documented there.
 \bibliography{references}
 
 \appendix
+
+\section{Supplement: The Over-Dispersion Axis (Candidate Diagnostic)}
+\label{app:overdispersion}
+
+The second axis of our construct---\emph{between-user reliance over-dispersion}
+(Section~\ref{sec:definitions})---is reported here rather than in the main paper, because its human
+counterpart is null in every configuration we can test. We treat it as a candidate diagnostic, not a
+load-bearing result.
+
+\paragraph{The human failure is real, and measurable.} We first verify that over-dispersion corresponds to
+a measurable human quantity in the source benchmark. On the
+Bansal et al.~\cite{bansal2021whole} human data, we estimate between-user reliance over-dispersion with the
+same beta-binomial estimator we apply to the panel; conflict-conditioned over-dispersion is positive and
+excludes zero ($\rho \approx 0.067$). By split-half reliability---the primary well-identified estimator on
+this single-observation-per-cell structure---no-AI reliance behaves as a stable trait (stable-user share
+$\approx 0.74$), while under AI assistance that share falls to a task-dominated 0.32--0.41. (An optional
+variance-components GLMM did not converge and is not used; one AI condition, expert-adaptive, yields a
+degenerate, negative split-half reliability and is excluded from that range.) We report this anchor briefly (full
+participant counts, per-condition estimates, and intervals are in the supplement); it establishes that the
+human construct is measurable but does \emph{not} generalize to a second human dataset (Lu \& Yin), which we
+disclose as a boundary. The human anchor is not used to validate the synthetic panel---that link is null in
+every configuration we test (below).
+
+\paragraph{Synthetic persona disagreement is backend-dependent.} The panel's internal disagreement is
+similarly backend-dependent (Figure~\ref{fig:collapse}). We call this quantity \emph{synthetic persona
+disagreement}---the between-persona variance of the six personas' conflict-conditioned reliance rates
+(Section~\ref{sec:definitions})---and are explicit that
+it measures how differently our \emph{prompted} personas respond, not a validated human over-dispersion.
+Mean persona disagreement across the model set is 0.11 / 0.16 / 0.10 / \textbf{0.012} (beer) and
+0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5 is the most homogeneous on both datasets, and the
+beta-binomial $\rho$ (which mean disagreement tracks) is correspondingly near zero. Disagreement is
+computed over the full 5-condition design (5 conditions $\times$ 6 personas $\times$ 20 items $=600$
+trials/model), distinct from the 120 dark-only axis-2 trials; the low value at gpt-5.5 is not a no-conflict
+artifact, since genuine conflict trials remain present (e.g.\ 215/600 on amzbook), and it also holds on the
+common conflict subset shared across models. We caution against reading it as a safety construct collapsing:
+low disagreement at a strong model can equally reflect the personas converging on the \emph{correct} answer
+(uniform task-solving) rather than an interface failing to differentiate users---these are indistinguishable
+without a human criterion.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{fig3_axis1_collapse}
+  \caption{Axis-1 mean panel disagreement across the same-provider model set, both datasets (error bars:
+  SD across the 5 UI conditions). gpt-5.5 shows the lowest cross-persona disagreement on both datasets.}
+  \label{fig:collapse}
+\end{figure}
+
+\paragraph{Panel$\leftrightarrow$human correspondence is unvalidated (honest null).}
+\label{sec:corr}
+Across every configuration we can test, the panel's per-condition axis-1 signal does \emph{not}
+significantly track the human anchor's (Spearman on $n=5$ conditions; null under BH for all six models).
+On amzbook the correspondence is \emph{degenerate}---the human anchor's per-condition over-dispersion is
+near-constant, so the test is uninformative rather than a genuine null. We therefore make \emph{no}
+predictive-validity claim; only a powered human study (Section~\ref{sec:e6}) can close this gap.
 
 \section{Prompts and generation settings}
 \label{app:prompts}

@@ -1857,3 +1857,27 @@ owner call). Decisions:
   ref/cite. #2 dispositional ablation running (configs/dispositional_ablation.yaml); #3 mostly already
   satisfied (axis-1 already named "synthetic persona disagreement", flagged non-validated) --- pending
   owner review + ablation result.
+
+## D5.82 CHI-reviewer response, part 2: B2 single-axis restructure + retitle + abstract cut (2026-07-28)
+- Second simulated CHI reviewer (6 points + admin risk). Owner decisions: A1 (expand core to 50 items,
+  background), B2 (single-axis, move axis-1 to supplement, retitle to strongest finding), C (cut abstract).
+- FACTS verified: (a) Seshadri "Lost in Simulation" is now ACL 2026 long paper (aclanthology 2026.acl-long.2192),
+  NOT concurrent -> to fix. (b) PDF metadata already clean (no /Author; Title only) -- reviewer's "metadata
+  leaks Eloise Zhang/Beyondsoft" is FALSE for current main.pdf. (c) Item ceiling = 50/domain in Bansal, so
+  "20->100+" infeasible; 50 is the realistic max (=> A1 scoped to all-50). (d) abstract was 547 words.
+- TITLE (owner pick): "Don't Crash-Test with Your Safest Driver" / subtitle unchanged (Backend-Sensitivity
+  Audit of Synthetic-User Interface-Content Risk Measurement). Metadata confirms updated + no author leak.
+- B2 (single-axis, contributions preserved): abstract rewritten ~250w single-axis (coercion/backend-flip/
+  capability-vulnerability/protocol; dropped 4 bold labels + axis-1). Intro two-axis itemize -> single
+  load-bearing coercion axis + over-dispersion demoted to companion diagnostic pointing to appendix.
+  Contribution #4 reworded: "measurable two-axis construct" with coercion axis validated + over-dispersion
+  as candidate diagnostic (supplement) -- NO contribution dropped. Fixed all "two axes/two-axis" prose
+  (intro, RQ preamble, contributions framing sentence removed). §3 definitions keep both axes but flag
+  axis-2 load-bearing / axis-1 -> Appendix.
+- RELOCATED to new Appendix "Supplement: The Over-Dispersion Axis" (\label{app:overdispersion}): the human
+  over-dispersion anchor (old §4.1), the synthetic-persona-disagreement paragraph + Fig.3 (fig:collapse),
+  and the panel<->human correspondence null (old sec:corr). Left comment-pointers in main; roadmap updated;
+  tier list dropped the honest-null boundary item. sec:corr/fig:collapse labels now live in the appendix.
+- Build clean: 24pp, 0 undefined ref/cite, no multiply-defined labels. Numbers still 20-item; A1 (50-item)
+  refresh pending. STILL TODO: Seshadri bib+Intro hardening (#3), interface->interface-framing terminology
+  (#6), flip-rate bootstrap/CI-aware reframe (#1) -- best done on 50-item data.
