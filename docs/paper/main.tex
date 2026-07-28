@@ -1011,15 +1011,18 @@ synthetic-panel validity.
 
 \section{Conclusion}
 
-An interface can fail two ways: by making reliance dangerously uneven, or by coercing over-reliance on a
-wrong AI. Synthetic panels promise to catch both before an expensive human study. Our audit shows why that
-promise must be qualified: the panel's risk reading is \textbf{backend-dependent}.
+An AI-advice interface can fail by coercing over-reliance on a confidently wrong AI---and, more diffusely,
+by making reliance dangerously uneven across users. We audit the first; the second, whose human counterpart
+is null in every configuration we can test, we report as a candidate diagnostic
+(Appendix~\ref{app:overdispersion}). Synthetic panels promise to catch such failures before an expensive
+human study. Our audit shows why that promise must be qualified: the panel's risk reading is
+\textbf{backend-dependent}.
 
 For the \emph{same} interface, aggregate wrong-advice adoption swings widely across backends---enough to
 flip the screening decision across most plausible thresholds. Yet a matched contrast still identifies a
-real coercive-framing effect whose magnitude we cannot distinguish across backends. The backend moves the
-adoption \emph{level}, not the framing effect. Backend choice is therefore part of the methodology, with
-direct consequences for screening.
+real coercive-framing effect whose backend-dependence we cannot detect. The backend moves the
+adoption \emph{level}; any effect on the framing slope is below what our data resolve. Backend choice is
+therefore part of the methodology, with direct consequences for screening.
 
 Beneath this instability, the panel reliably propagates one prompted disposition: an explicitly
 trusting-novice persona ranks highest across every backend and dataset. That consistency is a property of
