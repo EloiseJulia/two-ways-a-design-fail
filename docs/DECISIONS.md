@@ -1790,3 +1790,19 @@ owner call). Decisions:
   crash-test spice lives inside the paper.
 - Build clean: 24pp (was 23; abstract paragraphing + rewrites), 0 undefined ref/cite. No numbers/claims
   changed; voice/emphasis sharpened per owner sign-off.
+
+## D5.78 Results-momentum pass (A: story-beat openers; 2026-07-28)
+- Grounded in a check of CHI best-paper craft (three-act arc, hook, tension, signposting, trim the fat).
+  Verdict given to owner: the FRAME (abstract/intro/discussion/conclusion + crash-test) is now best-paper
+  grade; the RESULTS middle was still audit-dense. Owner asked for an A+B momentum pass.
+- APPLIED A (story-beat opening sentences; pure language, zero number/claim change) to connect the results
+  into a narrative: sec:modeldep ("Start with the first number a practitioner reads off..."); sec:instability
+  ("If the aggregate reading is this model-specific, does the DECISION move with it? ... They do not.");
+  persona-check ("Is anything about the panel stable? One thing is."); sec:capvuln ("Now the study's most
+  unsettling turn."); sec:lsat ("Could all of this be an artifact of one task type?").
+- B (light trimming) applied CONSERVATIVELY: held off aggressive cuts in the dense results to protect the
+  honest detail (owner's stated value); the coercion reanalysis and number-dense passages left intact.
+  Can do targeted trims later if owner points at specific passages.
+- Held (owner deferred): option C (moving the human-anchor subsection ahead of the backend-dependence
+  result) -- not done.
+- Build clean: 24pp, 0 undefined ref/cite.

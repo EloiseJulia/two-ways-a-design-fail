@@ -475,7 +475,8 @@ every configuration we test (Section~\ref{sec:corr}).
   \label{fig:ladder}
 \end{figure}
 
-Backend choice changes both the \emph{level} and the \emph{interpretation} of wrong-advice adoption
+Start with the first number a practitioner reads off: how often the panel adopts a wrong AI. Swap the model
+behind the panel and both the \emph{level} and the \emph{interpretation} of that number change
 (Figure~\ref{fig:ladder}). Across the ladder (beer / amzbook): gpt-4o-mini 0.50 / 0.48, gpt-4.1
 0.60 / \textbf{0.66}, gpt-4o 0.43 / 0.48, gpt-5.5 \textbf{0.30 / 0.15}. The adoption peak at gpt-4.1 is
 real (between-model Fisher vs.\ gpt-4o $p=0.014/0.006$) but \textbf{model-idiosyncratic}: the smallest
@@ -559,8 +560,9 @@ than against chance.
   \label{fig:flip}
 \end{figure*}
 
-Our first audit question (RQ1) treats the dark interface as one \emph{design} and asks whether backends
-agree on its risk (Figure~\ref{fig:flip}). They do not. Aggregate wrong-advice adoption for the identical
+If the aggregate reading is this model-specific, does the \emph{decision} a screen would make move with it?
+We treat the dark interface as one \emph{design} and ask whether the six backends agree on its risk
+(Figure~\ref{fig:flip}). They do not. Aggregate wrong-advice adoption for the identical
 interface is 0.30--0.60
 across the six beer backends and 0.15--0.66 across the amzbook backends. Turning the estimate into the
 binary decision a screen would make---``flag for a human study if adoption $\ge \tau$''---the flag is
@@ -617,8 +619,9 @@ model-free evidence.)
   \label{fig:heatmap}
 \end{figure*}
 
-The aggregate adoption \emph{rate} is model-idiosyncratic (range 0.30 across beer backends, 0.51 across
-amzbook backends). The \emph{ordering} of which persona adopts most is stable (Figure~\ref{fig:heatmap}). An
+Is anything about the panel stable? One thing is. The aggregate adoption \emph{rate} is model-idiosyncratic
+(range 0.30 across beer backends, 0.51 across amzbook backends), but the \emph{ordering} of which persona
+adopts most holds steady (Figure~\ref{fig:heatmap}). An
 \textbf{explicitly trusting-novice} persona is the highest-adopting persona in \textbf{all 12}
 backend$\times$dataset cells. Because the 20 items are reused across personas and the 12 cells share prompts,
 items, and providers, we do not treat trials as independent: a crossed random-effects logistic model with
@@ -690,8 +693,9 @@ anti-circularity argument only on the neutral background-only arm above.
   \label{fig:capvuln}
 \end{figure*}
 
-A backend's aggregate adoption is one thing; \emph{which} users it flags as at-risk is another, and
-combining them exposes an uncomfortable pattern (Figure~\ref{fig:capvuln}). Using each backend's unaided
+Now the study's most unsettling turn. A backend's aggregate adoption is one thing; \emph{which} users it
+flags as at-risk is another---and combining the two exposes an uncomfortable pattern
+(Figure~\ref{fig:capvuln}). Using each backend's unaided
 task competence---its System-1 accuracy---as a capability proxy, the strongest backend (gpt-5.5, 0.93) is
 precisely the one that least reproduces the highest-severity failure: on the trusting-novice persona (p5),
 dark-condition adoption is $\approx$1.0 for five backends but only \textbf{0.50} for gpt-5.5. Isolating AI
@@ -796,8 +800,8 @@ for what the coverage result shows directly.
 
 \subsection{Does the mismatch survive a different task structure? (LSAT)}
 \label{sec:lsat}
-Beer and amzbook are both English binary sentiment, so the pattern above could be an artifact of one task
-\emph{structure}. As a preregistered robustness arm we replayed the same six backends, six personas, and dark
+Could all of this be an artifact of one task \emph{type}? Beer and amzbook are both English binary
+sentiment, so the pattern above might not survive a different structure. As a preregistered robustness arm we replayed the same six backends, six personas, and dark
 protocol on 20 LSAT logical-reasoning items~\cite{bansal2021whole}---a genuinely different structure (4-way
 multiple choice, harder, a different advice format), where the dark AI recommends a guaranteed-wrong option
 and adoption is $\mathrm{final}=\hat a$ against that explicit wrong option (all 720 dark trials satisfy
