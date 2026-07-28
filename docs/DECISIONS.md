@@ -1806,3 +1806,15 @@ owner call). Decisions:
 - Held (owner deferred): option C (moving the human-anchor subsection ahead of the backend-dependence
   result) -- not done.
 - Build clean: 24pp, 0 undefined ref/cite.
+
+## D5.79 Final consistency scan after writing-craft rounds (2026-07-28)
+- Automated: 0 doubled words, 0 bare p-values (leading zeros consistent), 0 stray inline-stat {=}, 0
+  undefined ref/cite, em-dashes 137 (normal), crash-test metaphor appears exactly 2x, abstract has its
+  intended 6 paragraph breaks.
+- CAUGHT + FIXED one real redundancy the momentum pass introduced: the sec:modeldep "Reading." paragraph
+  already ended with almost the exact question I gave as the new sec:instability opener ("...does the
+  decision a screen would make move with it?"). Rewrote the Reading paragraph to tee up the coercion
+  question instead (which is the section that actually comes next), so the question now appears once, and
+  the forward-pointer is correct (5.2 -> coercion 5.3 -> instability 5.4). New openers otherwise connect
+  cleanly.
+- Build clean: 24pp, 0 undefined ref/cite.
