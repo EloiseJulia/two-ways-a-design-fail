@@ -264,13 +264,13 @@ def fig8(_df):
         axL.plot(xs, ys, 'o', color=bpal[m], ms=5, markeredgecolor='white', markeredgewidth=0.8, zorder=3)
     # de-collide the right-hand end labels
     ends = {m: pr['per_backend_condition'][m][conds[-1]] for m in ALL_MODELS}
-    lab_y = _declutter([(m, ends[m]) for m in ALL_MODELS], min_gap=0.032)
+    lab_y = _declutter([(m, ends[m]) for m in ALL_MODELS], min_gap=0.045)
     for m in ALL_MODELS:
         axL.plot([xs[-1], xs[-1] + 0.05], [ends[m], lab_y[m]], color=bpal[m], lw=0.6, alpha=0.7)
         axL.text(xs[-1] + 0.08, lab_y[m], SHORT[m], color=bpal[m], va='center', fontsize=8.5, weight='bold')
     axL.axhline(0.5, ls=(0, (4, 3)), color=figstyle.OKABE['grey'], lw=1.0)
     axL.set_xticks(xs); axL.set_xticklabels([clab[c] for c in conds])
-    axL.set_xlim(-0.2, 4.0); axL.set_ylim(0, 0.72)
+    axL.set_xlim(-0.2, 4.0); axL.set_ylim(0, 1.0)
     axL.set_ylabel('wrong-AI adoption')
     cm = pr['condition_main_LRT']; it = pr['interaction_LRT']
     d_pool = 100 * (pr['pooled_adoption']['plain'] - pr['pooled_adoption']['verify'])
@@ -319,9 +319,11 @@ def fig6(_df):
                  ha='center', arrowprops=dict(arrowstyle='->', color='0.4'))
     axS.set_xlabel('backend task competence (System-1 accuracy)')
     axS.set_ylabel('AI-induced flip-to-wrong\n$P(\\mathrm{adopt}\\mid\\mathrm{S1\\ correct})$')
-    axS.set_title(f'Capability vs vulnerability (directional, $n{{=}}6$)\n'
-                  f'Spearman {rb:.2f} / {ra:.2f} (n.s.)', fontsize=9)
-    axS.set_ylim(0, None); axS.legend(title='dataset', fontsize=8)
+    axS.set_title('Capability vs. reproduced vulnerability (directional guide)', fontsize=9)
+    axS.set_ylim(0, None); axS.legend(title='dataset', fontsize=8, loc='upper right')
+    axS.text(0.02, 0.03, f'Spearman {rb:.2f} / {ra:.2f}\n(n.s. at $n{{=}}6$; fit is a guide only;\n'
+             'the reading rests on coverage, right)', transform=axS.transAxes, fontsize=7.2,
+             color='0.4', va='bottom', ha='left')
     clean_axis(axS, grid_axis='y')
     # RIGHT: panel vulnerability coverage as lollipops (single frontier / weak pair / diverse)
     labels = ['single frontier\n(gpt-5.5)', 'weak pair\n(gpt-4.1, 4o-mini)', 'diverse\n(all 6)']
@@ -340,6 +342,8 @@ def fig6(_df):
     axB.set_xlim(0, 6); axB.set_title('Panel vulnerability coverage', fontsize=9)
     axB.legend(title='dataset', fontsize=8, loc='lower right')
     clean_axis(axB, grid_axis='x')
+    fig.suptitle('The frontier backend is nearly blind to the at-risk persona '
+                 '(coverage, not the fit, carries this)', y=1.02, fontsize=10.5)
     save(fig, 'fig6_capability_vulnerability')
 
 

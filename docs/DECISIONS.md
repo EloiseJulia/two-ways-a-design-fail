@@ -2002,3 +2002,13 @@ owner call). Decisions:
   (fig4 2-panel). Data source unchanged = load_dark_records() reads 20-item axis2_powered_*.json.
 - NOT DONE (owner's call, deferred): Fig1 teaser (b)/(c) density/small-font/zero-CI issues; capvuln n=6
   n.s. reframing; protective y-axis unification. These touch owner's hand-drawn teaser or claim strength.
+
+## D5.89 fig:capvuln n.s. reframe + fig:protective axis unification (owner-requested) (2026-07-29)
+- fig6 (fig:capvuln): the n=6 Spearman (-0.43/-0.60, n.s.) was the figure's HEADLINE (self-undermining).
+  Reframed: suptitle now leads with the model-free reading ("frontier backend is nearly blind to the
+  at-risk persona; coverage, not the fit, carries this"); the Spearman/n.s. demoted to a small grey corner
+  note framed as "a guide, not load-bearing". Right coverage panel (model-free inversion) is the evidence.
+  tex caption updated to match (lead = under-represents the at-risk user; fit = visual guide only).
+- fig8 (fig:protective): left/right panels both labelled "wrong-AI adoption" but had different y-ranges
+  (0-0.72 vs 0-1.0), misleading. Unified both to 0-1.0; bumped end-label declutter gap for the taller axis.
+- Scripts: make_figures_v3.py fig6 (title/annotation/suptitle) + fig8 (ylim). Build clean: 26pp, 0 undefined.
