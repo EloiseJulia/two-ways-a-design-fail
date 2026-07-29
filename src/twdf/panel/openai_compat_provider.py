@@ -210,7 +210,7 @@ class OpenAICompatibleProvider:
                                 f"API response missing choices from model {self.name} after "
                                 f"{self.max_retries} attempts"
                             )
-                        wait_time = (2 ** attempt) + (attempt * 0.5)
+                        wait_time = min((2 ** attempt) + (attempt * 0.5), 90.0)
                         print(f"{last_error}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
                         time.sleep(wait_time)
                         continue
@@ -235,7 +235,7 @@ class OpenAICompatibleProvider:
                             f"Empty content from model {self.name} after {self.max_retries} "
                             f"attempts (finish_reason={last_finish_reason})"
                         )
-                    wait_time = (2 ** attempt) + (attempt * 0.5)
+                    wait_time = min((2 ** attempt) + (attempt * 0.5), 90.0)
                     print(f"{last_error}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
                     time.sleep(wait_time)
                     continue
@@ -245,7 +245,7 @@ class OpenAICompatibleProvider:
                     if retry_after and retry_after.isdigit():
                         wait_time = max(float(retry_after), 2.0)
                     else:
-                        wait_time = (2 ** attempt) + (attempt * 0.5)
+                        wait_time = min((2 ** attempt) + (attempt * 0.5), 90.0)
                     if attempt >= self.max_retries - 1:
                         raise RuntimeError(f"Rate limit (429) exceeded after {self.max_retries} retries")
                     print(f"Rate limit (429), cooling down {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
@@ -254,7 +254,7 @@ class OpenAICompatibleProvider:
                     continue
 
                 if response.status_code in [499, 500, 502, 503, 504]:
-                    wait_time = (2 ** attempt) + (attempt * 0.5)
+                    wait_time = min((2 ** attempt) + (attempt * 0.5), 90.0)
                     print(f"Server error {response.status_code}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
                     time.sleep(wait_time)
                     last_error = f"HTTP {response.status_code}: {response.text}"
@@ -264,7 +264,7 @@ class OpenAICompatibleProvider:
 
             except requests.RequestException as e:
                 last_error = str(e)
-                wait_time = (2 ** attempt) + (attempt * 0.5)
+                wait_time = min((2 ** attempt) + (attempt * 0.5), 90.0)
                 print(f"Request exception: {e}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
                 time.sleep(wait_time)
 

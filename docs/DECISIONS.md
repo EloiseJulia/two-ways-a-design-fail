@@ -2028,3 +2028,12 @@ owner call). Decisions:
   The footer is guarded by \if@ACM@nonacm in acmart.cls (L3039), so nonacm suppresses it cleanly; running
   head now shows the real author. Verified: 0 occurrences of 'Manuscript submitted to ACM' in the PDF;
   byline + Author's Contact Information (Shenning Zhang, Chang'an University, email) retained. 26pp, 0 undefined.
+
+## D5.88 A1 rerun: 3/4 configs done; cap retry backoff; crossvendor_amzbook blocked on claude (2026-07-30)
+- A1 rerun finished: capladder(beer), crossvendor(beer), capladder(amzbook) all DONE (n50 results committed).
+- crossvendor_amzbook_n50 FAILED: claude-sonnet-4.5 persistently returns empty choices on amzbook (12 retries
+  exhausted) -- transient model-availability issue, not a bug (gpt-5.5/gemini parts cached). Re-run this one
+  config when claude recovers; cache resumes the rest.
+- FIX: capped retry backoff at 90s in openai_compat_provider.py (5 spots) -- with max_retries 12-15 the old
+  uncapped 2**attempt gave absurd 500-2000s waits, which is why the failed run hung for ~1h.
+- Left a detached rerun of crossvendor_amzbook running at retirement. Handoff updated (A1 = 3/4 done + blocker).

@@ -59,13 +59,17 @@ full 6-backend panel** (coverage saturates — this is the point). gpt-5.5 Syste
 ## IN-FLIGHT: A1 = 50-item confirmatory rerun (owner said keep running)
 Goal: raise the load-bearing coercion evidence from 20 items / 8 matched-wrong clusters to **50 items** (the
 Bansal ceiling; can't go higher without a new dataset). 4 configs, cache-resumable, serial proxy only:
-- `configs/axis2_powered_capladder_n50.yaml`  (beer: gpt-4o-mini/gpt-4.1/gpt-4o/gpt-5.5) — **DONE** (`results/axis2_powered_capladder_n50.json`)
-- `configs/axis2_powered_crossvendor_n50.yaml` (beer: gpt-5.5/claude-sonnet-4.5/gemini-2.5-pro) — **DONE** (`results/axis2_powered_crossvendor_n50.json`)
-- `configs/axis2_powered_capladder_amzbook_n50.yaml` — **RUNNING**
-- `configs/axis2_powered_crossvendor_amzbook_n50.yaml` — **QUEUED/RUNNING**
+- `configs/axis2_powered_capladder_n50.yaml`  (beer) — **DONE** (`results/axis2_powered_capladder_n50.json`)
+- `configs/axis2_powered_crossvendor_n50.yaml` (beer) — **DONE** (`results/axis2_powered_crossvendor_n50.json`)
+- `configs/axis2_powered_capladder_amzbook_n50.yaml` — **DONE** (`results/axis2_powered_capladder_amzbook_n50.json`)
+- `configs/axis2_powered_crossvendor_amzbook_n50.yaml` — **NOT DONE / BLOCKED.** Fails because
+  **claude-sonnet-4.5 persistently returns empty `choices`** on amzbook right now (12 retries exhausted) — a
+  transient MODEL-AVAILABILITY issue, not a code bug (gpt-5.5 + gemini-2.5-pro parts are cached). A detached
+  rerun was left running at retirement; if it's still failing, **just re-run this one config when
+  claude-sonnet-4.5 recovers** — cache resumes everything else, so it finishes fast.
 Runner: `python -m twdf.experiments.axis2_powered --config configs/<name>.yaml`
-(PYTHONPATH=src). If it dies, just re-run the missing configs — cache resumes. Provider hardened this session:
-empty-`choices` responses now retry (were crashing crossvendor-amzbook); capladder retries bumped to 15.
+(PYTHONPATH=src). Provider hardened this session: empty-`choices` responses now retry, and the retry backoff
+is **capped at 90s** (max_retries 12–15 with the old uncapped `2**attempt` gave absurd 500–2000s waits).
 
 ## NEXT ACTIONS (once A1's 4 configs are all done)
 1. **Refresh all 20-item axis-2 numbers to 50-item** across abstract, Fig 1 caption, sec:modeldep,
