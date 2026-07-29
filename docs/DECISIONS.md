@@ -1948,3 +1948,18 @@ owner call). Decisions:
   camera-ready: add a psychometrics measurement-invariance definitional cite (e.g., Vandenberg & Lance 2000)
   -- deferred, needs bib verification.
 - Build clean: 25pp, 0 undefined ref/cite.
+
+## D5.86 Owner-authored overview figure inserted as Figure 1 (teaser) (2026-07-29)
+- Owner hand-drew a 4-panel overview (a: instrument/panel, b: six-verdict flip, c: capability-vulnerability
+  + coverage, d: reporting protocol). I data-checked every number against authoritative 20-item results.
+- FOUND + owner FIXED 2 issues before insertion: (1) panel (c) "full panel" coverage was 6/6/6/6; recomputed
+  from results = beer 4/6, amzbook 5/6 (== weak pair, per main.tex "matching the full six-backend panel");
+  6/6 would have contradicted the coverage-saturation point. (2) panel (b) amzbook gpt-4o/gpt-4o-mini shown
+  .47 vs paper .48 (0.475). Owner corrected both; re-rendered and re-verified all cells match.
+- Verified-correct cells: (a) dark verdict/conf 0.95/authority+accountability/6x6; (b) beer .30/.43/.49/.50/
+  .53/.60 spread 0.30-0.60 flip 0.60, amzbook spread 0.15-0.66 5clear/1flag flip 0.33; (c) gpt-5.5 acc0.93
+  p5=0.50, single 1/6&0/6, weak pair 4/6&5/6; (d) 6-step protocol + range>0.2 abstain.
+- Inserted as teaserfigure (\label{fig:overview}) BEFORE \maketitle (acmart requirement -- placing it after
+  silently dropped the label from .aux; moved before and it registered as Figure 1). Copied "FIG2 two ways.pdf"
+  -> figures/fig1_overview.pdf (clean name, no spaces). Added Figure~\ref in intro RQ preamble.
+- Build clean: 26pp (was 25; teaser added a page), 0 undefined ref/cite, fig:overview = Figure 1 on page 1.
