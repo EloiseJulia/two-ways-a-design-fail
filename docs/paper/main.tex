@@ -188,7 +188,7 @@ review-sentiment datasets} (Figure~\ref{fig:overview}), and ask:
 \end{itemize}
 
 Our answer separates \emph{what is stable from what is not}. \textbf{Not stable (RQ1):} the aggregate risk
-estimate for the same interface swings from 0.15 to 0.66 across backends (Figure~\ref{fig:ladder}), enough
+estimate for the same interface swings from 0.15 to 0.66 across backends (Figure~\ref{fig:flip}), enough
 to flip the interface's risk classification for a majority of backend pairs across most of the plausible
 threshold range (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
 varies only the framing confirms a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on
@@ -454,23 +454,11 @@ tests (a task-structure replication and a protective-design comparison).
 \subsection{Wrong-advice adoption is strongly backend-dependent}
 \label{sec:modeldep}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{fig1_axis2_ladder}
-  \caption{\textbf{Wrong-advice adoption swings widely and non-monotonically across backends}, and the most
-  capable model (gpt-5.5) shows the \emph{lowest} adoption on both datasets---so ``stronger'' does not mean
-  ``more compliant.'' Shown is axis-2 adoption on the guaranteed-wrong interface across the same-provider
-  set (gpt-4o-mini $\to$ gpt-4.1 $\to$ gpt-4o $\to$ gpt-5.5), both datasets. Error bars are Wilson 95\%
-  binomial confidence intervals (descriptive; conflict-conditioned inference uses the item-clustered models
-  below). Lines connect discrete model conditions only as a visual guide; the dashed line marks 0.5.
-  The matched framing contrast (Section~\ref{sec:coercion}) provides a non-arbitrary baseline for this
-  low level.}
-  \label{fig:ladder}
-\end{figure}
+% (fig:ladder removed --- redundant with fig:flip, which now carries Wilson 95% CIs and all six backends.)
 
 \textbf{[Primary (RQ1).]} Start with the first number a practitioner reads off: how often the panel adopts a wrong AI. Swap the model
 behind the panel and both the \emph{level} and the \emph{interpretation} of that number change
-(Figure~\ref{fig:ladder}). Across the ladder (beer / amzbook): gpt-4o-mini 0.50 / 0.48, gpt-4.1
+(Figure~\ref{fig:flip}). Across the ladder (beer / amzbook): gpt-4o-mini 0.50 / 0.48, gpt-4.1
 0.60 / \textbf{0.66}, gpt-4o 0.43 / 0.48, gpt-5.5 \textbf{0.30 / 0.15}. The adoption peak at gpt-4.1 is
 real (between-model Fisher vs.\ gpt-4o $p=0.014/0.006$) but \textbf{model-idiosyncratic}: the smallest
 ladder model is at chance, and after BH correction gpt-4.1's elevated adoption survives on amzbook
@@ -526,10 +514,14 @@ than against chance.
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{fig5_decision_flip}
-  \caption{The \emph{same} guaranteed-wrong interface, scored by six backends, both datasets. Bars are
-  aggregate wrong-advice adoption; the dashed line is a fixed decision threshold ($\tau=0.5$). Red backends
-  are at or above threshold (would \emph{flag} the interface), green backends are below it---so the
-  screening decision flips with the backend (pairwise flip rate 0.60 beer / 0.33 amzbook).}
+  \caption{The \emph{same} guaranteed-wrong interface, scored by six backends, both datasets. Dots are
+  aggregate wrong-advice adoption with Wilson 95\% binomial CIs; the dashed line is a fixed decision
+  threshold ($\tau=0.5$). Backends at or above threshold would \emph{flag} the interface (red); the rest
+  \emph{clear} it (blue)---so the screening decision flips with the backend (pairwise flip rate 0.60 beer /
+  0.33 amzbook). Several mid-adoption backends have CIs that straddle $\tau$: the flip rate measures
+  decision instability \emph{across} backends, not a claim that each individual crossing is significant---
+  the threshold-free companions (adoption range 0.15--0.66, Fleiss'~$\kappa$) carry the same reading
+  without fixing $\tau$.}
   \label{fig:flip}
 \end{figure*}
 
@@ -575,7 +567,7 @@ estimate. Generation randomness---the one source a single draw per prompt cannot
 the smallest of all. In a preregistered multi-generation run (three backends spanning the adoption range
 $\times$ two UI conditions $\times$ six personas $\times$ 20 items $\times$ five generation seeds; 3{,}600 trials), generation
 contributes essentially none of the variance in dark adoption (fixed-effects $\eta^2=0.001$, versus $0.22$
-for items, $0.15$ for personas, and $0.07$ for the backend). Each backend's aggregate over-reliance
+for items, $0.15$ for personas, and $0.07$ for the backend; Figure~\ref{fig:variance}). Each backend's aggregate over-reliance
 estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$), small
 against the $0.31$ spread \emph{between} backends that flips the decision. Generation noise is real at the
 level of an individual persona--item cell (mean cell SD $0.17$; about a third of cells change across seeds),
@@ -586,6 +578,18 @@ component for the backend is degenerate on three groups; the direct stability st
 model-free evidence.)
 
 \subsection{A backend-stable manipulation check: the panel propagates a prompted trust disposition}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{fig9_variance_decomp}
+  \caption{What moves a synthetic-panel risk number. Variance shares ($\eta^2$) from the preregistered
+  multi-generation run (three backends $\times$ two UI conditions $\times$ six personas $\times$ 20 items
+  $\times$ five generation seeds; 3{,}600 trials). The analyst-chosen item and persona dominate; the backend
+  is a modest share; the random generation draw is essentially zero ($\eta^2=0.001$). (This per-trial
+  decomposition is not in tension with cross-backend \emph{aggregate} instability, Section~\ref{sec:instability}:
+  a modest per-trial share still shifts the aggregate estimate enough to flip the decision.)}
+  \label{fig:variance}
+\end{figure}
 
 \begin{figure*}[t]
   \centering
@@ -652,7 +656,7 @@ identical across personas, but \emph{never} an instruction to trust or defer to 
 capability-spanning backends: gpt-3.5-turbo, gpt-4, gpt-5.4, gemini-3.1-pro; 12 beer items; dark condition).
 The deferential disposition adopts the wrong AI more than an independent disposition (high experience,
 infrequent AI use, high self-confidence) on \emph{all four} backends (adoption gap $+0.08$ to $+0.83$;
-compare the explicit-policy p5$-$p4 gap $+0.50$ to $+0.83$)---so the over-reliance signal is not merely
+Figure~\ref{fig:ablation}; compare the explicit-policy p5$-$p4 gap $+0.50$ to $+0.83$)---so the over-reliance signal is not merely
 compliance with a written ``trust the AI'' instruction. Decomposing the disposition one facet at a time
 around the deferential anchor, the lever is \emph{low self-confidence} (positive on all four backends),
 while stated experience and AI-use frequency alone are near-inert: the panel over-relies when a persona
@@ -665,13 +669,26 @@ one.
 
 \begin{figure*}[t]
   \centering
+  \includegraphics[width=\textwidth]{fig10_dispositional_ablation}
+  \caption{Non-policy dispositional ablation (exploratory: 12 beer items, one generation, dark condition,
+  four capability-spanning backends). \emph{Left:} a deferential disposition (d1: stated low task
+  experience, frequent AI use, and \emph{low self-confidence}, but \emph{no} instruction to trust the AI)
+  adopts the wrong AI more than an independent disposition (d2) on every backend; the frontier (gpt-5.4)
+  compresses the gap. \emph{Right:} decomposing the disposition one fact at a time around d1, low
+  self-confidence is the consistent positive lever, while stated experience and AI-use frequency are
+  near-inert---the panel over-relies when a persona doubts its own judgment, not merely when it is labelled
+  a novice.}
+  \label{fig:ablation}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
   \includegraphics[width=\textwidth]{fig4_rate_vs_ordering}
-  \caption{Left: aggregate wrong-advice adoption spans a wide range across backends on both datasets.
-  Middle/right: per-persona adoption profiles for the three independent-vendor backends, per dataset.
-  All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak they disagree---
-  removing p5, the mean pairwise Spearman falls from 0.87 to 0.77 on beer and from 0.50 to 0.09 on amzbook.
-  Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona prompt, not
-  population discovery.}
+  \caption{Per-persona wrong-advice adoption profiles for the three independent-vendor backends, one panel
+  per dataset. All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak they
+  disagree---removing p5, the mean pairwise Spearman falls from 0.87 to 0.77 on beer and from 0.50 to 0.09
+  on amzbook. Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona
+  prompt, not population discovery.}
   \label{fig:ordering}
 \end{figure*}
 
@@ -742,20 +759,8 @@ this as a design principle for synthetic-user evaluation, not a validated claim 
 prompted disposition (Section~\ref{sec:modeldep}), so this is coverage of a \emph{synthetic} vulnerability
 whose human counterpart the planned study (Section~\ref{sec:e6}) must establish.
 
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig7_coverage_curve}
-  \caption{\textbf{Adding the strongest models first is the wrong strategy for surfacing interface risk.}
-  Each curve is the fraction of high-severity
-  failure cells (dataset$\times$persona reaching the risk threshold) a panel reproduces as it grows
-  (formally, a submodular set-cover).
-  \emph{Coverage-greedy} (green) adds the backend with the largest marginal coverage; \emph{capability-first}
-  (red) adds backends strongest-first, the order a quality-optimal router would prefer. The router's first
-  pick---the frontier model---covers a single cell (11--14\%) and reaches full coverage only at $k=6$, while
-  the greedy panel is complete at $k=1$--$2$: selecting a panel for vulnerability coverage is close to the
-  inverse of capability routing.}
-  \label{fig:coverage}
-\end{figure*}
+% (fig:coverage removed --- the coverage-greedy vs capability-first curve is shown at n=11 in
+%  fig:expand11 (right); the n=6 numbers below remain in text.)
 
 We can make this selection principle precise. Let $\mathcal{C}$ be the set of high-severity cells
 (dataset$\times$persona; high-severity by the \emph{panel's own} adoption, not a verified human criterion)
@@ -766,9 +771,10 @@ f(S)=\bigl|\{\,c\in\mathcal{C}:\ \textstyle\max_{b\in S} a_b(c)\ge\tau\,\}\bigr|
 \end{equation}
 $f$ is monotone and submodular, so the \emph{coverage-greedy} panel---$S_{k+1}=S_k\cup\{\arg\max_{b}
 f(S_k\cup\{b\})\}$---carries the standard $(1-1/e)$ approximation guarantee against the best size-$k$ panel.
-Figure~\ref{fig:coverage} contrasts this greedy panel with a \emph{capability-first} panel that adds
+Figure~\ref{fig:expand11} (right) shows this contrast at $n{=}11$; the same $n{=}6$ comparison of a
+\emph{capability-first} panel that adds
 backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025routellm}
-would prefer. The two are almost opposite: on the clean AI-induced-flip metric the greedy panel covers every
+would prefer, is almost opposite to the coverage-greedy panel. On the clean AI-induced-flip metric the greedy panel covers every
 high-risk cell with two backends, whereas the capability-first panel's first pick---the frontier model---
 covers a single cell and only reaches full coverage at $k=6$. Under the raw-adoption metric the contrast is
 starker still: one \emph{low}-capability backend (gpt-4.1) already covers all nine high-risk cells, so the

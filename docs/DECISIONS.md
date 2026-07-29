@@ -1972,3 +1972,33 @@ owner call). Decisions:
 - Tracked owner ref-check artifacts (check-ref-report, refchecker-audit/report) + strategy note comment2.md.
 - Build clean: 26pp, 0 undefined ref/cite. Next session: finish A1 -> number refresh + flip-bootstrap
   (panel #1) + capability-vulnerability mechanical decomposition; owner to decide E6 pilot (D1).
+
+## D5.88 Figure restructure on 20-item data (owner-approved: add CI, cut redundancy, +2 figures) (2026-07-29)
+- Owner go (not waiting for A1 50-item): structural figure redraw/delete on existing 20-item data --- add CI,
+  delete redundancy, add 2 figures. Deliverable rebuilt: 26pp -> 25pp, 0 undefined ref/cite.
+- ADD CI: fig5 (fig:flip) decision-flip lollipop now carries Wilson 95% CIs. Several mid-adoption backends'
+  CIs straddle tau=0.5 --- directly answers the panel/AC "flip-rate fragile at 120 trials" criticism. Caption
+  rewritten (Bars->Dots; adds the CI-straddle caveat + foregrounds threshold-free range/Fleiss kappa).
+- DELETE (redundancy, preserving the deliberate n=6 -> n=11 escalation):
+  * fig:ladder (fig1_axis2_ladder): redundant with fig:flip (adoption spread depicted 4x across the paper).
+    Refs L191 + L473 repointed to fig:flip. Kept the same-provider ladder NUMBERS in prose (minor loss: the
+    non-monotonic peak shape is no longer drawn; fig:flip is sorted by pooled adoption).
+  * fig:coverage (fig7_coverage_curve): the greedy-vs-router curve is already shown at n=11 in fig:expand11
+    (right). Ref L769 repointed to fig:expand11; the n=6 numbers (k=6 full coverage etc.) remain in text.
+  * KEPT fig:capvuln (n=6 anchor) so the n=6->n=11 escalation still reads.
+  * fig4 (fig:ordering): dropped the redundant LEFT aggregate-bar panel (dup of fig:flip); now 2 persona-
+    profile panels. Caption updated.
+- ADD 2 FIGURES (JSON-sourced, no invented numbers):
+  * fig:variance (fig9_variance_decomp, RQ2): eta^2 shares from generation_variance.json (item .21/persona
+    .15/backend .07/generation .001/residual .57). Message: analyst choices move the number more than the
+    backend; the random draw barely moves it. Gives RQ2 its first figure.
+  * fig:ablation (fig10_dispositional_ablation, RQ3): from dispositional_ablation.json --- deferential (d1,
+    low self-confidence) vs independent (d2) adopts more on all 4 backends; facet panel shows low
+    self-confidence is the lever (experience/AI-use near-inert). Visualizes the anti-circularity control.
+- HONESTY: fig3 (fig:collapse, appendix) figure TITLE "collapses at the frontier" -> "is lowest at the
+  frontier model" (+ annotation), aligning the image with the text's explicit caution against reading it as
+  a construct collapse. tex caption unchanged (already neutral).
+- Scripts: make_figures_v3.py (fig5 CI, fig3 title, +fig9_variance +fig10_ablation), make_figures.py
+  (fig4 2-panel). Data source unchanged = load_dark_records() reads 20-item axis2_powered_*.json.
+- NOT DONE (owner's call, deferred): Fig1 teaser (b)/(c) density/small-font/zero-CI issues; capvuln n=6
+  n.s. reframing; protective y-axis unification. These touch owner's hand-drawn teaser or claim strength.

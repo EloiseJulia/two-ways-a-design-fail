@@ -163,9 +163,9 @@ def fig3(_df):
     ax.set_yticks(y); ax.set_yticklabels(LADDER)
     ax.invert_yaxis()
     ax.set_xlabel('mean panel disagreement (persona heterogeneity)')
-    ax.set_title('Persona heterogeneity collapses at the frontier')
+    ax.set_title('Persona heterogeneity is lowest at the frontier model')
     frontier_x = float(np.mean([np.mean(dis[(dom, LADDER[-1])]) for dom in DOMAINS]))
-    ax.annotate('frontier collapse', xy=(frontier_x, len(LADDER) - 1),
+    ax.annotate('lowest at frontier', xy=(frontier_x, len(LADDER) - 1),
                 xytext=(frontier_x + 0.06, len(LADDER) - 1.6), fontsize=9, color='0.3',
                 arrowprops=dict(arrowstyle='->', color='0.4'))
     ax.legend(title='dataset', loc='lower right')
@@ -184,28 +184,33 @@ def fig5(df):
     for ax, dom in zip(axes, DOMAINS):
         names = [SHORT[m] for m in pooled_order]
         rates = [cr[(dom, m)][2] for m in pooled_order]
+        cis = [wilson_ci(cr[(dom, m)][0], cr[(dom, m)][1]) for m in pooled_order]
         y = np.arange(len(names))
         ax.axvspan(thr, 1.0, color=FLAG, alpha=0.06)
-        for yi, r in zip(y, rates):
+        for yi, r, (lo, hi) in zip(y, rates, cis):
             c = FLAG if r >= thr else BELOW
             # stem encodes DISTANCE FROM the decision threshold, not magnitude from zero
             ax.hlines(yi, min(thr, r), max(thr, r), color=c, lw=1.8, alpha=0.6)
+            # Wilson 95% CI whisker: shows the flip is fragile where the CI straddles tau
+            ax.errorbar(r, yi, xerr=[[r - lo], [hi - r]], fmt='none', ecolor=c, elinewidth=1.1,
+                        capsize=2.5, capthick=0.9, alpha=0.85, zorder=2)
             ax.plot(r, yi, 'o', color=c, ms=9, markeredgecolor='white', markeredgewidth=0.9, zorder=3)
-            ax.text(r + (0.015 if r >= thr else -0.015), yi, f'{r:.2f}', va='center',
+            lab_x = hi + 0.015 if r >= thr else lo - 0.015
+            ax.text(lab_x, yi, f'{r:.2f}', va='center',
                     ha='left' if r >= thr else 'right', fontsize=8.5)
         ax.axvline(thr, ls=(0, (4, 3)), color='0.35', lw=1.1)
         ax.text(thr + 0.015, len(names) - 0.35, r'$\tau=0.5$', fontsize=8.5)
         ax.set_yticks(y); ax.set_yticklabels(names)
         nf = sum(r >= thr for r in rates)
         ax.set_title(f'{dom}: {nf}/6 would flag, {6 - nf}/6 clear')
-        ax.set_xlim(0, 1.0); ax.set_xlabel('aggregate wrong-advice adoption (same interface)')
+        ax.set_xlim(0, 1.05); ax.set_xlabel('aggregate wrong-advice adoption (same interface)')
         clean_axis(ax)
     from matplotlib.lines import Line2D
     axes[1].legend(handles=[Line2D([0], [0], marker='o', color=FLAG, lw=0, label='would flag ($\\geq\\tau$)'),
                             Line2D([0], [0], marker='o', color=BELOW, lw=0, label='clears ($<\\tau$)')],
                    loc='lower right')
     fig.suptitle('The same interface, six backends: the screening decision flips with the backend '
-                 '(pairwise flip 0.60 / 0.33; common row order)', y=1.01)
+                 '(pairwise flip 0.60 / 0.33; Wilson 95% CIs; common row order)', y=1.01)
     save(fig, 'fig5_decision_flip')
 
 
@@ -395,6 +400,77 @@ def fig6b_expand11(_df):
     save(fig, 'fig6b_expand11')
 
 
+def fig9_variance(_df):
+    """RQ2: which choices move the synthetic-panel number. eta^2 shares from the preregistered
+    multi-generation run (3 backends x 2 UI x 6 personas x 20 items x 5 seeds)."""
+    gv = json.load(open('results/generation_variance.json'))
+    sh = gv['eta_squared_share']
+    order = [('item', 'item (analyst-chosen)'), ('persona', 'persona (analyst-chosen)'),
+             ('model', 'backend'), ('generation', 'generation (random draw)'), ('Residual', 'residual')]
+    labels = [lab for _, lab in order]
+    vals = [sh[k] for k, _ in order]
+    ANALYST = figstyle.OKABE['purple']; BACK = figstyle.OKABE['blue']
+    cols = [ANALYST, ANALYST, BACK, figstyle.OKABE['grey'], '#D9D9D9']
+    fig, ax = plt.subplots(figsize=(6.6, 3.5))
+    y = np.arange(len(labels))[::-1]
+    ax.barh(y, vals, color=cols, edgecolor='white', height=0.66, zorder=3)
+    for yi, v in zip(y, vals):
+        ax.text(v + 0.008, yi, (f'{v:.3f}' if v < 0.01 else f'{v:.2f}'), va='center', fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(labels)
+    ax.set_xlim(0, max(vals) * 1.2)
+    ax.set_xlabel(r'variance share ($\eta^2$, multi-generation run)')
+    ax.set_title('The analyst moves the number more than the backend;\nthe random draw barely moves it')
+    clean_axis(ax, grid_axis='x')
+    save(fig, 'fig9_variance_decomp')
+
+
+def fig10_ablation(_df):
+    """RQ3: non-policy dispositional ablation. A deferential disposition stated only as facts (no trust
+    policy) out-adopts an independent one on every backend; low self-confidence is the driving facet."""
+    ab = json.load(open('results/dispositional_ablation.json'))
+    backs = ab['backends']
+    SB = {'gpt-3.5-turbo': 'gpt-3.5', 'gpt-4': 'gpt-4', 'gpt-5.4': 'gpt-5.4',
+          'gemini-3.1-pro-preview': 'gemini-3.1-pro'}
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(11, 3.9))
+    DEF = figstyle.OKABE['vermillion']; IND = figstyle.OKABE['blue']
+    y = np.arange(len(backs))
+    for yi, b in zip(y, backs):
+        a = ab['per_backend'][b]['adopt']
+        d1 = a['d1-defer-lowconf']; d2 = a['d2-indep-highconf']
+        axL.plot([d2, d1], [yi, yi], color='0.6', lw=1.2, zorder=1)
+        axL.plot(d2, yi, 'o', color=IND, ms=8, zorder=3, markeredgecolor='white', markeredgewidth=0.8)
+        axL.plot(d1, yi, 'o', color=DEF, ms=8, zorder=3, markeredgecolor='white', markeredgewidth=0.8)
+        axL.text((d1 + d2) / 2, yi + 0.16, f'+{d1 - d2:.2f}', va='bottom', ha='center',
+                 fontsize=8.5, color='0.3')
+    axL.set_yticks(y); axL.set_yticklabels([SB[b] for b in backs])
+    axL.set_ylim(-0.6, len(backs) - 0.4)
+    axL.set_xlim(0, 1.0); axL.set_xlabel('wrong-AI adoption (dark)')
+    axL.set_title('Deferential disposition adopts more on every backend')
+    from matplotlib.lines import Line2D
+    axL.legend(handles=[Line2D([0], [0], marker='o', color=DEF, lw=0,
+                               label='d1 deferential (low self-confidence)'),
+                        Line2D([0], [0], marker='o', color=IND, lw=0, label='d2 independent')],
+               loc='upper center', bbox_to_anchor=(0.5, -0.18), ncol=2, frameon=False)
+    clean_axis(axL, grid_axis='x')
+    facets = [('facet_confidence_d1_d6', 'low self-confidence'),
+              ('facet_experience_d1_d5', 'low experience'),
+              ('facet_aiuse_d1_d4', 'high AI-use')]
+    fcol = [figstyle.OKABE['green'], figstyle.OKABE['grey'], figstyle.OKABE['orange']]
+    x = np.arange(len(backs)); w = 0.26
+    for j, (key, lab) in enumerate(facets):
+        vals = [ab['per_backend'][b][key] for b in backs]
+        axR.bar(x + (j - 1) * w, vals, w, color=fcol[j], label=lab, edgecolor='white', zorder=3)
+    axR.axhline(0, color='0.4', lw=0.8)
+    axR.set_xticks(x); axR.set_xticklabels([SB[b] for b in backs], rotation=12, fontsize=8)
+    axR.set_ylabel('adoption gap vs d1 (isolating one fact)')
+    axR.set_title('Low self-confidence is the lever, not the novice label')
+    axR.legend(fontsize=7.5, loc='upper left')
+    clean_axis(axR, grid_axis='y')
+    fig.suptitle('Non-policy dispositional ablation (exploratory: 12 items, 1 generation, 4 backends)',
+                 y=1.02)
+    save(fig, 'fig10_dispositional_ablation')
+
+
 def fig4_only(df):
     import make_figures as mf
     mf.fig4_rate_vs_ordering(df)
@@ -412,6 +488,8 @@ def main():
     fig6b_expand11(df)
     fig7(df)
     fig8(df)
+    fig9_variance(df)
+    fig10_ablation(df)
     fig4_only(df)
     print('v3 figures ->', FIGDIR)
 

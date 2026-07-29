@@ -148,20 +148,9 @@ def fig3_axis1_collapse():
 def fig4_rate_vs_ordering(df):
     cr = cell_rates(df)
     pr = persona_rates(df)
-    fig, (axL, axB, axA) = plt.subplots(1, 3, figsize=(14, 4.2))
-    # LEFT: aggregate rate per backend, both datasets
-    x = np.arange(len(ALL_MODELS))
-    w = 0.38
-    for i, dom in enumerate(DOMAINS):
-        vals = [cr[(dom, m)][2] for m in ALL_MODELS]
-        axL.bar(x + (i - 0.5) * w, vals, w, color=DCOL[dom], label=dom)
-    axL.axhline(0.5, ls='--', color='gray', lw=1)
-    axL.set_xticks(x); axL.set_xticklabels(ALL_MODELS, rotation=40, ha='right', fontsize=8)
-    axL.set_ylabel('aggregate wrong-advice adoption')
-    axL.set_title('Aggregate adoption by backend, both datasets')
-    axL.legend(title='dataset', fontsize=8)
-    axL.set_ylim(0, 1)
-    # RIGHT panels: per-persona vendor profiles, one per dataset (categorical personas: markers)
+    fig, (axB, axA) = plt.subplots(1, 2, figsize=(11, 4.2))
+    # Per-persona vendor profiles, one per dataset (categorical personas: markers).
+    # (The aggregate-adoption-by-backend bar panel was removed as redundant with fig5_decision_flip.)
     vendors = ['gpt-5.5', 'claude-sonnet-4.5', 'gemini-2.5-pro']
     vcol = {'gpt-5.5': figstyle.OKABE['green'], 'claude-sonnet-4.5': figstyle.OKABE['purple'],
             'gemini-2.5-pro': figstyle.OKABE['orange']}
