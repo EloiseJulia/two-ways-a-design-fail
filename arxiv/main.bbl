@@ -1,0 +1,539 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{35}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Aher et~al\mbox{.}(2023)]%
+        {aher2023using}
+\bibfield{author}{\bibinfo{person}{Gati Aher}, \bibinfo{person}{Rosa~I.
+  Arriaga}, {and} \bibinfo{person}{Adam~Tauman Kalai}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Using Large Language Models to Simulate Multiple
+  Humans and Replicate Human Subject Studies}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 40th International Conference on
+  Machine Learning}} \emph{(\bibinfo{series}{Proceedings of Machine Learning
+  Research}, Vol.~\bibinfo{volume}{202})}. \bibinfo{publisher}{PMLR},
+  \bibinfo{pages}{337--371}.
+\newblock
+\urldef\tempurl%
+\url{https://proceedings.mlr.press/v202/aher23a.html}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Argyle et~al\mbox{.}(2023)]%
+        {argyle2023out}
+\bibfield{author}{\bibinfo{person}{Lisa~P. Argyle}, \bibinfo{person}{Ethan~C.
+  Busby}, \bibinfo{person}{Nancy Fulda}, \bibinfo{person}{Joshua~R. Gubler},
+  \bibinfo{person}{Christopher Rytting}, {and} \bibinfo{person}{David
+  Wingate}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Out of One, Many: Using Language Models to Simulate
+  Human Samples}.
+\newblock \bibinfo{journal}{\emph{Political Analysis}} \bibinfo{volume}{31},
+  \bibinfo{number}{3} (\bibinfo{year}{2023}), \bibinfo{pages}{337--351}.
+\newblock
+\href{https://doi.org/10.1017/pan.2023.2}{doi:\nolinkurl{10.1017/pan.2023.2}}
+
+
+\bibitem[Bansal et~al\mbox{.}(2021)]%
+        {bansal2021whole}
+\bibfield{author}{\bibinfo{person}{Gagan Bansal}, \bibinfo{person}{Tongshuang
+  Wu}, \bibinfo{person}{Joyce Zhou}, \bibinfo{person}{Raymond Fok},
+  \bibinfo{person}{Besmira Nushi}, \bibinfo{person}{Ece Kamar},
+  \bibinfo{person}{Marco~Tulio Ribeiro}, {and} \bibinfo{person}{Daniel~S.
+  Weld}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Does the Whole Exceed its Parts? The Effect of {AI}
+  Explanations on Complementary Team Performance}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2021 CHI Conference on Human
+  Factors in Computing Systems}} \emph{(\bibinfo{series}{CHI '21})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{1--16}.
+\newblock
+\href{https://doi.org/10.1145/3411764.3445717}{doi:\nolinkurl{10.1145/3411764.3445717}}
+
+
+\bibitem[Bisbee et~al\mbox{.}(2024)]%
+        {bisbee2024synthetic}
+\bibfield{author}{\bibinfo{person}{James Bisbee}, \bibinfo{person}{Joshua~D.
+  Clinton}, \bibinfo{person}{Cassy Dorff}, \bibinfo{person}{Brenton Kenkel},
+  {and} \bibinfo{person}{Jennifer~M. Larson}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Synthetic Replacements for Human Survey Data? The
+  Perils of Large Language Models}.
+\newblock \bibinfo{journal}{\emph{Political Analysis}} \bibinfo{volume}{32},
+  \bibinfo{number}{4} (\bibinfo{year}{2024}), \bibinfo{pages}{401--416}.
+\newblock
+\href{https://doi.org/10.1017/pan.2024.5}{doi:\nolinkurl{10.1017/pan.2024.5}}
+
+
+\bibitem[Bo et~al\mbox{.}(2025)]%
+        {bo2024rely}
+\bibfield{author}{\bibinfo{person}{Jessica~Y. Bo}, \bibinfo{person}{Sophia
+  Wan}, {and} \bibinfo{person}{Ashton Anderson}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{To Rely or Not to Rely? Evaluating Interventions
+  for Appropriate Reliance on Large Language Models}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2025 CHI Conference on Human
+  Factors in Computing Systems}} \emph{(\bibinfo{series}{CHI '25})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{1--23}.
+\newblock
+\href{https://doi.org/10.1145/3706598.3714097}{doi:\nolinkurl{10.1145/3706598.3714097}}
+
+
+\bibitem[Bu\c{c}inca et~al\mbox{.}(2021)]%
+        {bucinca2021trust}
+\bibfield{author}{\bibinfo{person}{Zana Bu\c{c}inca},
+  \bibinfo{person}{Maja~Barbara Malaya}, {and} \bibinfo{person}{Krzysztof~Z.
+  Gajos}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{To Trust or to Think: Cognitive Forcing Functions
+  Can Reduce Overreliance on {AI} in {AI}-Assisted Decision-Making}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Human-Computer
+  Interaction}} \bibinfo{volume}{5}, \bibinfo{number}{CSCW1}
+  (\bibinfo{year}{2021}), \bibinfo{pages}{1--21}.
+\newblock
+\href{https://doi.org/10.1145/3449287}{doi:\nolinkurl{10.1145/3449287}}
+
+
+\bibitem[Cao et~al\mbox{.}(2025)]%
+        {cao2025specializing}
+\bibfield{author}{\bibinfo{person}{Yong Cao}, \bibinfo{person}{Haijiang Liu},
+  \bibinfo{person}{Arnav Arora}, \bibinfo{person}{Isabelle Augenstein},
+  \bibinfo{person}{Paul R\"{o}ttger}, {and} \bibinfo{person}{Daniel
+  Hershcovich}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Specializing Large Language Models to Simulate
+  Survey Response Distributions for Global Populations}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2025 Conference of the Nations
+  of the Americas Chapter of the Association for Computational Linguistics:
+  Human Language Technologies (Volume 1: Long Papers)}}.
+  \bibinfo{pages}{3141--3154}.
+\newblock
+\href{https://doi.org/10.18653/v1/2025.naacl-long.162}{doi:\nolinkurl{10.18653/v1/2025.naacl-long.162}}
+
+
+\bibitem[Cheng et~al\mbox{.}(2023)]%
+        {cheng2023compost}
+\bibfield{author}{\bibinfo{person}{Myra Cheng}, \bibinfo{person}{Tiziano
+  Piccardi}, {and} \bibinfo{person}{Diyi Yang}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{{CoMPosT}: Characterizing and Evaluating Caricature
+  in {LLM} Simulations}. In \bibinfo{booktitle}{\emph{Proceedings of the 2023
+  Conference on Empirical Methods in Natural Language Processing}}
+  \emph{(\bibinfo{series}{EMNLP '23})}. \bibinfo{pages}{10853--10875}.
+\newblock
+\href{https://doi.org/10.18653/v1/2023.emnlp-main.669}{doi:\nolinkurl{10.18653/v1/2023.emnlp-main.669}}
+
+
+\bibitem[Dominguez-Olmedo et~al\mbox{.}(2024)]%
+        {dominguez2024questioning}
+\bibfield{author}{\bibinfo{person}{Ricardo Dominguez-Olmedo},
+  \bibinfo{person}{Moritz Hardt}, {and} \bibinfo{person}{Celestine
+  Mendler-D\"{u}nner}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Questioning the Survey Responses of Large Language
+  Models}. In \bibinfo{booktitle}{\emph{Advances in Neural Information
+  Processing Systems (NeurIPS)}}.
+\newblock
+\shownote{arXiv:2306.07951}.
+\newblock
+
+
+\bibitem[Gajos and Mamykina(2022)]%
+        {gajos2022people}
+\bibfield{author}{\bibinfo{person}{Krzysztof~Z. Gajos} {and}
+  \bibinfo{person}{Lena Mamykina}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Do People Engage Cognitively with {AI}? Impact of
+  {AI} Assistance on Incidental Learning}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 27th International Conference on
+  Intelligent User Interfaces}} \emph{(\bibinfo{series}{IUI '22})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{794--806}.
+\newblock
+\href{https://doi.org/10.1145/3490099.3511138}{doi:\nolinkurl{10.1145/3490099.3511138}}
+
+
+\bibitem[Haase et~al\mbox{.}(2026)]%
+        {haase2026within}
+\bibfield{author}{\bibinfo{person}{Jennifer Haase}, \bibinfo{person}{Jana
+  Gonnermann-M\"{u}ller}, \bibinfo{person}{Paul H.~P. Hanel},
+  \bibinfo{person}{Nicolas Leins}, \bibinfo{person}{Thomas Kosch},
+  \bibinfo{person}{Jan Mendling}, {and} \bibinfo{person}{Sebastian Pokutta}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{Within-Model vs Between-Prompt Variability in Large
+  Language Models for Creative Tasks}.
+\newblock \bibinfo{howpublished}{arXiv:2601.21339}.
+\newblock
+\shownote{arXiv preprint}.
+\newblock
+
+
+\bibitem[H\"{a}m\"{a}l\"{a}inen et~al\mbox{.}(2023)]%
+        {hamalainen2023evaluating}
+\bibfield{author}{\bibinfo{person}{Perttu H\"{a}m\"{a}l\"{a}inen},
+  \bibinfo{person}{Mikke Tavast}, {and} \bibinfo{person}{Anton Kunnari}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Evaluating Large Language Models in Generating
+  Synthetic {HCI} Research Data: A Case Study}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2023 CHI Conference on Human
+  Factors in Computing Systems}} \emph{(\bibinfo{series}{CHI '23})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{1--19}.
+\newblock
+\href{https://doi.org/10.1145/3544548.3580688}{doi:\nolinkurl{10.1145/3544548.3580688}}
+
+
+\bibitem[Hu and Collier(2024)]%
+        {hu2024quantifying}
+\bibfield{author}{\bibinfo{person}{Tiancheng Hu} {and} \bibinfo{person}{Nigel
+  Collier}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Quantifying the Persona Effect in {LLM}
+  Simulations}. In \bibinfo{booktitle}{\emph{Proceedings of the 62nd Annual
+  Meeting of the Association for Computational Linguistics (Volume 1: Long
+  Papers)}} \emph{(\bibinfo{series}{ACL '24})}. \bibinfo{pages}{10289--10307}.
+\newblock
+\href{https://doi.org/10.18653/v1/2024.acl-long.554}{doi:\nolinkurl{10.18653/v1/2024.acl-long.554}}
+
+
+\bibitem[Lai and Tan(2019)]%
+        {lai2019human}
+\bibfield{author}{\bibinfo{person}{Vivian Lai} {and} \bibinfo{person}{Chenhao
+  Tan}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{On Human Predictions with Explanations and
+  Predictions of Machine Learning Models: A Case Study on Deception Detection}.
+  In \bibinfo{booktitle}{\emph{Proceedings of the Conference on Fairness,
+  Accountability, and Transparency}} \emph{(\bibinfo{series}{FAT* '19})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{29--38}.
+\newblock
+\href{https://doi.org/10.1145/3287560.3287590}{doi:\nolinkurl{10.1145/3287560.3287590}}
+
+
+\bibitem[Luguri and Strahilevitz(2021)]%
+        {luguri2021shining}
+\bibfield{author}{\bibinfo{person}{Jamie Luguri} {and}
+  \bibinfo{person}{Lior~Jacob Strahilevitz}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Shining a Light on Dark Patterns}.
+\newblock \bibinfo{journal}{\emph{Journal of Legal Analysis}}
+  \bibinfo{volume}{13}, \bibinfo{number}{1} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{43--109}.
+\newblock
+\href{https://doi.org/10.1093/jla/laaa006}{doi:\nolinkurl{10.1093/jla/laaa006}}
+
+
+\bibitem[Mildner et~al\mbox{.}(2023)]%
+        {mildner2023dark}
+\bibfield{author}{\bibinfo{person}{Thomas Mildner}, \bibinfo{person}{Gian-Luca
+  Savino}, \bibinfo{person}{Philip~R. Doyle}, \bibinfo{person}{Benjamin~R.
+  Cowan}, {and} \bibinfo{person}{Rainer Malaka}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{About Engaging and Governing Strategies: A Thematic
+  Analysis of Dark Patterns in Social Networking Services}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2023 CHI Conference on Human
+  Factors in Computing Systems}} \emph{(\bibinfo{series}{CHI '23})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{1--15}.
+\newblock
+\href{https://doi.org/10.1145/3544548.3580695}{doi:\nolinkurl{10.1145/3544548.3580695}}
+
+
+\bibitem[Mitchell et~al\mbox{.}(2019)]%
+        {mitchell2019model}
+\bibfield{author}{\bibinfo{person}{Margaret Mitchell}, \bibinfo{person}{Simone
+  Wu}, \bibinfo{person}{Andrew Zaldivar}, \bibinfo{person}{Parker Barnes},
+  \bibinfo{person}{Lucy Vasserman}, \bibinfo{person}{Ben Hutchinson},
+  \bibinfo{person}{Elena Spitzer}, \bibinfo{person}{Inioluwa~Deborah Raji},
+  {and} \bibinfo{person}{Timnit Gebru}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Model Cards for Model Reporting}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the Conference on Fairness,
+  Accountability, and Transparency (FAT*)}}. \bibinfo{publisher}{ACM},
+  \bibinfo{pages}{220--229}.
+\newblock
+\href{https://doi.org/10.1145/3287560.3287596}{doi:\nolinkurl{10.1145/3287560.3287596}}
+
+
+\bibitem[Mizrahi et~al\mbox{.}(2024)]%
+        {mizrahi2024state}
+\bibfield{author}{\bibinfo{person}{Moran Mizrahi}, \bibinfo{person}{Guy
+  Kaplan}, \bibinfo{person}{Dan Malkin}, \bibinfo{person}{Rotem Dror},
+  \bibinfo{person}{Dafna Shahaf}, {and} \bibinfo{person}{Gabriel Stanovsky}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{State of What Art? A Call for Multi-Prompt {LLM}
+  Evaluation}.
+\newblock \bibinfo{journal}{\emph{Transactions of the Association for
+  Computational Linguistics}}  \bibinfo{volume}{12} (\bibinfo{year}{2024}),
+  \bibinfo{pages}{933--949}.
+\newblock
+\href{https://doi.org/10.1162/tacl_a_00681}{doi:\nolinkurl{10.1162/tacl_a_00681}}
+
+
+\bibitem[Ong et~al\mbox{.}(2025)]%
+        {ong2025routellm}
+\bibfield{author}{\bibinfo{person}{Isaac Ong}, \bibinfo{person}{Amjad
+  Almahairi}, \bibinfo{person}{Vincent Wu}, \bibinfo{person}{Wei-Lin Chiang},
+  \bibinfo{person}{Tianhao Wu}, \bibinfo{person}{Joseph~E. Gonzalez},
+  \bibinfo{person}{M.~Waleed Kadous}, {and} \bibinfo{person}{Ion Stoica}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{{RouteLLM}: Learning to Route {LLM}s with
+  Preference Data}. In \bibinfo{booktitle}{\emph{Proceedings of the 13th
+  International Conference on Learning Representations (ICLR)}}.
+\newblock
+\shownote{arXiv:2406.18665}.
+\newblock
+
+
+\bibitem[Park et~al\mbox{.}(2022)]%
+        {park2022social}
+\bibfield{author}{\bibinfo{person}{Joon~Sung Park}, \bibinfo{person}{Lindsay
+  Popowski}, \bibinfo{person}{Carrie~J. Cai}, \bibinfo{person}{Meredith~Ringel
+  Morris}, \bibinfo{person}{Percy Liang}, {and} \bibinfo{person}{Michael~S.
+  Bernstein}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Social Simulacra: Creating Populated Prototypes for
+  Social Computing Systems}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  35th Annual ACM Symposium on User Interface Software and Technology}}
+  \emph{(\bibinfo{series}{UIST '22})}. \bibinfo{publisher}{ACM},
+  \bibinfo{pages}{1--18}.
+\newblock
+\href{https://doi.org/10.1145/3526113.3545616}{doi:\nolinkurl{10.1145/3526113.3545616}}
+
+
+\bibitem[Park et~al\mbox{.}(2024)]%
+        {park2024generative}
+\bibfield{author}{\bibinfo{person}{Joon~Sung Park}, \bibinfo{person}{Carolyn~Q.
+  Zou}, \bibinfo{person}{Jonne Kamphorst}, \bibinfo{person}{Niles Egan},
+  \bibinfo{person}{Aaron Shaw}, \bibinfo{person}{Benjamin~Mako Hill},
+  \bibinfo{person}{Carrie Cai}, \bibinfo{person}{Meredith~Ringel Morris},
+  \bibinfo{person}{Percy Liang}, \bibinfo{person}{Robb Willer}, {and}
+  \bibinfo{person}{Michael~S. Bernstein}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{{LLM} Agents Grounded in Self-Reports Enable
+  General-Purpose Simulation of Individuals}.
+\newblock \bibinfo{howpublished}{arXiv:2411.10109v3}.
+\newblock
+\shownote{arXiv preprint; revised June 2026}.
+\newblock
+
+
+\bibitem[Rastogi et~al\mbox{.}(2022)]%
+        {rastogi2022deciding}
+\bibfield{author}{\bibinfo{person}{Charvi Rastogi}, \bibinfo{person}{Yunfeng
+  Zhang}, \bibinfo{person}{Dennis Wei}, \bibinfo{person}{Kush~R. Varshney},
+  \bibinfo{person}{Amit Dhurandhar}, {and} \bibinfo{person}{Richard Tomsett}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Deciding Fast and Slow: The Role of Cognitive
+  Biases in {AI}-Assisted Decision-Making}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Human-Computer
+  Interaction}} \bibinfo{volume}{6}, \bibinfo{number}{CSCW1}
+  (\bibinfo{year}{2022}), \bibinfo{pages}{1--22}.
+\newblock
+\href{https://doi.org/10.1145/3512930}{doi:\nolinkurl{10.1145/3512930}}
+
+
+\bibitem[Robinson et~al\mbox{.}(2026)]%
+        {robinson2026influence}
+\bibfield{author}{\bibinfo{person}{Sasha Robinson},
+  \bibinfo{person}{Katherine~M. Collins}, \bibinfo{person}{Ilia Sucholutsky},
+  {and} \bibinfo{person}{Kelsey~R. Allen}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{Under the Influence: Quantifying Persuasion and
+  Vigilance in Large Language Models}.
+\newblock \bibinfo{howpublished}{arXiv:2602.21262v3}.
+\newblock
+\shownote{arXiv preprint; revised March 2026}.
+\newblock
+
+
+\bibitem[Santurkar et~al\mbox{.}(2023)]%
+        {santurkar2023whose}
+\bibfield{author}{\bibinfo{person}{Shibani Santurkar}, \bibinfo{person}{Esin
+  Durmus}, \bibinfo{person}{Faisal Ladhak}, \bibinfo{person}{Cinoo Lee},
+  \bibinfo{person}{Percy Liang}, {and} \bibinfo{person}{Tatsunori Hashimoto}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Whose Opinions Do Language Models Reflect?}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 40th International Conference on
+  Machine Learning}} \emph{(\bibinfo{series}{Proceedings of Machine Learning
+  Research}, Vol.~\bibinfo{volume}{202})}. \bibinfo{publisher}{PMLR},
+  \bibinfo{pages}{29971--30004}.
+\newblock
+\urldef\tempurl%
+\url{https://proceedings.mlr.press/v202/santurkar23a.html}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Schemmer et~al\mbox{.}(2023)]%
+        {schemmer2023appropriate}
+\bibfield{author}{\bibinfo{person}{Max Schemmer}, \bibinfo{person}{Niklas
+  Kuehl}, \bibinfo{person}{Carina Benz}, \bibinfo{person}{Andrea Bartos}, {and}
+  \bibinfo{person}{Gerhard Satzger}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Appropriate Reliance on {AI} Advice:
+  Conceptualization and the Effect of Explanations}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 28th International Conference on
+  Intelligent User Interfaces}} \emph{(\bibinfo{series}{IUI '23})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{410--422}.
+\newblock
+\href{https://doi.org/10.1145/3581641.3584066}{doi:\nolinkurl{10.1145/3581641.3584066}}
+
+
+\bibitem[Sclar et~al\mbox{.}(2024)]%
+        {sclar2024quantifying}
+\bibfield{author}{\bibinfo{person}{Melanie Sclar}, \bibinfo{person}{Yejin
+  Choi}, \bibinfo{person}{Yulia Tsvetkov}, {and} \bibinfo{person}{Alane Suhr}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Quantifying Language Models' Sensitivity to
+  Spurious Features in Prompt Design, or: How I Learned to Start Worrying about
+  Prompt Formatting}. In \bibinfo{booktitle}{\emph{Proceedings of the 12th
+  International Conference on Learning Representations (ICLR)}}.
+\newblock
+\shownote{arXiv:2310.11324}.
+\newblock
+
+
+\bibitem[Seshadri et~al\mbox{.}(2026)]%
+        {seshadri2026lost}
+\bibfield{author}{\bibinfo{person}{Preethi Seshadri}, \bibinfo{person}{Samuel
+  Cahyawijaya}, \bibinfo{person}{Ayomide Odumakinde}, \bibinfo{person}{Sameer
+  Singh}, {and} \bibinfo{person}{Seraphina Goldfarb-Tarrant}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{Lost in Simulation: {LLM}-Simulated Users are
+  Unreliable Proxies for Human Users in Agentic Evaluations}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 64th Annual Meeting of the
+  Association for Computational Linguistics (Volume 1: Long Papers)}}.
+  \bibinfo{pages}{47423--47439}.
+\newblock
+\href{https://doi.org/10.18653/v1/2026.acl-long.2192}{doi:\nolinkurl{10.18653/v1/2026.acl-long.2192}}
+
+
+\bibitem[Simmons et~al\mbox{.}(2011)]%
+        {simmons2011false}
+\bibfield{author}{\bibinfo{person}{Joseph~P. Simmons}, \bibinfo{person}{Leif~D.
+  Nelson}, {and} \bibinfo{person}{Uri Simonsohn}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{False-Positive Psychology: Undisclosed Flexibility
+  in Data Collection and Analysis Allows Presenting Anything as Significant}.
+\newblock \bibinfo{journal}{\emph{Psychological Science}} \bibinfo{volume}{22},
+  \bibinfo{number}{11} (\bibinfo{year}{2011}), \bibinfo{pages}{1359--1366}.
+\newblock
+\href{https://doi.org/10.1177/0956797611417632}{doi:\nolinkurl{10.1177/0956797611417632}}
+
+
+\bibitem[Simonsohn et~al\mbox{.}(2020)]%
+        {simonsohn2020specification}
+\bibfield{author}{\bibinfo{person}{Uri Simonsohn}, \bibinfo{person}{Joseph~P.
+  Simmons}, {and} \bibinfo{person}{Leif~D. Nelson}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Specification Curve Analysis}.
+\newblock \bibinfo{journal}{\emph{Nature Human Behaviour}}  \bibinfo{volume}{4}
+  (\bibinfo{year}{2020}), \bibinfo{pages}{1208--1214}.
+\newblock
+\href{https://doi.org/10.1038/s41562-020-0912-z}{doi:\nolinkurl{10.1038/s41562-020-0912-z}}
+
+
+\bibitem[{Synthetic Users}(2026)]%
+        {syntheticusers}
+\bibfield{author}{\bibinfo{person}{{Synthetic Users}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{Synthetic Users, Organic Insights}.
+\newblock \bibinfo{howpublished}{\url{https://www.syntheticusers.com/}}.
+\newblock
+\shownote{Commercial synthetic-user research platform; accessed July 29, 2026}.
+\newblock
+
+
+\bibitem[Tjuatja et~al\mbox{.}(2024)]%
+        {tjuatja2024llms}
+\bibfield{author}{\bibinfo{person}{Lindia Tjuatja}, \bibinfo{person}{Valerie
+  Chen}, \bibinfo{person}{Tongshuang Wu}, \bibinfo{person}{Ameet Talwalkar},
+  {and} \bibinfo{person}{Graham Neubig}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Do {LLM}s Exhibit Human-like Response Biases? A
+  Case Study in Survey Design}.
+\newblock \bibinfo{journal}{\emph{Transactions of the Association for
+  Computational Linguistics}}  \bibinfo{volume}{12} (\bibinfo{year}{2024}),
+  \bibinfo{pages}{1011--1026}.
+\newblock
+\href{https://doi.org/10.1162/tacl_a_00685}{doi:\nolinkurl{10.1162/tacl_a_00685}}
+
+
+\bibitem[{Uxia}(2026)]%
+        {uxia_synthetic}
+\bibfield{author}{\bibinfo{person}{{Uxia}}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{7 Top Synthetic User Testing Platforms to Watch in
+  2026}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.uxia.app/blog/7-top-synthetic-user-testing-platforms-to-watch-in-2026}}.
+\newblock
+\shownote{Industry survey of commercial synthetic-user ({AI} persona)
+  {UX}-testing tools; accessed July 29, 2026}.
+\newblock
+
+
+\bibitem[Vasconcelos et~al\mbox{.}(2023)]%
+        {vasconcelos2023explanations}
+\bibfield{author}{\bibinfo{person}{Helena Vasconcelos},
+  \bibinfo{person}{Matthew Jörke}, \bibinfo{person}{Madeleine
+  Grunde-McLaughlin}, \bibinfo{person}{Tobias Gerstenberg},
+  \bibinfo{person}{Michael~S. Bernstein}, {and} \bibinfo{person}{Ranjay
+  Krishna}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Explanations Can Reduce Overreliance on {AI}
+  Systems During Decision-Making}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Human-Computer
+  Interaction}} \bibinfo{volume}{7}, \bibinfo{number}{CSCW1}
+  (\bibinfo{year}{2023}), \bibinfo{pages}{1--38}.
+\newblock
+\href{https://doi.org/10.1145/3579605}{doi:\nolinkurl{10.1145/3579605}}
+
+
+\bibitem[Zhang et~al\mbox{.}(2020)]%
+        {zhang2020confidence}
+\bibfield{author}{\bibinfo{person}{Yunfeng Zhang}, \bibinfo{person}{Q.~Vera
+  Liao}, {and} \bibinfo{person}{Rachel K.~E. Bellamy}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Effect of Confidence and Explanation on Accuracy
+  and Trust Calibration in {AI}-Assisted Decision Making}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2020 Conference on Fairness,
+  Accountability, and Transparency}} \emph{(\bibinfo{series}{FAT* '20})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{295--305}.
+\newblock
+\href{https://doi.org/10.1145/3351095.3372852}{doi:\nolinkurl{10.1145/3351095.3372852}}
+
+
+\bibitem[Zheng et~al\mbox{.}(2023)]%
+        {zheng2023judging}
+\bibfield{author}{\bibinfo{person}{Lianmin Zheng}, \bibinfo{person}{Wei-Lin
+  Chiang}, \bibinfo{person}{Ying Sheng}, \bibinfo{person}{Siyuan Zhuang},
+  \bibinfo{person}{Zhanghao Wu}, \bibinfo{person}{Yonghao Zhuang},
+  \bibinfo{person}{Zi Lin}, \bibinfo{person}{Zhuohan Li},
+  \bibinfo{person}{Dacheng Li}, \bibinfo{person}{Eric~P. Xing},
+  \bibinfo{person}{Hao Zhang}, \bibinfo{person}{Joseph~E. Gonzalez}, {and}
+  \bibinfo{person}{Ion Stoica}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Judging {LLM}-as-a-Judge with {MT-Bench} and
+  Chatbot Arena}. In \bibinfo{booktitle}{\emph{Advances in Neural Information
+  Processing Systems (NeurIPS), Datasets and Benchmarks Track}}.
+\newblock
+\shownote{arXiv:2306.05685}.
+\newblock
+
+
+\end{thebibliography}
