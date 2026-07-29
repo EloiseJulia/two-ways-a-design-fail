@@ -2021,3 +2021,10 @@ owner call). Decisions:
 - Audited all other floats: each figure sits within ~1 page of its main discussion (the apparent large gaps
   for fig:flip/fig:heatmap are intro FORWARD references, which is fine). No other float moves needed.
 - Applied identically to docs/paper/main.tex and arxiv/main.tex. Both build clean: 26pp, 0 undefined.
+
+## D5.91 arXiv build: suppress 'Manuscript submitted to ACM' footer via nonacm (2026-07-29)
+- Owner: remove the acmart manuscript-mode footer from the arXiv PDF only (docs/paper CHI version keeps it).
+- Added the acmart-sanctioned 'nonacm' class option (arxiv/main.tex): \documentclass[manuscript,nonacm]{acmart}.
+  The footer is guarded by \if@ACM@nonacm in acmart.cls (L3039), so nonacm suppresses it cleanly; running
+  head now shows the real author. Verified: 0 occurrences of 'Manuscript submitted to ACM' in the PDF;
+  byline + Author's Contact Information (Shenning Zhang, Chang'an University, email) retained. 26pp, 0 undefined.
