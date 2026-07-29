@@ -2012,3 +2012,12 @@ owner call). Decisions:
 - fig8 (fig:protective): left/right panels both labelled "wrong-AI adoption" but had different y-ranges
   (0-0.72 vs 0-1.0), misleading. Unified both to 0-1.0; bumped end-label declutter gap for the taller axis.
 - Scripts: make_figures_v3.py fig6 (title/annotation/suptitle) + fig8 (ylim). Build clean: 26pp, 0 undefined.
+
+## D5.90 Figure 1 moved from teaser slot into the Introduction body (owner-requested) (2026-07-29)
+- Owner: the teaserfigure placed Fig 1 directly under the title (acmart teaser behavior); undesired in both
+  the CHI (docs/paper) and arXiv builds. Converted \begin{teaserfigure} (before \maketitle) to a regular
+  \begin{figure*}[t] placed right after the RQ itemize in the Introduction, next to its first in-text
+  reference (Figure~\ref{fig:overview}). Fig 1 now lands at the top of p3 by its RQ list, not under the title.
+- Audited all other floats: each figure sits within ~1 page of its main discussion (the apparent large gaps
+  for fig:flip/fig:heatmap are intro FORWARD references, which is fine). No other float moves needed.
+- Applied identically to docs/paper/main.tex and arxiv/main.tex. Both build clean: 26pp, 0 undefined.

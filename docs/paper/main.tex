@@ -77,25 +77,6 @@ own danger readings must survive a change of instrument.
 \keywords{human--AI decision making, over-reliance, dark patterns, LLM simulation,
 synthetic users, pre-deployment evaluation, silicon sampling}
 
-\begin{teaserfigure}
-  \centering
-  \includegraphics[width=\textwidth]{fig1_overview}
-  \caption{\textbf{The audit in one picture.} \textbf{(a)}~One \emph{unchanged} interface---a
-  guaranteed-wrong AI verdict at high confidence with authority/accountability cues---is read by a
-  \emph{synthetic panel} of six personas $\times$ six backend LLMs; each cell yields a wrong-advice adoption
-  rate that a screen turns into a flag/clear verdict. The audit question: does that verdict survive swapping
-  the backend? \textbf{(b)}~It does not. For the \emph{same} interface, per-backend adoption spans
-  0.30--0.60 (beer) and 0.15--0.66 (amzbook), straddling the decision threshold $\tau{=}0.5$: 3 of 6
-  backends would flag the beer interface and only 1 of 6 the amzbook one (pairwise flip rate 0.60 / 0.33).
-  \textbf{(c)}~\emph{Don't crash-test with your safest driver.} The strongest backend (gpt-5.5) is the
-  \emph{least} sensitive to the at-risk trusting-novice persona (p5 adoption 0.50 vs.\ ${\approx}1.0$ for
-  five weaker backends), so a single frontier backend surfaces the fewest at-risk profiles (1/6 beer, 0/6
-  amzbook); a weak pair recovers 4/6 and 5/6---matching the full six-backend panel. \textbf{(d)}~The
-  resulting protocol: report the whole backend distribution rather than one number, and \emph{abstain}
-  (route to a human study) when backends disagree.}
-  \label{fig:overview}
-\end{teaserfigure}
-
 \maketitle
 
 
@@ -186,6 +167,25 @@ review-sentiment datasets} (Figure~\ref{fig:overview}), and ask:
   \item \textbf{RQ4 (backend-aware reporting).} Can conservative multi-model aggregation and
   disagreement-triggered abstention reduce backend-induced instability in the measurement?
 \end{itemize}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig1_overview}
+  \caption{\textbf{The audit in one picture.} \textbf{(a)}~One \emph{unchanged} interface---a
+  guaranteed-wrong AI verdict at high confidence with authority/accountability cues---is read by a
+  \emph{synthetic panel} of six personas $\times$ six backend LLMs; each cell yields a wrong-advice adoption
+  rate that a screen turns into a flag/clear verdict. The audit question: does that verdict survive swapping
+  the backend? \textbf{(b)}~It does not. For the \emph{same} interface, per-backend adoption spans
+  0.30--0.60 (beer) and 0.15--0.66 (amzbook), straddling the decision threshold $\tau{=}0.5$: 3 of 6
+  backends would flag the beer interface and only 1 of 6 the amzbook one (pairwise flip rate 0.60 / 0.33).
+  \textbf{(c)}~\emph{Don't crash-test with your safest driver.} The strongest backend (gpt-5.5) is the
+  \emph{least} sensitive to the at-risk trusting-novice persona (p5 adoption 0.50 vs.\ ${\approx}1.0$ for
+  five weaker backends), so a single frontier backend surfaces the fewest at-risk profiles (1/6 beer, 0/6
+  amzbook); a weak pair recovers 4/6 and 5/6---matching the full six-backend panel. \textbf{(d)}~The
+  resulting protocol: report the whole backend distribution rather than one number, and \emph{abstain}
+  (route to a human study) when backends disagree.}
+  \label{fig:overview}
+\end{figure*}
 
 Our answer separates \emph{what is stable from what is not}. \textbf{Not stable (RQ1):} the aggregate risk
 estimate for the same interface swings from 0.15 to 0.66 across backends (Figure~\ref{fig:flip}), enough
