@@ -204,7 +204,16 @@ class OpenAICompatibleProvider:
                     self.api_calls += 1
                     data = response.json()
                     if "choices" not in data or len(data["choices"]) == 0:
-                        raise RuntimeError(f"API response missing choices: {data}")
+                        last_error = f"API response missing choices: {str(data)[:200]}"
+                        if attempt >= self.max_retries - 1:
+                            raise RuntimeError(
+                                f"API response missing choices from model {self.name} after "
+                                f"{self.max_retries} attempts"
+                            )
+                        wait_time = (2 ** attempt) + (attempt * 0.5)
+                        print(f"{last_error}, retrying in {wait_time:.1f}s (attempt {attempt + 1}/{self.max_retries})")
+                        time.sleep(wait_time)
+                        continue
                     choice = data["choices"][0]
                     last_finish_reason = choice.get("finish_reason")
                     content = choice.get("message", {}).get("content")

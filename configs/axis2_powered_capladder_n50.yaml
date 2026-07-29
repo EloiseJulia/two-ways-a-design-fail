@@ -77,8 +77,8 @@ models:
     min_completion_tokens: 4096
 model_runtime:
   call_budget: 5000
-  inter_call_sleep: 2.0
-  max_retries: 8
+  inter_call_sleep: 3.0
+  max_retries: 15
 seeds:
 - 42
 max_tokens: 600
@@ -90,5 +90,5 @@ provider:
   type: ghc
   base_url: http://127.0.0.1:8787/v1
   call_budget: 5000
-  inter_call_sleep: 2.0
-  max_retries: 8
+  inter_call_sleep: 3.0
+  max_retries: 15
