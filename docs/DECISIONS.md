@@ -1963,3 +1963,12 @@ owner call). Decisions:
   silently dropped the label from .aux; moved before and it registered as Figure 1). Copied "FIG2 two ways.pdf"
   -> figures/fig1_overview.pdf (clean name, no spaces). Added Figure~\ref in intro RQ preamble.
 - Build clean: 26pp (was 25; teaser added a page), 0 undefined ref/cite, fig:overview = Figure 1 on page 1.
+
+## D5.87 Session retirement handoff (2026-07-29)
+- Wrote docs/handoff/2026-07-29-writing-lead-handoff.md (full state) + refreshed RESUME-CHECKLIST.md to the
+  Writing-Lead role / single-axis / 26pp / Figure-1-teaser / A1-in-flight reality.
+- Synced main.pdf with owner's metadata-corrected references.bib (syntheticusers, uxia_synthetic entries).
+- Committed A1 partial results (capladder_n50 beer, crossvendor_n50 beer DONE; amzbook x2 still running).
+- Tracked owner ref-check artifacts (check-ref-report, refchecker-audit/report) + strategy note comment2.md.
+- Build clean: 26pp, 0 undefined ref/cite. Next session: finish A1 -> number refresh + flip-bootstrap
+  (panel #1) + capability-vulnerability mechanical decomposition; owner to decide E6 pilot (D1).

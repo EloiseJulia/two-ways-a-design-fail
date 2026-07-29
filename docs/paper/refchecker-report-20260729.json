@@ -1,0 +1,1583 @@
+{
+  "generated_at": "2026-07-29T02:30:00.036368Z",
+  "summary": {
+    "total_papers_processed": 1,
+    "total_references_processed": 36,
+    "total_errors_found": 4,
+    "total_warnings_found": 23,
+    "total_info_found": 25,
+    "total_unverified_refs": 0,
+    "records_written": 29,
+    "papers_with_records": 1,
+    "flagged_records": 0,
+    "flagged_papers": 0
+  },
+  "papers": [
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "total_records": 29,
+      "flagged_records": 0,
+      "max_flag_level": "none",
+      "error_type_counts": {
+        "multiple": 20,
+        "url": 7,
+        "author": 1,
+        "venue": 1
+      },
+      "reason_counts": {},
+      "has_flagged_records": false
+    }
+  ],
+  "records": [
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Does the Whole Exceed its Parts? The Effect of {AI} Explanations on Complementary Team Performance",
+      "ref_authors_cited": "Bansal, Gagan, Wu, Tongshuang, Zhou, Joyce, Fok, Raymond, Nushi, Besmira, Kamar, Ece, Ribeiro, Marco Tulio, Weld, Daniel S.",
+      "ref_year_cited": 2021,
+      "ref_url_cited": "https://doi.org/10.1145/3411764.3445717",
+      "ref_raw_text": "@inproceedings{bansal2021whole, ...}",
+      "original_reference": {
+        "title": "Does the Whole Exceed its Parts? The Effect of {AI} Explanations on Complementary Team Performance",
+        "authors": [
+          "Bansal, Gagan",
+          "Wu, Tongshuang",
+          "Zhou, Joyce",
+          "Fok, Raymond",
+          "Nushi, Besmira",
+          "Kamar, Ece",
+          "Ribeiro, Marco Tulio",
+          "Weld, Daniel S."
+        ],
+        "year": 2021,
+        "journal": "Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems",
+        "doi": "10.1145/3411764.3445717",
+        "url": "https://doi.org/10.1145/3411764.3445717",
+        "type": "non-arxiv",
+        "bibtex_key": "bansal2021whole",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{bansal2021whole, ...}",
+        "pages": "1--16",
+        "organization": ""
+      },
+      "ref_year_correct": 2020,
+      "ref_url_correct": "https://arxiv.org/abs/2006.14779",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2021\n       actual: 2020\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2021\n       actual: 2020",
+          "ref_year_correct": 2020
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2006.14779",
+          "ref_url_correct": "https://arxiv.org/abs/2006.14779"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/ebcbbb8fe297940d79b17aeb6d46bedff9db7fec",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Gagan Bansal, Tongshuang Sherry Wu, Joyce Zhou, Raymond Fok, Besmira Nushi, Ece Kamar, Marco Tulio Ribeiro, Daniel S. Weld. (2020). \"Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance\". In International Conference on Human Factors in Computing Systems. https://arxiv.org/abs/2006.14779.\n\n% Citation key for BibTeX: @inproceedings{bansal2021whole, ...}",
+      "ref_corrected_bibtex": "@inproceedings{bansal2021whole,\n  author = {Gagan Bansal and Tongshuang Sherry Wu and Joyce Zhou and Raymond Fok and Besmira Nushi and Ece Kamar and Marco Tulio Ribeiro and Daniel S. Weld},\n  title = {Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance},\n  booktitle = {Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems},\n  pages = {1--16},\n  year = {2020},\n  url = {https://arxiv.org/abs/2006.14779}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nGagan Bansal, Tongshuang Sherry Wu, Joyce Zhou, Raymond Fok, Besmira Nushi, Ece Kamar, Marco Tulio Ribeiro, Daniel S. Weld. (2020). \\textit{Does the Whole Exceed its Parts? The Effect of AI Explanations on Complementary Team Performance}. In \\textit{International Conference on Human Factors in Computing Systems}. \\url{https://arxiv.org/abs/2006.14779}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on {AI} in {AI}-Assisted Decision-Making",
+      "ref_authors_cited": "Bucinca, Zana, Malaya, Maja Barbara, Gajos, Krzysztof Z.",
+      "ref_year_cited": 2021,
+      "ref_url_cited": "https://doi.org/10.1145/3449287",
+      "ref_raw_text": "@article{bucinca2021trust, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2102.09692",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2102.09692",
+          "ref_url_correct": "https://arxiv.org/abs/2102.09692"
+        }
+      ],
+      "original_reference": {
+        "title": "To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on {AI} in {AI}-Assisted Decision-Making",
+        "authors": [
+          "Bucinca, Zana",
+          "Malaya, Maja Barbara",
+          "Gajos, Krzysztof Z."
+        ],
+        "year": 2021,
+        "journal": "Proceedings of the ACM on Human-Computer Interaction",
+        "doi": "10.1145/3449287",
+        "url": "https://doi.org/10.1145/3449287",
+        "type": "non-arxiv",
+        "bibtex_key": "bucinca2021trust",
+        "bibtex_type": "article",
+        "raw_text": "@article{bucinca2021trust, ...}",
+        "volume": "5",
+        "number": "CSCW1",
+        "pages": "1--21"
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2102.09692",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/65772de56676a6a437c8abaeccef34224f62ee13",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2102.09692.",
+      "ref_corrected_plaintext": "Zana Buçinca, Maja Malaya, Krzysztof Z Gajos. (2021). \"To Trust or to Think\". In Proc. ACM Hum. Comput. Interact.. https://arxiv.org/abs/2102.09692.\n\n% Citation key for BibTeX: @article{bucinca2021trust, ...}",
+      "ref_corrected_bibtex": "@article{bucinca2021trust,\n  author = {Zana Buçinca and Maja Malaya and Krzysztof Z Gajos},\n  title = {To Trust or to Think},\n  journal = {Proceedings of the ACM on Human-Computer Interaction},\n  volume = {5},\n  number = {CSCW1},\n  pages = {1--21},\n  year = {2021},\n  url = {https://arxiv.org/abs/2102.09692}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nZana Buçinca, Maja Malaya, Krzysztof Z Gajos. (2021). \\textit{To Trust or to Think}. In \\textit{Proc. ACM Hum. Comput. Interact.}. \\url{https://arxiv.org/abs/2102.09692}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Explanations Can Reduce Overreliance on {AI} Systems During Decision-Making",
+      "ref_authors_cited": "Vasconcelos, Helena, Jörke, Matthew, Grunde-McLaughlin, Madeleine, Gerstenberg, Tobias, Bernstein, Michael S., Krishna, Ranjay",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://doi.org/10.1145/3579605",
+      "ref_raw_text": "@article{vasconcelos2023explanations, ...}",
+      "original_reference": {
+        "title": "Explanations Can Reduce Overreliance on {AI} Systems During Decision-Making",
+        "authors": [
+          "Vasconcelos, Helena",
+          "Jörke, Matthew",
+          "Grunde-McLaughlin, Madeleine",
+          "Gerstenberg, Tobias",
+          "Bernstein, Michael S.",
+          "Krishna, Ranjay"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the ACM on Human-Computer Interaction",
+        "doi": "10.1145/3579605",
+        "url": "https://doi.org/10.1145/3579605",
+        "type": "non-arxiv",
+        "bibtex_key": "vasconcelos2023explanations",
+        "bibtex_type": "article",
+        "raw_text": "@article{vasconcelos2023explanations, ...}",
+        "volume": "7",
+        "number": "CSCW1",
+        "pages": "1--38"
+      },
+      "ref_year_correct": 2022,
+      "ref_url_correct": "https://arxiv.org/abs/2212.06823",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2023\n       actual: 2022\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2023\n       actual: 2022",
+          "ref_year_correct": 2022
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2212.06823",
+          "ref_url_correct": "https://arxiv.org/abs/2212.06823"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/e8c2f818ec941005f705a1de26597690420c534a",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Helena Vasconcelos, Matthew Jörke, Madeleine Grunde-McLaughlin, Tobias Gerstenberg, Michael Bernstein, Ranjay Krishna. (2022). \"Explanations Can Reduce Overreliance on AI Systems During Decision-Making\". In Proc. ACM Hum. Comput. Interact.. https://arxiv.org/abs/2212.06823.\n\n% Citation key for BibTeX: @article{vasconcelos2023explanations, ...}",
+      "ref_corrected_bibtex": "@article{vasconcelos2023explanations,\n  author = {Helena Vasconcelos and Matthew Jörke and Madeleine Grunde-McLaughlin and Tobias Gerstenberg and Michael Bernstein and Ranjay Krishna},\n  title = {Explanations Can Reduce Overreliance on AI Systems During Decision-Making},\n  journal = {Proceedings of the ACM on Human-Computer Interaction},\n  volume = {7},\n  number = {CSCW1},\n  pages = {1--38},\n  year = {2022},\n  url = {https://arxiv.org/abs/2212.06823}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nHelena Vasconcelos, Matthew Jörke, Madeleine Grunde-McLaughlin, Tobias Gerstenberg, Michael Bernstein, Ranjay Krishna. (2022). \\textit{Explanations Can Reduce Overreliance on AI Systems During Decision-Making}. In \\textit{Proc. ACM Hum. Comput. Interact.}. \\url{https://arxiv.org/abs/2212.06823}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Effect of Confidence and Explanation on Accuracy and Trust Calibration in {AI}-Assisted Decision Making",
+      "ref_authors_cited": "Zhang, Yunfeng, Liao, Q. Vera, Bellamy, Rachel K. E.",
+      "ref_year_cited": 2020,
+      "ref_url_cited": "https://doi.org/10.1145/3351095.3372852",
+      "ref_raw_text": "@inproceedings{zhang2020confidence, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2001.02114",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2001.02114",
+          "ref_url_correct": "https://arxiv.org/abs/2001.02114"
+        }
+      ],
+      "original_reference": {
+        "title": "Effect of Confidence and Explanation on Accuracy and Trust Calibration in {AI}-Assisted Decision Making",
+        "authors": [
+          "Zhang, Yunfeng",
+          "Liao, Q. Vera",
+          "Bellamy, Rachel K. E."
+        ],
+        "year": 2020,
+        "journal": "Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency",
+        "doi": "10.1145/3351095.3372852",
+        "url": "https://doi.org/10.1145/3351095.3372852",
+        "type": "non-arxiv",
+        "bibtex_key": "zhang2020confidence",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{zhang2020confidence, ...}",
+        "pages": "295--305",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2001.02114",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/5cc4100a67fd6f2ce3c760655ba7a12f358c7950",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2001.02114.",
+      "ref_corrected_plaintext": "Yunfeng Zhang, Q. Liao, Rachel K. E. Bellamy. (2020). \"Effect of confidence and explanation on accuracy and trust calibration in AI-assisted decision making\". In FAT*. https://arxiv.org/abs/2001.02114.\n\n% Citation key for BibTeX: @inproceedings{zhang2020confidence, ...}",
+      "ref_corrected_bibtex": "@inproceedings{zhang2020confidence,\n  author = {Yunfeng Zhang and Q. Liao and Rachel K. E. Bellamy},\n  title = {Effect of confidence and explanation on accuracy and trust calibration in AI-assisted decision making},\n  booktitle = {Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency},\n  pages = {295--305},\n  year = {2020},\n  url = {https://arxiv.org/abs/2001.02114}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nYunfeng Zhang, Q. Liao, Rachel K. E. Bellamy. (2020). \\textit{Effect of confidence and explanation on accuracy and trust calibration in AI-assisted decision making}. In \\textit{FAT*}. \\url{https://arxiv.org/abs/2001.02114}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "On Human Predictions with Explanations and Predictions of Machine Learning Models: A Case Study on Deception Detection",
+      "ref_authors_cited": "Lai, Vivian, Tan, Chenhao",
+      "ref_year_cited": 2019,
+      "ref_url_cited": "https://doi.org/10.1145/3287560.3287590",
+      "ref_raw_text": "@inproceedings{lai2019human, ...}",
+      "original_reference": {
+        "title": "On Human Predictions with Explanations and Predictions of Machine Learning Models: A Case Study on Deception Detection",
+        "authors": [
+          "Lai, Vivian",
+          "Tan, Chenhao"
+        ],
+        "year": 2019,
+        "journal": "Proceedings of the Conference on Fairness, Accountability, and Transparency",
+        "doi": "10.1145/3287560.3287590",
+        "url": "https://doi.org/10.1145/3287560.3287590",
+        "type": "non-arxiv",
+        "bibtex_key": "lai2019human",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{lai2019human, ...}",
+        "pages": "29--38",
+        "organization": ""
+      },
+      "ref_year_correct": 2018,
+      "ref_url_correct": "https://arxiv.org/abs/1811.07901",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2019\n       actual: 2018\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2019\n       actual: 2018",
+          "ref_year_correct": 2018
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/1811.07901",
+          "ref_url_correct": "https://arxiv.org/abs/1811.07901"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/127c1cb96b73399f429de553d315561504cc7cd4",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "V. Lai, Chenhao Tan. (2018). \"On Human Predictions with Explanations and Predictions of Machine Learning Models: A Case Study on Deception Detection\". In FAT. https://arxiv.org/abs/1811.07901.\n\n% Citation key for BibTeX: @inproceedings{lai2019human, ...}",
+      "ref_corrected_bibtex": "@inproceedings{lai2019human,\n  author = {V. Lai and Chenhao Tan},\n  title = {On Human Predictions with Explanations and Predictions of Machine Learning Models: A Case Study on Deception Detection},\n  booktitle = {Proceedings of the Conference on Fairness, Accountability, and Transparency},\n  pages = {29--38},\n  year = {2018},\n  url = {https://arxiv.org/abs/1811.07901}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nV. Lai, Chenhao Tan. (2018). \\textit{On Human Predictions with Explanations and Predictions of Machine Learning Models: A Case Study on Deception Detection}. In \\textit{FAT}. \\url{https://arxiv.org/abs/1811.07901}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Appropriate Reliance on {AI} Advice: Conceptualization and the Effect of Explanations",
+      "ref_authors_cited": "Schemmer, Max, Kuehl, Niklas, Benz, Carina, Bartos, Andrea, Satzger, Gerhard",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://doi.org/10.1145/3581641.3584066",
+      "ref_raw_text": "@inproceedings{schemmer2023appropriate, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2302.02187",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2302.02187",
+          "ref_url_correct": "https://arxiv.org/abs/2302.02187"
+        }
+      ],
+      "original_reference": {
+        "title": "Appropriate Reliance on {AI} Advice: Conceptualization and the Effect of Explanations",
+        "authors": [
+          "Schemmer, Max",
+          "Kuehl, Niklas",
+          "Benz, Carina",
+          "Bartos, Andrea",
+          "Satzger, Gerhard"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the 28th International Conference on Intelligent User Interfaces",
+        "doi": "10.1145/3581641.3584066",
+        "url": "https://doi.org/10.1145/3581641.3584066",
+        "type": "non-arxiv",
+        "bibtex_key": "schemmer2023appropriate",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{schemmer2023appropriate, ...}",
+        "pages": "410--422",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2302.02187",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/95f751e8535a6d7f8fe733ab4729f738ef0566c4",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2302.02187.",
+      "ref_corrected_plaintext": "Max Schemmer, Niklas Kühl, Carina Benz, Andrea Bartos, G. Satzger. (2023). \"Appropriate Reliance on AI Advice: Conceptualization and the Effect of Explanations\". In International Conference on Intelligent User Interfaces. https://arxiv.org/abs/2302.02187.\n\n% Citation key for BibTeX: @inproceedings{schemmer2023appropriate, ...}",
+      "ref_corrected_bibtex": "@inproceedings{schemmer2023appropriate,\n  author = {Max Schemmer and Niklas Kühl and Carina Benz and Andrea Bartos and G. Satzger},\n  title = {Appropriate Reliance on AI Advice: Conceptualization and the Effect of Explanations},\n  booktitle = {Proceedings of the 28th International Conference on Intelligent User Interfaces},\n  pages = {410--422},\n  year = {2023},\n  url = {https://arxiv.org/abs/2302.02187}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nMax Schemmer, Niklas Kühl, Carina Benz, Andrea Bartos, G. Satzger. (2023). \\textit{Appropriate Reliance on AI Advice: Conceptualization and the Effect of Explanations}. In \\textit{International Conference on Intelligent User Interfaces}. \\url{https://arxiv.org/abs/2302.02187}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Do People Engage Cognitively with {AI}? Impact of {AI} Assistance on Incidental Learning",
+      "ref_authors_cited": "Gajos, Krzysztof Z., Mamykina, Lena",
+      "ref_year_cited": 2022,
+      "ref_url_cited": "https://doi.org/10.1145/3490099.3511138",
+      "ref_raw_text": "@inproceedings{gajos2022people, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2202.05402",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2202.05402",
+          "ref_url_correct": "https://arxiv.org/abs/2202.05402"
+        }
+      ],
+      "original_reference": {
+        "title": "Do People Engage Cognitively with {AI}? Impact of {AI} Assistance on Incidental Learning",
+        "authors": [
+          "Gajos, Krzysztof Z.",
+          "Mamykina, Lena"
+        ],
+        "year": 2022,
+        "journal": "Proceedings of the 27th International Conference on Intelligent User Interfaces",
+        "doi": "10.1145/3490099.3511138",
+        "url": "https://doi.org/10.1145/3490099.3511138",
+        "type": "non-arxiv",
+        "bibtex_key": "gajos2022people",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{gajos2022people, ...}",
+        "pages": "794--806",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2202.05402",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/ffd48c44f220c91908986c0eea29bbd7df953ce7",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2202.05402.",
+      "ref_corrected_plaintext": "Krzysztof Z Gajos, Lena Mamykina. (2022). \"Do People Engage Cognitively with AI? Impact of AI Assistance on Incidental Learning\". In International Conference on Intelligent User Interfaces. https://arxiv.org/abs/2202.05402.\n\n% Citation key for BibTeX: @inproceedings{gajos2022people, ...}",
+      "ref_corrected_bibtex": "@inproceedings{gajos2022people,\n  author = {Krzysztof Z Gajos and Lena Mamykina},\n  title = {Do People Engage Cognitively with AI? Impact of AI Assistance on Incidental Learning},\n  booktitle = {Proceedings of the 27th International Conference on Intelligent User Interfaces},\n  pages = {794--806},\n  year = {2022},\n  url = {https://arxiv.org/abs/2202.05402}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nKrzysztof Z Gajos, Lena Mamykina. (2022). \\textit{Do People Engage Cognitively with AI? Impact of AI Assistance on Incidental Learning}. In \\textit{International Conference on Intelligent User Interfaces}. \\url{https://arxiv.org/abs/2202.05402}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Whose Opinions Do Language Models Reflect?",
+      "ref_authors_cited": "Santurkar, Shibani, Durmus, Esin, Ladhak, Faisal, Lee, Cinoo, Liang, Percy, Hashimoto, Tatsunori",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://proceedings.mlr.press/v202/santurkar23a.html",
+      "ref_raw_text": "@inproceedings{santurkar2023whose, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2303.17548",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2303.17548",
+          "ref_url_correct": "https://arxiv.org/abs/2303.17548"
+        }
+      ],
+      "original_reference": {
+        "title": "Whose Opinions Do Language Models Reflect?",
+        "authors": [
+          "Santurkar, Shibani",
+          "Durmus, Esin",
+          "Ladhak, Faisal",
+          "Lee, Cinoo",
+          "Liang, Percy",
+          "Hashimoto, Tatsunori"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the 40th International Conference on Machine Learning",
+        "doi": "",
+        "url": "https://proceedings.mlr.press/v202/santurkar23a.html",
+        "type": "non-arxiv",
+        "bibtex_key": "santurkar2023whose",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{santurkar2023whose, ...}",
+        "pages": "29971--30004",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2303.17548",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/e38a29f6463f38f43797b128673b9e44d18a991e",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2303.17548.",
+      "ref_corrected_plaintext": "Shibani Santurkar, Esin Durmus, Faisal Ladhak, Cinoo Lee, Percy Liang, Tatsunori Hashimoto. (2023). \"Whose Opinions Do Language Models Reflect?\". In International Conference on Machine Learning. https://arxiv.org/abs/2303.17548.\n\n% Citation key for BibTeX: @inproceedings{santurkar2023whose, ...}",
+      "ref_corrected_bibtex": "@inproceedings{santurkar2023whose,\n  author = {Shibani Santurkar and Esin Durmus and Faisal Ladhak and Cinoo Lee and Percy Liang and Tatsunori Hashimoto},\n  title = {Whose Opinions Do Language Models Reflect?},\n  booktitle = {Proceedings of the 40th International Conference on Machine Learning},\n  pages = {29971--30004},\n  year = {2023},\n  url = {https://arxiv.org/abs/2303.17548}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nShibani Santurkar, Esin Durmus, Faisal Ladhak, Cinoo Lee, Percy Liang, Tatsunori Hashimoto. (2023). \\textit{Whose Opinions Do Language Models Reflect?}. In \\textit{International Conference on Machine Learning}. \\url{https://arxiv.org/abs/2303.17548}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Out of One, Many: Using Language Models to Simulate Human Samples",
+      "ref_authors_cited": "Argyle, Lisa P., Busby, Ethan C., Fulda, Nancy, Gubler, Joshua R., Rytting, Christopher, Wingate, David",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://doi.org/10.1017/pan.2023.2",
+      "ref_raw_text": "@article{argyle2023out, ...}",
+      "original_reference": {
+        "title": "Out of One, Many: Using Language Models to Simulate Human Samples",
+        "authors": [
+          "Argyle, Lisa P.",
+          "Busby, Ethan C.",
+          "Fulda, Nancy",
+          "Gubler, Joshua R.",
+          "Rytting, Christopher",
+          "Wingate, David"
+        ],
+        "year": 2023,
+        "journal": "Political Analysis",
+        "doi": "10.1017/pan.2023.2",
+        "url": "https://doi.org/10.1017/pan.2023.2",
+        "type": "non-arxiv",
+        "bibtex_key": "argyle2023out",
+        "bibtex_type": "article",
+        "raw_text": "@article{argyle2023out, ...}",
+        "volume": "31",
+        "number": "3",
+        "pages": "337--351"
+      },
+      "ref_year_correct": 2022,
+      "ref_url_correct": "https://arxiv.org/abs/2209.06899",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2023\n       actual: 2022\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2023\n       actual: 2022",
+          "ref_year_correct": 2022
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2209.06899",
+          "ref_url_correct": "https://arxiv.org/abs/2209.06899"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/f4e612658bde9db88abfd455b99f181fdc536996",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Lisa P. Argyle, E. Busby, Nancy Fulda, Joshua R Gubler, Christopher Rytting, David Wingate. (2022). \"Out of One, Many: Using Language Models to Simulate Human Samples\". In Political Analysis. https://arxiv.org/abs/2209.06899.\n\n% Citation key for BibTeX: @article{argyle2023out, ...}",
+      "ref_corrected_bibtex": "@article{argyle2023out,\n  author = {Lisa P. Argyle and E. Busby and Nancy Fulda and Joshua R Gubler and Christopher Rytting and David Wingate},\n  title = {Out of One, Many: Using Language Models to Simulate Human Samples},\n  journal = {Political Analysis},\n  volume = {31},\n  number = {3},\n  pages = {337--351},\n  year = {2022},\n  url = {https://arxiv.org/abs/2209.06899}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nLisa P. Argyle, E. Busby, Nancy Fulda, Joshua R Gubler, Christopher Rytting, David Wingate. (2022). \\textit{Out of One, Many: Using Language Models to Simulate Human Samples}. In \\textit{Political Analysis}. \\url{https://arxiv.org/abs/2209.06899}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Social Simulacra: Creating Populated Prototypes for Social Computing Systems",
+      "ref_authors_cited": "Park, Joon Sung, Popowski, Lindsay, Cai, Carrie J., Morris, Meredith Ringel, Liang, Percy, Bernstein, Michael S.",
+      "ref_year_cited": 2022,
+      "ref_url_cited": "https://doi.org/10.1145/3526113.3545616",
+      "ref_raw_text": "@inproceedings{park2022social, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2208.04024",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2208.04024",
+          "ref_url_correct": "https://arxiv.org/abs/2208.04024"
+        }
+      ],
+      "original_reference": {
+        "title": "Social Simulacra: Creating Populated Prototypes for Social Computing Systems",
+        "authors": [
+          "Park, Joon Sung",
+          "Popowski, Lindsay",
+          "Cai, Carrie J.",
+          "Morris, Meredith Ringel",
+          "Liang, Percy",
+          "Bernstein, Michael S."
+        ],
+        "year": 2022,
+        "journal": "Proceedings of the 35th Annual ACM Symposium on User Interface Software and\n               Technology",
+        "doi": "10.1145/3526113.3545616",
+        "url": "https://doi.org/10.1145/3526113.3545616",
+        "type": "non-arxiv",
+        "bibtex_key": "park2022social",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{park2022social, ...}",
+        "pages": "1--18",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2208.04024",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/49b499598a8864eee55ab264fc16a5bf8d2f87ef",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2208.04024.",
+      "ref_corrected_plaintext": "J. Park, Lindsay Popowski, Carrie J. Cai, M. Morris, Percy Liang, Michael S. Bernstein. (2022). \"Social Simulacra: Creating Populated Prototypes for Social Computing Systems\". In ACM Symposium on User Interface Software and Technology. https://arxiv.org/abs/2208.04024.\n\n% Citation key for BibTeX: @inproceedings{park2022social, ...}",
+      "ref_corrected_bibtex": "@inproceedings{park2022social,\n  author = {J. Park and Lindsay Popowski and Carrie J. Cai and M. Morris and Percy Liang and Michael S. Bernstein},\n  title = {Social Simulacra: Creating Populated Prototypes for Social Computing Systems},\n  booktitle = {Proceedings of the 35th Annual ACM Symposium on User Interface Software and\n               Technology},\n  pages = {1--18},\n  year = {2022},\n  url = {https://arxiv.org/abs/2208.04024}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nJ. Park, Lindsay Popowski, Carrie J. Cai, M. Morris, Percy Liang, Michael S. Bernstein. (2022). \\textit{Social Simulacra: Creating Populated Prototypes for Social Computing Systems}. In \\textit{ACM Symposium on User Interface Software and Technology}. \\url{https://arxiv.org/abs/2208.04024}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Using Large Language Models to Simulate Multiple Humans and Replicate Human Subject Studies",
+      "ref_authors_cited": "Aher, Gati, Arriaga, Rosa I., Kalai, Adam Tauman",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://proceedings.mlr.press/v202/aher23a.html",
+      "ref_raw_text": "@inproceedings{aher2023using, ...}",
+      "original_reference": {
+        "title": "Using Large Language Models to Simulate Multiple Humans and Replicate Human Subject Studies",
+        "authors": [
+          "Aher, Gati",
+          "Arriaga, Rosa I.",
+          "Kalai, Adam Tauman"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the 40th International Conference on Machine Learning",
+        "doi": "",
+        "url": "https://proceedings.mlr.press/v202/aher23a.html",
+        "type": "non-arxiv",
+        "bibtex_key": "aher2023using",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{aher2023using, ...}",
+        "pages": "337--371",
+        "organization": ""
+      },
+      "ref_authors_correct": "Gati Aher, RosaI. Arriaga, A. Kalai",
+      "ref_year_correct": 2022,
+      "ref_url_correct": "https://arxiv.org/abs/2208.10264",
+      "error_type": "multiple",
+      "error_details": "- Author 2 mismatch:\n       cited:  Rosa I. Arriaga\n       actual: RosaI. Arriaga\n- Year mismatch:\n       cited:  2023\n       actual: 2022\n- ",
+      "_original_errors": [
+        {
+          "error_type": "author",
+          "error_details": "Author 2 mismatch:\n       cited:  Rosa I. Arriaga\n       actual: RosaI. Arriaga",
+          "ref_authors_correct": "Gati Aher, RosaI. Arriaga, A. Kalai"
+        },
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2023\n       actual: 2022",
+          "ref_year_correct": 2022
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2208.10264",
+          "ref_url_correct": "https://arxiv.org/abs/2208.10264"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/59b3fbf146b29b581b677ec4384f14cee87997a4",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Gati Aher, RosaI. Arriaga, A. Kalai. (2022). \"Using Large Language Models to Simulate Multiple Humans and Replicate Human Subject Studies\". In International Conference on Machine Learning. https://arxiv.org/abs/2208.10264.\n\n% Citation key for BibTeX: @inproceedings{aher2023using, ...}",
+      "ref_corrected_bibtex": "@inproceedings{aher2023using,\n  author = {Gati Aher and RosaI. Arriaga and A. Kalai},\n  title = {Using Large Language Models to Simulate Multiple Humans and Replicate Human Subject Studies},\n  booktitle = {Proceedings of the 40th International Conference on Machine Learning},\n  pages = {337--371},\n  year = {2022},\n  url = {https://arxiv.org/abs/2208.10264}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nGati Aher, RosaI. Arriaga, A. Kalai. (2022). \\textit{Using Large Language Models to Simulate Multiple Humans and Replicate Human Subject Studies}. In \\textit{International Conference on Machine Learning}. \\url{https://arxiv.org/abs/2208.10264}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Quantifying the Persona Effect in {LLM} Simulations",
+      "ref_authors_cited": "Hu, Tiancheng, Collier, Nigel",
+      "ref_year_cited": 2024,
+      "ref_url_cited": "https://doi.org/10.18653/v1/2024.acl-long.554",
+      "ref_raw_text": "@inproceedings{hu2024quantifying, ...}",
+      "original_reference": {
+        "title": "Quantifying the Persona Effect in {LLM} Simulations",
+        "authors": [
+          "Hu, Tiancheng",
+          "Collier, Nigel"
+        ],
+        "year": 2024,
+        "journal": "Proceedings of the 62nd Annual Meeting of the Association for Computational\n               Linguistics (Volume 1: Long Papers)",
+        "doi": "10.18653/v1/2024.acl-long.554",
+        "url": "https://doi.org/10.18653/v1/2024.acl-long.554",
+        "type": "non-arxiv",
+        "bibtex_key": "hu2024quantifying",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{hu2024quantifying, ...}",
+        "pages": "10289--10307",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2402.10811",
+      "error_type": "multiple",
+      "error_details": "- \n- DOI mismatch:\n       cited:  10.18653/v1/2024.acl-long.554\n       actual: 10.48550/arXiv.2402.10811",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2402.10811",
+          "ref_url_correct": "https://arxiv.org/abs/2402.10811"
+        },
+        {
+          "warning_type": "doi",
+          "warning_details": "DOI mismatch:\n       cited:  10.18653/v1/2024.acl-long.554\n       actual: 10.48550/arXiv.2402.10811",
+          "ref_doi_correct": "10.48550/arXiv.2402.10811"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/6b86326016fc7b900deac073e119c543daa0bafd",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Tiancheng Hu, Nigel Collier. (2024). \"Quantifying the Persona Effect in LLM Simulations\". In Annual Meeting of the Association for Computational Linguistics. https://arxiv.org/abs/2402.10811.\n\n% Citation key for BibTeX: @inproceedings{hu2024quantifying, ...}",
+      "ref_corrected_bibtex": "@inproceedings{hu2024quantifying,\n  author = {Tiancheng Hu and Nigel Collier},\n  title = {Quantifying the Persona Effect in LLM Simulations},\n  booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational\n               Linguistics (Volume 1: Long Papers)},\n  pages = {10289--10307},\n  year = {2024},\n  url = {https://arxiv.org/abs/2402.10811}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nTiancheng Hu, Nigel Collier. (2024). \\textit{Quantifying the Persona Effect in LLM Simulations}. In \\textit{Annual Meeting of the Association for Computational Linguistics}. \\url{https://arxiv.org/abs/2402.10811}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "To Rely or Not to Rely? Evaluating Interventions for Appropriate Reliance on Large Language Models",
+      "ref_authors_cited": "Bo, Jessica Y., Wan, Sophia, Anderson, Ashton",
+      "ref_year_cited": 2025,
+      "ref_url_cited": "https://doi.org/10.1145/3706598.3714097",
+      "ref_raw_text": "@inproceedings{bo2024rely, ...}",
+      "original_reference": {
+        "title": "To Rely or Not to Rely? Evaluating Interventions for Appropriate Reliance on Large Language Models",
+        "authors": [
+          "Bo, Jessica Y.",
+          "Wan, Sophia",
+          "Anderson, Ashton"
+        ],
+        "year": 2025,
+        "journal": "Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems",
+        "doi": "10.1145/3706598.3714097",
+        "url": "https://doi.org/10.1145/3706598.3714097",
+        "type": "non-arxiv",
+        "bibtex_key": "bo2024rely",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{bo2024rely, ...}",
+        "pages": "1--23",
+        "organization": ""
+      },
+      "ref_year_correct": 2024,
+      "ref_url_correct": "https://arxiv.org/abs/2412.15584",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2025\n       actual: 2024\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2025\n       actual: 2024",
+          "ref_year_correct": 2024
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2412.15584",
+          "ref_url_correct": "https://arxiv.org/abs/2412.15584"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/fcf99af2b4f7dd8669e9c1fd1c19e8d445afbe6a",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Jessica Y. Bo, Sophia Wan, Ashton Anderson. (2024). \"To Rely or Not to Rely? Evaluating Interventions for Appropriate Reliance on Large Language Models\". In International Conference on Human Factors in Computing Systems. https://arxiv.org/abs/2412.15584.\n\n% Citation key for BibTeX: @inproceedings{bo2024rely, ...}",
+      "ref_corrected_bibtex": "@inproceedings{bo2024rely,\n  author = {Jessica Y. Bo and Sophia Wan and Ashton Anderson},\n  title = {To Rely or Not to Rely? Evaluating Interventions for Appropriate Reliance on Large Language Models},\n  booktitle = {Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems},\n  pages = {1--23},\n  year = {2024},\n  url = {https://arxiv.org/abs/2412.15584}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nJessica Y. Bo, Sophia Wan, Ashton Anderson. (2024). \\textit{To Rely or Not to Rely? Evaluating Interventions for Appropriate Reliance on Large Language Models}. In \\textit{International Conference on Human Factors in Computing Systems}. \\url{https://arxiv.org/abs/2412.15584}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Evaluating Large Language Models in Generating Synthetic {HCI} Research Data: A Case Study",
+      "ref_authors_cited": "Tavast, Mikke, Kunnari, Anton",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://doi.org/10.1145/3544548.3580688",
+      "ref_raw_text": "@inproceedings{hamalainen2023evaluating, ...}",
+      "error_type": "author",
+      "error_details": "Author count mismatch: 2 cited vs 3 correct:\n       cited:  Mikke Tavast, Anton Kunnari\n       actual: Perttu Hämäläinen, Mikke Tavast, Anton Kunnari",
+      "_original_errors": [
+        {
+          "error_type": "author",
+          "error_details": "Author count mismatch: 2 cited vs 3 correct:\n       cited:  Mikke Tavast, Anton Kunnari\n       actual: Perttu Hämäläinen, Mikke Tavast, Anton Kunnari",
+          "ref_authors_correct": "Perttu Hämäläinen, Mikke Tavast, Anton Kunnari"
+        }
+      ],
+      "original_reference": {
+        "title": "Evaluating Large Language Models in Generating Synthetic {HCI} Research Data: A Case Study",
+        "authors": [
+          "Tavast, Mikke",
+          "Kunnari, Anton"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems",
+        "doi": "10.1145/3544548.3580688",
+        "url": "https://doi.org/10.1145/3544548.3580688",
+        "type": "non-arxiv",
+        "bibtex_key": "hamalainen2023evaluating",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{hamalainen2023evaluating, ...}",
+        "pages": "1--19",
+        "organization": ""
+      },
+      "ref_authors_correct": "Perttu Hämäläinen, Mikke Tavast, Anton Kunnari",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/0ffd57884d7957f6b5634b9fa24843dc3759668f",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "Perttu Hämäläinen, Mikke Tavast, Anton Kunnari.",
+      "ref_corrected_plaintext": "Perttu Hämäläinen, Mikke Tavast, Anton Kunnari. (2023). \"Evaluating Large Language Models in Generating Synthetic HCI Research Data: a Case Study\". In International Conference on Human Factors in Computing Systems. https://www.semanticscholar.org/paper/0ffd57884d7957f6b5634b9fa24843dc3759668f.\n\n% Citation key for BibTeX: @inproceedings{hamalainen2023evaluating, ...}",
+      "ref_corrected_bibtex": "@inproceedings{hamalainen2023evaluating,\n  author = {Perttu Hämäläinen and Mikke Tavast and Anton Kunnari},\n  title = {Evaluating Large Language Models in Generating Synthetic HCI Research Data: a Case Study},\n  booktitle = {Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems},\n  pages = {1--19},\n  year = {2023},\n  url = {https://www.semanticscholar.org/paper/0ffd57884d7957f6b5634b9fa24843dc3759668f}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nPerttu Hämäläinen, Mikke Tavast, Anton Kunnari. (2023). \\textit{Evaluating Large Language Models in Generating Synthetic HCI Research Data: a Case Study}. In \\textit{International Conference on Human Factors in Computing Systems}. \\url{https://www.semanticscholar.org/paper/0ffd57884d7957f6b5634b9fa24843dc3759668f}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "{CoMPosT}: Characterizing and Evaluating Caricature in {LLM} Simulations",
+      "ref_authors_cited": "Cheng, Myra, Piccardi, Tiziano, Yang, Diyi",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://doi.org/10.18653/v1/2023.emnlp-main.669",
+      "ref_raw_text": "@inproceedings{cheng2023compost, ...}",
+      "original_reference": {
+        "title": "{CoMPosT}: Characterizing and Evaluating Caricature in {LLM} Simulations",
+        "authors": [
+          "Cheng, Myra",
+          "Piccardi, Tiziano",
+          "Yang, Diyi"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language\n               Processing",
+        "doi": "10.18653/v1/2023.emnlp-main.669",
+        "url": "https://doi.org/10.18653/v1/2023.emnlp-main.669",
+        "type": "non-arxiv",
+        "bibtex_key": "cheng2023compost",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{cheng2023compost, ...}",
+        "pages": "10853--10875",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2310.11501",
+      "error_type": "multiple",
+      "error_details": "- \n- DOI mismatch:\n       cited:  10.18653/v1/2023.emnlp-main.669\n       actual: 10.48550/arXiv.2310.11501",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2310.11501",
+          "ref_url_correct": "https://arxiv.org/abs/2310.11501"
+        },
+        {
+          "warning_type": "doi",
+          "warning_details": "DOI mismatch:\n       cited:  10.18653/v1/2023.emnlp-main.669\n       actual: 10.48550/arXiv.2310.11501",
+          "ref_doi_correct": "10.48550/arXiv.2310.11501"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/7a4fe2f003241ad97bf1778e527cb0306fa90da2",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Myra Cheng, Tiziano Piccardi, Diyi Yang. (2023). \"CoMPosT: Characterizing and Evaluating Caricature in LLM Simulations\". In Conference on Empirical Methods in Natural Language Processing. https://arxiv.org/abs/2310.11501.\n\n% Citation key for BibTeX: @inproceedings{cheng2023compost, ...}",
+      "ref_corrected_bibtex": "@inproceedings{cheng2023compost,\n  author = {Myra Cheng and Tiziano Piccardi and Diyi Yang},\n  title = {CoMPosT: Characterizing and Evaluating Caricature in LLM Simulations},\n  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language\n               Processing},\n  pages = {10853--10875},\n  year = {2023},\n  url = {https://arxiv.org/abs/2310.11501}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nMyra Cheng, Tiziano Piccardi, Diyi Yang. (2023). \\textit{CoMPosT: Characterizing and Evaluating Caricature in LLM Simulations}. In \\textit{Conference on Empirical Methods in Natural Language Processing}. \\url{https://arxiv.org/abs/2310.11501}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Shining a Light on Dark Patterns",
+      "ref_authors_cited": "Luguri, Jamie, Strahilevitz, Lior Jacob",
+      "ref_year_cited": 2021,
+      "ref_url_cited": "https://doi.org/10.1093/jla/laaa006",
+      "ref_raw_text": "@article{luguri2021shining, ...}",
+      "original_reference": {
+        "title": "Shining a Light on Dark Patterns",
+        "authors": [
+          "Luguri, Jamie",
+          "Strahilevitz, Lior Jacob"
+        ],
+        "year": 2021,
+        "journal": "Journal of Legal Analysis",
+        "doi": "10.1093/jla/laaa006",
+        "url": "https://doi.org/10.1093/jla/laaa006",
+        "type": "non-arxiv",
+        "bibtex_key": "luguri2021shining",
+        "bibtex_type": "article",
+        "raw_text": "@article{luguri2021shining, ...}",
+        "volume": "13",
+        "number": "1",
+        "pages": "43--109"
+      },
+      "ref_year_correct": 2019,
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2021\n       actual: 2019\n- DOI mismatch:\n       cited:  10.1093/jla/laaa006\n       actual: 10.2139/SSRN.3431205",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2021\n       actual: 2019",
+          "ref_year_correct": 2019
+        },
+        {
+          "warning_type": "doi",
+          "warning_details": "DOI mismatch:\n       cited:  10.1093/jla/laaa006\n       actual: 10.2139/SSRN.3431205",
+          "ref_doi_correct": "10.2139/SSRN.3431205"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/4758882c512a877ccfc1c2fcb525f75e2cb1e352",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Jamie B. Luguri, L. Strahilevitz. (2019). \"Shining a Light on Dark Patterns\". In Journal of Legal Analysis. https://www.semanticscholar.org/paper/4758882c512a877ccfc1c2fcb525f75e2cb1e352.\n\n% Citation key for BibTeX: @article{luguri2021shining, ...}",
+      "ref_corrected_bibtex": "@article{luguri2021shining,\n  author = {Jamie B. Luguri and L. Strahilevitz},\n  title = {Shining a Light on Dark Patterns},\n  journal = {Journal of Legal Analysis},\n  volume = {13},\n  number = {1},\n  pages = {43--109},\n  year = {2019},\n  url = {https://www.semanticscholar.org/paper/4758882c512a877ccfc1c2fcb525f75e2cb1e352}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nJamie B. Luguri, L. Strahilevitz. (2019). \\textit{Shining a Light on Dark Patterns}. In \\textit{Journal of Legal Analysis}. \\url{https://www.semanticscholar.org/paper/4758882c512a877ccfc1c2fcb525f75e2cb1e352}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "About Engaging and Governing Strategies: A Thematic Analysis of Dark Patterns in Social Networking Services",
+      "ref_authors_cited": "Mildner, Thomas, Savino, Gian-Luca, Doyle, Philip R., Cowan, Benjamin R., Malaka, Rainer",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "https://doi.org/10.1145/3544548.3580695",
+      "ref_raw_text": "@inproceedings{mildner2023dark, ...}",
+      "error_type": "url",
+      "error_details": "Reference could include arXiv URL: https://arxiv.org/abs/2303.00476",
+      "_original_errors": [
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2303.00476",
+          "ref_url_correct": "https://arxiv.org/abs/2303.00476"
+        }
+      ],
+      "original_reference": {
+        "title": "About Engaging and Governing Strategies: A Thematic Analysis of Dark Patterns in Social Networking Services",
+        "authors": [
+          "Mildner, Thomas",
+          "Savino, Gian-Luca",
+          "Doyle, Philip R.",
+          "Cowan, Benjamin R.",
+          "Malaka, Rainer"
+        ],
+        "year": 2023,
+        "journal": "Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems",
+        "doi": "10.1145/3544548.3580695",
+        "url": "https://doi.org/10.1145/3544548.3580695",
+        "type": "non-arxiv",
+        "bibtex_key": "mildner2023dark",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{mildner2023dark, ...}",
+        "pages": "1--15",
+        "organization": ""
+      },
+      "ref_url_correct": "https://arxiv.org/abs/2303.00476",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/61bfae6ed7dd2fbd84dc6cda7e48b3a96fc248a2",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "arXiv preprint arXiv:2303.00476.",
+      "ref_corrected_plaintext": "Thomas Mildner, Gian-Luca Savino, Philip R. Doyle, Benjamin R. Cowan, R. Malaka. (2023). \"About Engaging and Governing Strategies: A Thematic Analysis of Dark Patterns in Social Networking Services\". In International Conference on Human Factors in Computing Systems. https://arxiv.org/abs/2303.00476.\n\n% Citation key for BibTeX: @inproceedings{mildner2023dark, ...}",
+      "ref_corrected_bibtex": "@inproceedings{mildner2023dark,\n  author = {Thomas Mildner and Gian-Luca Savino and Philip R. Doyle and Benjamin R. Cowan and R. Malaka},\n  title = {About Engaging and Governing Strategies: A Thematic Analysis of Dark Patterns in Social Networking Services},\n  booktitle = {Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems},\n  pages = {1--15},\n  year = {2023},\n  url = {https://arxiv.org/abs/2303.00476}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nThomas Mildner, Gian-Luca Savino, Philip R. Doyle, Benjamin R. Cowan, R. Malaka. (2023). \\textit{About Engaging and Governing Strategies: A Thematic Analysis of Dark Patterns in Social Networking Services}. In \\textit{International Conference on Human Factors in Computing Systems}. \\url{https://arxiv.org/abs/2303.00476}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Deciding Fast and Slow: The Role of Cognitive Biases in {AI}-Assisted Decision-Making",
+      "ref_authors_cited": "Rastogi, Charvi, Zhang, Yunfeng, Wei, Dennis, Varshney, Kush R., Dhurandhar, Amit, Tomsett, Richard",
+      "ref_year_cited": 2022,
+      "ref_url_cited": "https://doi.org/10.1145/3512930",
+      "ref_raw_text": "@article{rastogi2022deciding, ...}",
+      "original_reference": {
+        "title": "Deciding Fast and Slow: The Role of Cognitive Biases in {AI}-Assisted Decision-Making",
+        "authors": [
+          "Rastogi, Charvi",
+          "Zhang, Yunfeng",
+          "Wei, Dennis",
+          "Varshney, Kush R.",
+          "Dhurandhar, Amit",
+          "Tomsett, Richard"
+        ],
+        "year": 2022,
+        "journal": "Proceedings of the ACM on Human-Computer Interaction",
+        "doi": "10.1145/3512930",
+        "url": "https://doi.org/10.1145/3512930",
+        "type": "non-arxiv",
+        "bibtex_key": "rastogi2022deciding",
+        "bibtex_type": "article",
+        "raw_text": "@article{rastogi2022deciding, ...}",
+        "volume": "6",
+        "number": "CSCW1",
+        "pages": "1--22"
+      },
+      "ref_year_correct": 2020,
+      "ref_url_correct": "https://arxiv.org/abs/2010.07938",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2022\n       actual: 2020\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2022\n       actual: 2020",
+          "ref_year_correct": 2020
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2010.07938",
+          "ref_url_correct": "https://arxiv.org/abs/2010.07938"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/148efaba70165d9faef0dac28d5fa2538cfa662d",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Charvi Rastogi, Yunfeng Zhang, Dennis Wei, Kush R. Varshney, Amit Dhurandhar, Richard J. Tomsett. (2020). \"Deciding Fast and Slow: The Role of Cognitive Biases in AI-assisted Decision-making\". In Proc. ACM Hum. Comput. Interact.. https://arxiv.org/abs/2010.07938.\n\n% Citation key for BibTeX: @article{rastogi2022deciding, ...}",
+      "ref_corrected_bibtex": "@article{rastogi2022deciding,\n  author = {Charvi Rastogi and Yunfeng Zhang and Dennis Wei and Kush R. Varshney and Amit Dhurandhar and Richard J. Tomsett},\n  title = {Deciding Fast and Slow: The Role of Cognitive Biases in AI-assisted Decision-making},\n  journal = {Proceedings of the ACM on Human-Computer Interaction},\n  volume = {6},\n  number = {CSCW1},\n  pages = {1--22},\n  year = {2020},\n  url = {https://arxiv.org/abs/2010.07938}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nCharvi Rastogi, Yunfeng Zhang, Dennis Wei, Kush R. Varshney, Amit Dhurandhar, Richard J. Tomsett. (2020). \\textit{Deciding Fast and Slow: The Role of Cognitive Biases in AI-assisted Decision-making}. In \\textit{Proc. ACM Hum. Comput. Interact.}. \\url{https://arxiv.org/abs/2010.07938}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Specializing Large Language Models to Simulate Survey Response Distributions for Global Populations",
+      "ref_authors_cited": "Cao, Yong, Liu, Haijiang, Arora, Arnav, Augenstein, Isabelle, Hershcovich, Daniel",
+      "ref_year_cited": 2025,
+      "ref_url_cited": "https://doi.org/10.18653/v1/2025.naacl-long.162",
+      "ref_raw_text": "@inproceedings{cao2025specializing, ...}",
+      "original_reference": {
+        "title": "Specializing Large Language Models to Simulate Survey Response Distributions for Global Populations",
+        "authors": [
+          "Cao, Yong",
+          "Liu, Haijiang",
+          "Arora, Arnav",
+          "Augenstein, Isabelle",
+          "Hershcovich, Daniel"
+        ],
+        "year": 2025,
+        "journal": "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the\n               Association for Computational Linguistics: Human Language Technologies\n               (Volume 1: Long Papers)",
+        "doi": "10.18653/v1/2025.naacl-long.162",
+        "url": "https://doi.org/10.18653/v1/2025.naacl-long.162",
+        "type": "non-arxiv",
+        "bibtex_key": "cao2025specializing",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{cao2025specializing, ...}",
+        "pages": "3141--3154",
+        "organization": ""
+      },
+      "ref_venue_correct": "North American Chapter of the Association for Computational Linguistics",
+      "ref_url_correct": "https://arxiv.org/abs/2502.07068",
+      "error_type": "multiple",
+      "error_details": "- Venue mismatch:\n       cited:  Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (\n       actual: North American Chapter of the Association for Computational Linguistics\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "venue",
+          "warning_details": "Venue mismatch:\n       cited:  Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (\n       actual: North American Chapter of the Association for Computational Linguistics",
+          "ref_venue_correct": "North American Chapter of the Association for Computational Linguistics"
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2502.07068",
+          "ref_url_correct": "https://arxiv.org/abs/2502.07068"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/e3f9b20c50a146fdaeb23873c5522adb40b7a9b3",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Yong Cao, Haijiang Liu, Arnav Arora, Isabelle Augenstein, Paul Rottger, Daniel Hershcovich. (2025). \"Specializing Large Language Models to Simulate Survey Response Distributions for Global Populations\". In North American Chapter of the Association for Computational Linguistics. https://arxiv.org/abs/2502.07068.\n\n% Citation key for BibTeX: @inproceedings{cao2025specializing, ...}",
+      "ref_corrected_bibtex": "@inproceedings{cao2025specializing,\n  author = {Yong Cao and Haijiang Liu and Arnav Arora and Isabelle Augenstein and Paul Rottger and Daniel Hershcovich},\n  title = {Specializing Large Language Models to Simulate Survey Response Distributions for Global Populations},\n  booktitle = {Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the\n               Association for Computational Linguistics: Human Language Technologies\n               (Volume 1: Long Papers)},\n  pages = {3141--3154},\n  year = {2025},\n  url = {https://arxiv.org/abs/2502.07068}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nYong Cao, Haijiang Liu, Arnav Arora, Isabelle Augenstein, Paul Rottger, Daniel Hershcovich. (2025). \\textit{Specializing Large Language Models to Simulate Survey Response Distributions for Global Populations}. In \\textit{North American Chapter of the Association for Computational Linguistics}. \\url{https://arxiv.org/abs/2502.07068}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Questioning the Survey Responses of Large Language Models",
+      "ref_authors_cited": "Dominguez-Olmedo, Ricardo, Hardt, Moritz",
+      "ref_year_cited": 2024,
+      "ref_url_cited": "",
+      "ref_raw_text": "@inproceedings{dominguez2024questioning, ...}",
+      "original_reference": {
+        "title": "Questioning the Survey Responses of Large Language Models",
+        "authors": [
+          "Dominguez-Olmedo, Ricardo",
+          "Hardt, Moritz"
+        ],
+        "year": 2024,
+        "journal": "Advances in Neural Information Processing Systems (NeurIPS)",
+        "doi": "",
+        "url": "",
+        "type": "other",
+        "bibtex_key": "dominguez2024questioning",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{dominguez2024questioning, ...}",
+        "pages": "",
+        "organization": ""
+      },
+      "ref_authors_correct": "Ricardo Dominguez-Olmedo, Moritz Hardt, Celestine Mendler-Dünner",
+      "ref_year_correct": 2023,
+      "error_type": "multiple",
+      "error_details": "- Author count mismatch: 2 cited vs 3 correct:\n       cited:  Ricardo Dominguez-Olmedo, Moritz Hardt\n       actual: Ricardo Dominguez-Olmedo, Moritz Hardt, Celestine Mendler-Dünner\n- Year mismatch:\n       cited:  2024\n       actual: 2023",
+      "_original_errors": [
+        {
+          "error_type": "author",
+          "error_details": "Author count mismatch: 2 cited vs 3 correct:\n       cited:  Ricardo Dominguez-Olmedo, Moritz Hardt\n       actual: Ricardo Dominguez-Olmedo, Moritz Hardt, Celestine Mendler-Dünner",
+          "ref_authors_correct": "Ricardo Dominguez-Olmedo, Moritz Hardt, Celestine Mendler-Dünner"
+        },
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2024\n       actual: 2023",
+          "ref_year_correct": 2023
+        }
+      ],
+      "ref_verified_url": "https://arxiv.org/abs/2306.07951",
+      "matched_database": "ArXiv",
+      "ref_corrected_plaintext": "Ricardo Dominguez-Olmedo, Moritz Hardt, Celestine Mendler-Dünner. (2023). \"Questioning the Survey Responses of Large Language Models\". In arXiv. https://arxiv.org/abs/2306.07951.\n\n% Citation key for BibTeX: @inproceedings{dominguez2024questioning, ...}",
+      "ref_corrected_bibtex": "@inproceedings{dominguez2024questioning,\n  author = {Ricardo Dominguez-Olmedo and Moritz Hardt and Celestine Mendler-Dünner},\n  title = {Questioning the Survey Responses of Large Language Models},\n  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},\n  year = {2023},\n  url = {https://arxiv.org/abs/2306.07951}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nRicardo Dominguez-Olmedo, Moritz Hardt, Celestine Mendler-Dünner. (2023). \\textit{Questioning the Survey Responses of Large Language Models}. In \\textit{arXiv}. \\url{https://arxiv.org/abs/2306.07951}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Do {LLM}s Exhibit Human-like Response Biases? A Case Study in Survey Design",
+      "ref_authors_cited": "Tjuatja, Lindia, Chen, Valerie, Wu, Tongshuang, Talwalkar, Ameet, Neubig, Graham",
+      "ref_year_cited": 2024,
+      "ref_url_cited": "https://doi.org/10.1162/tacl_a_00685",
+      "ref_raw_text": "@article{tjuatja2024llms, ...}",
+      "original_reference": {
+        "title": "Do {LLM}s Exhibit Human-like Response Biases? A Case Study in Survey Design",
+        "authors": [
+          "Tjuatja, Lindia",
+          "Chen, Valerie",
+          "Wu, Tongshuang",
+          "Talwalkar, Ameet",
+          "Neubig, Graham"
+        ],
+        "year": 2024,
+        "journal": "Transactions of the Association for Computational Linguistics",
+        "doi": "10.1162/tacl_a_00685",
+        "url": "https://doi.org/10.1162/tacl_a_00685",
+        "type": "non-arxiv",
+        "bibtex_key": "tjuatja2024llms",
+        "bibtex_type": "article",
+        "raw_text": "@article{tjuatja2024llms, ...}",
+        "volume": "12",
+        "number": "",
+        "pages": "1011--1026"
+      },
+      "ref_authors_correct": "Lindia Tjuatja, Valerie Chen, Sherry Tongshuang Wu, Ameet Talwalkar, Graham Neubig",
+      "ref_year_correct": 2023,
+      "ref_url_correct": "https://arxiv.org/abs/2311.04076",
+      "error_type": "multiple",
+      "error_details": "- Author 3 mismatch:\n       cited:  Tongshuang Wu\n       actual: Sherry Tongshuang Wu\n- Year mismatch:\n       cited:  2024\n       actual: 2023\n- ",
+      "_original_errors": [
+        {
+          "error_type": "author",
+          "error_details": "Author 3 mismatch:\n       cited:  Tongshuang Wu\n       actual: Sherry Tongshuang Wu",
+          "ref_authors_correct": "Lindia Tjuatja, Valerie Chen, Sherry Tongshuang Wu, Ameet Talwalkar, Graham Neubig"
+        },
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2024\n       actual: 2023",
+          "ref_year_correct": 2023
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2311.04076",
+          "ref_url_correct": "https://arxiv.org/abs/2311.04076"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/f133c66cccde9389b78388edfd8ab6b438f2562c",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Lindia Tjuatja, Valerie Chen, Sherry Tongshuang Wu, Ameet Talwalkar, Graham Neubig. (2023). \"Do LLMs Exhibit Human-like Response Biases? A Case Study in Survey Design\". In Transactions of the Association for Computational Linguistics. https://arxiv.org/abs/2311.04076.\n\n% Citation key for BibTeX: @article{tjuatja2024llms, ...}",
+      "ref_corrected_bibtex": "@article{tjuatja2024llms,\n  author = {Lindia Tjuatja and Valerie Chen and Sherry Tongshuang Wu and Ameet Talwalkar and Graham Neubig},\n  title = {Do LLMs Exhibit Human-like Response Biases? A Case Study in Survey Design},\n  journal = {Transactions of the Association for Computational Linguistics},\n  volume = {12},\n  pages = {1011--1026},\n  year = {2023},\n  url = {https://arxiv.org/abs/2311.04076}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nLindia Tjuatja, Valerie Chen, Sherry Tongshuang Wu, Ameet Talwalkar, Graham Neubig. (2023). \\textit{Do LLMs Exhibit Human-like Response Biases? A Case Study in Survey Design}. In \\textit{Transactions of the Association for Computational Linguistics}. \\url{https://arxiv.org/abs/2311.04076}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design, or: How I Learned to Start Worrying about Prompt Formatting",
+      "ref_authors_cited": "Sclar, Melanie, Choi, Yejin, Tsvetkov, Yulia, Suhr, Alane",
+      "ref_year_cited": 2024,
+      "ref_url_cited": "",
+      "ref_raw_text": "@inproceedings{sclar2024quantifying, ...}",
+      "original_reference": {
+        "title": "Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design, or: How I Learned to Start Worrying about Prompt Formatting",
+        "authors": [
+          "Sclar, Melanie",
+          "Choi, Yejin",
+          "Tsvetkov, Yulia",
+          "Suhr, Alane"
+        ],
+        "year": 2024,
+        "journal": "Proceedings of the 12th International Conference on Learning Representations (ICLR)",
+        "doi": "",
+        "url": "",
+        "type": "other",
+        "bibtex_key": "sclar2024quantifying",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{sclar2024quantifying, ...}",
+        "pages": "",
+        "organization": ""
+      },
+      "ref_year_correct": 2023,
+      "ref_url_correct": "https://arxiv.org/abs/2310.11324",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2024\n       actual: 2023\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2024\n       actual: 2023",
+          "ref_year_correct": 2023
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2310.11324",
+          "ref_url_correct": "https://arxiv.org/abs/2310.11324"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/17a6116e5bbd8b87082cbb2e795885567300c483",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Melanie Sclar, Yejin Choi, Yulia Tsvetkov, Alane Suhr. (2023). \"Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design or: How I learned to start worrying about prompt formatting\". In International Conference on Learning Representations. https://arxiv.org/abs/2310.11324.\n\n% Citation key for BibTeX: @inproceedings{sclar2024quantifying, ...}",
+      "ref_corrected_bibtex": "@inproceedings{sclar2024quantifying,\n  author = {Melanie Sclar and Yejin Choi and Yulia Tsvetkov and Alane Suhr},\n  title = {Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design or: How I learned to start worrying about prompt formatting},\n  booktitle = {Proceedings of the 12th International Conference on Learning Representations (ICLR)},\n  year = {2023},\n  url = {https://arxiv.org/abs/2310.11324}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nMelanie Sclar, Yejin Choi, Yulia Tsvetkov, Alane Suhr. (2023). \\textit{Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design or: How I learned to start worrying about prompt formatting}. In \\textit{International Conference on Learning Representations}. \\url{https://arxiv.org/abs/2310.11324}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "State of What Art? A Call for Multi-Prompt {LLM} Evaluation",
+      "ref_authors_cited": "Mizrahi, Moran, Kaplan, Guy, Malkin, Dan, Dror, Rotem, Shahaf, Dafna, Stanovsky, Gabriel",
+      "ref_year_cited": 2024,
+      "ref_url_cited": "https://doi.org/10.1162/tacl_a_00681",
+      "ref_raw_text": "@article{mizrahi2024state, ...}",
+      "original_reference": {
+        "title": "State of What Art? A Call for Multi-Prompt {LLM} Evaluation",
+        "authors": [
+          "Mizrahi, Moran",
+          "Kaplan, Guy",
+          "Malkin, Dan",
+          "Dror, Rotem",
+          "Shahaf, Dafna",
+          "Stanovsky, Gabriel"
+        ],
+        "year": 2024,
+        "journal": "Transactions of the Association for Computational Linguistics",
+        "doi": "10.1162/tacl_a_00681",
+        "url": "https://doi.org/10.1162/tacl_a_00681",
+        "type": "non-arxiv",
+        "bibtex_key": "mizrahi2024state",
+        "bibtex_type": "article",
+        "raw_text": "@article{mizrahi2024state, ...}",
+        "volume": "12",
+        "number": "",
+        "pages": "933--949"
+      },
+      "ref_year_correct": 2023,
+      "ref_url_correct": "https://arxiv.org/abs/2401.00595",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2024\n       actual: 2023\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2024\n       actual: 2023",
+          "ref_year_correct": 2023
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2401.00595",
+          "ref_url_correct": "https://arxiv.org/abs/2401.00595"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/8dce168f723158b771b526401113064c36fc875e",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Moran Mizrahi, Guy Kaplan, D. Malkin, Rotem Dror, Dafna Shahaf, Gabriel Stanovsky. (2023). \"State of What Art? A Call for Multi-Prompt LLM Evaluation\". In Transactions of the Association for Computational Linguistics. https://arxiv.org/abs/2401.00595.\n\n% Citation key for BibTeX: @article{mizrahi2024state, ...}",
+      "ref_corrected_bibtex": "@article{mizrahi2024state,\n  author = {Moran Mizrahi and Guy Kaplan and D. Malkin and Rotem Dror and Dafna Shahaf and Gabriel Stanovsky},\n  title = {State of What Art? A Call for Multi-Prompt LLM Evaluation},\n  journal = {Transactions of the Association for Computational Linguistics},\n  volume = {12},\n  pages = {933--949},\n  year = {2023},\n  url = {https://arxiv.org/abs/2401.00595}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nMoran Mizrahi, Guy Kaplan, D. Malkin, Rotem Dror, Dafna Shahaf, Gabriel Stanovsky. (2023). \\textit{State of What Art? A Call for Multi-Prompt LLM Evaluation}. In \\textit{Transactions of the Association for Computational Linguistics}. \\url{https://arxiv.org/abs/2401.00595}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Judging {LLM}-as-a-Judge with {MT-Bench} and Chatbot Arena",
+      "ref_authors_cited": "Zheng, Lianmin, Chiang, Wei-Lin, Sheng, Ying, Zhuang, Siyuan, Wu, Zhanghao, Zhuang, Yonghao, Lin, Zi, Li, Zhuohan, Li, Dacheng, Xing, Eric P., Zhang, Hao, Gonzalez, Joseph E., Stoica, Ion",
+      "ref_year_cited": 2023,
+      "ref_url_cited": "",
+      "ref_raw_text": "@inproceedings{zheng2023judging, ...}",
+      "original_reference": {
+        "title": "Judging {LLM}-as-a-Judge with {MT-Bench} and Chatbot Arena",
+        "authors": [
+          "Zheng, Lianmin",
+          "Chiang, Wei-Lin",
+          "Sheng, Ying",
+          "Zhuang, Siyuan",
+          "Wu, Zhanghao",
+          "Zhuang, Yonghao",
+          "Lin, Zi",
+          "Li, Zhuohan",
+          "Li, Dacheng",
+          "Xing, Eric P.",
+          "Zhang, Hao",
+          "Gonzalez, Joseph E.",
+          "Stoica, Ion"
+        ],
+        "year": 2023,
+        "journal": "Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track",
+        "doi": "",
+        "url": "",
+        "type": "other",
+        "bibtex_key": "zheng2023judging",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{zheng2023judging, ...}",
+        "pages": "",
+        "organization": ""
+      },
+      "ref_venue_correct": "Neural Information Processing Systems",
+      "ref_url_correct": "https://arxiv.org/abs/2306.05685",
+      "error_type": "multiple",
+      "error_details": "- Venue mismatch:\n       cited:  Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track\n       actual: Neural Information Processing Systems\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "venue",
+          "warning_details": "Venue mismatch:\n       cited:  Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track\n       actual: Neural Information Processing Systems",
+          "ref_venue_correct": "Neural Information Processing Systems"
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2306.05685",
+          "ref_url_correct": "https://arxiv.org/abs/2306.05685"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/a0a79dad89857a96f8f71b14238e5237cbfc4787",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, E. Xing, Haotong Zhang, Joseph E. Gonzalez, Ion Stoica. (2023). \"Judging LLM-as-a-judge with MT-Bench and Chatbot Arena\". In Neural Information Processing Systems. https://arxiv.org/abs/2306.05685.\n\n% Citation key for BibTeX: @inproceedings{zheng2023judging, ...}",
+      "ref_corrected_bibtex": "@inproceedings{zheng2023judging,\n  author = {Lianmin Zheng and Wei-Lin Chiang and Ying Sheng and Siyuan Zhuang and Zhanghao Wu and Yonghao Zhuang and Zi Lin and Zhuohan Li and Dacheng Li and E. Xing and Haotong Zhang and Joseph E. Gonzalez and Ion Stoica},\n  title = {Judging LLM-as-a-judge with MT-Bench and Chatbot Arena},\n  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},\n  year = {2023},\n  url = {https://arxiv.org/abs/2306.05685}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nLianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, E. Xing, Haotong Zhang, Joseph E. Gonzalez, Ion Stoica. (2023). \\textit{Judging LLM-as-a-judge with MT-Bench and Chatbot Arena}. In \\textit{Neural Information Processing Systems}. \\url{https://arxiv.org/abs/2306.05685}.",
+      "hallucination_assessment": {
+        "verdict": "UNLIKELY",
+        "explanation": "The reference appears to cite a dataset, software release, repository, or other non-paper source. Paper-style author/title mismatch checks should not be treated as hallucination evidence for this source type.",
+        "web_search": null
+      }
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Model Cards for Model Reporting",
+      "ref_authors_cited": "Mitchell, Margaret, Wu, Simone, Zaldivar, Andrew, Barnes, Parker, Vasserman, Lucy, Hutchinson, Ben, Spitzer, Elena, Raji, Inioluwa Deborah, Gebru, Timnit",
+      "ref_year_cited": 2019,
+      "ref_url_cited": "https://doi.org/10.1145/3287560.3287596",
+      "ref_raw_text": "@inproceedings{mitchell2019model, ...}",
+      "original_reference": {
+        "title": "Model Cards for Model Reporting",
+        "authors": [
+          "Mitchell, Margaret",
+          "Wu, Simone",
+          "Zaldivar, Andrew",
+          "Barnes, Parker",
+          "Vasserman, Lucy",
+          "Hutchinson, Ben",
+          "Spitzer, Elena",
+          "Raji, Inioluwa Deborah",
+          "Gebru, Timnit"
+        ],
+        "year": 2019,
+        "journal": "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT*)",
+        "doi": "10.1145/3287560.3287596",
+        "url": "https://doi.org/10.1145/3287560.3287596",
+        "type": "non-arxiv",
+        "bibtex_key": "mitchell2019model",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{mitchell2019model, ...}",
+        "pages": "220--229",
+        "organization": ""
+      },
+      "ref_year_correct": 2018,
+      "ref_url_correct": "https://arxiv.org/abs/1810.03993",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2019\n       actual: 2018\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2019\n       actual: 2018",
+          "ref_year_correct": 2018
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/1810.03993",
+          "ref_url_correct": "https://arxiv.org/abs/1810.03993"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/7365f887c938ca21a6adbef08b5a520ebbd4638f",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru. (2018). \"Model Cards for Model Reporting\". In FAT. https://arxiv.org/abs/1810.03993.\n\n% Citation key for BibTeX: @inproceedings{mitchell2019model, ...}",
+      "ref_corrected_bibtex": "@inproceedings{mitchell2019model,\n  author = {Margaret Mitchell and Simone Wu and Andrew Zaldivar and Parker Barnes and Lucy Vasserman and Ben Hutchinson and Elena Spitzer and Inioluwa Deborah Raji and Timnit Gebru},\n  title = {Model Cards for Model Reporting},\n  booktitle = {Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT*)},\n  pages = {220--229},\n  year = {2018},\n  url = {https://arxiv.org/abs/1810.03993}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nMargaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru. (2018). \\textit{Model Cards for Model Reporting}. In \\textit{FAT}. \\url{https://arxiv.org/abs/1810.03993}.",
+      "hallucination_assessment": {
+        "verdict": "UNLIKELY",
+        "explanation": "The reference appears to cite a dataset, software release, repository, or other non-paper source. Paper-style author/title mismatch checks should not be treated as hallucination evidence for this source type.",
+        "web_search": null
+      }
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant",
+      "ref_authors_cited": "Simmons, Joseph P., Nelson, Leif D., Simonsohn, Uri",
+      "ref_year_cited": 2011,
+      "ref_url_cited": "https://doi.org/10.1177/0956797611417632",
+      "ref_raw_text": "@article{simmons2011false, ...}",
+      "error_type": "venue",
+      "error_details": "Venue mismatch:\n       cited:  Psychological Science\n       actual: Psychology Science",
+      "_original_errors": [
+        {
+          "warning_type": "venue",
+          "warning_details": "Venue mismatch:\n       cited:  Psychological Science\n       actual: Psychology Science",
+          "ref_venue_correct": "Psychology Science"
+        }
+      ],
+      "original_reference": {
+        "title": "False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant",
+        "authors": [
+          "Simmons, Joseph P.",
+          "Nelson, Leif D.",
+          "Simonsohn, Uri"
+        ],
+        "year": 2011,
+        "journal": "Psychological Science",
+        "doi": "10.1177/0956797611417632",
+        "url": "https://doi.org/10.1177/0956797611417632",
+        "type": "non-arxiv",
+        "bibtex_key": "simmons2011false",
+        "bibtex_type": "article",
+        "raw_text": "@article{simmons2011false, ...}",
+        "volume": "22",
+        "number": "11",
+        "pages": "1359--1366"
+      },
+      "ref_venue_correct": "Psychology Science",
+      "ref_verified_url": "https://www.semanticscholar.org/paper/49bda01e28f3f9fffa4fa14bd909c0a2340aa066",
+      "matched_database": "Semantic Scholar",
+      "ref_standard_format": "",
+      "ref_corrected_plaintext": "J. Simmons, Leif D. Nelson, U. Simonsohn. (2011). \"False-Positive Psychology\". In Psychology Science. https://www.semanticscholar.org/paper/49bda01e28f3f9fffa4fa14bd909c0a2340aa066.\n\n% Citation key for BibTeX: @article{simmons2011false, ...}",
+      "ref_corrected_bibtex": "@article{simmons2011false,\n  author = {J. Simmons and Leif D. Nelson and U. Simonsohn},\n  title = {False-Positive Psychology},\n  journal = {Psychological Science},\n  volume = {22},\n  number = {11},\n  pages = {1359--1366},\n  year = {2011},\n  url = {https://www.semanticscholar.org/paper/49bda01e28f3f9fffa4fa14bd909c0a2340aa066}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nJ. Simmons, Leif D. Nelson, U. Simonsohn. (2011). \\textit{False-Positive Psychology}. In \\textit{Psychology Science}. \\url{https://www.semanticscholar.org/paper/49bda01e28f3f9fffa4fa14bd909c0a2340aa066}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "{RouteLLM}: Learning to Route {LLM}s with Preference Data",
+      "ref_authors_cited": "Ong, Isaac, Almahairi, Amjad, Wu, Vincent, Chiang, Wei-Lin, Wu, Tianhao, Gonzalez, Joseph E., Kadous, M. Waleed, Stoica, Ion",
+      "ref_year_cited": 2025,
+      "ref_url_cited": "",
+      "ref_raw_text": "@inproceedings{ong2025routellm, ...}",
+      "original_reference": {
+        "title": "{RouteLLM}: Learning to Route {LLM}s with Preference Data",
+        "authors": [
+          "Ong, Isaac",
+          "Almahairi, Amjad",
+          "Wu, Vincent",
+          "Chiang, Wei-Lin",
+          "Wu, Tianhao",
+          "Gonzalez, Joseph E.",
+          "Kadous, M. Waleed",
+          "Stoica, Ion"
+        ],
+        "year": 2025,
+        "journal": "Proceedings of the 13th International Conference on Learning Representations (ICLR)",
+        "doi": "",
+        "url": "",
+        "type": "other",
+        "bibtex_key": "ong2025routellm",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{ong2025routellm, ...}",
+        "pages": "",
+        "organization": ""
+      },
+      "ref_year_correct": 2024,
+      "ref_url_correct": "https://arxiv.org/abs/2406.18665",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2025\n       actual: 2024\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2025\n       actual: 2024",
+          "ref_year_correct": 2024
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2406.18665",
+          "ref_url_correct": "https://arxiv.org/abs/2406.18665"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/9b3239cff17327960804098e33e1ca903e7b9e85",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Isaac Ong, Amjad Almahairi, Vincent Wu, Wei-Lin Chiang, Tianhao Wu, Joseph E. Gonzalez, M. W. Kadous, Ion Stoica. (2024). \"RouteLLM: Learning to Route LLMs with Preference Data\". In arXiv.org. https://arxiv.org/abs/2406.18665.\n\n% Citation key for BibTeX: @inproceedings{ong2025routellm, ...}",
+      "ref_corrected_bibtex": "@inproceedings{ong2025routellm,\n  author = {Isaac Ong and Amjad Almahairi and Vincent Wu and Wei-Lin Chiang and Tianhao Wu and Joseph E. Gonzalez and M. W. Kadous and Ion Stoica},\n  title = {RouteLLM: Learning to Route LLMs with Preference Data},\n  booktitle = {Proceedings of the 13th International Conference on Learning Representations (ICLR)},\n  year = {2024},\n  url = {https://arxiv.org/abs/2406.18665}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nIsaac Ong, Amjad Almahairi, Vincent Wu, Wei-Lin Chiang, Tianhao Wu, Joseph E. Gonzalez, M. W. Kadous, Ion Stoica. (2024). \\textit{RouteLLM: Learning to Route LLMs with Preference Data}. In \\textit{arXiv.org}. \\url{https://arxiv.org/abs/2406.18665}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Mixture-of-Agents Enhances Large Language Model Capabilities",
+      "ref_authors_cited": "Wang, Junlin, Wang, Jue, Athiwaratkun, Ben, Zhang, Ce, Zou, James",
+      "ref_year_cited": 2025,
+      "ref_url_cited": "",
+      "ref_raw_text": "@inproceedings{wang2025mixture, ...}",
+      "original_reference": {
+        "title": "Mixture-of-Agents Enhances Large Language Model Capabilities",
+        "authors": [
+          "Wang, Junlin",
+          "Wang, Jue",
+          "Athiwaratkun, Ben",
+          "Zhang, Ce",
+          "Zou, James"
+        ],
+        "year": 2025,
+        "journal": "Proceedings of the 13th International Conference on Learning Representations (ICLR)",
+        "doi": "",
+        "url": "",
+        "type": "other",
+        "bibtex_key": "wang2025mixture",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{wang2025mixture, ...}",
+        "pages": "",
+        "organization": ""
+      },
+      "ref_year_correct": 2024,
+      "ref_url_correct": "https://arxiv.org/abs/2406.04692",
+      "error_type": "multiple",
+      "error_details": "- Year mismatch:\n       cited:  2025\n       actual: 2024\n- ",
+      "_original_errors": [
+        {
+          "warning_type": "year",
+          "warning_details": "Year mismatch:\n       cited:  2025\n       actual: 2024",
+          "ref_year_correct": 2024
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2406.04692",
+          "ref_url_correct": "https://arxiv.org/abs/2406.04692"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/2b3ad2fdd9d2013119232ee49e6d21eb08474b74",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "Junlin Wang, Jue Wang, Ben Athiwaratkun, Ce Zhang, James Zou. (2024). \"Mixture-of-Agents Enhances Large Language Model Capabilities\". In International Conference on Learning Representations. https://arxiv.org/abs/2406.04692.\n\n% Citation key for BibTeX: @inproceedings{wang2025mixture, ...}",
+      "ref_corrected_bibtex": "@inproceedings{wang2025mixture,\n  author = {Junlin Wang and Jue Wang and Ben Athiwaratkun and Ce Zhang and James Zou},\n  title = {Mixture-of-Agents Enhances Large Language Model Capabilities},\n  booktitle = {Proceedings of the 13th International Conference on Learning Representations (ICLR)},\n  year = {2024},\n  url = {https://arxiv.org/abs/2406.04692}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nJunlin Wang, Jue Wang, Ben Athiwaratkun, Ce Zhang, James Zou. (2024). \\textit{Mixture-of-Agents Enhances Large Language Model Capabilities}. In \\textit{International Conference on Learning Representations}. \\url{https://arxiv.org/abs/2406.04692}."
+    },
+    {
+      "source_paper_id": "local_references",
+      "source_title": "References",
+      "source_authors": "Unknown",
+      "source_year": 2026,
+      "source_url": "file://C:\\Users\\v-elzhang\\Desktop\\MyFolder\\two ways a design fail\\docs\\paper\\references.bib",
+      "ref_paper_id": null,
+      "ref_title": "Lost in Simulation: {LLM}-Simulated Users are Unreliable Proxies for Human Users in Agentic Evaluations",
+      "ref_authors_cited": "Seshadri, Preethi, Cahyawijaya, Samuel, Odumakinde, Ayomide, Singh, Sameer, Goldfarb-Tarrant, Seraphina",
+      "ref_year_cited": 2026,
+      "ref_url_cited": "https://doi.org/10.18653/v1/2026.acl-long.2192",
+      "ref_raw_text": "@inproceedings{seshadri2026lost, ...}",
+      "original_reference": {
+        "title": "Lost in Simulation: {LLM}-Simulated Users are Unreliable Proxies for Human Users in Agentic Evaluations",
+        "authors": [
+          "Seshadri, Preethi",
+          "Cahyawijaya, Samuel",
+          "Odumakinde, Ayomide",
+          "Singh, Sameer",
+          "Goldfarb-Tarrant, Seraphina"
+        ],
+        "year": 2026,
+        "journal": "Proceedings of the 64th Annual Meeting of the Association for Computational\n               Linguistics (Volume 1: Long Papers)",
+        "doi": "10.18653/v1/2026.acl-long.2192",
+        "url": "https://doi.org/10.18653/v1/2026.acl-long.2192",
+        "type": "non-arxiv",
+        "bibtex_key": "seshadri2026lost",
+        "bibtex_type": "inproceedings",
+        "raw_text": "@inproceedings{seshadri2026lost, ...}",
+        "pages": "47423--47439",
+        "organization": ""
+      },
+      "ref_venue_correct": "Volume 1",
+      "ref_url_correct": "https://arxiv.org/abs/2601.17087",
+      "error_type": "multiple",
+      "error_details": "- Venue mismatch:\n       cited:  Annual Meeting of the Association for Computational Linguistics (\n       actual: \n- \n- DOI mismatch:\n       cited:  10.18653/v1/2026.acl-long.2192\n       actual: 10.48550/arXiv.2601.17087",
+      "_original_errors": [
+        {
+          "warning_type": "venue",
+          "warning_details": "Venue mismatch:\n       cited:  Annual Meeting of the Association for Computational Linguistics (\n       actual: ",
+          "ref_venue_correct": "Volume 1"
+        },
+        {
+          "info_type": "url",
+          "info_details": "Reference could include arXiv URL: https://arxiv.org/abs/2601.17087",
+          "ref_url_correct": "https://arxiv.org/abs/2601.17087"
+        },
+        {
+          "warning_type": "doi",
+          "warning_details": "DOI mismatch:\n       cited:  10.18653/v1/2026.acl-long.2192\n       actual: 10.48550/arXiv.2601.17087",
+          "ref_doi_correct": "10.48550/arXiv.2601.17087"
+        }
+      ],
+      "ref_verified_url": "https://www.semanticscholar.org/paper/ef172476e18fbb0cfb3b25d3749969f9e56c4fc4",
+      "matched_database": "Semantic Scholar",
+      "ref_corrected_plaintext": "P. Seshadri, Samuel Cahyawijaya, Ayomide Odumakinde, Sameer Singh, Seraphina Goldfarb-Tarrant. (2026). \"Lost in Simulation: LLM-Simulated Users are Unreliable Proxies for Human Users in Agentic Evaluations\". In Volume 1. https://arxiv.org/abs/2601.17087.\n\n% Citation key for BibTeX: @inproceedings{seshadri2026lost, ...}",
+      "ref_corrected_bibtex": "@inproceedings{seshadri2026lost,\n  author = {P. Seshadri and Samuel Cahyawijaya and Ayomide Odumakinde and Sameer Singh and Seraphina Goldfarb-Tarrant},\n  title = {Lost in Simulation: LLM-Simulated Users are Unreliable Proxies for Human Users in Agentic Evaluations},\n  booktitle = {Proceedings of the 64th Annual Meeting of the Association for Computational\n               Linguistics (Volume 1: Long Papers)},\n  pages = {47423--47439},\n  year = {2026},\n  url = {https://arxiv.org/abs/2601.17087}\n}",
+      "ref_corrected_bibitem": "\\bibitem{unknown}\nP. Seshadri, Samuel Cahyawijaya, Ayomide Odumakinde, Sameer Singh, Seraphina Goldfarb-Tarrant. (2026). \\textit{Lost in Simulation: LLM-Simulated Users are Unreliable Proxies for Human Users in Agentic Evaluations}. In \\textit{Volume 1}. \\url{https://arxiv.org/abs/2601.17087}."
+    }
+  ]
+}
