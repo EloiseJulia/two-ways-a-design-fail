@@ -205,7 +205,7 @@ Our \emph{claimed} contribution is the audit, not a validated screen. We contrib
   \item \textbf{The capability--vulnerability mismatch and a synthetic-vulnerability-coverage principle for panel
   selection.} Because the strongest backend least reproduces the highest-severity failure (the at-risk
   trusting-novice persona), assembling an evaluation panel for \emph{synthetic-vulnerability coverage} is the
-  \emph{inverse} of capability routing~\cite{ong2025routellm,wang2025mixture}---a counterintuitive,
+  \emph{inverse} of capability routing~\cite{ong2025routellm}---a counterintuitive,
   actionable principle for who should power a synthetic-user study.
   \item \textbf{A reusable audit and reporting protocol}: a variance decomposition over backend, persona,
   item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
@@ -235,7 +235,7 @@ failure as proxies: they compress opinion diversity and over-represent majority
 views~\cite{santurkar2023whose}, mis-calibrate distributions~\cite{cao2025specializing,%
 dominguez2024questioning}, exhibit non-human response biases~\cite{tjuatja2024llms}, fail as
 survey-sample replacements~\cite{bisbee2024synthetic}, and caricature rather than simulate
-subpopulations~\cite{cheng2023compost,hamalainen2023evaluating}. Closest, and now published prior work,
+subpopulations~\cite{cheng2023compost}. Closest, and now published prior work,
 \citeauthor{seshadri2026lost}~\cite{seshadri2026lost} show LLM-simulated users are unreliable proxies in
 agentic evaluation---agent success varies by up to nine points across the user-simulating backend, with
 systematic miscalibration and demographic gaps. We differ in object and consequence: they quantify a
@@ -249,7 +249,8 @@ target: we do not ask the panel to \emph{predict} a human distribution, we ask i
 interface, and we isolate a specific, measurable pathology---\emph{model-dependence of the triage
 signal}---that the prediction framing obscures. Two recent efforts sharpen this contrast. Grounding agents
 in real interviews, \citeauthor{park2024generative}~\cite{park2024generative} report LLM agents that
-reproduce individuals' survey responses with $\approx$85\% accuracy---an \emph{accuracy/correspondence}
+reproduce individuals' survey responses at 82--86\% of participants' own two-week test--retest
+consistency---an \emph{accuracy/correspondence}
 result; we ask the logically prior \emph{reliability} question (is the risk reading even reproducible across
 backends?) that such a validation effort presupposes. \citeauthor{hu2024quantifying}~\cite{hu2024quantifying}
 decompose how much annotation variance a \emph{persona} explains and find larger instruction-tuned models
@@ -278,9 +279,8 @@ catalogued~\cite{luguri2021shining,mildner2023dark}; our axis-2 gives a computat
 coercive mode (a confidently wrong AI) and, via personas, a read on which prompted profiles the
 simulation marks as susceptible.
 
-\paragraph{Offline evaluation of human--AI teams.} Closest is offline estimation of team performance for
-decision support~\cite{rastogi2022deciding}; that work studies bias and complementarity, not
-interface-level safety triage. The gap we fill is a \emph{pre-study screen for interface reliance safety},
+\paragraph{Evaluating human--AI decision teams.} The closest HCI work studies cognitive bias and
+complementarity in AI-assisted decisions~\cite{rastogi2022deciding}, not interface-level safety triage. The gap we fill is a \emph{pre-study screen for interface reliance safety},
 and, critically, a characterization of when such a screen's signal is trustworthy.
 
 \paragraph{Measurement invariance, reliability, and validity.} Psychometrics learned this lesson long ago:
@@ -711,7 +711,7 @@ law. Either way the qualitative reading is unchanged and does not rest on the co
 
 This has a concrete consequence for assembling an evaluation panel. Treating a persona as \emph{covered}
 when its dark adoption reaches a risk threshold (0.5), a single frontier backend---the model a
-quality-optimal router~\cite{ong2025routellm,wang2025mixture} would select---surfaces the risk for only
+quality-optimal router~\cite{ong2025routellm} would select---surfaces the risk for only
 1 of 6 personas on beer and 0 of 6 on amzbook, whereas a pair of weaker backends (gpt-4.1, gpt-4o-mini)
 surfaces 4 and 5 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
 so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
@@ -747,7 +747,7 @@ f(S)=\bigl|\{\,c\in\mathcal{C}:\ \textstyle\max_{b\in S} a_b(c)\ge\tau\,\}\bigr|
 $f$ is monotone and submodular, so the \emph{coverage-greedy} panel---$S_{k+1}=S_k\cup\{\arg\max_{b}
 f(S_k\cup\{b\})\}$---carries the standard $(1-1/e)$ approximation guarantee against the best size-$k$ panel.
 Figure~\ref{fig:coverage} contrasts this greedy panel with a \emph{capability-first} panel that adds
-backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025routellm,wang2025mixture}
+backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025routellm}
 would prefer. The two are almost opposite: on the clean AI-induced-flip metric the greedy panel covers every
 high-risk cell with two backends, whereas the capability-first panel's first pick---the frontier model---
 covers a single cell and only reaches full coverage at $k=6$. Under the raw-adoption metric the contrast is
@@ -923,7 +923,7 @@ paper establishes (i) and characterizes (ii); (iii) is reserved for the human st
 assumptions that a synthetic-user platform following standard engineering defaults would plausibly
 adopt~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
 ``frontier-first.''} The instinct to power a screen with the strongest available model---the choice a
-quality-optimal router makes~\cite{ong2025routellm,wang2025mixture}---is close to the worst one for a risk
+quality-optimal router makes~\cite{ong2025routellm}---is close to the worst one for a risk
 audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
 a risk panel should be assembled for \emph{synthetic-vulnerability} coverage, which can require deliberately including
 weaker or more diverse backends. (The load-bearing claim is the assumption-light coverage result---a

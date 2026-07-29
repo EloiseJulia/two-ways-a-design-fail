@@ -1928,3 +1928,23 @@ owner call). Decisions:
   threshold-free foregrounding + capability-vulnerability mechanical decomposition + variance-share bootstrap
   -> #1/stats pass on A1 data; synthetic-vulnerability/"validated" language tighten -> next pass; human
   anchor -> E6 pilot.
+
+## D5.85 Citation-accuracy audit fixes (external ref-check report) (2026-07-29)
+- Owner shared an AI ref-verification report; I verified each flag against the paper + known sources.
+- P0 FIXED: (1) wang2025mixture (Mixture-of-Agents = layered aggregation, NOT routing) removed from all 4
+  "quality-optimal router / inverse of capability routing / strongest-first" spots (L208/714/750/926); kept
+  ong2025routellm as the routing reference; "capability-first" is already framed as our constructed baseline
+  (L750). wang2025mixture now uncited (drops from refs). (2) rastogi2022deciding was mislabeled "offline
+  estimation of team performance"; rewrote paragraph header to "Evaluating human-AI decision teams" and
+  cite it for what it is (cognitive bias + complementarity in AI-assisted decisions). (3) hamalainen2023
+  removed from the caricature-specific bundle (cheng2023compost is the direct source); hamalainen kept once
+  in the general intro "unreliable proxies" bundle (L110).
+- P1 FIXED: park2024generative "~85% accuracy" -> "82--86% of participants' own two-week test-retest
+  consistency" (their normalized metric, not raw accuracy).
+- JUDGED FINE (no change): "standard engineering defaults" already framed as our assumption ("would
+  plausibly adopt", intro); RouteLLM already described as our capability-first baseline (L750).
+- P2 (defensible synthesis, left as-is): bucinca/vasconcelos/luguri coercion motivation; santurkar/cheng
+  reliability-before-validity is our argument not theirs; mitchell2019model as model-card analogy. OPTIONAL
+  camera-ready: add a psychometrics measurement-invariance definitional cite (e.g., Vandenberg & Lance 2000)
+  -- deferred, needs bib verification.
+- Build clean: 25pp, 0 undefined ref/cite.
