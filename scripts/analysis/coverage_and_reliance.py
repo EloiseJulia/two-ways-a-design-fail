@@ -24,10 +24,10 @@ DARK = 'Wrong-AI-GT (dark)'
 CONF = 'Conf.'
 # capability order (strongest -> weakest) by System-1 accuracy from D5.40 (results/capability_vulnerability.json)
 ALL_MODELS = ['gpt-4o-mini', 'gpt-4.1', 'gpt-4o', 'gpt-5.5', 'claude-sonnet-4.5', 'gemini-2.5-pro']
-FILES = {('beer', 'capladder'): 'results/axis2_powered_capladder.json',
-         ('beer', 'crossvendor'): 'results/axis2_powered_crossvendor.json',
-         ('amzbook', 'capladder'): 'results/axis2_powered_capladder_amzbook.json',
-         ('amzbook', 'crossvendor'): 'results/axis2_powered_crossvendor_amzbook.json'}
+FILES = {('beer', 'capladder'): 'results/axis2_powered_capladder_n50.json',
+         ('beer', 'crossvendor'): 'results/axis2_powered_crossvendor_n50.json',
+         ('amzbook', 'capladder'): 'results/axis2_powered_capladder_amzbook_n50.json',
+         ('amzbook', 'crossvendor'): 'results/axis2_powered_crossvendor_amzbook_n50.json'}
 
 
 def load(conditions):

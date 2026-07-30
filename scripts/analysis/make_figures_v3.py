@@ -209,8 +209,14 @@ def fig5(df):
     axes[1].legend(handles=[Line2D([0], [0], marker='o', color=FLAG, lw=0, label='would flag ($\\geq\\tau$)'),
                             Line2D([0], [0], marker='o', color=BELOW, lw=0, label='clears ($<\\tau$)')],
                    loc='lower right')
+    # pairwise flip = fraction of the 15 backend pairs that disagree = nflag*nclear/15
+    def _flip(dom):
+        rs = [cr[(dom, m)][2] for m in ALL_MODELS]
+        nf = sum(1 for r in rs if r >= thr)
+        return nf * (6 - nf) / 15.0
     fig.suptitle('The same interface, six backends: the screening decision flips with the backend '
-                 '(pairwise flip 0.60 / 0.33; Wilson 95% CIs; common row order)', y=1.01)
+                 '(pairwise flip %.2f / %.2f; Wilson 95%% CIs; common row order)'
+                 % (_flip('beer'), _flip('amzbook')), y=1.01)
     save(fig, 'fig5_decision_flip')
 
 

@@ -6,206 +6,206 @@
       {
         "domain": "amzbook",
         "model": "claude-sonnet-4.5",
-        "p5_rate": 0.9,
-        "others_mean": 0.35,
-        "gap": 0.55,
+        "p5_rate": 0.92,
+        "others_mean": 0.352,
+        "gap": 0.5680000000000001,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 5.126800472348307e-06,
-        "fisher_bh": 7.69020070852246e-06
+        "fisher_p_greater": 2.0046919957188455e-14,
+        "fisher_bh": 3.007037993578268e-14
       },
       {
         "domain": "amzbook",
         "model": "gemini-2.5-pro",
-        "p5_rate": 0.95,
-        "others_mean": 0.4,
-        "gap": 0.5499999999999999,
+        "p5_rate": 0.98,
+        "others_mean": 0.38,
+        "gap": 0.6,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 2.9878506384436967e-06,
-        "fisher_bh": 5.12202966590348e-06
+        "fisher_p_greater": 4.4807637297340445e-17,
+        "fisher_bh": 8.961527459468089e-17
       },
       {
         "domain": "amzbook",
         "model": "gpt-4.1",
         "p5_rate": 1.0,
-        "others_mean": 0.59,
-        "gap": 0.41000000000000003,
+        "others_mean": 0.544,
+        "gap": 0.45599999999999996,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 8.999615271630191e-05,
-        "fisher_bh": 0.0001079953832595623
+        "fisher_p_greater": 2.2135575900710146e-12,
+        "fisher_bh": 2.6562691080852174e-12
       },
       {
         "domain": "amzbook",
         "model": "gpt-4o",
         "p5_rate": 1.0,
-        "others_mean": 0.37,
-        "gap": 0.63,
+        "others_mean": 0.264,
+        "gap": 0.736,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 4.107868457296445e-08,
-        "fisher_bh": 1.6431473829185778e-07
+        "fisher_p_greater": 6.584259406936198e-25,
+        "fisher_bh": 7.901111288323438e-24
       },
       {
         "domain": "amzbook",
         "model": "gpt-4o-mini",
         "p5_rate": 1.0,
-        "others_mean": 0.37,
-        "gap": 0.63,
+        "others_mean": 0.296,
+        "gap": 0.704,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 4.107868457296445e-08,
-        "fisher_bh": 1.6431473829185778e-07
+        "fisher_p_greater": 4.809486785610245e-23,
+        "fisher_bh": 2.8856920713661467e-22
       },
       {
         "domain": "amzbook",
         "model": "gpt-5.5",
-        "p5_rate": 0.4,
-        "others_mean": 0.1,
-        "gap": 0.30000000000000004,
+        "p5_rate": 0.3,
+        "others_mean": 0.088,
+        "gap": 0.212,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 0.0023347743175178106,
-        "fisher_bh": 0.0023347743175178106
+        "fisher_p_greater": 0.0001709374175376398,
+        "fisher_bh": 0.0001709374175376398
       },
       {
         "domain": "beer",
         "model": "claude-sonnet-4.5",
-        "p5_rate": 0.95,
-        "others_mean": 0.4,
-        "gap": 0.5499999999999999,
+        "p5_rate": 0.92,
+        "others_mean": 0.388,
+        "gap": 0.532,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 2.9878506384436967e-06,
-        "fisher_bh": 5.12202966590348e-06
+        "fisher_p_greater": 6.016158248271308e-13,
+        "fisher_bh": 8.021544331028411e-13
       },
       {
         "domain": "beer",
         "model": "gemini-2.5-pro",
         "p5_rate": 1.0,
-        "others_mean": 0.43000000000000005,
-        "gap": 0.57,
+        "others_mean": 0.364,
+        "gap": 0.636,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 4.578255860381678e-07,
-        "fisher_bh": 1.0987814064916027e-06
+        "fisher_p_greater": 1.4829799204092283e-19,
+        "fisher_bh": 3.559151808982148e-19
       },
       {
         "domain": "beer",
         "model": "gpt-4.1",
         "p5_rate": 1.0,
-        "others_mean": 0.52,
-        "gap": 0.48,
+        "others_mean": 0.4600000000000001,
+        "gap": 0.5399999999999999,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 1.059149574605989e-05,
-        "fisher_bh": 1.412199432807985e-05
+        "fisher_p_greater": 1.958646668145079e-15,
+        "fisher_bh": 3.357680002534421e-15
       },
       {
         "domain": "beer",
         "model": "gpt-4o",
         "p5_rate": 1.0,
-        "others_mean": 0.31999999999999995,
-        "gap": 0.68,
+        "others_mean": 0.3,
+        "gap": 0.7,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 4.276480072226852e-09,
-        "fisher_bh": 5.131776086672223e-08
+        "fisher_p_greater": 8.015811309350403e-23,
+        "fisher_bh": 3.206324523740161e-22
       },
       {
         "domain": "beer",
         "model": "gpt-4o-mini",
         "p5_rate": 1.0,
-        "others_mean": 0.4,
-        "gap": 0.6,
+        "others_mean": 0.30799999999999994,
+        "gap": 0.6920000000000001,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 1.422786018306522e-07,
-        "fisher_bh": 4.2683580549195664e-07
+        "fisher_p_greater": 2.1918833317195005e-22,
+        "fisher_bh": 6.575649995158502e-22
       },
       {
         "domain": "beer",
         "model": "gpt-5.5",
-        "p5_rate": 0.6,
-        "others_mean": 0.24000000000000005,
-        "gap": 0.35999999999999993,
+        "p5_rate": 0.54,
+        "others_mean": 0.13199999999999998,
+        "gap": 0.40800000000000003,
         "p5_is_strict_top": true,
         "p5_in_top": true,
-        "fisher_p_greater": 0.0022660694141790555,
-        "fisher_bh": 0.0023347743175178106
+        "fisher_p_greater": 2.3315858452221334e-09,
+        "fisher_bh": 2.5435481947877817e-09
       }
     ],
     "strict_top_count": "12/12",
     "in_top_count": "12/12",
     "signtest_strict_vs_1_6": 4.593936579977831e-10,
     "signtest_intop_vs_1_6": 4.593936579977831e-10,
-    "gap_mean": 0.5258333333333333,
-    "gap_min": 0.30000000000000004,
+    "gap_mean": 0.5653333333333335,
+    "gap_min": 0.212,
     "wilcoxon_gap_gt0_p": 0.000244140625,
     "gee_is_p5": {
-      "odds_ratio": 15.053452115812918,
+      "odds_ratio": 16.673952220322864,
       "or_ci": [
-        5.8373402557812435,
-        38.82014936145682
+        6.0433619354640395,
+        46.00430780326282
       ],
-      "p": 2.0217889553750622e-08
+      "p": 5.5061137285056153e-08
     }
   },
   "analysis2_ordering": {
     "aggregate_rate": {
-      "amzbook|claude-sonnet-4.5": 0.44166666666666665,
-      "amzbook|gemini-2.5-pro": 0.49166666666666664,
-      "amzbook|gpt-4.1": 0.6583333333333333,
-      "amzbook|gpt-4o": 0.475,
-      "amzbook|gpt-4o-mini": 0.475,
-      "amzbook|gpt-5.5": 0.15,
-      "beer|claude-sonnet-4.5": 0.49166666666666664,
-      "beer|gemini-2.5-pro": 0.525,
-      "beer|gpt-4.1": 0.6,
-      "beer|gpt-4o": 0.43333333333333335,
-      "beer|gpt-4o-mini": 0.5,
-      "beer|gpt-5.5": 0.3
+      "amzbook|claude-sonnet-4.5": 0.44666666666666666,
+      "amzbook|gemini-2.5-pro": 0.48,
+      "amzbook|gpt-4.1": 0.62,
+      "amzbook|gpt-4o": 0.38666666666666666,
+      "amzbook|gpt-4o-mini": 0.41333333333333333,
+      "amzbook|gpt-5.5": 0.12333333333333334,
+      "beer|claude-sonnet-4.5": 0.4766666666666667,
+      "beer|gemini-2.5-pro": 0.47,
+      "beer|gpt-4.1": 0.55,
+      "beer|gpt-4o": 0.4166666666666667,
+      "beer|gpt-4o-mini": 0.42333333333333334,
+      "beer|gpt-5.5": 0.2
     },
     "aggregate_rate_spread_beer": {
-      "min": 0.3,
-      "max": 0.6,
-      "range": 0.3,
-      "sd": 0.09254628471643157
+      "min": 0.2,
+      "max": 0.55,
+      "range": 0.35000000000000003,
+      "sd": 0.10877119489785048
     },
     "aggregate_rate_spread_amzbook": {
-      "min": 0.15,
-      "max": 0.6583333333333333,
-      "range": 0.5083333333333333,
-      "sd": 0.15080161319830063
+      "min": 0.12333333333333334,
+      "max": 0.62,
+      "range": 0.49666666666666665,
+      "sd": 0.14891894389852436
     },
     "ordering_spearman_within_beer": {
-      "mean": 0.8133944648361028,
-      "min": 0.5217939320872036,
+      "mean": 0.842417080259478,
+      "min": 0.6571428571428573,
       "n_pairs": 15
     },
     "ordering_spearman_within_amzbook": {
-      "mean": 0.5809566773047593,
-      "min": 0.1323529411764706,
+      "mean": 0.7942852956607367,
+      "min": 0.44136741475237473,
       "n_pairs": 15
     },
     "ordering_spearman_indepvendor_beer": {
-      "mean": 0.8715912379481008,
-      "min": 0.823529411764706,
+      "mean": 0.8462986612487171,
+      "min": 0.8116794499134278,
       "n_pairs": 3
     },
     "ordering_spearman_indepvendor_amzbook": {
-      "mean": 0.4990343857615654,
-      "min": 0.21251185925162072,
+      "mean": 0.656514861832547,
+      "min": 0.44136741475237473,
       "n_pairs": 3
     },
     "ordering_spearman_crossdomain_by_model": {
-      "claude-sonnet-4.5": 0.8676470588235294,
-      "gemini-2.5-pro": 0.9856107606091624,
-      "gpt-4.1": 0.8986451052612952,
-      "gpt-4o": 0.9276336570439174,
-      "gpt-4o-mini": 0.7941176470588236,
-      "gpt-5.5": 0.2813874297663251
+      "claude-sonnet-4.5": 0.942857142857143,
+      "gemini-2.5-pro": 0.9856107606091623,
+      "gpt-4.1": 0.9856107606091623,
+      "gpt-4o": 0.9558823529411764,
+      "gpt-4o-mini": 1.0,
+      "gpt-5.5": 0.7164977208318385
     }
   },
   "analysis3_hygiene": {
@@ -213,145 +213,145 @@
       {
         "domain": "amzbook",
         "model": "claude-sonnet-4.5",
-        "k": 53,
-        "n": 120,
-        "rate": 0.44166666666666665,
-        "wilson_lo": 0.3559959731595542,
-        "wilson_hi": 0.530956391796971,
-        "binom_p_two": 0.2352033679725253,
-        "binom_bh": 0.4704067359450506,
+        "k": 134,
+        "n": 300,
+        "rate": 0.44666666666666666,
+        "wilson_lo": 0.39143616500447354,
+        "wilson_hi": 0.5032458008619516,
+        "binom_p_two": 0.07331195259884651,
+        "binom_bh": 0.10996792889826977,
         "sig_after_bh": false
       },
       {
         "domain": "amzbook",
         "model": "gemini-2.5-pro",
-        "k": 59,
-        "n": 120,
-        "rate": 0.49166666666666664,
-        "wilson_lo": 0.4038741586989492,
-        "wilson_hi": 0.5799761791519831,
-        "binom_p_two": 0.927315021089884,
-        "binom_bh": 1.0,
+        "k": 144,
+        "n": 300,
+        "rate": 0.48,
+        "wilson_lo": 0.4240757908015887,
+        "wilson_hi": 0.5364299463983206,
+        "binom_p_two": 0.5254419954235546,
+        "binom_bh": 0.5254419954235546,
         "sig_after_bh": false
       },
       {
         "domain": "amzbook",
         "model": "gpt-4.1",
-        "k": 79,
-        "n": 120,
-        "rate": 0.6583333333333333,
-        "wilson_lo": 0.5697466444292892,
-        "wilson_hi": 0.7370969364029997,
-        "binom_p_two": 0.0006667238970035186,
-        "binom_bh": 0.0026668955880140744,
+        "k": 186,
+        "n": 300,
+        "rate": 0.62,
+        "wilson_lo": 0.5638833924466087,
+        "wilson_hi": 0.6730821843539347,
+        "binom_p_two": 3.829114668706292e-05,
+        "binom_bh": 0.00015316458674825167,
         "sig_after_bh": true
       },
       {
         "domain": "amzbook",
         "model": "gpt-4o",
-        "k": 57,
-        "n": 120,
-        "rate": 0.475,
-        "wilson_lo": 0.3878193727928457,
-        "wilson_hi": 0.5637316407599509,
-        "binom_p_two": 0.6482600518210055,
-        "binom_bh": 0.8643467357613407,
-        "sig_after_bh": false
+        "k": 116,
+        "n": 300,
+        "rate": 0.38666666666666666,
+        "wilson_lo": 0.3333226507857144,
+        "wilson_hi": 0.44287652668043903,
+        "binom_p_two": 0.0001029519411495358,
+        "binom_bh": 0.0003088558234486074,
+        "sig_after_bh": true
       },
       {
         "domain": "amzbook",
         "model": "gpt-4o-mini",
-        "k": 57,
-        "n": 120,
-        "rate": 0.475,
-        "wilson_lo": 0.3878193727928457,
-        "wilson_hi": 0.5637316407599509,
-        "binom_p_two": 0.6482600518210055,
-        "binom_bh": 0.8643467357613407,
-        "sig_after_bh": false
+        "k": 124,
+        "n": 300,
+        "rate": 0.41333333333333333,
+        "wilson_lo": 0.35904776475728883,
+        "wilson_hi": 0.469810429775652,
+        "binom_p_two": 0.003169267201500753,
+        "binom_bh": 0.007606241283601807,
+        "sig_after_bh": true
       },
       {
         "domain": "amzbook",
         "model": "gpt-5.5",
-        "k": 18,
-        "n": 120,
-        "rate": 0.15,
-        "wilson_lo": 0.09703734033668816,
-        "wilson_hi": 0.22467684940246252,
-        "binom_p_two": 1.9758911914423336e-15,
-        "binom_bh": 2.3710694297308e-14,
+        "k": 37,
+        "n": 300,
+        "rate": 0.12333333333333334,
+        "wilson_lo": 0.09081679971281557,
+        "wilson_hi": 0.1653745842188119,
+        "binom_p_two": 3.683048075448821e-43,
+        "binom_bh": 4.4196576905385854e-42,
         "sig_after_bh": true
       },
       {
         "domain": "beer",
         "model": "claude-sonnet-4.5",
-        "k": 59,
-        "n": 120,
-        "rate": 0.49166666666666664,
-        "wilson_lo": 0.4038741586989492,
-        "wilson_hi": 0.5799761791519831,
-        "binom_p_two": 0.927315021089884,
-        "binom_bh": 1.0,
+        "k": 143,
+        "n": 300,
+        "rate": 0.4766666666666667,
+        "wilson_lo": 0.4208006536261767,
+        "wilson_hi": 0.5331227064403843,
+        "binom_p_two": 0.4529757149424959,
+        "binom_bh": 0.4941553253918137,
         "sig_after_bh": false
       },
       {
         "domain": "beer",
         "model": "gemini-2.5-pro",
-        "k": 63,
-        "n": 120,
-        "rate": 0.525,
-        "wilson_lo": 0.43626835924004914,
-        "wilson_hi": 0.6121806272071544,
-        "binom_p_two": 0.6482600518210055,
-        "binom_bh": 0.8643467357613407,
+        "k": 141,
+        "n": 300,
+        "rate": 0.47,
+        "wilson_lo": 0.414257807168565,
+        "wilson_hi": 0.5265007986312991,
+        "binom_p_two": 0.326353991925047,
+        "binom_bh": 0.39162479031005637,
         "sig_after_bh": false
       },
       {
         "domain": "beer",
         "model": "gpt-4.1",
-        "k": 72,
-        "n": 120,
-        "rate": 0.6,
-        "wilson_lo": 0.5105585981828253,
-        "wilson_hi": 0.6832373476059888,
-        "binom_p_two": 0.035323682537769574,
-        "binom_bh": 0.10597104761330872,
+        "k": 165,
+        "n": 300,
+        "rate": 0.55,
+        "wilson_lo": 0.4934245664818429,
+        "wilson_hi": 0.6053110905183835,
+        "binom_p_two": 0.09390370091881961,
+        "binom_bh": 0.12520493455842616,
         "sig_after_bh": false
       },
       {
         "domain": "beer",
         "model": "gpt-4o",
-        "k": 52,
-        "n": 120,
-        "rate": 0.43333333333333335,
-        "wilson_lo": 0.34810028273121946,
-        "wilson_hi": 0.5227024200762379,
-        "binom_p_two": 0.17064521313035158,
-        "binom_bh": 0.4095485115128438,
-        "sig_after_bh": false
+        "k": 125,
+        "n": 300,
+        "rate": 0.4166666666666667,
+        "wilson_lo": 0.36227512359534986,
+        "wilson_hi": 0.4731654480709394,
+        "binom_p_two": 0.0045887120735467885,
+        "binom_bh": 0.009177424147093577,
+        "sig_after_bh": true
       },
       {
         "domain": "beer",
         "model": "gpt-4o-mini",
-        "k": 60,
-        "n": 120,
-        "rate": 0.5,
-        "wilson_lo": 0.411937137430229,
-        "wilson_hi": 0.588062862569771,
-        "binom_p_two": 1.0,
-        "binom_bh": 1.0,
-        "sig_after_bh": false
+        "k": 127,
+        "n": 300,
+        "rate": 0.42333333333333334,
+        "wilson_lo": 0.3687375495634228,
+        "wilson_hi": 0.4798677763695633,
+        "binom_p_two": 0.009261206676410538,
+        "binom_bh": 0.015876354302418065,
+        "sig_after_bh": true
       },
       {
         "domain": "beer",
         "model": "gpt-5.5",
-        "k": 36,
-        "n": 120,
-        "rate": 0.3,
-        "wilson_lo": 0.22525501338672319,
-        "wilson_hi": 0.38715309503564865,
-        "binom_p_two": 1.3897012121027625e-05,
-        "binom_bh": 8.338207272616576e-05,
+        "k": 60,
+        "n": 300,
+        "rate": 0.2,
+        "wilson_lo": 0.15865617190196185,
+        "wilson_hi": 0.24892988609667954,
+        "binom_p_two": 1.1793997127161517e-26,
+        "binom_bh": 7.07639827629691e-26,
         "sig_after_bh": true
       }
     ],
@@ -360,81 +360,81 @@
         "domain": "beer",
         "m1": "gpt-4.1",
         "m2": "gpt-4o",
-        "rate1": 0.6,
-        "rate2": 0.43333333333333335,
-        "fisher_p_two": 0.013949222351959133
+        "rate1": 0.55,
+        "rate2": 0.4166666666666667,
+        "fisher_p_two": 0.0014217668060782327
       },
       {
         "domain": "beer",
         "m1": "gpt-4.1",
         "m2": "gpt-4o-mini",
-        "rate1": 0.6,
-        "rate2": 0.5,
-        "fisher_p_two": 0.15335834882666444
+        "rate1": 0.55,
+        "rate2": 0.42333333333333334,
+        "fisher_p_two": 0.0024818132756735233
       },
       {
         "domain": "beer",
         "m1": "gpt-5.5",
         "m2": "gpt-4.1",
-        "rate1": 0.3,
-        "rate2": 0.6,
-        "fisher_p_two": 4.772890581818171e-06
+        "rate1": 0.2,
+        "rate2": 0.55,
+        "fisher_p_two": 5.7762241757306e-19
       },
       {
         "domain": "beer",
         "m1": "claude-sonnet-4.5",
         "m2": "gpt-5.5",
-        "rate1": 0.49166666666666664,
-        "rate2": 0.3,
-        "fisher_p_two": 0.0035810927814400105
+        "rate1": 0.4766666666666667,
+        "rate2": 0.2,
+        "fisher_p_two": 8.661455799096816e-13
       },
       {
         "domain": "beer",
         "m1": "gemini-2.5-pro",
         "m2": "gpt-5.5",
-        "rate1": 0.525,
-        "rate2": 0.3,
-        "fisher_p_two": 0.0006178793327892065
+        "rate1": 0.47,
+        "rate2": 0.2,
+        "fisher_p_two": 2.737889215723904e-12
       },
       {
         "domain": "amzbook",
         "m1": "gpt-4.1",
         "m2": "gpt-4o",
-        "rate1": 0.6583333333333333,
-        "rate2": 0.475,
-        "fisher_p_two": 0.006103386394357104
+        "rate1": 0.62,
+        "rate2": 0.38666666666666666,
+        "fisher_p_two": 1.5272387493923547e-08
       },
       {
         "domain": "amzbook",
         "m1": "gpt-4.1",
         "m2": "gpt-4o-mini",
-        "rate1": 0.6583333333333333,
-        "rate2": 0.475,
-        "fisher_p_two": 0.006103386394357104
+        "rate1": 0.62,
+        "rate2": 0.41333333333333333,
+        "fisher_p_two": 5.726588369418834e-07
       },
       {
         "domain": "amzbook",
         "m1": "gpt-5.5",
         "m2": "gpt-4.1",
-        "rate1": 0.15,
-        "rate2": 0.6583333333333333,
-        "fisher_p_two": 4.859126826899688e-16
+        "rate1": 0.12333333333333334,
+        "rate2": 0.62,
+        "fisher_p_two": 3.7909159845959555e-38
       },
       {
         "domain": "amzbook",
         "m1": "claude-sonnet-4.5",
         "m2": "gpt-5.5",
-        "rate1": 0.44166666666666665,
-        "rate2": 0.15,
-        "fisher_p_two": 1.0556462537831737e-06
+        "rate1": 0.44666666666666666,
+        "rate2": 0.12333333333333334,
+        "fisher_p_two": 6.9494593765142775e-19
       },
       {
         "domain": "amzbook",
         "m1": "gemini-2.5-pro",
         "m2": "gpt-5.5",
-        "rate1": 0.49166666666666664,
-        "rate2": 0.15,
-        "fisher_p_two": 1.7893491907224172e-08
+        "rate1": 0.48,
+        "rate2": 0.12333333333333334,
+        "fisher_p_two": 4.522888103547541e-22
       }
     ]
   }

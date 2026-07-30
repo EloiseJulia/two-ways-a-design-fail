@@ -25,10 +25,10 @@ PERSONAS = ['p1-novice-skeptical', 'p2-expert-trusting', 'p3-moderate-balanced',
 TARGET = 'p5-novice-trusting'
 
 FILES = {
-    ('beer', 'capladder'): 'results/axis2_powered_capladder.json',
-    ('beer', 'crossvendor'): 'results/axis2_powered_crossvendor.json',
-    ('amzbook', 'capladder'): 'results/axis2_powered_capladder_amzbook.json',
-    ('amzbook', 'crossvendor'): 'results/axis2_powered_crossvendor_amzbook.json',
+    ('beer', 'capladder'): 'results/axis2_powered_capladder_n50.json',
+    ('beer', 'crossvendor'): 'results/axis2_powered_crossvendor_n50.json',
+    ('amzbook', 'capladder'): 'results/axis2_powered_capladder_amzbook_n50.json',
+    ('amzbook', 'crossvendor'): 'results/axis2_powered_crossvendor_amzbook_n50.json',
 }
 
 

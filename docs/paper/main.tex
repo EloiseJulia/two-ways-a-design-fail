@@ -45,7 +45,7 @@ users and flag the risk in minutes. Most debate about such panels asks whether t
 ask a question that comes first and is rarely tested: does the panel's risk \emph{reading} even survive a
 change of instrument---the backend model a researcher picks freely when building it? Auditing six backend
 LLMs across two review-sentiment datasets, we find it does not. Wrong-advice adoption for the \emph{same}
-interface swings from 0.15 to 0.66 across backends, enough to \emph{flip} the interface's risk
+interface swings from 0.12 to 0.62 across backends, enough to \emph{flip} the interface's risk
 classification across the plausible threshold range. A matched contrast confirms a real coercive-framing
 effect whose backend-dependence we \emph{cannot detect}---the backend clearly shifts the adoption
 \emph{level}, while any effect on the framing \emph{slope} is below what our data resolve. Most
@@ -173,27 +173,28 @@ review-sentiment datasets} (Figure~\ref{fig:overview}), and ask:
   \emph{synthetic panel} of six personas $\times$ six backend LLMs; each cell yields a wrong-advice adoption
   rate that a screen turns into a flag/clear verdict. The audit question: does that verdict survive swapping
   the backend? \textbf{(b)}~It does not. For the \emph{same} interface, per-backend adoption spans
-  0.30--0.60 (beer) and 0.15--0.66 (amzbook), straddling the decision threshold $\tau{=}0.5$: 3 of 6
-  backends would flag the beer interface and only 1 of 6 the amzbook one (pairwise flip rate 0.60 / 0.33).
+  0.20--0.55 (beer) and 0.12--0.62 (amzbook), straddling the decision threshold $\tau{=}0.5$: only 1 of 6
+  backends would flag each interface (pairwise flip rate 0.33), while the wide range makes the verdict
+  threshold-dependent.
   \textbf{(c)}~\emph{Don't crash-test with your safest driver.} The strongest backend (gpt-5.5) is the
-  \emph{least} sensitive to the at-risk trusting-novice persona (p5 adoption 0.50 vs.\ ${\approx}1.0$ for
-  five weaker backends), so a single frontier backend surfaces the fewest at-risk profiles (1/6 beer, 0/6
-  amzbook); a weak pair recovers 4/6 and 5/6---matching the full six-backend panel. \textbf{(d)}~The
+  \emph{least} sensitive to the at-risk trusting-novice persona (p5 adoption 0.54 beer / 0.30 amzbook vs.\
+  ${\approx}1.0$ for five weaker backends), so a single frontier backend surfaces the fewest at-risk
+  profiles (1/6 beer, 0/6 amzbook); a weak pair recovers 4/6 and 3/6---matching the full six-backend panel. \textbf{(d)}~The
   resulting protocol: report the whole backend distribution rather than one number, and \emph{abstain}
   (route to a human study) when backends disagree.}
   \label{fig:overview}
 \end{figure*}
 
 Our answer separates \emph{what is stable from what is not}. \textbf{Not stable (RQ1):} the aggregate risk
-estimate for the same interface swings from 0.15 to 0.66 across backends (Figure~\ref{fig:flip}), enough
-to flip the interface's risk classification for a majority of backend pairs across most of the plausible
-threshold range (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
+estimate for the same interface swings from 0.12 to 0.62 across backends (Figure~\ref{fig:flip})---a
+range wide enough that, depending on where the operating threshold sits, some backends flag the interface
+while others clear it (Section~\ref{sec:instability}); a matched contrast that holds the wrong advice constant and
 varies only the framing confirms a real coercive-framing effect (pooled item-clustered odds ratio 1.90 on
 one dataset, a weaker 1.17 on the other; a non-coercive placebo at or below baseline; Section~\ref{sec:coercion}),
 of a magnitude we cannot distinguish across backends---the backend moves the adoption \emph{level}, while
 any effect on the framing slope is below what our data resolve. \textbf{Stable, but for an unglamorous reason (RQ3):} the panel faithfully
 propagates a \emph{prompted} disposition---an explicitly trusting-novice persona is the highest-adopting
-persona in all 12 backend$\times$dataset cells (crossed-mixed-model odds ratio $\approx$26;
+persona in all 12 backend$\times$dataset cells (item-clustered odds ratio $\approx$17;
 Figure~\ref{fig:heatmap})---which is a reliability property of the simulation, not a discovered
 vulnerability, since the persona is defined to be trusting; and its cross-vendor \emph{ordering} agreement
 is largely carried by this one persona (Section~\ref{sec:variance}). \textbf{Sources (RQ2):} per-trial, the
@@ -447,13 +448,13 @@ tests (a task-structure replication and a protective-design comparison).
 
 \textbf{[Primary (RQ1).]} Start with the first number a practitioner reads off: how often the panel adopts a wrong AI. Swap the model
 behind the panel and both the \emph{level} and the \emph{interpretation} of that number change
-(Figure~\ref{fig:flip}). Across the ladder (beer / amzbook): gpt-4o-mini 0.50 / 0.48, gpt-4.1
-0.60 / \textbf{0.66}, gpt-4o 0.43 / 0.48, gpt-5.5 \textbf{0.30 / 0.15}. The adoption peak at gpt-4.1 is
-real (between-model Fisher vs.\ gpt-4o $p=0.014/0.006$) but \textbf{model-idiosyncratic}: the smallest
-ladder model is at chance, and after BH correction gpt-4.1's elevated adoption survives on amzbook
-($p=0.003$) but is only nominal on beer (uncorrected $p=0.035$; BH $p=0.11$). Independent-vendor frontier
-models are at chance (claude 0.49, gemini 0.53 on beer; none of the three frontier models is significantly
-above 0.5). Rather than interpret
+(Figure~\ref{fig:flip}). Across the ladder (beer / amzbook): gpt-4o-mini 0.42 / 0.41, gpt-4.1
+\textbf{0.55 / 0.62}, gpt-4o 0.42 / 0.39, gpt-5.5 \textbf{0.20 / 0.12}. The adoption peak at gpt-4.1 is
+real (between-model Fisher vs.\ gpt-4o $p=0.001$ beer, $p<10^{-4}$ amzbook) but \textbf{model-idiosyncratic}:
+the smallest ladder model sits below 0.5, and after BH correction gpt-4.1's elevation above chance survives
+on amzbook ($p<0.001$) but is only nominal on beer (BH $p=0.13$). Independent-vendor models are at or below
+chance (claude 0.48, gemini 0.47 on beer); indeed no backend clears 0.5 significantly on beer, and only
+gpt-4.1 does on amzbook. Rather than interpret
 adoption against a $0.5$ ``chance'' baseline---which is not a natural no-effect point, since personas are
 not random guessers---we ground the effect in a matched framing contrast below.
 
@@ -504,10 +505,11 @@ than against chance.
   \caption{The \emph{same} guaranteed-wrong interface, scored by six backends, both datasets. Dots are
   aggregate wrong-advice adoption with Wilson 95\% binomial CIs; the dashed line is a fixed decision
   threshold ($\tau=0.5$). Backends at or above threshold would \emph{flag} the interface (red); the rest
-  \emph{clear} it (blue)---so the screening decision flips with the backend (pairwise flip rate 0.60 beer /
-  0.33 amzbook). Several mid-adoption backends have CIs that straddle $\tau$: the flip rate measures
+  \emph{clear} it (blue)---so the screening decision flips with the backend (pairwise flip rate 0.33 on both
+  datasets). Several mid-adoption backends---including the one flagging backend---have CIs that straddle
+  $\tau$: the flip rate measures
   decision instability \emph{across} backends, not a claim that each individual crossing is significant---
-  the threshold-free companions (adoption range 0.15--0.66, Fleiss'~$\kappa$) carry the same reading
+  the threshold-free companions (adoption range 0.12--0.62, Fleiss'~$\kappa$) carry the same reading
   without fixing $\tau$.}
   \label{fig:flip}
 \end{figure*}
@@ -515,22 +517,22 @@ than against chance.
 \textbf{[Primary (RQ1).]} If the aggregate reading is this model-specific, does the \emph{decision} a screen would make move with it?
 We treat the dark interface as one \emph{design} and ask whether the six backends agree on its risk
 (Figure~\ref{fig:flip}). They do not. Aggregate wrong-advice adoption for the identical
-interface is 0.30--0.60
-across the six beer backends and 0.15--0.66 across the amzbook backends. Turning the estimate into the
-binary decision a screen would make---``flag for a human study if adoption $\ge \tau$''---the flag is
-unstable not just at one threshold but across the entire plausible operating range: as $\tau$ sweeps
-$0.35$--$0.60$ (beer) and $0.30$--$0.65$ (amzbook)---up to each dataset's maximum backend adoption---some
-backends flag while others do not, so there
-is no threshold in that range at which the six backends agree. At $\tau=0.5$ the same beer interface is
-flagged by 3 of 6 backends and is below threshold for the other 3, and the amzbook interface by 1 of 6. The
-\textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---peaks at
-\textbf{0.60} on beer (the maximum attainable for six backends, a 3--3 split) and 0.33 on amzbook. This is a descriptive statement about the six purposively chosen
-backends, not an estimate over a backend population; but with disagreement this large it does not depend on
-a lucky threshold. We therefore read the flip rate as \emph{decision instability conditional on whatever
-operating threshold a team adopts}---not as a calibrated safety classifier, since $\tau$ itself is not
-validated against human harm; the threshold-free companions (the raw adoption range 0.15--0.66 and the
-persona-flag Fleiss'~$\kappa$ below) tell the same story without fixing $\tau$. Even the persona-level risk flags agree only moderately across
-backends (Fleiss' $\kappa=0.64$ beer, $0.24$ amzbook). In measurement terms, the instrument is not
+interface is 0.20--0.55
+across the six beer backends and 0.12--0.62 across the amzbook backends---a spread of 0.35 and 0.50 on a
+0--1 scale. This range is the threshold-free heart of the non-invariance: whatever operating threshold
+$\tau$ a team picks in the plausible band ($0.35$--$0.55$ beer, $0.30$--$0.62$ amzbook), some backends land
+above it and others below, so no threshold in that band makes the six backends agree. Turning the estimate
+into the binary decision a screen would make---``flag for a human study if adoption $\ge \tau$''---therefore
+inherits that instability. At $\tau=0.5$ one backend (gpt-4.1) flags each interface and the other five clear
+it: a \textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---of
+0.33 on both datasets. But this point count is itself fragile: gpt-4.1's Wilson interval reaches below 0.5
+and several clearing backends' intervals reach above it (Figure~\ref{fig:flip}), which is exactly why we
+rest the non-invariance claim on the \emph{range} rather than on a lucky threshold. We therefore read any
+single-$\tau$ flip rate as \emph{decision instability conditional on whatever operating threshold a team
+adopts}---not as a calibrated safety classifier, since $\tau$ itself is not validated against human harm.
+Two threshold-free companions tell the same story without fixing $\tau$: the raw adoption range 0.12--0.62
+above, and the persona-level risk flags, which agree only moderately across
+backends (Fleiss' $\kappa=0.55$ beer, $0.45$ amzbook). In measurement terms, the instrument is not
 invariant: swapping the backend can move an interface from ``high risk'' to ``low risk'' without touching
 the design. A behavior audit rules out one benign explanation---that low-adopting backends simply
 \emph{refuse} the deceptive task: explicit challenge/refusal language is rare (0\% of dark responses for
@@ -590,13 +592,14 @@ model-free evidence.)
 \end{figure*}
 
 \textbf{[Mechanism (RQ3): manipulation check.]} Is anything about the panel stable? One thing is. The aggregate adoption \emph{rate} is model-idiosyncratic
-(range 0.30 across beer backends, 0.51 across amzbook backends), but the \emph{ordering} of which persona
+(range 0.35 across beer backends, 0.50 across amzbook backends), but the \emph{ordering} of which persona
 adopts most holds steady (Figure~\ref{fig:heatmap}). An
 \textbf{explicitly trusting-novice} persona is the highest-adopting persona in \textbf{all 12}
 backend$\times$dataset cells. Because the 20 items are reused across personas and the 12 cells share prompts,
 items, and providers, we do not treat trials as independent: a crossed random-effects logistic model with
-item, backend, and dataset random effects gives an odds ratio of \textbf{26} (95\% CI 17--41) for that
-persona relative to the others (an item-clustered GEE agrees, OR 14.9). Because p5's dark adoption is near
+item, backend, and dataset random effects, together with an item-clustered GEE, gives a large odds ratio
+($\approx$17, 95\% CI 14--20) for that
+persona relative to the others. Because p5's dark adoption is near
 the ceiling in most cells, the OR \emph{magnitude} should not be read as a precise effect size; the primary
 evidence is model-free---p5 is the strict top adopter in all 12 backend$\times$dataset cells. The effect is
 robust to the pseudo-replication structure.
@@ -606,9 +609,9 @@ Because the persona is \emph{prompt-defined} to be trusting and novice, ``it ado
 that the panel \emph{faithfully and stably} translates a prompted disposition into behaviour---a
 reliability property of the simulation, not a discovered human vulnerability. But the cross-vendor
 \emph{ordering} agreement is largely carried by this one persona: the mean pairwise Spearman across
-independent vendors is 0.87 on beer with p5 included, but drops to 0.77 on beer and \emph{collapses to
-0.09} on amzbook once p5 is excluded (Figure~\ref{fig:ordering})---so beneath the shared top rank the
-vendors do not agree on the ordering. It is \emph{not}
+independent vendors is 0.85 on beer (0.66 on amzbook) with p5 included, and drops to 0.73 on beer and to
+0.38 on amzbook once p5 is excluded (Figure~\ref{fig:ordering})---so beneath the shared top rank the
+vendors agree less well, moderately on amzbook and still substantially on beer. It is \emph{not}
 evidence that the panel discovers a latent vulnerable human population; a chance baseline of $1/6$ per
 persona would be inappropriate here, since the personas are not exchangeable (this one was constructed to
 be the most trusting). A within-data check reinforces this: holding the ``novice'' background fixed and
@@ -674,9 +677,9 @@ one.
   \centering
   \includegraphics[width=\textwidth]{fig4_rate_vs_ordering}
   \caption{Per-persona wrong-advice adoption profiles for the three independent-vendor backends, one panel
-  per dataset. All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak they
-  disagree---removing p5, the mean pairwise Spearman falls from 0.87 to 0.77 on beer and from 0.50 to 0.09
-  on amzbook. Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona
+  per dataset. All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak
+  agreement weakens---removing p5, the mean pairwise Spearman falls from 0.85 to 0.73 on beer and from 0.66
+  to 0.38 on amzbook. Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona
   prompt, not population discovery.}
   \label{fig:ordering}
 \end{figure*}
@@ -690,7 +693,7 @@ one.
   \caption{\textbf{The frontier backend under-represents the at-risk user.} \emph{Left:} backend task
   competence (System-1 accuracy) vs.\ the AI-induced flip rate
   $P(\text{adopt}\mid\text{System-1 correct})$, both datasets---a directional negative trend (Spearman
-  $-0.43$ / $-0.60$; n.s.\ at $n=6$, so the fit is a visual guide, not the load-bearing evidence).
+  $-0.26$ / $-0.54$; n.s.\ at $n=6$, so the fit is a visual guide, not the load-bearing evidence).
   \emph{Right:} vulnerability coverage (number of the six personas whose
   dark adoption reaches 0.5) for a single frontier backend, a weak pair, and the full panel---the model-free
   reading the argument rests on: the single frontier backend surfaces the fewest at-risk profiles.}
@@ -700,13 +703,14 @@ one.
 \textbf{[Mechanism: capability--vulnerability.]} Now the study's most unsettling turn. A backend's aggregate adoption is one thing; \emph{which} users it
 flags as at-risk is another---and combining the two exposes an uncomfortable pattern
 (Figure~\ref{fig:capvuln}). Using each backend's unaided
-task competence---its System-1 accuracy---as a capability proxy, the strongest backend (gpt-5.5, 0.93) is
+task competence---its System-1 accuracy---as a capability proxy, the strongest backend (gpt-5.5, 0.94) is
 precisely the one that least reproduces the highest-severity failure: on the trusting-novice persona (p5),
-dark-condition adoption is $\approx$1.0 for five backends but only \textbf{0.50} for gpt-5.5. Isolating AI
+dark-condition adoption is $\approx$1.0 for five backends but only \textbf{0.42} for gpt-5.5 (0.54 beer,
+0.30 amzbook). Isolating AI
 influence from baseline error---the \emph{AI-induced flip}, $P(\text{adopt}\mid\text{System-1 correct})$,
 which excludes trials where the persona was already wrong (there adoption is 1 by construction)---the same
-ordering holds: the frontier flips a correct answer to the wrong AI least often (0.16), a mid-tier backend
-most (0.46). In short, \emph{you would not crash-test with your safest driver}---yet a synthetic panel
+ordering holds: the frontier flips a correct answer to the wrong AI least often (0.11), a mid-tier backend
+most (0.44). In short, \emph{you would not crash-test with your safest driver}---yet a synthetic panel
 powered by the frontier model does exactly that, screening for over-reliance danger with the one ``user''
 least capable of being over-reliant.
 
@@ -741,7 +745,7 @@ This has a concrete consequence for assembling an evaluation panel. Treating a p
 when its dark adoption reaches a risk threshold (0.5), a single frontier backend---the model a
 quality-optimal router~\cite{ong2025routellm} would select---surfaces the risk for only
 1 of 6 personas on beer and 0 of 6 on amzbook, whereas a pair of weaker backends (gpt-4.1, gpt-4o-mini)
-surfaces 4 and 5 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
+surfaces 4 and 3 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
 so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
 for this purpose}. Choosing an evaluation panel to maximize \textbf{synthetic-vulnerability coverage} is
 therefore the \emph{inverse} of choosing it to maximize task quality: a practice built on ``use the
@@ -765,7 +769,7 @@ backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025
 would prefer, is almost opposite to the coverage-greedy panel. On the clean AI-induced-flip metric the greedy panel covers every
 high-risk cell with two backends, whereas the capability-first panel's first pick---the frontier model---
 covers a single cell and only reaches full coverage at $k=6$. Under the raw-adoption metric the contrast is
-starker still: one \emph{low}-capability backend (gpt-4.1) already covers all nine high-risk cells, so the
+starker still: one \emph{low}-capability backend (gpt-4.1) already covers all seven high-risk cells, so the
 single best probe is the weakest model and the router's frontier pick is the worst. (Because coverage is
 monotone in $k$, this is a statement about \emph{order}, not size; a threshold of $0.5$ is a modeling choice
 and the qualitative inversion is what we rely on.) Selecting a panel for vulnerability coverage is thus not

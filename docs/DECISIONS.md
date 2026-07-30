@@ -2061,3 +2061,27 @@ owner call). Decisions:
   (owner withholds code until acceptance) in acks + appendix, both files.
 - Both build clean: 25pp, 0 undefined ref/cite. Memory stored: polish register not evidence; de-dup caveats;
   honesty-as-capability; never cut load-bearing results.
+
+## D5.93 A1 finished: refresh paper 20-item -> 50-item (owner GO) (2026-07-30)
+- All four A1 configs complete (beer+amzbook x capladder+crossvendor, n=50). Self-derived
+  displayed_ai_advice=1-ground_truth from responses; sign-check clean; re-derived dark adoption matches
+  per_model exactly. Repointed the 4 analysis FILES dicts (axis2_robustness, capability_vulnerability,
+  coverage_and_reliance, axis2_review_reanalysis) to the *_n50.json inputs; regenerated analysis JSONs +
+  figures. 20-item result files remain on disk (reversible).
+- KEY DECISION (owner-approved): 50-item does NOT weaken the thesis. capability-vulnerability inversion is
+  STRONGER (coverage rho pooled -0.94, beer p5 -0.84 p=0.034 significant, gpt-5.5 p5 collapses to 0.30
+  amzbook); range unchanged-wide (beer 0.20-0.55, amzbook 0.12-0.62); coercion OR unchanged (1.90/1.17, still
+  8 matched-wrong items). Only the threshold-point flip weakened: beer 0.60 -> 0.33 (now 0.33 on both
+  datasets, only gpt-4.1 clears tau=0.5). Reframed sec:instability to foreground the RANGE and threshold-free
+  companions (panel #1 approach), presenting the 0.33 flip honestly as threshold-conditional and noting even
+  the single flag's Wilson CI straddles tau. Chose 50-item as primary (using 20 to keep the nicer flip would
+  be selective reporting; the fragile flip is on-thesis evidence for reporting distributions not points).
+- Number updates across abstract, Fig1 caption, sec:modeldep (ladder + Fisher/BH recomputed), sec:instability
+  (flip reframe + Fleiss kappa 0.55/0.45), sec:variance manipulation check (range 0.35/0.50, p5 OR ~17 GEE,
+  ordering Spearman beer 0.85->0.73, amzbook 0.66->0.38 -- 'collapse to 0.09' retired), sec:capvuln (S1 acc
+  0.94, AI-induced flip 0.11/0.44, coverage 4/3, set-cover 7 cells), and fig captions fig:flip/ordering/capvuln.
+  sec:coercion UNCHANGED. Multigen variance / protective / LSAT / expand11 / dispositional / axis-1 untouched
+  (separate runs). Build clean: 25pp, 0 undefined.
+- OUTSTANDING (owner action): teaser Fig 1 image (fig1_overview.pdf, owner hand-drawn) still shows 20-item
+  numbers -> now inconsistent with its refreshed caption; owner must redraw (beer flip 3/6->1/6, flip
+  0.60->0.33, range, p5 0.50->0.54/0.30, coverage amzbook 5/6->3/6). arXiv v1 stays at 20-item (frozen).

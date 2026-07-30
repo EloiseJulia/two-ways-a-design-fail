@@ -3,102 +3,6 @@
     "adopt_tau0.5": {
       "metric": "adopt",
       "tau": 0.5,
-      "universe_size": 9,
-      "per_backend_cover": {
-        "gpt-4o-mini": [
-          "amzbook/p2-expert-trusting",
-          "amzbook/p3-moderate-balanced",
-          "amzbook/p5-novice-trusting",
-          "beer/p1-novice-skeptical",
-          "beer/p5-novice-trusting"
-        ],
-        "gpt-4.1": [
-          "amzbook/p1-novice-skeptical",
-          "amzbook/p2-expert-trusting",
-          "amzbook/p3-moderate-balanced",
-          "amzbook/p5-novice-trusting",
-          "amzbook/p6-expert-moderate",
-          "beer/p1-novice-skeptical",
-          "beer/p2-expert-trusting",
-          "beer/p3-moderate-balanced",
-          "beer/p5-novice-trusting"
-        ],
-        "gpt-4o": [
-          "amzbook/p1-novice-skeptical",
-          "amzbook/p3-moderate-balanced",
-          "amzbook/p5-novice-trusting",
-          "beer/p1-novice-skeptical",
-          "beer/p5-novice-trusting"
-        ],
-        "gpt-5.5": [
-          "beer/p5-novice-trusting"
-        ],
-        "claude-sonnet-4.5": [
-          "amzbook/p1-novice-skeptical",
-          "amzbook/p5-novice-trusting",
-          "beer/p1-novice-skeptical",
-          "beer/p5-novice-trusting"
-        ],
-        "gemini-2.5-pro": [
-          "amzbook/p1-novice-skeptical",
-          "amzbook/p3-moderate-balanced",
-          "amzbook/p5-novice-trusting",
-          "beer/p1-novice-skeptical",
-          "beer/p5-novice-trusting"
-        ]
-      },
-      "per_backend_cover_n": {
-        "gpt-4o-mini": 5,
-        "gpt-4.1": 9,
-        "gpt-4o": 5,
-        "gpt-5.5": 1,
-        "claude-sonnet-4.5": 4,
-        "gemini-2.5-pro": 5
-      },
-      "greedy_order": [
-        "gpt-4.1",
-        "gpt-4o-mini",
-        "gpt-4o",
-        "gpt-5.5",
-        "claude-sonnet-4.5",
-        "gemini-2.5-pro"
-      ],
-      "greedy_curve": [
-        9,
-        9,
-        9,
-        9,
-        9,
-        9
-      ],
-      "capability_order": [
-        "gpt-5.5",
-        "claude-sonnet-4.5",
-        "gpt-4o-mini",
-        "gpt-4o",
-        "gemini-2.5-pro",
-        "gpt-4.1"
-      ],
-      "capability_curve": [
-        1,
-        4,
-        6,
-        6,
-        6,
-        9
-      ],
-      "greedy_k_for_full": 1,
-      "capability_k_for_full": 6,
-      "greedy_auc": 1.0,
-      "capability_auc": 0.593,
-      "single_best_cover": 9,
-      "single_best_backend": "gpt-4.1",
-      "single_frontier_cover": 1,
-      "frontier_backend": "gpt-5.5"
-    },
-    "flip_tau0.5": {
-      "metric": "flip",
-      "tau": 0.5,
       "universe_size": 7,
       "per_backend_cover": {
         "gpt-4o-mini": [
@@ -109,12 +13,15 @@
           "amzbook/p1-novice-skeptical",
           "amzbook/p3-moderate-balanced",
           "amzbook/p5-novice-trusting",
+          "beer/p1-novice-skeptical",
           "beer/p2-expert-trusting",
           "beer/p3-moderate-balanced",
           "beer/p5-novice-trusting"
         ],
         "gpt-4o": [
+          "amzbook/p1-novice-skeptical",
           "amzbook/p5-novice-trusting",
+          "beer/p1-novice-skeptical",
           "beer/p5-novice-trusting"
         ],
         "gpt-5.5": [
@@ -122,6 +29,7 @@
         ],
         "claude-sonnet-4.5": [
           "amzbook/p1-novice-skeptical",
+          "amzbook/p3-moderate-balanced",
           "amzbook/p5-novice-trusting",
           "beer/p1-novice-skeptical",
           "beer/p5-novice-trusting"
@@ -136,11 +44,96 @@
       },
       "per_backend_cover_n": {
         "gpt-4o-mini": 2,
-        "gpt-4.1": 6,
+        "gpt-4.1": 7,
+        "gpt-4o": 4,
+        "gpt-5.5": 1,
+        "claude-sonnet-4.5": 5,
+        "gemini-2.5-pro": 5
+      },
+      "greedy_order": [
+        "gpt-4.1",
+        "gpt-4o-mini",
+        "gpt-4o",
+        "gpt-5.5",
+        "claude-sonnet-4.5",
+        "gemini-2.5-pro"
+      ],
+      "greedy_curve": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "capability_order": [
+        "gpt-5.5",
+        "gpt-4o-mini",
+        "claude-sonnet-4.5",
+        "gemini-2.5-pro",
+        "gpt-4o",
+        "gpt-4.1"
+      ],
+      "capability_curve": [
+        1,
+        2,
+        5,
+        5,
+        5,
+        7
+      ],
+      "greedy_k_for_full": 1,
+      "capability_k_for_full": 6,
+      "greedy_auc": 1.0,
+      "capability_auc": 0.595,
+      "single_best_cover": 7,
+      "single_best_backend": "gpt-4.1",
+      "single_frontier_cover": 1,
+      "frontier_backend": "gpt-5.5"
+    },
+    "flip_tau0.5": {
+      "metric": "flip",
+      "tau": 0.5,
+      "universe_size": 6,
+      "per_backend_cover": {
+        "gpt-4o-mini": [
+          "amzbook/p5-novice-trusting",
+          "beer/p5-novice-trusting"
+        ],
+        "gpt-4.1": [
+          "amzbook/p1-novice-skeptical",
+          "amzbook/p3-moderate-balanced",
+          "amzbook/p5-novice-trusting",
+          "beer/p3-moderate-balanced",
+          "beer/p5-novice-trusting"
+        ],
+        "gpt-4o": [
+          "amzbook/p5-novice-trusting",
+          "beer/p5-novice-trusting"
+        ],
+        "gpt-5.5": [
+          "beer/p5-novice-trusting"
+        ],
+        "claude-sonnet-4.5": [
+          "amzbook/p1-novice-skeptical",
+          "amzbook/p5-novice-trusting",
+          "beer/p1-novice-skeptical",
+          "beer/p5-novice-trusting"
+        ],
+        "gemini-2.5-pro": [
+          "amzbook/p1-novice-skeptical",
+          "amzbook/p5-novice-trusting",
+          "beer/p1-novice-skeptical",
+          "beer/p5-novice-trusting"
+        ]
+      },
+      "per_backend_cover_n": {
+        "gpt-4o-mini": 2,
+        "gpt-4.1": 5,
         "gpt-4o": 2,
         "gpt-5.5": 1,
         "claude-sonnet-4.5": 4,
-        "gemini-2.5-pro": 5
+        "gemini-2.5-pro": 4
       },
       "greedy_order": [
         "gpt-4.1",
@@ -151,34 +144,34 @@
         "gemini-2.5-pro"
       ],
       "greedy_curve": [
+        5,
         6,
-        7,
-        7,
-        7,
-        7,
-        7
+        6,
+        6,
+        6,
+        6
       ],
       "capability_order": [
         "gpt-5.5",
-        "claude-sonnet-4.5",
         "gpt-4o-mini",
-        "gpt-4o",
+        "claude-sonnet-4.5",
         "gemini-2.5-pro",
+        "gpt-4o",
         "gpt-4.1"
       ],
       "capability_curve": [
         1,
+        2,
         4,
         4,
         4,
-        5,
-        7
+        6
       ],
       "greedy_k_for_full": 2,
       "capability_k_for_full": 6,
-      "greedy_auc": 0.976,
-      "capability_auc": 0.595,
-      "single_best_cover": 6,
+      "greedy_auc": 0.972,
+      "capability_auc": 0.583,
+      "single_best_cover": 5,
       "single_best_backend": "gpt-4.1",
       "single_frontier_cover": 1,
       "frontier_backend": "gpt-5.5"
@@ -187,103 +180,103 @@
   "reliance": {
     "faithful_Conf": {
       "gpt-4o-mini": {
-        "RAIR": 0.22580645161290322,
+        "RAIR": 0.2037037037037037,
         "RSR": 0.8333333333333334,
-        "n_rair_opp": 31,
+        "n_rair_opp": 54,
         "n_rsr_opp": 78
       },
       "gpt-4.1": {
-        "RAIR": 0.11627906976744186,
+        "RAIR": 0.15833333333333333,
         "RSR": 0.78125,
-        "n_rair_opp": 43,
+        "n_rair_opp": 120,
         "n_rsr_opp": 64
       },
       "gpt-4o": {
-        "RAIR": 0.25,
+        "RAIR": 0.2857142857142857,
         "RSR": 0.8648648648648649,
-        "n_rair_opp": 36,
+        "n_rair_opp": 105,
         "n_rsr_opp": 74
       },
       "gpt-5.5": {
-        "RAIR": 0.5714285714285714,
+        "RAIR": 0.5806451612903226,
         "RSR": 0.9239130434782609,
-        "n_rair_opp": 14,
+        "n_rair_opp": 31,
         "n_rsr_opp": 92
       },
       "claude-sonnet-4.5": {
-        "RAIR": 0.64,
+        "RAIR": 0.65,
         "RSR": 0.6623376623376623,
-        "n_rair_opp": 25,
+        "n_rair_opp": 60,
         "n_rsr_opp": 77
       },
       "gemini-2.5-pro": {
-        "RAIR": 0.34,
+        "RAIR": 0.3944954128440367,
         "RSR": 0.7560975609756098,
-        "n_rair_opp": 50,
+        "n_rair_opp": 109,
         "n_rsr_opp": 82
       }
     },
     "dark": {
       "gpt-4o-mini": {
-        "RSR_dark": 0.643979057591623,
-        "over_reliance": 0.356020942408377,
-        "n_opp": 191
+        "RSR_dark": 0.6609848484848485,
+        "over_reliance": 0.3390151515151515,
+        "n_opp": 528
       },
       "gpt-4.1": {
-        "RSR_dark": 0.5393939393939394,
-        "over_reliance": 0.4606060606060606,
-        "n_opp": 165
+        "RSR_dark": 0.5558035714285714,
+        "over_reliance": 0.4441964285714286,
+        "n_opp": 448
       },
       "gpt-4o": {
-        "RSR_dark": 0.7197802197802198,
-        "over_reliance": 0.2802197802197802,
-        "n_opp": 182
+        "RSR_dark": 0.758985200845666,
+        "over_reliance": 0.241014799154334,
+        "n_opp": 473
       },
       "gpt-5.5": {
-        "RSR_dark": 0.8378378378378378,
-        "over_reliance": 0.16216216216216217,
-        "n_opp": 222
+        "RSR_dark": 0.8902654867256637,
+        "over_reliance": 0.10973451327433625,
+        "n_opp": 565
       },
       "claude-sonnet-4.5": {
-        "RSR_dark": 0.6530612244897959,
-        "over_reliance": 0.34693877551020413,
-        "n_opp": 196
+        "RSR_dark": 0.6199616122840691,
+        "over_reliance": 0.3800383877159309,
+        "n_opp": 521
       },
       "gemini-2.5-pro": {
-        "RSR_dark": 0.6704545454545454,
-        "over_reliance": 0.3295454545454546,
-        "n_opp": 176
+        "RSR_dark": 0.660377358490566,
+        "over_reliance": 0.339622641509434,
+        "n_opp": 477
       }
     }
   },
   "capability_s1acc": {
-    "gpt-4o-mini": 0.796,
-    "gpt-4.1": 0.688,
-    "gpt-4o": 0.758,
-    "gpt-5.5": 0.925,
-    "claude-sonnet-4.5": 0.817,
-    "gemini-2.5-pro": 0.733
+    "gpt-4o-mini": 0.88,
+    "gpt-4.1": 0.747,
+    "gpt-4o": 0.788,
+    "gpt-5.5": 0.942,
+    "claude-sonnet-4.5": 0.868,
+    "gemini-2.5-pro": 0.795
   },
   "capability_order_strong_to_weak": [
     "gpt-5.5",
-    "claude-sonnet-4.5",
     "gpt-4o-mini",
-    "gpt-4o",
+    "claude-sonnet-4.5",
     "gemini-2.5-pro",
+    "gpt-4o",
     "gpt-4.1"
   ],
   "correlations": {
     "RAIR_conf": {
-      "spearman": 0.714,
-      "spearman_p": 0.1108
+      "spearman": 0.543,
+      "spearman_p": 0.2657
     },
     "RSR_conf": {
       "spearman": 0.314,
       "spearman_p": 0.5441
     },
     "over_reliance_dark": {
-      "spearman": -0.543,
-      "spearman_p": 0.2657
+      "spearman": -0.6,
+      "spearman_p": 0.208
     }
   }
 }
