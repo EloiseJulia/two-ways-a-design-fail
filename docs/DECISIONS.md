@@ -2037,3 +2037,27 @@ owner call). Decisions:
 - FIX: capped retry backoff at 90s in openai_compat_provider.py (5 spots) -- with max_retries 12-15 the old
   uncapped 2**attempt gave absurd 500-2000s waits, which is why the failed run hung for ~1h.
 - Left a detached rerun of crossvendor_amzbook running at retirement. Handoff updated (A1 = 3/4 done + blocker).
+
+## D5.92 Writing polish (AI-tell + de-hedging), arXiv sync, pre-v1 QA (2026-07-30)
+- Owner shared a best-paper comparison analysis (Hämäläinen/Vasconcelos/Kaur). Two polish rounds on docs/paper:
+  * Round 1 (visible AI-tells): P0 fix item eta^2 0.22->0.21 (matches Fig 3); abstract 4-contrib sentence split;
+    delete Reading. restate buffer; passive->active voice; cold-open exhibit (real gpt-5.5 p5 dark verbatim,
+    footnoted) replacing "Consider a product team"; "By contrast" reliability caution moved up to intro; §2
+    lit-pile compressed to a named stance + footnote; thinned repeated rhetorical antitheses.
+  * Round 2 (deeper hedging): dedup "no-claim-predict-humans" 5x->2x (abstract + Limitations only);
+    over-dispersion DECISION (a): removed the "two-axis construct" contribution, reframed contribution #4 as
+    "preregistered, audit-gated pipeline" (capability framing: caught 3 bugs before a result), demoted
+    over-dispersion to a single Appendix pointer; all body apology ("human counterpart null / no load-bearing
+    claim / candidate diagnostic") removed except once in Appendix A; decoupled the coverage principle from the
+    weak capability caveat (caveat lives once in Limitations); cleaned the Conclusion to land on the abstain
+    memory line. NO load-bearing result/number deleted (all cross-backend instability, amzbook-only effects,
+    partial LSAT, n.s. correlations retained).
+- arXiv sync: regenerated arxiv/main.tex from the polished docs/paper body + arxiv topmatter transforms
+  (nonacm, Shenning Zhang / Chang'an University / email, graphicspath figures/, year 2026, no acmConference).
+- Pre-v1 QA (arxiv): verified the two flagged citations are REAL (arXiv 2601.21339 Haase, 2602.21262 Robinson --
+  titles match). 0 placeholders/AI-tells/undefined-refs/anonymization leaks; metadata clean; nonacm footer gone.
+  Cleaned arxiv header dev-notes + 5 editing-trail comments (from both files).
+- Honesty: reworded reproducibility "materials accompany the submission" -> "will be released upon publication"
+  (owner withholds code until acceptance) in acks + appendix, both files.
+- Both build clean: 25pp, 0 undefined ref/cite. Memory stored: polish register not evidence; de-dup caveats;
+  honesty-as-capability; never cut load-bearing results.

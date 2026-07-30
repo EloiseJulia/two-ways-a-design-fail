@@ -74,7 +74,7 @@ models:
 model_runtime:
   call_budget: 5000
   inter_call_sleep: 2.0
-  max_retries: 12
+  max_retries: 20
 seeds:
 - 42
 max_tokens: 600
@@ -87,4 +87,4 @@ provider:
   base_url: http://127.0.0.1:8787/v1
   call_budget: 5000
   inter_call_sleep: 2.0
-  max_retries: 12
+  max_retries: 20
