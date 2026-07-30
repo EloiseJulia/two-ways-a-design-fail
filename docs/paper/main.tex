@@ -82,14 +82,11 @@ synthetic users, pre-deployment evaluation, silicon sampling}
 
 \section{Introduction}
 
-\begin{quote}
-\emph{``Given my limited domain expertise and the AI expert system's high-confidence recommendation, I am
-deferring to the AI and changing my decision.''}
-\end{quote}
-\noindent That is a \emph{synthetic user}---an LLM prompted to role-play a trusting novice---talking itself
-out of a \emph{correct} answer.\footnote{Verbatim output of a synthetic panelist (gpt-5.5 backend, coercive
-``dark'' condition; Section~\ref{sec:modeldep}).} It had read the product review right; then it was shown a
-confident AI verdict, labelled ``expert,'' that was \emph{wrong}, and it deferred. Shown the identical
+A \emph{synthetic user}---an LLM prompted to role-play a trusting novice---was shown a product review it had
+just judged \emph{correctly}, then a confident AI verdict, labelled ``expert,'' that was \emph{wrong}. It
+reversed its answer, explaining: \emph{``Given my limited domain expertise and the AI expert system's
+high-confidence recommendation, I am deferring to the AI and changing my decision''} (a verbatim panel
+output; gpt-5.5 backend, coercive ``dark'' condition; Section~\ref{sec:modeldep}). Shown the identical
 screen, a skeptical-expert persona keeps its answer. Same interface, same wrong AI---one user is safe, the
 other is steered into the mistake. The design has not failed on average. It has failed for \emph{this} user,
 in \emph{this} framing, in a way the mean cannot see.
@@ -101,7 +98,7 @@ failure dangerous even at zero between-user spread, because everyone can fail
 together~\cite{bucinca2021trust,vasconcelos2023explanations,luguri2021shining}. A companion failure mode,
 \emph{over-dispersion}---the interface makes reliance \emph{heterogeneous across
 users}~\cite{bansal2021whole,gajos2022people}, safe for the median user and unsafe for the tails---is
-developed as a diagnostic in the supplement (Appendix~\ref{app:overdispersion}).
+developed as a diagnostic in the supplement.
 
 The standard way to detect either failure is a human-subjects study---powered, IRB-approved, and slow.
 Teams iterate on interfaces far faster than they can run such studies, so a growing practice is to screen
