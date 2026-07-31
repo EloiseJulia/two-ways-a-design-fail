@@ -731,8 +731,7 @@ so the point is not ``more models is better''; it is that the \emph{default best
 for this purpose}. Choosing an evaluation panel to maximize \textbf{synthetic-vulnerability coverage} is
 therefore the \emph{inverse} of choosing it to maximize task quality: a practice built on ``use the
 strongest model'' systematically misses the failure cells that matter most. This is a design principle for
-assembling synthetic panels; whether the cells it surfaces map to human vulnerability is what the planned
-study (Section~\ref{sec:e6}) will test.
+assembling synthetic panels.
 
 
 We can make this selection principle precise. Let $\mathcal{C}$ be the set of high-severity cells
@@ -755,6 +754,17 @@ single best probe is the weakest model and the router's frontier pick is the wor
 monotone in $k$, this is a statement about \emph{order}, not size; a threshold of $0.5$ is a modeling choice
 and the qualitative inversion is what we rely on.) Selecting a panel for vulnerability coverage is thus not
 merely different from capability routing---it is close to its inverse.
+
+A caveat is built into this metric, and we state it plainly: a cell counts as high-severity by the panel's
+own adoption, and a backend counts as covering it by that same adoption, so higher-adopting backends cover
+more \emph{by construction}. Coverage is a \emph{sensitivity} construct, not a validity one---at the limit,
+a backend that adopts everything has perfect coverage and no discriminative value. What is \emph{not}
+definitional is \emph{why} the weaker models adopt more: capability and adoption anti-correlate empirically
+(Section~\ref{sec:capvuln}), so the router's default---the strongest model---is the \emph{least sensitive}
+prober. Read correctly, then, the principle is a conservative screening-design choice---favour sensitivity
+when a missed at-risk cell costs more than a false alarm---not a claim that weaker models are better
+screeners; whether higher sensitivity improves screening against real users is what the planned study
+(Section~\ref{sec:e6}) must decide.
 
 The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}. With
 pre-advice and final decisions $s_1,y\in\{0,1\}$, ground truth $g$, and displayed AI advice $\hat a$,

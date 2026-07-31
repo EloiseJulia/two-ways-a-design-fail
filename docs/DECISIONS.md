@@ -2108,3 +2108,17 @@ owner call). Decisions:
     caveat) -> a crisp 2-sentence limitation.
 - Build clean: 25pp, 0 undefined. docs/paper only (arXiv v1 frozen). Memory stored (write with confidence not
   fear; assert finding + one clean limitation; avoid the claim->control->claim->control chain).
+
+## D5.95 Address the coverage circularity honestly (owner-raised) (2026-07-31)
+- Owner flagged a real circularity: high-severity cells are defined by the panel's OWN adoption and coverage
+  is measured by the same adoption (>=0.5), so 'higher-adopting weak models cover more' is near-definitional;
+  the 'clean' AI-induced-flip metric is the same structure. Without a human criterion, 'select for coverage'
+  = 'select more-alarming models' = a sensitivity-favouring conservative CHOICE, not a validity FINDING.
+- Fix (owner-approved): added one confident capstone paragraph to sec:capvuln after the set-cover formalism.
+  States the circularity plainly (coverage is a sensitivity construct, not validity; an adopt-everything
+  backend has perfect coverage and no discriminative value); identifies the NON-definitional core (capability
+  and adoption anti-correlate empirically, so the router's strongest-first default is the least-sensitive
+  prober); reframes the principle as a conservative screening-design choice (favour sensitivity when a missed
+  at-risk cell costs more than a false alarm), not a claim that weak models are better screeners---human
+  validity deferred to the planned study. Trimmed the earlier duplicate human-study deferral. Single clean
+  paragraph (no defensive chain), consistent with the register pass. Build clean: 25pp, 0 undefined.
