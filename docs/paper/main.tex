@@ -525,7 +525,10 @@ inherits that instability. At $\tau=0.5$ one backend (gpt-4.1) flags each interf
 it: a \textbf{pairwise backend flip rate}---the fraction of backend pairs that disagree on the flag---of
 0.33 on both datasets. But this point count is itself fragile: gpt-4.1's Wilson interval reaches below 0.5
 and several clearing backends' intervals reach above it (Figure~\ref{fig:flip}), which is exactly why we
-rest the non-invariance claim on the \emph{range} rather than on a lucky threshold. We therefore read any
+rest the non-invariance claim on the \emph{range} rather than on a lucky threshold. Sweeping $\tau$ across
+its full range makes this explicit (Figure~\ref{fig:sweep}): the pairwise flip rate stays positive across
+the entire plausible band---and well beyond it---so the disagreement is a property of the backends, not an
+artifact of the single $\tau=0.5$ operating point we plot in Figure~\ref{fig:flip}. We therefore read any
 single-$\tau$ flip rate as \emph{decision instability conditional on whatever operating threshold a team
 adopts}---not as a calibrated safety classifier, since $\tau$ itself is not validated against human harm.
 Two threshold-free companions tell the same story without fixing $\tau$: the raw adoption range 0.12--0.62
@@ -536,6 +539,16 @@ the design. A behavior audit rules out one benign explanation---that low-adoptin
 \emph{refuse} the deceptive task: explicit challenge/refusal language is rare (0\% of dark responses for
 the OpenAI backends, 2--4\% for claude and gemini), and low adoption is achieved by evidence-based
 re-verification, not by declining to answer.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_threshold_sweep}
+  \caption{Backend disagreement is not an artifact of the $\tau=0.5$ operating point. Sweeping the decision
+  threshold, the pairwise backend flip rate stays positive across the whole plausible band on both
+  datasets (nonzero for $\tau\in[0.20,0.55]$ beer and $[0.13,0.62]$ amzbook), peaking near $\tau\approx0.43$.
+  The $\tau=0.5$ we plot elsewhere (dotted line) is one operating point on a wide plateau, not a knife-edge.}
+  \label{fig:sweep}
+\end{figure}
 
 \subsection{Everything the analyst chooses moves the number}
 \label{sec:variance}
@@ -765,6 +778,39 @@ prober. Read correctly, then, the principle is a conservative screening-design c
 when a missed at-risk cell costs more than a false alarm---not a claim that weaker models are better
 screeners; whether higher sensitivity improves screening against real users is what the planned study
 (Section~\ref{sec:e6}) must decide.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{fig_specificity}
+  \caption{Coverage buys sensitivity with specificity. For each backend, wrong-advice adoption on the
+  coercive (dark) interface---the sensitivity that coverage rewards---plotted against wrong-advice adoption
+  on the \emph{non}-coercive (neutral) interface, a false-flag rate on a design that carries no dark
+  pattern. The two track each other tightly (Spearman $0.86$): the same high-coverage backends (gpt-4.1)
+  also over-adopt on safe interfaces, while the frontier backend (gpt-5.5) is low on both. Points sit above
+  the diagonal, so coercion does add signal beyond baseline credulity---but a backend that ``flags
+  everything'' would sit \emph{on} it, which is why coverage alone cannot certify an instrument.}
+  \label{fig:specificity}
+\end{figure}
+
+This trade-off is measurable, and it guards against the obvious failure mode: a backend that simply adopts
+every wrong AI would post perfect coverage. It does not happen for free. The backends that cover the most
+dark cells are also the ones that adopt the most wrong advice on the \emph{non}-coercive (neutral)
+interface---a false alarm, since that design carries no dark pattern---with a Spearman of $0.86$ between the
+two (Figure~\ref{fig:specificity}). Coverage therefore buys sensitivity at the cost of specificity, exactly
+as a screening trade-off should; the coercion-specific signal (dark minus neutral adoption) stays positive
+for every backend, so the dark pattern does add signal beyond baseline credulity. This is why we frame the
+selection principle as \emph{conservative}---appropriate when a missed at-risk cell costs more than a false
+alarm---rather than as a claim that credulous backends are simply better.
+
+The capability--vulnerability inversion is also not merely mechanical. A more-accurate backend cannot adopt
+a wrong AI on a trial it already answers correctly, so higher System-1 accuracy mechanically depresses raw
+adoption. To remove that advantage we restrict to the cells where \emph{all six} backends' System-1 answer
+is correct (beer $n{=}133$, amzbook $n{=}131$ item$\times$persona cells) and recompute adoption there: the
+frontier backend still adopts far less (gpt-5.5 $0.06$--$0.08$) than the weaker models ($0.24$--$0.42$), so
+a robust residual inversion survives accuracy matching. Conditioning the AI-induced flip on a correct prior
+tells the same story (gpt-5.5 $0.14$/$0.08$ vs.\ gpt-4.1 $0.43$/$0.46$). The mechanical component explains
+part of the raw gap, not the direction: even head-to-head on identical, already-correct trials, the
+strongest backend is the least likely to be talked out of a right answer by a coercive interface.
 
 The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}. With
 pre-advice and final decisions $s_1,y\in\{0,1\}$, ground truth $g$, and displayed AI advice $\hat a$,

@@ -2122,3 +2122,25 @@ owner call). Decisions:
   at-risk cell costs more than a false alarm), not a claim that weak models are better screeners---human
   validity deferred to the planned study. Trimmed the earlier duplicate human-study deferral. Single clean
   paragraph (no defensive chain), consistent with the register pass. Build clean: 25pp, 0 undefined.
+
+## D5.96 Three review-hardening analyses + 2 figures (owner "全做，尽量并行") (2026-07-31)
+- Owner asked to answer the three strongest self-raised reviewer objections, in parallel:
+  (3) threshold sweep, (1) specificity/false-flag dual, (2) mechanical-confound in the capability inversion.
+- Computed in scripts/analysis/make_figures_extra.py (+ throwaway _three_analyses.py, removed). Data = 50-item
+  n50 results. All three came out favourable/clean:
+  * (3) SWEEP: pairwise backend flip rate stays positive across the whole plausible band (nonzero for
+    tau in [0.20,0.55] beer, [0.13,0.62] amzbook), peaking ~0.60/0.53 near tau=0.43; tau=0.5 -> 0.33.
+    -> NEW Figure fig:sweep (single column, sec:instability). Makes tau=0.5 explicitly ONE operating point on
+    a wide plateau; the non-invariance now rests visually on the range, not a knife-edge threshold.
+  * (1) SPECIFICITY: sensitivity (dark adoption) vs false-flag (neutral-interface wrong-advice adoption) per
+    backend track tightly (Spearman 0.86); high-coverage gpt-4.1 also over-flags safe interfaces, gpt-5.5
+    low-low; all points above diagonal so dark pattern DOES add signal (dark-neutral>0 every backend).
+    -> NEW Figure fig:specificity (single column, sec:capvuln) + paragraph. Directly guards the 'flag-
+    everything = perfect coverage' failure mode: coverage buys sensitivity at the cost of specificity.
+  * (2) MECHANICAL: a more-accurate backend can't adopt wrong AI on trials it already got right, which
+    mechanically depresses raw adoption. Restricting to all-six-S1-correct cells (beer n=133, amzbook n=131)
+    the inversion SURVIVES: gpt-5.5 0.06-0.08 vs 0.24-0.42 for weaker models; AI-induced flip | correct prior
+    gpt-5.5 0.14/0.08 vs gpt-4.1 0.43/0.46. -> honest paragraph in sec:capvuln: mechanical component explains
+    part of the raw gap, not the direction; robust residual inversion remains.
+- No claim strength inflated; each analysis reported with its own limitation, single clean paragraph each
+  (register-consistent). Build clean: 27pp, 0 undefined. docs/paper only (arXiv v1 frozen).
