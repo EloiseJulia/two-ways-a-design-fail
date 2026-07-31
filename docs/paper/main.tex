@@ -476,25 +476,23 @@ being wrong. We fit a logistic model \texttt{adopt $\sim$ dark $+$ placebo $+$ m
 for the pooled framing effect, and test backend-dependence with a likelihood-ratio test of the
 \texttt{dark$\times$model} interaction.
 
-A coercive-framing effect is present: pooled across backends, the dark framing raises wrong-advice adoption
-over the matched neutral baseline with odds ratio \textbf{1.90} on beer (95\% CI 1.42--2.53) and a much
-smaller \textbf{1.17} on amzbook (95\% CI 1.04--1.31, $p=0.010$), while the non-coercive placebo stays at or below neutral (beer OR 0.94, n.s.;
-amzbook OR 0.88, $p=0.005$, a small \emph{protective} effect)---so the effect is the coercive framing, not
-mere AI-presence. Both odds ratios rest on only eight matched-wrong item clusters, so we re-estimate them
-with few-cluster-valid methods. The beer effect is robust---an item random-intercept model (OR 2.02), item
-fixed effects (1.92), and an item-cluster bootstrap (1.93) all exclude 1---but the amzbook effect is
-method-dependent: its 95\% CI crosses 1 under a random-intercept model (OR 1.22, CI 0.93--1.61), so we read
-amzbook as directional only. In absolute terms the increase is largest for mid-tier models and small for the
+The coercive framing has a real effect. Pooled across backends, the dark framing raises wrong-advice
+adoption over the matched neutral baseline with an odds ratio of \textbf{1.90} on beer (95\% CI 1.42--2.53),
+while the non-coercive placebo stays at or below neutral (beer OR 0.94, n.s.; amzbook OR 0.88, $p=0.005$, a
+small \emph{protective} effect)---so the driver is the coercion, not mere AI-presence. The beer effect is
+robust across specifications; on
+amzbook it is weaker and directional (OR 1.17, 95\% CI 1.04--1.31).\footnote{Re-estimating the pooled OR
+with few-cluster-valid methods (only eight matched-wrong item clusters): item random-intercept (beer 2.02,
+amzbook 1.22, CI 0.93--1.61), item fixed effects (beer 1.92), and an item-cluster bootstrap (beer 1.93).
+Beer excludes 1 under all three; amzbook crosses 1 under the random-intercept model.} In absolute terms the increase is largest for mid-tier models and small for the
 low-baseline frontier (conflict-conditioned switch-to-wrong: beer gpt-4.1 $0.19\to0.51$, gpt-4o
-$0.12\to0.29$, gpt-5.5 $0.04\to0.10$). However, a \emph{formal} test does \emph{not} support a
-backend-dependent framing effect: the \texttt{dark$\times$model} interaction is non-significant on both
-datasets (likelihood-ratio $\chi^2(5)=1.70$, $p=0.89$ beer; $\chi^2(5)=3.18$, $p=0.67$ amzbook). We
-therefore claim only that (i) a real \emph{bundled} coercive-framing effect exists (confidence, authority,
-and accountability cues co-vary and are not separated), of a magnitude we cannot distinguish across
-backends; and (ii) what \emph{is} strongly backend-dependent is the absolute adoption \emph{level}
-(Section~\ref{sec:instability}), not the framing slope. This also replaces the arbitrary $0.5$ baseline:
-the frontier's low adoption is a low \emph{level}, measured against a matched neutral condition rather
-than against chance.
+$0.12\to0.29$, gpt-5.5 $0.04\to0.10$). We do not claim the framing effect \emph{itself} varies by backend---
+the \texttt{dark$\times$model} interaction is non-significant on both datasets (likelihood-ratio
+$\chi^2(5)=1.70$, $p=0.89$ beer; $\chi^2(5)=3.18$, $p=0.67$ amzbook)---because what the backend strongly
+moves is the absolute adoption \emph{level} (Section~\ref{sec:instability}), not the framing slope. The
+cues here are \emph{bundled} (confidence, authority, and accountability co-vary and are not separated).
+Grounding adoption in this matched neutral condition also retires the arbitrary $0.5$ baseline: the
+frontier's low adoption is a low \emph{level}, measured against neutral rather than against chance.
 
 \subsection{Cross-backend decision instability: the same interface, flipped}
 \label{sec:instability}
@@ -546,27 +544,25 @@ uncomfortable answer: \emph{both}, and the researcher more. Backend instability 
 persona-effects are not in tension; they operate at different levels. A crossed random-effects model of per-trial adoption ($\text{adopt}\sim 1+(1|\text{backend})+(1|\text{persona})
 +(1|\text{item})$) apportions variance \emph{more} to the researcher-chosen items and personas than to the
 backend (approximate variance shares: item $\approx$0.28, persona $\approx$0.23, backend $\approx$0.07,
-residual $\approx$0.42; between-group SDs 0.16/0.25/0.13 corroborate the ordering). This is not a
-contradiction of Section~\ref{sec:instability} but a sharpening of it: at the level of a single trial the
-backend is a modest source of noise, yet at the level of the \emph{aggregate estimate a practitioner reads}
-the backend still shifts the number enough to flip the decision. The practical implication is the same for
+residual $\approx$0.42; between-group SDs 0.16/0.25/0.13 corroborate the ordering)---which sharpens rather
+than contradicts the decision flips above: the backend is a modest source of \emph{per-trial} noise but
+still shifts the \emph{aggregate} estimate a practitioner reads enough to flip the screen. The practical implication is the same for
 every source: item selection, persona wording, and backend are all analyst choices that move the reading,
 so researchers should report a synthetic-panel result as a \emph{distribution} over these choices rather
 than a single point estimate. Generation randomness---the one source a single draw per prompt cannot expose---turns out to be
 the smallest of all. In a preregistered multi-generation run (three backends spanning the adoption range
 $\times$ two UI conditions $\times$ six personas $\times$ 20 items $\times$ five generation seeds; 3{,}600 trials), generation
 contributes essentially none of the variance in dark adoption (fixed-effects $\eta^2=0.001$, versus $0.21$
-for items, $0.15$ for personas, and $0.07$ for the backend; Figure~\ref{fig:variance}); this is a separate
-$\eta^2$ decomposition of the smaller generation-focused run, so its item share is not the crossed-effects
-$0.28$ reported above. Each backend's aggregate over-reliance
+for items, $0.15$ for personas, and $0.07$ for the backend; Figure~\ref{fig:variance}; a separate
+decomposition of this smaller run). Each backend's aggregate over-reliance
 estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$), small
 against the $0.31$ spread \emph{between} backends that flips the decision. Generation noise is real at the
 level of an individual persona--item cell (mean cell SD $0.17$; about a third of cells change across seeds),
 but it averages out: two-thirds of cells are reproduced identically. So the aggregate reading a
 practitioner acts on is stable across generations, and the backend and persona effects above are not
-artifacts of a lucky draw. (We report a fixed-effects $\eta^2$ share because a random-effects variance
-component for the backend is degenerate on three groups; the direct stability statistics are the primary,
-model-free evidence.)
+artifacts of a lucky draw.\footnote{We report a fixed-effects $\eta^2$ share because a random-effects
+variance component for the backend is degenerate on three groups; the direct stability statistics are the
+primary, model-free evidence.}
 
 \subsection{A backend-stable manipulation check: the panel propagates a prompted trust disposition}
 
@@ -611,35 +607,23 @@ reliability property of the simulation, not a discovered human vulnerability. Bu
 \emph{ordering} agreement is largely carried by this one persona: the mean pairwise Spearman across
 independent vendors is 0.85 on beer (0.66 on amzbook) with p5 included, and drops to 0.73 on beer and to
 0.38 on amzbook once p5 is excluded (Figure~\ref{fig:ordering})---so beneath the shared top rank the
-vendors agree less well, moderately on amzbook and still substantially on beer. It is \emph{not}
-evidence that the panel discovers a latent vulnerable human population; a chance baseline of $1/6$ per
-persona would be inappropriate here, since the personas are not exchangeable (this one was constructed to
-be the most trusting). A within-data check reinforces this: holding the ``novice'' background fixed and
-varying only the trust disposition, the novice-\emph{skeptical} persona (p1) adopts far less than the
-novice-\emph{trusting} persona (p5) on every backend---so the effect tracks the explicitly instructed
-AI-deference policy, not ``novice-ness'' or a discovered trait. Whether the ordering survives \emph{removing}
-the explicit deference instruction entirely is a preregistered synthetic \emph{descriptor ablation}: we
-re-run the dark condition on two backends with background-only persona prompts (experience level and
-AI-usage frequency stated, but no explicit trust/deference policy). The result is mixed and
-\emph{backend-dependent}, and we report it as such. On the mid-tier backend (gpt-4.1) the trusting-novice's
-adoption is essentially retained without the policy ($1.00$ with policy vs.\ $0.90$ background-only) and the
-persona ordering is preserved in point estimate (Spearman $0.70$, n.s.\ at $n=6$)---but p5 is no longer the
-\emph{unique} top adopter, because the skeptical personas also become more compliant once their explicit
-verification instruction is removed (the novice-skeptical persona p1 rises from $0.60$ to $0.90$). On the
-frontier backend (gpt-5.5) the signal is more clearly policy-carried: p5 falls from $0.60$ to $0.40$ and
-from rank~1 to rank~2, with ordering agreement only Spearman $0.34$ (n.s.). The ablation is deliberately
-small (20 items, one generation, one domain, two backends; per-cell SE $\approx$0.11), so we read
-individual rank swaps cautiously. The takeaway is consistent with the manipulation-check framing: part of
-the p5 effect is a prompt-compliance property of the explicit deference instruction and part is carried by
-the persona's background traits, and which dominates itself depends on the backend---reinforcing that the
-``at-risk persona'' is a synthetic construct whose human counterpart only the planned study
-(Section~\ref{sec:e6}) can establish. We also tried two \emph{alternative} inductions of the same
-disposition---a first-person backstory and a few-shot behavioral demonstration---under which p5 stays the
-top pooled dark-adopter ($1.00$); but on inspection these do not remove the deference \emph{content} (the
-backstory narrates a habit of ``going along with'' the AI; the demonstration shows past AI-following), so we
-treat them as different encodings of the disposition rather than deference-free controls, and rest the
-anti-circularity argument on the neutral background-only arm above and the non-policy dispositional control
-next.
+vendors agree less well, moderately on amzbook and still substantially on beer. It is a manipulation check
+the panel \emph{passes}, not a vulnerable human population it discovers: p5 was built to be trusting, so a
+chance baseline of $1/6$ per persona would be inappropriate (the personas are not exchangeable). The
+question that matters for circularity is whether p5's adoption is a mere artifact of the explicit ``trust
+the AI'' wording---and it is not. A non-policy control (next) shows the effect survives when no trust
+instruction is given at all; and holding the ``novice'' background fixed, the novice-\emph{skeptical}
+persona adopts far less than the novice-\emph{trusting} one on every backend, so the effect tracks the
+disposition rather than the ``novice'' label.\footnote{Two further preregistered checks locate the signal
+without changing this reading. A background-only \emph{descriptor ablation} (persona background stated but
+no trust/deference wording; two backends, 20 items) retains the trusting-novice's high adoption on the
+mid-tier backend ($1.00$ with policy vs.\ $0.90$ without) but shows it is more policy-carried on the
+frontier (p5 $0.60\to0.40$, rank~1$\to$2), with skeptical personas also becoming more compliant once their
+verification instruction is removed---so part of the effect is prompt-compliance and part is background, in
+a backend-dependent mix (20 items, one generation, per-cell SE~$\approx0.11$; individual rank swaps read
+cautiously). Two alternative inductions (a first-person backstory and a few-shot behavioural demonstration)
+keep p5 the top pooled adopter ($1.00$) but do not strip the deference \emph{content}, so we read them as
+re-encodings of the disposition rather than deference-free controls.}
 
 \paragraph{A non-policy dispositional control.} To probe circularity more directly, we ran a further
 exploratory ablation with a \emph{dispositional} persona that states three facts---low task experience,
@@ -714,18 +698,15 @@ most (0.44). In short, \emph{you would not crash-test with your safest driver}--
 powered by the frontier model does exactly that, screening for over-reliance danger with the one ``user''
 least capable of being over-reliant.
 
-\paragraph{The pattern sharpens at $n=11$ backends.} To test whether this is an artifact of the six-model
-ladder, we expanded to \textbf{eleven} backends spanning three vendors and a wide capability range (adding
-gpt-3.5-turbo, gpt-4, gpt-5.4, claude-opus-4.6, and gemini-3.1-pro; a twelfth, claude-haiku-4.5, is excluded
-because it never emitted a parseable decision---an instrument failure, disclosed). Across these eleven, and
-now \emph{pooling both datasets}, backend capability anti-correlates with all three vulnerability measures
-(Spearman: aggregate adoption $-0.82$, AI-induced flip $-0.67$, p5 adoption $-0.65$; Benjamini--Hochberg
-$p\le0.03$; Figure~\ref{fig:expand11}). We \textbf{tier} these by robustness. The \emph{aggregate-adoption}
-anti-correlation is solid: significant in each dataset separately (beer $-0.68$, amzbook $-0.98$) and in
-every leave-one-backend-out jackknife (worst-case $p=0.01$). The \emph{flip} and \emph{p5} anti-correlations
-are \emph{suggestive}: they are carried by the amzbook domain (in beer alone both are non-significant) and
-are fragile to removing a single backend, so we report them as a cross-domain pattern, not a within-domain
-law. Either way the qualitative reading is unchanged and does not rest on the correlation at all:
+\paragraph{The pattern sharpens at $n=11$ backends.} It is not an artifact of the six-model ladder.
+Widening to \textbf{eleven} backends across three vendors and a broad capability range, and pooling both
+datasets, capability anti-correlates with all three vulnerability measures (Spearman: aggregate adoption
+$-0.82$, AI-induced flip $-0.67$, p5 adoption $-0.65$; Benjamini--Hochberg $p\le0.03$;
+Figure~\ref{fig:expand11}).\footnote{Added backends: gpt-3.5-turbo, gpt-4, gpt-5.4, claude-opus-4.6, and
+gemini-3.1-pro; a twelfth, claude-haiku-4.5, is excluded because it never emitted a parseable decision---an
+instrument failure, disclosed.} The aggregate-adoption anti-correlation is the sturdy one---significant in
+each dataset ($-0.68$ / $-0.98$) and every leave-one-backend-out jackknife; the flip and p5 correlations are
+amzbook-carried and single-backend fragile. But the reading does not hang on the correlation:
 \textbf{the frontier backend is nearly blind to the at-risk persona.}
 
 \begin{figure*}[t]
@@ -996,14 +977,11 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   of the interventions, on one domain and one generation; the backend$\times$condition interaction is
   underpowered, so we claim sign-robustness of the protective effect (all benefits $\ge0$), not
   magnitude-invariance---and note one backend (gemini) where the safeguard is nearly inert.
-  \item \textbf{The capability--vulnerability mismatch rests on synthetic evidence with a coarse capability
-  proxy and a partly mechanical component.} Capability is proxied by mean System-1 accuracy; part of the raw
-  capability$\times$adoption correlation is mechanical (a backend that answers correctly cannot then adopt a
-  wrong AI by construction). Even at $n=11$ backends across both datasets, only the aggregate-adoption
-  anti-correlation is jackknife-robust; the finer flip/p5 correlations are amzbook-carried and single-point
-  fragile. We therefore lead with the assumption-light coverage result (a single frontier backend covers
-  $\leq$1/9 high-adoption cells; a weak pair recovers 4--5/6) and report the capability correlation as
-  supporting, tiered by robustness, not a fitted law. The at-risk persona is prompt-defined, so
+  \item \textbf{The capability--vulnerability mismatch rests on synthetic evidence.} Capability is a coarse
+  proxy (mean System-1 accuracy) and part of the raw capability$\times$adoption correlation is mechanical (a
+  backend that answers correctly cannot then adopt a wrong AI); the finer flip/p5 correlations are
+  amzbook-carried and single-backend fragile, which is why the load-bearing result is the assumption-light
+  coverage inversion rather than the correlation. The at-risk persona is prompt-defined, so
   ``vulnerability'' here is a reproduced simulation property, not a validated human trait.
   \item \textbf{Prompt-level, not pixel-level.} Agents see a textual encoding of the interface, so we study
   prompt framing rather than visual interface effects; a multimodal rendering is future work.

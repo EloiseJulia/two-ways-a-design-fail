@@ -2085,3 +2085,26 @@ owner call). Decisions:
 - OUTSTANDING (owner action): teaser Fig 1 image (fig1_overview.pdf, owner hand-drawn) still shows 20-item
   numbers -> now inconsistent with its refreshed caption; owner must redraw (beer flip 3/6->1/6, flip
   0.60->0.33, range, p5 0.50->0.54/0.30, coverage amzbook 5/6->3/6). arXiv v1 stays at 20-item (frozen).
+
+## D5.94 Register calibration: cut reviewer-simulation chains, keep the story (owner) (2026-07-31)
+- Owner critique: the paper reads not as p-hacking but as FEARFUL---over-proving (x150%) and over-explaining
+  (x200%) a distrusted result, with 'I know you'll question A -> so I explain A -> question B -> explain B'
+  reviewer-simulation chains. Fix (owner-confirmed calibration): reduce 'convince you' ~20%, increase 'this is
+  what I observed' ~20%, explanation to ~80%, leave reader space. KEEP the story/hooks/identity ('most
+  unsettling turn', 'safest driver', 'honest reading', cold-open exhibit)---those are the paper's edge.
+- Cuts (results/numbers all preserved; detail demoted to footnotes, not deleted):
+  * §4.6 manipulation check: 4 stacked anti-circularity controls (p1-vs-p5, descriptor ablation, alternative
+    inductions, non-policy control) -> one confident statement + a single footnote holding the ablation detail.
+  * §4.2 coercion: 'we re-estimate it three ways (2.02/1.92/1.93) and all exclude 1' -> 'robust across
+    specifications' + footnote; dropped 'we therefore claim only (i)/(ii)'.
+  * §4.4 variance: merged the double reconciliation ('not in tension'+'not a contradiction but a sharpening')
+    into one clause; moved the defensive '(we report fixed-effects eta^2 because degenerate on three groups)'
+    parenthetical and the 0.28-vs-0.21 clarifier to a footnote/short aside.
+  * §5.6 n=11: 'To test whether this is an artifact of the six-model ladder, we expanded...' + 'we tier by
+    robustness... suggestive... fragile... Either way... does not rest on the correlation at all' -> 'It is not
+    an artifact. Widening to eleven backends... capability anti-correlates...' with the backend list footnoted
+    and a tightened tiering, keeping the confident 'the frontier backend is nearly blind to the at-risk persona.'
+  * Limitations: the 5-sentence capvuln bullet (re-explaining §5.6's tiering + coverage-lead + prompt-defined
+    caveat) -> a crisp 2-sentence limitation.
+- Build clean: 25pp, 0 undefined. docs/paper only (arXiv v1 frozen). Memory stored (write with confidence not
+  fear; assert finding + one clean limitation; avoid the claim->control->claim->control chain).
