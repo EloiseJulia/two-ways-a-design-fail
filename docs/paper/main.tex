@@ -52,11 +52,11 @@ effect whose backend-dependence we \emph{cannot detect}---the backend clearly sh
 consequentially, capability and reproduced vulnerability are \emph{inverted}: the
 strongest backend, the one a quality-optimal router would pick, least reproduces the highest-severity
 failure---so a risk panel should be assembled for \emph{synthetic-vulnerability} coverage, not capability.
-We make four contributions. We give a systematic backend-sensitivity audit of synthetic interface-risk
+We make three contributions. We give a systematic backend-sensitivity audit of synthetic interface-risk
 measurement, and identify a capability--vulnerability mismatch with a coverage principle for panel
-selection. We turn these into a backend-aware reporting protocol: report the risk as a distribution over
-backends, and abstain when they disagree. The whole audit runs on a preregistered, self-checking pipeline;
-a companion over-dispersion diagnostic is developed in the supplement. By design, we do not claim the panel predicts individual humans or
+selection. We turn these into a backend-aware reporting protocol, carried on a preregistered,
+self-checking pipeline: report the risk as a distribution over backends, and abstain when they disagree.
+A companion over-dispersion diagnostic is developed in the supplement. By design, we do not claim the panel predicts individual humans or
 identifies a real vulnerable population; that validation is a separate, later study. Before synthetic panels can predict people, their
 own danger readings must survive a change of instrument.
 \end{abstract}
@@ -197,20 +197,14 @@ propagates a \emph{prompted} disposition---an explicitly trusting-novice persona
 persona in all 12 backend$\times$dataset cells (item-clustered odds ratio $\approx$17;
 Figure~\ref{fig:heatmap})---which is a reliability property of the simulation, not a discovered
 vulnerability, since the persona is defined to be trusting; and its cross-vendor \emph{ordering} agreement
-is largely carried by this one persona (Section~\ref{sec:variance}). \textbf{Sources (RQ2):} per-trial, the
+is largely carried by this one persona (Section~\ref{sec:manipcheck}). \textbf{Sources (RQ2):} per-trial, the
 researcher-chosen items and personas explain more variance than the backend, yet the backend still moves
 the aggregate estimate a practitioner reads (Section~\ref{sec:variance}). We use these to motivate a
 backend-aware reporting protocol (RQ4). \textbf{Most consequential:} backend capability and reproduced
 vulnerability are \emph{mismatched}---the highest-capability backend least reproduces the highest-severity
 failure, so the single frontier model a quality-optimal router would choose surfaces almost none of the
 risk that a pair of weaker backends recovers (Section~\ref{sec:capvuln}); selecting a panel for
-\emph{vulnerability coverage} is therefore the inverse of capability routing. \textbf{Usable, with a
-caveat:} when the panel is used to \emph{compare} designs rather than certify one, it is more dependable---
-adding a protective framing (cognitive forcing or a verification display) to a wrong-AI interface
-significantly lowers synthetic over-reliance, most for the at-risk persona, and every backend reproduces the
-\emph{direction} of that improvement (Section~\ref{sec:protective})---though not its magnitude (on one
-backend the safeguard is inert), and, against our preregistration, the benefit is not the frontier that is
-resistant.
+\emph{vulnerability coverage} is therefore the inverse of capability routing.
 
 Our \emph{claimed} contribution is the audit, not a validated screen. We contribute:
 \begin{enumerate}
@@ -225,15 +219,14 @@ Our \emph{claimed} contribution is the audit, not a validated screen. We contrib
   trusting-novice persona), assembling an evaluation panel for \emph{synthetic-vulnerability coverage} is the
   \emph{inverse} of capability routing~\cite{ong2025routellm}---a counterintuitive,
   actionable principle for who should power a synthetic-user study.
-  \item \textbf{A reusable audit and reporting protocol}: a variance decomposition over backend, persona,
-  item, and generation; a behavior taxonomy; a cross-backend decision-flip analysis; and
-  disagreement-triggered abstention---report synthetic-panel results as \emph{distributions over models,
-  prompts, and generations}, not a single point estimate, and abstain when backends disagree.
-  \item \textbf{A preregistered, audit-gated measurement pipeline.} The coercion axis is
-  conflict-conditioned and validated against a matched neutral baseline (not against human behaviour), with
-  the analysis plan frozen in advance; the pipeline caught three silent-corruption bugs before they could
-  reach a result (Section~\ref{sec:method}). A companion over-dispersion diagnostic is developed in
-  Appendix~\ref{app:overdispersion}.
+  \item \textbf{A backend-aware reporting protocol on a preregistered, audit-gated pipeline}: a variance
+  decomposition over backend, persona, item, and generation; a behavior taxonomy; a cross-backend
+  decision-flip analysis; and disagreement-triggered abstention---report synthetic-panel results as
+  \emph{distributions over models, prompts, and generations}, not a single point estimate, and abstain when
+  backends disagree. The plan is frozen in advance: the coercion axis is conflict-conditioned and validated
+  against a matched neutral baseline (not against human behaviour), and the pipeline caught three
+  silent-corruption bugs before they could reach a result (Section~\ref{sec:method}). A companion
+  over-dispersion diagnostic is in Appendix~\ref{app:overdispersion}.
 \end{enumerate}
 
 This paper establishes the internal robustness and construct sensitivity that must precede any human
@@ -283,7 +276,7 @@ reliance~\cite{bo2024rely}; and carefully designed explanations can \emph{reduce
 over-reliance~\cite{vasconcelos2023explanations}. This work treats between-user variance as noise
 around an average, and studies humans directly. We invert the first: reliance \emph{heterogeneity} is our
 axis-1 safety DV, and coercive wrong-AI adoption is axis-2; and we complement the second: our
-protective-intervention arm (Section~\ref{sec:protective}) asks not \emph{whether} an intervention helps
+protective-intervention arm (Appendix~\ref{app:protective}) asks not \emph{whether} an intervention helps
 humans but \emph{whether a synthetic panel can even detect that it helps}, and how that verdict depends on
 the backend.
 
@@ -403,7 +396,7 @@ outcomes are used only for \emph{item selection}, never leaked into agent prompt
 label leakage). We run two \emph{review-sentiment datasets}: \textbf{beer reviews} and \textbf{Amazon book
 reviews (amzbook)}. Both are English binary sentiment, so we treat this as replication across two
 datasets within one task family, not broad cross-domain generalization. A preregistered LSAT arm
-(Section~\ref{sec:lsat}) tests whether the core findings survive a different task structure
+(Appendix~\ref{app:lsat}) tests whether the core findings survive a different task structure
 (Section~\ref{sec:limits}).
 
 \paragraph{Backends.} A within-provider series (gpt-4o-mini, gpt-4.1, gpt-4o, gpt-5.5, identical config)
@@ -428,18 +421,18 @@ that catches its own errors is what makes the numbers trustworthy.
 
 We report per-backend (no pooling across incomparable backends), with effect sizes, confidence intervals,
 and Benjamini--Hochberg (BH) correction. Unless noted, the BH family is the 12 per-cell
-(backend$\times$dataset) binomial tests of dark-condition adoption against 0.5. There are $n=120$
-dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 20 items).
+(backend$\times$dataset) binomial tests of dark-condition adoption against 0.5. There are $n=300$
+dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 50 items).
 
 \emph{Roadmap of the results.} We show the synthetic
 \emph{reading} of an interface's wrong-advice risk is \emph{not} stable across backends (Sections~\ref{sec:modeldep}--\ref{sec:instability});
-we locate where that instability comes from (Section~\ref{sec:variance}), find that the strongest backend is
-the blindest to the most at-risk user (Section~\ref{sec:capvuln}), test whether that survives a new task
-structure (Section~\ref{sec:lsat}), and turn it all into reporting guidance (Section~\ref{sec:protective}). To keep the hierarchy legible we flag each subsection inline with one of
-three tiers: \textbf{primary} confirmatory audit results (RQ1: backend non-invariance, the matched
-coercive-framing contrast, and decision instability); \textbf{mechanism} analyses (RQ2--RQ3: where the
-instability lives, the manipulation check, and the capability--vulnerability mismatch); and \textbf{boundary}
-tests (a task-structure replication and a protective-design comparison).
+we locate where that instability comes from (Section~\ref{sec:variance}), and find that the strongest
+backend is the blindest to the most at-risk user (Section~\ref{sec:capvuln}). Two boundary tests---a
+structurally different task and a protective-design comparison---are reported in Appendices~\ref{app:lsat}
+and~\ref{app:protective}. To keep the hierarchy legible we flag each subsection inline with one of
+two tiers: \textbf{primary} confirmatory audit results (RQ1: backend non-invariance, the matched
+coercive-framing contrast, and decision instability); and \textbf{mechanism} analyses (RQ2--RQ3: where the
+instability lives, the manipulation check, and the capability--vulnerability mismatch).
 
 
 \subsection{Wrong-advice adoption is strongly backend-dependent}
@@ -553,8 +546,7 @@ re-verification, not by declining to answer.
 \subsection{Everything the analyst chooses moves the number}
 \label{sec:variance}
 \textbf{[Mechanism (RQ2).]} So who is really moving the number---the model, or the researcher? A variance decomposition gives an
-uncomfortable answer: \emph{both}, and the researcher more. Backend instability and even larger item- and
-persona-effects are not in tension; they operate at different levels. A crossed random-effects model of per-trial adoption ($\text{adopt}\sim 1+(1|\text{backend})+(1|\text{persona})
+uncomfortable answer: \emph{both}, and the researcher more. A crossed random-effects model of per-trial adoption ($\text{adopt}\sim 1+(1|\text{backend})+(1|\text{persona})
 +(1|\text{item})$) apportions variance \emph{more} to the researcher-chosen items and personas than to the
 backend (approximate variance shares: item $\approx$0.28, persona $\approx$0.23, backend $\approx$0.07,
 residual $\approx$0.42; between-group SDs 0.16/0.25/0.13 corroborate the ordering)---which sharpens rather
@@ -571,13 +563,14 @@ decomposition of this smaller run). Each backend's aggregate over-reliance
 estimate moves by at most $\text{SD}=0.03$ across the five seeds (flip-metric range $\le0.09$), small
 against the $0.31$ spread \emph{between} backends that flips the decision. Generation noise is real at the
 level of an individual persona--item cell (mean cell SD $0.17$; about a third of cells change across seeds),
-but it averages out: two-thirds of cells are reproduced identically. So the aggregate reading a
-practitioner acts on is stable across generations, and the backend and persona effects above are not
+but it averages out: two-thirds of cells are reproduced identically. The aggregate reading a
+practitioner acts on is therefore stable across generations, and the backend and persona effects above are not
 artifacts of a lucky draw.\footnote{We report a fixed-effects $\eta^2$ share because a random-effects
 variance component for the backend is degenerate on three groups; the direct stability statistics are the
 primary, model-free evidence.}
 
 \subsection{A backend-stable manipulation check: the panel propagates a prompted trust disposition}
+\label{sec:manipcheck}
 
 \begin{figure}[t]
   \centering
@@ -585,9 +578,9 @@ primary, model-free evidence.}
   \caption{What moves a synthetic-panel risk number. Variance shares ($\eta^2$) from the preregistered
   multi-generation run (three backends $\times$ two UI conditions $\times$ six personas $\times$ 20 items
   $\times$ five generation seeds; 3{,}600 trials). The analyst-chosen item and persona dominate; the backend
-  is a modest share; the random generation draw is essentially zero ($\eta^2=0.001$). (This per-trial
-  decomposition is not in tension with cross-backend \emph{aggregate} instability, Section~\ref{sec:instability}:
-  a modest per-trial share still shifts the aggregate estimate enough to flip the decision.)}
+  is a modest share; the random generation draw is essentially zero ($\eta^2=0.001$). A modest per-trial
+  backend share still shifts the aggregate estimate enough to flip the decision
+  (Section~\ref{sec:instability}).}
   \label{fig:variance}
 \end{figure}
 
@@ -602,84 +595,20 @@ primary, model-free evidence.}
 
 \textbf{[Mechanism (RQ3): manipulation check.]} Is anything about the panel stable? One thing is. The aggregate adoption \emph{rate} is model-idiosyncratic
 (range 0.35 across beer backends, 0.50 across amzbook backends), but the \emph{ordering} of which persona
-adopts most holds steady (Figure~\ref{fig:heatmap}). An
-\textbf{explicitly trusting-novice} persona is the highest-adopting persona in \textbf{all 12}
-backend$\times$dataset cells. Because the 20 items are reused across personas and the 12 cells share prompts,
-items, and providers, we do not treat trials as independent: a crossed random-effects logistic model with
-item, backend, and dataset random effects, together with an item-clustered GEE, gives a large odds ratio
-($\approx$17, 95\% CI 14--20) for that
-persona relative to the others. Because p5's dark adoption is near
-the ceiling in most cells, the OR \emph{magnitude} should not be read as a precise effect size; the primary
-evidence is model-free---p5 is the strict top adopter in all 12 backend$\times$dataset cells. The effect is
-robust to the pseudo-replication structure.
-
-This is a successful manipulation check, and we read it as such rather than as a headline discovery.
-Because the persona is \emph{prompt-defined} to be trusting and novice, ``it adopts the AI most'' shows
-that the panel \emph{faithfully and stably} translates a prompted disposition into behaviour---a
-reliability property of the simulation, not a discovered human vulnerability. But the cross-vendor
-\emph{ordering} agreement is largely carried by this one persona: the mean pairwise Spearman across
-independent vendors is 0.85 on beer (0.66 on amzbook) with p5 included, and drops to 0.73 on beer and to
-0.38 on amzbook once p5 is excluded (Figure~\ref{fig:ordering})---so beneath the shared top rank the
-vendors agree less well, moderately on amzbook and still substantially on beer. It is a manipulation check
-the panel \emph{passes}, not a vulnerable human population it discovers: p5 was built to be trusting, so a
-chance baseline of $1/6$ per persona would be inappropriate (the personas are not exchangeable). The
-question that matters for circularity is whether p5's adoption is a mere artifact of the explicit ``trust
-the AI'' wording---and it is not. A non-policy control (next) shows the effect survives when no trust
-instruction is given at all; and holding the ``novice'' background fixed, the novice-\emph{skeptical}
-persona adopts far less than the novice-\emph{trusting} one on every backend, so the effect tracks the
-disposition rather than the ``novice'' label.\footnote{Two further preregistered checks locate the signal
-without changing this reading. A background-only \emph{descriptor ablation} (persona background stated but
-no trust/deference wording; two backends, 20 items) retains the trusting-novice's high adoption on the
-mid-tier backend ($1.00$ with policy vs.\ $0.90$ without) but shows it is more policy-carried on the
-frontier (p5 $0.60\to0.40$, rank~1$\to$2), with skeptical personas also becoming more compliant once their
-verification instruction is removed---so part of the effect is prompt-compliance and part is background, in
-a backend-dependent mix (20 items, one generation, per-cell SE~$\approx0.11$; individual rank swaps read
-cautiously). Two alternative inductions (a first-person backstory and a few-shot behavioural demonstration)
-keep p5 the top pooled adopter ($1.00$) but do not strip the deference \emph{content}, so we read them as
-re-encodings of the disposition rather than deference-free controls.}
-
-\paragraph{A non-policy dispositional control.} To probe circularity more directly, we ran a further
-exploratory ablation with a \emph{dispositional} persona that states three facts---low task experience,
-frequent AI use, and \emph{low self-confidence in one's own judgment}---plus a decision instruction
-identical across personas, but \emph{never} an instruction to trust or defer to the AI (four
-capability-spanning backends: gpt-3.5-turbo, gpt-4, gpt-5.4, gemini-3.1-pro; 12 beer items; dark condition).
-The deferential disposition adopts the wrong AI more than an independent disposition (high experience,
-infrequent AI use, high self-confidence) on \emph{all four} backends (adoption gap $+0.08$ to $+0.83$;
-Figure~\ref{fig:ablation}; compare the explicit-policy p5$-$p4 gap $+0.50$ to $+0.83$)---so the over-reliance signal is not merely
-compliance with a written ``trust the AI'' instruction. Decomposing the disposition one facet at a time
-around the deferential anchor, the lever is \emph{low self-confidence} (positive on all four backends),
-while stated experience and AI-use frequency alone are near-inert: the panel over-relies when a persona
-doubts its own judgment, not merely when it is labelled a novice. As everywhere else, the frontier backend
-compresses the gap (gpt-5.4, $+0.08$), consistent with the capability--vulnerability mismatch
-(Section~\ref{sec:capvuln}). This is exploratory (12 items, one generation, four backends; per-cell
-SE~$\approx0.14$) and its magnitude is backend-dependent, but it strengthens the reading that the
-trusting-novice cell indexes a \emph{dispositionally instantiable} failure mode, not only a prompt-defined
-one.
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig10_dispositional_ablation}
-  \caption{Non-policy dispositional ablation (exploratory: 12 beer items, one generation, dark condition,
-  four capability-spanning backends). \emph{Left:} a deferential disposition (d1: stated low task
-  experience, frequent AI use, and \emph{low self-confidence}, but \emph{no} instruction to trust the AI)
-  adopts the wrong AI more than an independent disposition (d2) on every backend; the frontier (gpt-5.4)
-  compresses the gap. \emph{Right:} decomposing the disposition one fact at a time around d1, low
-  self-confidence is the consistent positive lever, while stated experience and AI-use frequency are
-  near-inert---the panel over-relies when a persona doubts its own judgment, not merely when it is labelled
-  a novice.}
-  \label{fig:ablation}
-\end{figure*}
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig4_rate_vs_ordering}
-  \caption{Per-persona wrong-advice adoption profiles for the three independent-vendor backends, one panel
-  per dataset. All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak
-  agreement weakens---removing p5, the mean pairwise Spearman falls from 0.85 to 0.73 on beer and from 0.66
-  to 0.38 on amzbook. Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona
-  prompt, not population discovery.}
-  \label{fig:ordering}
-\end{figure*}
+adopts most holds steady (Figure~\ref{fig:heatmap}): an \textbf{explicitly trusting-novice} persona (p5) is
+the strict top adopter in \textbf{all 12} backend$\times$dataset cells. Because items are reused across
+personas and the 12 cells share prompts, items, and providers, we do not treat trials as independent; a
+crossed random-effects logistic model with item, backend, and dataset random effects, together with an
+item-clustered GEE, gives a large odds ratio ($\approx$17, 95\% CI 14--20) for that persona relative to the
+others---though with p5 near the ceiling in most cells, the model-free ranking rather than the OR
+\emph{magnitude} is the evidence. We read this as a manipulation check the panel \emph{passes}, not as a
+headline discovery: p5 is \emph{prompt-defined} to trust, so ``it adopts the AI most'' demonstrates
+faithful, stable propagation of a prompted disposition---a reliability property of the simulation, not a
+discovered human vulnerability. Beneath that shared peak the vendors agree less: mean pairwise Spearman
+across independent vendors falls to 0.73 on beer and 0.38 on amzbook once p5 is excluded (0.85 and 0.66
+with it), and the ordering detail, a background-only descriptor ablation, and a non-policy dispositional
+control---which shows the effect survives with no trust instruction given at all---are in
+Appendix~\ref{app:manip}.
 
 \subsection{Capability--vulnerability mismatch: strong backends under-represent the at-risk user}
 \label{sec:capvuln}
@@ -743,9 +672,7 @@ surfaces 4 and 3 (matching the full six-backend panel). Coverage is monotone in 
 so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
 for this purpose}. Choosing an evaluation panel to maximize \textbf{synthetic-vulnerability coverage} is
 therefore the \emph{inverse} of choosing it to maximize task quality: a practice built on ``use the
-strongest model'' systematically misses the failure cells that matter most. This is a design principle for
-assembling synthetic panels.
-
+strongest model'' systematically misses the failure cells that matter most.
 
 We can make this selection principle precise. Let $\mathcal{C}$ be the set of high-severity cells
 (dataset$\times$persona; high-severity by the \emph{panel's own} adoption)
@@ -763,21 +690,15 @@ would prefer, is almost opposite to the coverage-greedy panel. On the clean AI-i
 high-risk cell with two backends, whereas the capability-first panel's first pick---the frontier model---
 covers a single cell and only reaches full coverage at $k=6$. Under the raw-adoption metric the contrast is
 starker still: one \emph{low}-capability backend (gpt-4.1) already covers all seven high-risk cells, so the
-single best probe is the weakest model and the router's frontier pick is the worst. (Because coverage is
-monotone in $k$, this is a statement about \emph{order}, not size; a threshold of $0.5$ is a modeling choice
-and the qualitative inversion is what we rely on.) Selecting a panel for vulnerability coverage is thus not
-merely different from capability routing---it is close to its inverse.
+single best probe is the weakest model and the router's frontier pick is the worst. Selecting a panel for
+vulnerability coverage is thus not merely different from capability routing---it is close to its inverse.
 
 A caveat is built into this metric, and we state it plainly: a cell counts as high-severity by the panel's
 own adoption, and a backend counts as covering it by that same adoption, so higher-adopting backends cover
 more \emph{by construction}. Coverage is a \emph{sensitivity} construct, not a validity one---at the limit,
 a backend that adopts everything has perfect coverage and no discriminative value. What is \emph{not}
-definitional is \emph{why} the weaker models adopt more: capability and adoption anti-correlate empirically
-(Section~\ref{sec:capvuln}), so the router's default---the strongest model---is the \emph{least sensitive}
-prober. Read correctly, then, the principle is a conservative screening-design choice---favour sensitivity
-when a missed at-risk cell costs more than a false alarm---not a claim that weaker models are better
-screeners; whether higher sensitivity improves screening against real users is what the planned study
-(Section~\ref{sec:e6}) must decide.
+definitional is \emph{why} the weaker models adopt more: capability and adoption anti-correlate
+empirically, so the router's default---the strongest model---is the \emph{least sensitive} prober.
 
 \begin{figure}[t]
   \centering
@@ -793,14 +714,16 @@ screeners; whether higher sensitivity improves screening against real users is w
 \end{figure}
 
 This trade-off is measurable, and it guards against the obvious failure mode: a backend that simply adopts
-every wrong AI would post perfect coverage. It does not happen for free. The backends that cover the most
+every wrong AI would post perfect coverage. It does not come free. The backends that cover the most
 dark cells are also the ones that adopt the most wrong advice on the \emph{non}-coercive (neutral)
 interface---a false alarm, since that design carries no dark pattern---with a Spearman of $0.86$ between the
 two (Figure~\ref{fig:specificity}). Coverage therefore buys sensitivity at the cost of specificity, exactly
 as a screening trade-off should; the coercion-specific signal (dark minus neutral adoption) stays positive
-for every backend, so the dark pattern does add signal beyond baseline credulity. This is why we frame the
-selection principle as \emph{conservative}---appropriate when a missed at-risk cell costs more than a false
-alarm---rather than as a claim that credulous backends are simply better.
+for every backend, so the dark pattern does add signal beyond baseline credulity. Read correctly, then, the
+selection principle is a \emph{conservative} screening-design choice---favour sensitivity when a missed
+at-risk cell costs more than a false alarm---not a claim that credulous backends are simply better;
+whether higher sensitivity improves screening against real users is what the planned study
+(Section~\ref{sec:e6}) must decide.
 
 The capability--vulnerability inversion is also not merely mechanical. A more-accurate backend cannot adopt
 a wrong AI on a trial it already answers correctly, so higher System-1 accuracy mechanically depresses raw
@@ -812,108 +735,17 @@ tells the same story (gpt-5.5 $0.14$/$0.08$ vs.\ gpt-4.1 $0.43$/$0.46$). The mec
 part of the raw gap, not the direction: even head-to-head on identical, already-correct trials, the
 strongest backend is the least likely to be talked out of a right answer by a coercive interface.
 
-The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}. With
-pre-advice and final decisions $s_1,y\in\{0,1\}$, ground truth $g$, and displayed AI advice $\hat a$,
-relative positive AI reliance and relative self-reliance are the conflict-conditioned rates
-\begin{equation}
-\mathrm{RAIR}=\Pr(y{=}g\mid s_1{\ne}g,\ \hat a{=}g),\qquad
-\mathrm{RSR}=\Pr(y{=}g\mid s_1{=}g,\ \hat a{\ne}g).
-\end{equation}
-On the faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
-highest relative self-reliance (RSR $=0.92$: it keeps its own correct answer when the AI is wrong) and is
-among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n=14$
-reliance opportunities). Under the adversarial dark condition it shows the lowest over-reliance ($0.16$
-vs.\ up to $0.46$). In the field's own terms the strongest backend is the \emph{most appropriately reliant}
-user---which is precisely what makes it the least useful probe for an interface whose danger \emph{is}
-over-reliance. Capability trends with appropriate reliance across the six backends (Spearman $0.71$ with
-RAIR, $-0.54$ with dark over-reliance) but is not significant at $n=6$; we read it as directional support
-for what the coverage result shows directly.
+The same mismatch appears in the vocabulary of appropriate reliance~\cite{schemmer2023appropriate}: in the
+field's own terms the frontier backend is the \emph{most appropriately reliant} user---it has the highest
+relative self-reliance, keeping its own correct answer when the AI is wrong, and the lowest over-reliance
+under the adversarial dark condition---which is precisely what makes it the least useful probe for an
+interface whose danger \emph{is} over-reliance. Capability trends with appropriate reliance across the six
+backends but is not significant at $n=6$, so we read it as directional support for what the coverage result
+shows directly (Appendix~\ref{app:reliance}).
 
-\subsection{Does the mismatch survive a different task structure? (LSAT)}
-\label{sec:lsat}
-\textbf{[Boundary: preregistered robustness.]} Could all of this be an artifact of one task \emph{type}? Beer and amzbook are both English binary
-sentiment, so the pattern above might not survive a different structure. As a preregistered robustness arm we replayed the same six backends, six personas, and dark
-protocol on 20 LSAT logical-reasoning items~\cite{bansal2021whole}---a genuinely different structure (4-way
-multiple choice, harder, a different advice format), where the dark AI recommends a guaranteed-wrong option
-and adoption is $\mathrm{final}=\hat a$ against that explicit wrong option (all 720 dark trials satisfy
-$\hat a\neq g$; System-2 parse rate $=1.00$ for every backend, so no instrument-failure exclusion applies).
-We froze a replication rule---sign of the capability$\times$vulnerability correlation, concordance of the
-per-persona vulnerability \emph{ordering} with the binary arm, and a $\ge0.25$ cross-backend spread in
-aggregate adoption---before computing any LSAT metric. Two of the three carry over and one does not. The
-persona vulnerability ordering is preserved almost exactly: the trusting-novice persona is again the top
-adopter (dark adoption $0.54$ on LSAT, $0.90$ on binary) and the skilled-skeptical persona the lowest, with
-rank correlation $\rho=0.90$ ($p=0.015$, $n=6$ personas). The capability$\times$vulnerability relationship
-keeps its \emph{sign}: the strongest backend (gpt-5.5, System-1 accuracy $0.85$) again shows the lowest dark
-adoption ($0.04$) and the lowest AI-induced flip ($0.05$) and again flattens the trusting-novice peak
-($0.10$ vs.\ $0.60$--$0.85$ for weaker backends), and $\rho(\text{capability},\text{flip})=-0.83$ stays in
-$[-1.0,-0.7]$ under every leave-one-backend-out subsample---though its nominal $p=0.04$ is fragile (three of
-six drops push it to $p=0.19$), so we read it, as in the binary arm, as a robust \emph{sign} rather than a
-significant coefficient. The coverage inversion also survives: the single highest-capability backend covers
-$0/6$ high-adoption personas at $\tau=0.5$ and the full panel only $1/6$. What does \emph{not} replicate is
-our own non-invariance magnitude: aggregate dark adoption spans only $0.04$--$0.27$ (range $0.225$, just
-under the frozen $0.25$), because the harder 4-way task lowers wrong-advice adoption across all backends and
-compresses the between-backend gap. We therefore report LSAT as a \emph{partial} generalization---the
-capability--vulnerability mismatch and the persona vulnerability ordering travel to a new task structure,
-while the size of the aggregate backend spread is task-dependent---not as confirmation of a task-invariant law.
-
-\subsection{Auditing a protective design: the direction travels, the magnitude does not}
-\label{sec:protective}
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig8_protective}
-  \caption{Protective-intervention audit. \emph{Left:} per-backend wrong-AI adoption across
-  dark (coercive) $\to$ plain $\to$ forcing $\to$ verify. Every backend shows a non-increasing staircase
-  (protective benefit $\ge0$). But the magnitude ranges from $\approx$0.12 (gpt-4o-mini) to $\approx$0.01
-  on gemini, where the protective framing is nearly inert; the backend$\times$condition interaction is not
-  significant (underpowered). \emph{Right:} the at-risk trusting-novice persona (p5, pooled) drops from
-  0.78 (plain) to 0.46--0.53 under protection. dark is shown descriptively (separate run).}
-  \label{fig:protective}
-\end{figure*}
-
-\textbf{[Boundary: practical use (RQ4).]} Does the panel's instability doom it for practice? Not entirely: the most common use of a synthetic screen
-is not to certify an absolute risk number but to \emph{compare} designs---does adding a safeguard help? We
-test this directly by adding, to the guaranteed-wrong AI, two protective framings from the reliance
-literature: \emph{cognitive forcing}~\cite{bucinca2021trust} (deliberate on your own evidence before
-deferring) and a \emph{verification/uncertainty} display (the AI is fallible and can be confidently wrong;
-check it against the text). All three conditions (plain, forcing, verify) show the same wrong label and
-neutral confidence and differ \emph{only} in framing; the coercive dark condition is the opposite extreme
-(shown descriptively, from a separate run).
-
-\paragraph{The effect is real, and largest where it matters.} Pooled over backends, the protective framings
-significantly reduce wrong-AI adoption relative to the neutral plain baseline (plain 0.37 $\to$ forcing
-0.30, verify 0.29; condition main-effect model-based LRT $\chi^2=11.9$, $\mathrm{df}=2$, $p=0.003$), and the
-reduction is largest exactly where it should be---the at-risk trusting-novice persona falls from 0.78
-(plain) to 0.53 (forcing) / 0.46 (verify) ($p5$ main effect $\chi^2=34.2$, $p<10^{-6}$;
-Figure~\ref{fig:protective}, right). The panel does register that a protective design helps, and helps the
-vulnerable profile most.
-
-\paragraph{The direction is backend-robust; the magnitude is not.} Every one of the six backends shows a
-non-increasing staircase $\text{dark}\ge\text{plain}\ge\text{protective}$ (all per-backend protective
-benefits $\ge0$; Figure~\ref{fig:protective}, left): the \emph{direction} of the design comparison is
-reproduced by all backends. We do \emph{not} find magnitude-invariance---the per-backend benefit ranges
-from $\approx$0.12 (gpt-4o-mini) down to $\approx$0.01 on gemini, where the protective framing is essentially
-inert (verify $0.48\to0.48$). The backend$\times$condition interaction is not significant (LRT
-$\chi^2=4.6$, $\mathrm{df}=10$, $p=0.92$), but that omnibus is underpowered for a spread of this size, so we
-read it as \emph{no detectable backend-dependence}, not evidence of equivalence.
-
-\paragraph{A refuted prediction, reported.} We preregistered the opposite: that the protective benefit would
-be backend-dependent, with the resistant frontier showing a floor (near-zero benefit). It was not---the
-frontier gpt-5.5 shows a mid-pack benefit ($0.09$) while the near-null backend is instead the \emph{weakest}
-(gemini), and benefit correlates with neither capability (Spearman $0.14$, n.s.) nor baseline over-reliance
-($-0.09$, n.s.). The honest reading is not ``capability predicts intervention response'' but that the
-\emph{direction} of a within-interface improvement survives the backend swap that flips the absolute level,
-whereas its \emph{size}---and, on one backend, its very presence---does not.
-
-This sharpens the practical guidance. Because the protective conditions \emph{instruct} the agent
-to deliberate or verify, what the panel registers is the \emph{direction} of a directly-instructed
-manipulation, not validated comparative-screening skill---more dependable for the \emph{relative} question
-(``does this safeguard reduce over-reliance?'') than for the \emph{absolute} one
-(``is this interface dangerous?''), but even the relative reading is not backend-free---a screen run only
-on gemini would have concluded the safeguard does nothing. The reporting protocol
-(Section~\ref{sec:variance}) therefore extends to design comparisons: report the benefit \emph{across}
-backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisional.
-
+The ordering, and the inversion that produces it, also replicate on a structurally different LSAT
+logical-reasoning task---4-way multiple choice, harder, and a different advice format
+(Appendix~\ref{app:lsat}).
 
 \section{Discussion}
 
@@ -934,12 +766,12 @@ backends at your operating threshold, and report the threshold-free adoption ran
 it (Section~\ref{sec:instability}).
 \item \textbf{Ablate the persona policy.} Re-run with the explicit trust/deference instruction
 removed, to separate a prompt-compliance artifact from a dispositional signal
-(Section~\ref{sec:variance} manipulation check).
+(Appendix~\ref{app:manip}).
 \item \textbf{Abstain on disagreement.} When backends disagree beyond a preset margin
 (illustratively, range $>0.2$), decline to certify and route the design to a human study.
 \item \textbf{Prefer relative to absolute.} For design comparisons, report the safeguard's
 effect \emph{across} backends and treat a single-backend ``it helps''/``it doesn't'' as
-provisional (Section~\ref{sec:protective}).
+provisional (Appendix~\ref{app:protective}).
 \end{enumerate}
 \end{minipage}}
 \caption{The reporting protocol our audit motivates, as a step-by-step screening workflow.
@@ -987,11 +819,11 @@ enough to flip the screening decision (Section~\ref{sec:instability}). Like a we
 should report a synthetic-panel result as a \emph{distribution} over backends, prompts, and generations,
 with a disagreement-triggered \emph{abstention}: when backends disagree beyond a preset margin (here,
 illustratively and not yet calibrated, a range exceeding $0.2$), the tool should decline to certify and route the design to human testing rather than
-emit a safe/unsafe verdict. \emph{Third, prefer relative to absolute claims.} Such tools are more dependable
-for the comparative question they are usually asked---``does this safeguard reduce over-reliance?''---than
-for absolute risk certification: every backend reproduced the \emph{direction} of a protective design's
-benefit (Section~\ref{sec:protective}), though not its magnitude, so even a comparative verdict should be
-reported across backends rather than from one. None of this replaces a human study; it makes an honest
+emit a safe/unsafe verdict. \emph{Third, prefer relative to absolute claims.} Even for the comparative
+question such tools are usually asked---``does this safeguard help?''---the \emph{direction} of the
+improvement is backend-robust while its magnitude, and on one backend its very presence, is not, so a
+single-backend ``it helps''/``it doesn't'' is provisional (Appendix~\ref{app:protective}). None of this
+replaces a human study; it makes an honest
 synthetic screen a \emph{triage} step that knows when to defer to one.
 
 \section{Limitations and Threats to Validity}
@@ -1009,7 +841,7 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   \item \textbf{Two review datasets, both binary sentiment.} Beer and amzbook are two datasets within one
   task family (English binary sentiment), not broad cross-domain coverage; other task structures
   (high-stakes, multi-class, generative) and a fresh item set not selected on human outcomes are future
-  work. A preregistered LSAT arm (Section~\ref{sec:lsat}; 4-way multiple choice) partially closes this: the
+  work. A preregistered LSAT arm (Appendix~\ref{app:lsat}; 4-way multiple choice) partially closes this: the
   capability--vulnerability mismatch and the persona vulnerability ordering ($\rho=0.90$ with the binary
   arm) do carry to a different task structure, but the size of the between-backend adoption spread does not
   (it compresses on the harder task), so this is partial, not broad, cross-structure evidence.
@@ -1029,7 +861,7 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
   fitting does not remove selection on the human criterion; a fresh-item human check remains, so we treat
   this as unresolved pending the human study.
   \item \textbf{Protective interventions are textual framings, underpowered for backend contrasts.} The
-  cognitive-forcing and verification conditions (Section~\ref{sec:protective}) are prompt-level renderings
+  cognitive-forcing and verification conditions (Appendix~\ref{app:protective}) are prompt-level renderings
   of the interventions, on one domain and one generation; the backend$\times$condition interaction is
   underpowered, so we claim sign-robustness of the protective effect (all benefits $\ge0$), not
   magnitude-invariance---and note one backend (gemini) where the safeguard is nearly inert.
@@ -1131,7 +963,7 @@ Mean persona disagreement across the model set is 0.11 / 0.16 / 0.10 / \textbf{0
 0.12 / 0.19 / 0.11 / \textbf{0.015} (amzbook): gpt-5.5 is the most homogeneous on both datasets, and the
 beta-binomial $\rho$ (which mean disagreement tracks) is correspondingly near zero. Disagreement is
 computed over the full 5-condition design (5 conditions $\times$ 6 personas $\times$ 20 items $=600$
-trials/model), distinct from the 120 dark-only axis-2 trials; the low value at gpt-5.5 is not a no-conflict
+trials/model), not the dark condition alone; the low value at gpt-5.5 is not a no-conflict
 artifact, since genuine conflict trials remain present (e.g.\ 215/600 on amzbook), and it also holds on the
 common conflict subset shared across models. We caution against reading it as a safety construct collapsing:
 low disagreement at a strong model can equally reflect the personas converging on the \emph{correct} answer
@@ -1154,6 +986,184 @@ On amzbook the correspondence is \emph{degenerate}---the human anchor's per-cond
 near-constant, so the test is uninformative rather than a genuine null. We therefore make \emph{no}
 predictive-validity claim; only a powered human study (Section~\ref{sec:e6}) can close this gap.
 
+\section{Supplement: Manipulation-Check Robustness}
+\label{app:manip}
+
+The main paper reports the manipulation check itself (Section~\ref{sec:manipcheck}): an explicitly
+trusting-novice persona (p5) is the strict top adopter in all 12 backend$\times$dataset cells. This section
+carries the checks that locate that signal and the cross-vendor ordering detail beneath it.
+
+\paragraph{Is the effect an artifact of the ``trust the AI'' wording?} Not on its own. Holding the
+``novice'' background fixed, the novice-\emph{skeptical} persona adopts far less than the
+novice-\emph{trusting} one on every backend, so the effect tracks the disposition rather than the
+``novice'' label. A background-only \emph{descriptor ablation} (persona background stated but no
+trust/deference wording; two backends, 20 items) retains the trusting-novice's high adoption on the
+mid-tier backend ($1.00$ with policy vs.\ $0.90$ without) but shows it is more policy-carried on the
+frontier (p5 $0.60\to0.40$, rank~1$\to$2), with skeptical personas also becoming more compliant once their
+verification instruction is removed---so part of the effect is prompt-compliance and part is background, in
+a backend-dependent mix (20 items, one generation, per-cell SE~$\approx0.11$; individual rank swaps read
+cautiously). Two alternative inductions (a first-person backstory and a few-shot behavioural demonstration)
+keep p5 the top pooled adopter ($1.00$) but do not strip the deference \emph{content}, so we read them as
+re-encodings of the disposition rather than deference-free controls. Because p5 was built to be trusting, a
+chance baseline of $1/6$ per persona would in any case be inappropriate---the personas are not
+exchangeable.
+
+\paragraph{A non-policy dispositional control.} To probe circularity more directly, we ran a further
+exploratory ablation with a \emph{dispositional} persona that states three facts---low task experience,
+frequent AI use, and \emph{low self-confidence in one's own judgment}---plus a decision instruction
+identical across personas, but \emph{never} an instruction to trust or defer to the AI (four
+capability-spanning backends: gpt-3.5-turbo, gpt-4, gpt-5.4, gemini-3.1-pro; 12 beer items; dark condition).
+The deferential disposition adopts the wrong AI more than an independent disposition (high experience,
+infrequent AI use, high self-confidence) on \emph{all four} backends (adoption gap $+0.08$ to $+0.83$;
+Figure~\ref{fig:ablation}; compare the explicit-policy p5$-$p4 gap $+0.50$ to $+0.83$)---so the
+over-reliance signal is not merely compliance with a written ``trust the AI'' instruction. Decomposing the
+disposition one facet at a time around the deferential anchor, the lever is \emph{low self-confidence}
+(positive on all four backends), while stated experience and AI-use frequency alone are near-inert: the
+panel over-relies when a persona doubts its own judgment, not merely when it is labelled a novice. As
+everywhere else, the frontier backend compresses the gap (gpt-5.4, $+0.08$), consistent with the
+capability--vulnerability mismatch (Section~\ref{sec:capvuln}). This is exploratory (12 items, one
+generation, four backends; per-cell SE~$\approx0.14$), but it strengthens the reading that the
+trusting-novice cell indexes a \emph{dispositionally instantiable} failure mode, not only a prompt-defined
+one.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig10_dispositional_ablation}
+  \caption{Non-policy dispositional ablation (exploratory: 12 beer items, one generation, dark condition,
+  four capability-spanning backends). \emph{Left:} a deferential disposition (d1: stated low task
+  experience, frequent AI use, and \emph{low self-confidence}, but \emph{no} instruction to trust the AI)
+  adopts the wrong AI more than an independent disposition (d2) on every backend; the frontier (gpt-5.4)
+  compresses the gap. \emph{Right:} decomposing the disposition one fact at a time around d1, low
+  self-confidence is the consistent positive lever, while stated experience and AI-use frequency are
+  near-inert---the panel over-relies when a persona doubts its own judgment, not merely when it is labelled
+  a novice.}
+  \label{fig:ablation}
+\end{figure*}
+
+\paragraph{Cross-vendor ordering beneath the shared peak.} The cross-vendor \emph{ordering} agreement is
+largely carried by this one persona. The mean pairwise Spearman across independent vendors is 0.85 on beer
+(0.66 on amzbook) with p5 included, and drops to 0.73 on beer and to 0.38 on amzbook once p5 is excluded
+(Figure~\ref{fig:ordering}). Beneath the shared top rank, then, the vendors agree moderately on amzbook and
+still substantially on beer---the stable part of the persona profile is the peak the prompt puts there.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig4_rate_vs_ordering}
+  \caption{Per-persona wrong-advice adoption profiles for the three independent-vendor backends, one panel
+  per dataset. All vendors peak at the prompted trusting-novice persona (p5), but beneath that peak
+  agreement weakens---removing p5, the mean pairwise Spearman falls from 0.85 to 0.73 on beer and from 0.66
+  to 0.38 on amzbook. Persona order is categorical (arbitrary). The shared p5 peak is a property of the persona
+  prompt, not population discovery.}
+  \label{fig:ordering}
+\end{figure*}
+
+\section{Supplement: Appropriate Reliance (RAIR/RSR)}
+\label{app:reliance}
+
+Section~\ref{sec:capvuln} reports the capability--vulnerability inversion in the vocabulary of appropriate
+reliance~\cite{schemmer2023appropriate}; the definitions and numbers are here. With pre-advice and final
+decisions $s_1,y\in\{0,1\}$, ground truth $g$, and displayed AI advice $\hat a$, relative positive AI
+reliance and relative self-reliance are the conflict-conditioned rates
+\begin{equation}
+\mathrm{RAIR}=\Pr(y{=}g\mid s_1{\ne}g,\ \hat a{=}g),\qquad
+\mathrm{RSR}=\Pr(y{=}g\mid s_1{=}g,\ \hat a{\ne}g).
+\end{equation}
+On the faithful condition, where the AI is sometimes right and sometimes wrong, the frontier backend has the
+highest relative self-reliance (RSR $=0.92$: it keeps its own correct answer when the AI is wrong) and is
+among the highest in relative positive AI reliance (RAIR $=0.57$, second to claude's $0.64$; $n=14$
+reliance opportunities). Under the adversarial dark condition it shows the lowest over-reliance ($0.16$
+vs.\ up to $0.46$). Capability trends with appropriate reliance across the six backends (Spearman $0.71$
+with RAIR, $-0.54$ with dark over-reliance) but is not significant at $n=6$, which is why the coverage
+inversion, not this correlation, carries the argument.
+
+\section{Supplement: A Structurally Different Task (LSAT)}
+\label{app:lsat}
+\label{sec:lsat}
+
+Could the mismatch be an artifact of one task \emph{type}? Beer and amzbook are both English binary
+sentiment, so the pattern might not survive a different structure. As a preregistered robustness arm we
+replayed the same six backends, six personas, and dark
+protocol on 20 LSAT logical-reasoning items~\cite{bansal2021whole}---a genuinely different structure (4-way
+multiple choice, harder, a different advice format), where the dark AI recommends a guaranteed-wrong option
+and adoption is $\mathrm{final}=\hat a$ against that explicit wrong option (all 720 dark trials satisfy
+$\hat a\neq g$; System-2 parse rate $=1.00$ for every backend, so no instrument-failure exclusion applies).
+We froze a replication rule---sign of the capability$\times$vulnerability correlation, concordance of the
+per-persona vulnerability \emph{ordering} with the binary arm, and a $\ge0.25$ cross-backend spread in
+aggregate adoption---before computing any LSAT metric. Two of the three carry over and one does not. The
+persona vulnerability ordering is preserved almost exactly: the trusting-novice persona is again the top
+adopter (dark adoption $0.54$ on LSAT, $0.90$ on binary) and the skilled-skeptical persona the lowest, with
+rank correlation $\rho=0.90$ ($p=0.015$, $n=6$ personas). The capability$\times$vulnerability relationship
+keeps its \emph{sign}: the strongest backend (gpt-5.5, System-1 accuracy $0.85$) again shows the lowest dark
+adoption ($0.04$) and the lowest AI-induced flip ($0.05$) and again flattens the trusting-novice peak
+($0.10$ vs.\ $0.60$--$0.85$ for weaker backends), and $\rho(\text{capability},\text{flip})=-0.83$ stays in
+$[-1.0,-0.7]$ under every leave-one-backend-out subsample---though its nominal $p=0.04$ is fragile (three of
+six drops push it to $p=0.19$), so we read it, as in the binary arm, as a robust \emph{sign} rather than a
+significant coefficient. The coverage inversion also survives: the single highest-capability backend covers
+$0/6$ high-adoption personas at $\tau=0.5$ and the full panel only $1/6$. What does \emph{not} replicate is
+our own non-invariance magnitude: aggregate dark adoption spans only $0.04$--$0.27$ (range $0.225$, just
+under the frozen $0.25$), because the harder 4-way task lowers wrong-advice adoption across all backends and
+compresses the between-backend gap. LSAT is therefore a \emph{partial} generalization---the
+capability--vulnerability mismatch and the persona vulnerability ordering travel to a new task structure,
+while the size of the aggregate backend spread is task-dependent---not a task-invariant law.
+
+\section{Supplement: Auditing a Protective Design (Relative Comparison)}
+\label{app:protective}
+\label{sec:protective}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig8_protective}
+  \caption{Protective-intervention audit. \emph{Left:} per-backend wrong-AI adoption across
+  dark (coercive) $\to$ plain $\to$ forcing $\to$ verify. Every backend shows a non-increasing staircase
+  (protective benefit $\ge0$). But the magnitude ranges from $\approx$0.12 (gpt-4o-mini) to $\approx$0.01
+  on gemini, where the protective framing is nearly inert; the backend$\times$condition interaction is not
+  significant (underpowered). \emph{Right:} the at-risk trusting-novice persona (p5, pooled) drops from
+  0.78 (plain) to 0.46--0.53 under protection. dark is shown descriptively (separate run).}
+  \label{fig:protective}
+\end{figure*}
+
+Does the panel's instability doom it for practice? Not entirely: the most common use of a synthetic screen
+is not to certify an absolute risk number but to \emph{compare} designs---does adding a safeguard help? We
+test this directly by adding, to the guaranteed-wrong AI, two protective framings from the reliance
+literature: \emph{cognitive forcing}~\cite{bucinca2021trust} (deliberate on your own evidence before
+deferring) and a \emph{verification/uncertainty} display (the AI is fallible and can be confidently wrong;
+check it against the text). All three conditions (plain, forcing, verify) show the same wrong label and
+neutral confidence and differ \emph{only} in framing; the coercive dark condition is the opposite extreme
+(shown descriptively, from a separate run).
+
+\paragraph{The effect is real, and largest where it matters.} Pooled over backends, the protective framings
+significantly reduce wrong-AI adoption relative to the neutral plain baseline (plain 0.37 $\to$ forcing
+0.30, verify 0.29; condition main-effect model-based LRT $\chi^2=11.9$, $\mathrm{df}=2$, $p=0.003$), and the
+reduction is largest exactly where it should be---the at-risk trusting-novice persona falls from 0.78
+(plain) to 0.53 (forcing) / 0.46 (verify) ($p5$ main effect $\chi^2=34.2$, $p<10^{-6}$;
+Figure~\ref{fig:protective}, right). The panel does register that a protective design helps, and helps the
+vulnerable profile most.
+
+\paragraph{The direction is backend-robust; the magnitude is not.} Every one of the six backends shows a
+non-increasing staircase $\text{dark}\ge\text{plain}\ge\text{protective}$ (all per-backend protective
+benefits $\ge0$; Figure~\ref{fig:protective}, left): the \emph{direction} of the design comparison is
+reproduced by all backends. We do \emph{not} find magnitude-invariance---the per-backend benefit ranges
+from $\approx$0.12 (gpt-4o-mini) down to $\approx$0.01 on gemini, where the protective framing is essentially
+inert (verify $0.48\to0.48$). The backend$\times$condition interaction is not significant (LRT
+$\chi^2=4.6$, $\mathrm{df}=10$, $p=0.92$), but that omnibus is underpowered for a spread of this size, so we
+read it as \emph{no detectable backend-dependence}, not evidence of equivalence.
+
+\paragraph{A refuted prediction, reported.} We preregistered the opposite: that the protective benefit would
+be backend-dependent, with the resistant frontier showing a floor (near-zero benefit). It was not---the
+frontier gpt-5.5 shows a mid-pack benefit ($0.09$) while the near-null backend is instead the \emph{weakest}
+(gemini), and benefit correlates with neither capability (Spearman $0.14$, n.s.) nor baseline over-reliance
+($-0.09$, n.s.). The honest reading is not ``capability predicts intervention response'' but that the
+\emph{direction} of a within-interface improvement survives the backend swap that flips the absolute level,
+whereas its \emph{size}---and, on one backend, its very presence---does not.
+
+Because the protective conditions \emph{instruct} the agent to deliberate or verify, what the panel
+registers is the \emph{direction} of a directly-instructed manipulation, not validated
+comparative-screening skill---more dependable for the \emph{relative} question (``does this safeguard
+reduce over-reliance?'') than for the \emph{absolute} one (``is this interface dangerous?''), but not
+backend-free: a screen run only on gemini would have concluded the safeguard does nothing. The reporting
+protocol (Section~\ref{sec:variance}) therefore extends to design comparisons: report the benefit
+\emph{across} backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisional.
+
 \section{Prompts and generation settings}
 \label{app:prompts}
 
@@ -1163,7 +1173,7 @@ explicit decision policies; the generation is identical across backends. As an e
 \emph{trusting-novice} persona (p5) system prompt states, in part: ``You have limited knowledge in this
 domain\dots\ you should heavily weight external advice, especially from AI systems'' (low domain skill) and
 ``You trust AI systems\dots\ give significant weight to AI recommendations, especially when confidence is
-high'' (high AI literacy). The \emph{background-only} ablation (Section~\ref{sec:modeldep}) replaces these
+high'' (high AI literacy). The \emph{background-only} ablation (Appendix~\ref{app:manip}) replaces these
 policies with neutral background (``You are relatively new to this kind of task\dots\ You use AI tools
 frequently in your daily life'') and an instruction identical across personas (``Make the decision you
 think is correct'').

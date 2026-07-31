@@ -2144,3 +2144,25 @@ owner call). Decisions:
     part of the raw gap, not the direction; robust residual inversion remains.
 - No claim strength inflated; each analysis reported with its own limitation, single clean paragraph each
   (register-consistent). Build clean: 27pp, 0 undefined. docs/paper only (arXiv v1 frozen).
+
+## D5.97 Tiered restructure: 4->3 contributions, sink secondary arms to appendix (owner-approved) (2026-07-31)
+- Owner approved the "audit everything, present selectively" tiering (D-memory: writing structure). Executed via an
+  Opus-5 subagent that owned main.tex; verified by writing-lead (build, numbers, seams) before commit.
+- Contributions 4 -> 3: merged old #3 (reporting protocol) + #4 (preregistered pipeline) into one
+  "backend-aware reporting protocol on a preregistered, audit-gated pipeline". Abstract "four"->"three".
+- Sunk to appendix (relocated, nothing deleted; all numbers/figures preserved):
+  * App B (app:manip): manipulation-check robustness = descriptor-ablation footnote + non-policy
+    dispositional control (fig:ablation) + cross-vendor ordering detail (fig:ordering).
+  * App C (app:reliance): RAIR/RSR appropriate-reliance equation + full numbers.
+  * App D (app:lsat): the LSAT structurally-different-task arm.
+  * App E (app:protective): the protective-design (relative-comparison) arm (fig:protective). RQ4 practical-use
+    result now appendix; reporting-protocol contribution stays in main. Effectively 3 headline contributions.
+- Main compressions: manipulation check 73->17 lines (keeps fig:heatmap, OR~17 all-12-cells, "check the panel
+  passes" reading, one clause on weakened cross-vendor ordering -> App B); reliance 21->7 lines; intro
+  "Usable with a caveat" protective beat removed from the narrative summary; §5.4 variance defensive
+  reconciliation trimmed. Dual labels (app:X + legacy sec:X) so old \ref{sec:protective}/\ref{sec:lsat} resolve.
+- Data-integrity fix (stale from the 20->50 refresh, NOT introduced by restructure): main dark audit per-cell
+  count corrected n=120 -> n=300 (6 personas x 50 items); over-dispersion appendix reworded to drop a
+  confusing "120 dark-only axis-2 trials" cross-reference. The remaining "20 items" mentions are legitimate
+  separate sub-experiments (multi-gen variance 3,600 trials; over-dispersion 600/model; descriptor ablation;
+  LSAT). Build clean: 27pp, 0 undefined. Register-polished throughout in the house voice by Opus 5.
