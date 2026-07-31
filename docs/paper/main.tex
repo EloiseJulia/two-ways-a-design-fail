@@ -422,12 +422,15 @@ that catches its own errors is what makes the numbers trustworthy.
 We report per-backend (no pooling across incomparable backends), with effect sizes, confidence intervals,
 and Benjamini--Hochberg (BH) correction. Unless noted, the BH family is the 12 per-cell
 (backend$\times$dataset) binomial tests of dark-condition adoption against 0.5. There are $n=300$
-dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 50 items).
+dark-condition trials per backend$\times$dataset cell (6 personas $\times$ 50 items).\footnote{Two
+diagnostic sub-runs deliberately use smaller item sets: the matched naturally-wrong contrast
+(Section~\ref{sec:coercion}) is restricted to the 8 items per cell where the AI is naturally wrong, and the
+preregistered generation-variance run (Section~\ref{sec:variance}) uses 20 items $\times$ five seeds.}
 
 \emph{Roadmap of the results.} We show the synthetic
 \emph{reading} of an interface's wrong-advice risk is \emph{not} stable across backends (Sections~\ref{sec:modeldep}--\ref{sec:instability});
 we locate where that instability comes from (Section~\ref{sec:variance}), and find that the strongest
-backend is the blindest to the most at-risk user (Section~\ref{sec:capvuln}). Two boundary tests---a
+backend is the least sensitive to the most at-risk persona (Section~\ref{sec:capvuln}). Two boundary tests---a
 structurally different task and a protective-design comparison---are reported in Appendices~\ref{app:lsat}
 and~\ref{app:protective}. To keep the hierarchy legible we flag each subsection inline with one of
 two tiers: \textbf{primary} confirmatory audit results (RQ1: backend non-invariance, the matched
@@ -649,7 +652,7 @@ gemini-3.1-pro; a twelfth, claude-haiku-4.5, is excluded because it never emitte
 instrument failure, disclosed.} The aggregate-adoption anti-correlation is the sturdy one---significant in
 each dataset ($-0.68$ / $-0.98$) and every leave-one-backend-out jackknife; the flip and p5 correlations are
 amzbook-carried and single-backend fragile. But the reading does not hang on the correlation:
-\textbf{the frontier backend is nearly blind to the at-risk persona.}
+\textbf{the frontier backend is the least sensitive to the at-risk persona.}
 
 \begin{figure*}[t]
   \centering
@@ -669,8 +672,8 @@ when its dark adoption reaches a risk threshold (0.5), a single frontier backend
 quality-optimal router~\cite{ong2025routellm} would select---surfaces the risk for only
 1 of 6 personas on beer and 0 of 6 on amzbook, whereas a pair of weaker backends (gpt-4.1, gpt-4o-mini)
 surfaces 4 and 3 (matching the full six-backend panel). Coverage is monotone in panel size by construction,
-so the point is not ``more models is better''; it is that the \emph{default best choice is the worst one
-for this purpose}. Choosing an evaluation panel to maximize \textbf{synthetic-vulnerability coverage} is
+so the point is not ``more models is better''; it is that the \emph{default best choice---the strongest
+model---provides the least coverage of the failure cells}. Choosing an evaluation panel to maximize \textbf{synthetic-vulnerability coverage} is
 therefore the \emph{inverse} of choosing it to maximize task quality: a practice built on ``use the
 strongest model'' systematically misses the failure cells that matter most.
 
@@ -681,8 +684,9 @@ and $a_b(c)$ backend $b$'s dark adoption on cell $c$; a panel $S$ of backends
 \begin{equation}
 f(S)=\bigl|\{\,c\in\mathcal{C}:\ \textstyle\max_{b\in S} a_b(c)\ge\tau\,\}\bigr|.
 \end{equation}
-$f$ is monotone and submodular, so the \emph{coverage-greedy} panel---$S_{k+1}=S_k\cup\{\arg\max_{b}
-f(S_k\cup\{b\})\}$---carries the standard $(1-1/e)$ approximation guarantee against the best size-$k$ panel.
+The \emph{coverage-greedy} panel adds, at each step, the backend that covers the most still-uncovered
+high-severity cells.\footnote{$f$ is monotone and submodular, so this greedy order carries the standard
+$(1-1/e)$ approximation guarantee against the best size-$k$ panel.}
 Figure~\ref{fig:expand11} (right) shows this contrast at $n{=}11$; the same $n{=}6$ comparison of a
 \emph{capability-first} panel that adds
 backends strongest-first, i.e.\ the order a quality-optimal router~\cite{ong2025routellm}
@@ -690,7 +694,7 @@ would prefer, is almost opposite to the coverage-greedy panel. On the clean AI-i
 high-risk cell with two backends, whereas the capability-first panel's first pick---the frontier model---
 covers a single cell and only reaches full coverage at $k=6$. Under the raw-adoption metric the contrast is
 starker still: one \emph{low}-capability backend (gpt-4.1) already covers all seven high-risk cells, so the
-single best probe is the weakest model and the router's frontier pick is the worst. Selecting a panel for
+single best probe is the weakest model and the router's frontier pick covers the fewest cells. Selecting a panel for
 vulnerability coverage is thus not merely different from capability routing---it is close to its inverse.
 
 A caveat is built into this metric, and we state it plainly: a cell counts as high-severity by the panel's
@@ -796,7 +800,7 @@ weaker models are ``more human''---either claim requires the human study we have
 
 \paragraph{Disagreement should trigger abstention, not averaging.} Cross-backend disagreement is not merely
 measurement error. It identifies the interfaces for which a single-backend verdict is least trustworthy.
-Treating that disagreement as information turns our reporting protocol (Section~\ref{sec:variance}) from
+Treating that disagreement as information turns our reporting protocol from
 general caution into an actionable rule: when the instruments disagree, the panel should decline to certify
 (Figure~\ref{fig:protocol} collects these steps into a single workflow).
 
@@ -809,7 +813,7 @@ paper establishes (i) and characterizes (ii); (iii) is reserved for the human st
 assumptions that a synthetic-user platform following standard engineering defaults would plausibly
 adopt~\cite{syntheticusers,uxia_synthetic}. \emph{First, rethink
 ``frontier-first.''} The instinct to power a screen with the strongest available model---the choice a
-quality-optimal router makes~\cite{ong2025routellm}---is close to the worst one for a risk
+quality-optimal router makes~\cite{ong2025routellm}---is close to the least sensitive choice for a risk
 audit: the strongest backend least reproduces the highest-severity failure (Section~\ref{sec:capvuln}), so
 a risk panel should be assembled for \emph{synthetic-vulnerability} coverage, which can require deliberately including
 weaker or more diverse backends: a \emph{single} frontier backend covers almost none of the risk that a
@@ -880,15 +884,12 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
 
 \emph{This study is designed but not yet run or preregistered.} The one thing synthetic compute cannot buy
 is grounding against real people. We have designed a stripped, axis-2-only human study (within-subjects,
-$N\approx 40$, Prolific) that would test the paper's two strongest replicated positives across the two
-review datasets against
-humans: (H1) a guaranteed-wrong AI interface elicits more wrong-advice adoption than a faithful/placebo
-baseline; (H2) a \emph{trusting-novice human index} (high self-reported AI-deference $\times$ low domain
-skill) predicts the highest wrong-AI adoption---the human test of Section~\ref{sec:modeldep}; and (H3)
-\emph{which} ladder model's panel best tracks the human pattern, with the sharp prediction that a mid-tier
-model tracks humans better than the resistant frontier---i.e.\ the most-capable panel model may be the
-least human-faithful screener. All outcomes, including nulls, would be publishable bounds on
-synthetic-panel validity.
+$N\approx 40$, Prolific) that would test, against humans and across the two review datasets, whether the
+coercive framing increases wrong-advice adoption relative to a faithful/placebo baseline, whether
+dispositional deference (high self-reported AI-deference $\times$ low domain skill) moderates that effect,
+and which backend or aggregation rule best approximates the human pattern. We make no prediction-validity
+claim here---without a human criterion we cannot say which backend is the most human-faithful screener;
+all outcomes, including nulls, would be publishable bounds on synthetic-panel validity.
 
 \section{Conclusion}
 
@@ -1161,7 +1162,7 @@ registers is the \emph{direction} of a directly-instructed manipulation, not val
 comparative-screening skill---more dependable for the \emph{relative} question (``does this safeguard
 reduce over-reliance?'') than for the \emph{absolute} one (``is this interface dangerous?''), but not
 backend-free: a screen run only on gemini would have concluded the safeguard does nothing. The reporting
-protocol (Section~\ref{sec:variance}) therefore extends to design comparisons: report the benefit
+protocol (Figure~\ref{fig:protocol}) therefore extends to design comparisons: report the benefit
 \emph{across} backends, and treat a single-backend ``it helps'' / ``it doesn't'' as provisional.
 
 \section{Prompts and generation settings}

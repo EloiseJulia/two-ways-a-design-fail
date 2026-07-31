@@ -2166,3 +2166,23 @@ owner call). Decisions:
   confusing "120 dark-only axis-2 trials" cross-reference. The remaining "20 items" mentions are legitimate
   separate sub-experiments (multi-gen variance 3,600 trials; over-dispersion 600/model; descriptor ablation;
   LSAT). Build clean: 27pp, 0 undefined. Register-polished throughout in the house voice by Opus 5.
+
+## D5.98 Post-restructure calibration pass (reviewer suggestions, owner-forwarded) (2026-07-31)
+- Acted on AI reviewer suggestions the owner judged non-nitpick; all are de-overclaiming / consistency /
+  tiering, consistent with the house register:
+  * §5.6 formalism tiered: kept the intuitive coverage-function definition f(S) + Fig 7 (right) in main;
+    moved the "monotone+submodular -> (1-1/e) greedy guarantee" to a footnote, so the coverage PRINCIPLE
+    no longer reads like a claimed validated panel-optimization ALGORITHM.
+  * Rhetoric grounded to the coverage objective: "blindest"/"nearly blind" -> "least sensitive"
+    (roadmap + §5.6); "default best choice is the worst one" -> "provides the least coverage of the failure
+    cells"; "frontier pick is the worst" -> "covers the fewest cells"; Discussion "worst one for a risk
+    audit" -> "least sensitive choice". Title metaphor ("safest driver") and "under-represent" framing kept.
+  * §8 Planned Human Validation softened: dropped the H1/H2/H3 hypothesis scaffolding and, crucially, the
+    sharp prediction that "a mid-tier model tracks humans better than the resistant frontier" (it presumed a
+    human-fidelity ordering the paper explicitly says it cannot make without a human criterion). Now one
+    modest sentence + explicit "we make no prediction-validity claim here".
+  * Consistency: fixed two mis-citations calling §5.4 (variance decomposition) "the reporting protocol"
+    -> point to Figure~\ref{fig:protocol} (Discussion) instead (main + protective appendix).
+  * Added a denominator-clarifying footnote at the §5 intro: main dark audit 50 items/300 per cell; matched
+    naturally-wrong contrast 8 items/cell; generation-variance run 20 items x 5 seeds -- pre-empts reviewer
+    confusion over drifting N. Build clean: 27pp, 0 undefined.
