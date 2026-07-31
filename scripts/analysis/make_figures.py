@@ -36,11 +36,7 @@ FIGDIR = 'figures'
 
 
 def save(fig, name):
-    fig.tight_layout()
-    for ext in ('png', 'pdf'):
-        fig.savefig(os.path.join(FIGDIR, f'{name}.{ext}'), dpi=200, bbox_inches='tight')
-    plt.close(fig)
-    print('wrote', name)
+    figstyle.save(fig, name, FIGDIR)
 
 
 def cell_rates(df):
@@ -148,26 +144,32 @@ def fig3_axis1_collapse():
 def fig4_rate_vs_ordering(df):
     cr = cell_rates(df)
     pr = persona_rates(df)
-    fig, (axB, axA) = plt.subplots(1, 2, figsize=(11, 4.2))
+    fig, (axB, axA) = plt.subplots(1, 2, figsize=(11, 4.0), sharey=True)
+    fig.subplots_adjust(wspace=0.10)
     # Per-persona vendor profiles, one per dataset (categorical personas: markers).
     # (The aggregate-adoption-by-backend bar panel was removed as redundant with fig5_decision_flip.)
     vendors = ['gpt-5.5', 'claude-sonnet-4.5', 'gemini-2.5-pro']
-    vcol = {'gpt-5.5': figstyle.OKABE['green'], 'claude-sonnet-4.5': figstyle.OKABE['purple'],
-            'gemini-2.5-pro': figstyle.OKABE['orange']}
+    vcol = {'gpt-5.5': figstyle.VIRIDIAN, 'claude-sonnet-4.5': figstyle.PLUM,
+            'gemini-2.5-pro': figstyle.GOLD}
+    vmark = {'gpt-5.5': 'o', 'claude-sonnet-4.5': 's', 'gemini-2.5-pro': '^'}
     xp = np.arange(len(PERSONAS))
     p5i = PERSONAS.index(TARGET)
     for ax, dom in [(axB, 'beer'), (axA, 'amzbook')]:
+        ax.axvspan(p5i - 0.45, p5i + 0.45, color=figstyle.GOLD, alpha=0.07, lw=0, zorder=0)
         for m in vendors:
             y = [pr[(dom, m, p)] for p in PERSONAS]
-            ax.plot(xp, y, marker='o', lw=1.4, ls='--', color=vcol[m], label=m)
-        ax.axvline(p5i, ls=':', color='0.4', lw=1.5)
-        ax.text(p5i, 1.03, 'p5', color='0.3', ha='center', fontsize=9)
-        ax.set_xticks(xp); ax.set_xticklabels([p.split('-', 1)[0] for p in PERSONAS], fontsize=9)
+            ax.plot(xp, y, marker=vmark[m], lw=1.4, ls=(0, (5, 2)), color=vcol[m], label=m,
+                    ms=5.5, **figstyle.MARKER_KW)
+        figstyle.note(ax, p5i, 1.045, 'p5', color=figstyle.SUBTLE, ha='center')
+        ax.set_xticks(xp); ax.set_xticklabels([p.split('-', 1)[0] for p in PERSONAS], fontsize=8.5)
+        ax.set_xlim(-0.5, len(PERSONAS) - 0.5)
         ax.set_xlabel('persona (categorical; order arbitrary)')
-        ax.set_ylabel('dark adoption')
-        ax.set_title(f'Per-persona adoption, independent vendors ({dom})')
+        if ax is axB:
+            ax.set_ylabel('dark adoption')
+        figstyle.panel_title(ax, f'Per-persona adoption, independent vendors ({dom})', size=9.5)
         ax.set_ylim(0, 1.1)
-        ax.legend(fontsize=7)
+        figstyle.style_axis(ax, grid='y')
+    figstyle.legend(axB, title='backend', loc='upper left', fontsize=7.6)
     save(fig, 'fig4_rate_vs_ordering')
 
 

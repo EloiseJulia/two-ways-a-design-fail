@@ -10,7 +10,6 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import scienceplots  # noqa: F401
 
 sys.path.insert(0, os.path.dirname(__file__))
 import figstyle  # noqa: E402
@@ -47,17 +46,12 @@ def load():
 
 
 def style():
-    plt.style.use(['science', 'no-latex'])
+    """figstyle is the single source of truth for typography, palette, spines, grid and legends."""
     figstyle.apply()
-    plt.rcParams.update({'axes.grid': False, 'legend.frameon': False,
-                         'figure.dpi': 150, 'savefig.dpi': 400})
 
 
 def save(fig, name):
-    fig.savefig(os.path.join(FIGDIR, name + '.png'), bbox_inches='tight')
-    fig.savefig(os.path.join(FIGDIR, name + '.pdf'), bbox_inches='tight')
-    plt.close(fig)
-    print('wrote', name)
+    figstyle.save(fig, name, FIGDIR)
 
 
 def dark_rate(rec, dom, m):
@@ -75,18 +69,18 @@ def fig_threshold_sweep(rec):
             nf = sum(1 for x in rates if x >= tau)
             flips.append(nf * (6 - nf) / 15.0)
         c = figstyle.DATASET[dom]
-        ls = '-' if dom == 'beer' else '--'
-        ax.plot(taus, flips, ls, color=c, lw=2, label=dom)
-    ax.axvline(0.5, ls=(0, (2, 2)), color=figstyle.OKABE['grey'], lw=1.0)
-    ax.text(0.5, 0.62, r'$\tau=0.5$ (one operating point)', rotation=90, va='top', ha='right',
-            fontsize=8, color='0.4')
+        ls = figstyle.DATASET_LS[dom]
+        ax.plot(taus, flips, ls=ls, color=c, lw=1.8, label=dom, zorder=3)
+    figstyle.refline(ax, 0.5, axis='x', ls=(0, (2, 2)), lw=0.9)
+    figstyle.note(ax, 0.49, 0.62, r'$\tau=0.5$ (one operating point)', rotation=90, va='top',
+                  ha='right', color=figstyle.SUBTLE)
     ax.set_xlabel(r'decision threshold $\tau$')
     ax.set_ylabel('pairwise backend flip rate')
     ax.set_xlim(0, 1); ax.set_ylim(0, 0.66)
-    ax.set_title('Backends disagree across the whole threshold range, not just at $\\tau=0.5$')
-    ax.legend(title='dataset', loc='upper right')
-    ax.spines[['top', 'right']].set_visible(False)
-    ax.grid(axis='y', color=figstyle.GRIDCLR, lw=0.6); ax.set_axisbelow(True)
+    figstyle.panel_title(ax, 'Backends disagree across the whole threshold range, '
+                             'not just at $\\tau=0.5$')
+    figstyle.legend(ax, title='dataset', loc='upper right')
+    figstyle.style_axis(ax, grid='y')
     save(fig, 'fig_threshold_sweep')
 
 
@@ -103,29 +97,34 @@ def fig_specificity(rec):
         return sum(xs) / len(xs) if xs else float('nan')
 
     fig, ax = plt.subplots(figsize=(5.8, 5.2))
-    ax.plot([0, 0.75], [0, 0.75], ls=(0, (3, 3)), color='0.6', lw=1.0, zorder=1)
-    ax.text(0.55, 0.585, 'flag-everything\n(no discrimination)', rotation=45, fontsize=7.5,
-            color='0.5', ha='center', va='center')
+    ax.plot([0, 0.75], [0, 0.75], ls=(0, (3, 3)), color=figstyle.FAINT, lw=0.9, zorder=1)
+    figstyle.note(ax, 0.555, 0.585, 'flag-everything\n(no discrimination)', rotation=45,
+                  ha='center', va='center', linespacing=1.3)
     for dom in ['beer', 'amzbook']:
         c = figstyle.DATASET[dom]; mk = figstyle.DATASET_MARK[dom]
         for m in MOD:
             x = rate(dom, m, NEUT)   # false-flag
             y = rate(dom, m, DARK)   # sensitivity
-            ax.scatter(x, y, s=60, color=c, marker=mk, edgecolor='white', linewidth=0.8, zorder=3)
+            ax.scatter(x, y, s=58, color=c, marker=mk, zorder=3, **figstyle.SCATTER_KW)
             if m in ('gpt-5.5', 'gpt-4.1'):
-                ax.annotate(SHORT[m], (x, y), textcoords='offset points', xytext=(6, -2),
+                ax.annotate(SHORT[m], (x, y), textcoords='offset points', xytext=(7, -3),
                             fontsize=8, color=c)
     from matplotlib.lines import Line2D
-    ax.legend(handles=[Line2D([0], [0], marker='o', color=figstyle.DATASET['beer'], lw=0, label='beer'),
-                       Line2D([0], [0], marker='s', color=figstyle.DATASET['amzbook'], lw=0, label='amzbook')],
-              title='dataset', loc='lower right')
+    figstyle.legend(ax,
+                    handles=[Line2D([0], [0], marker=figstyle.DATASET_MARK['beer'], lw=0,
+                                    color=figstyle.DATASET['beer'], markeredgecolor='white',
+                                    label='beer'),
+                             Line2D([0], [0], marker=figstyle.DATASET_MARK['amzbook'], lw=0,
+                                    color=figstyle.DATASET['amzbook'], markeredgecolor='white',
+                                    label='amzbook')],
+                    title='dataset', loc='lower right')
     ax.set_xlabel('false-flag: wrong-advice adoption on the\nNON-coercive (neutral) interface')
     ax.set_ylabel('sensitivity: wrong-advice adoption on the\ncoercive (dark) interface')
     ax.set_xlim(0, 0.7); ax.set_ylim(0, 0.75)
-    ax.set_title('Coverage is a sensitivity--specificity trade-off\n'
-                 '(high-coverage backends also over-flag safe interfaces; Spearman 0.86)', fontsize=9.5)
-    ax.spines[['top', 'right']].set_visible(False)
-    ax.grid(color=figstyle.GRIDCLR, lw=0.6); ax.set_axisbelow(True)
+    figstyle.panel_title(ax, 'Coverage is a sensitivity--specificity trade-off\n'
+                             '(high-coverage backends also over-flag safe interfaces; '
+                             'Spearman 0.86)', size=9.5)
+    figstyle.style_axis(ax, grid='both')
     save(fig, 'fig_specificity')
 
 
