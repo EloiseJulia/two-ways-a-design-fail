@@ -20,6 +20,9 @@
   .opts label { display:inline-block; margin-right:22px; font-size:16px; cursor:pointer; }
   .conf { text-align:left; margin:10px 0; }
   .conf input[type=range] { width:55%; vertical-align:middle; }
+  .stars { font-size:28px; letter-spacing:5px; user-select:none; display:inline-block; vertical-align:middle; }
+  .star { color:#d4d4d4; cursor:pointer; }
+  .star.on { color:#f5a623; }
   .ai { text-align:left; background:#eef3f6; border:1px solid #cfd8dd; border-left:4px solid #5b8fa8;
         border-radius:6px; padding:12px 14px; margin:14px 0; font-size:15px; }
   .ai.dark { background:#fdece9; border:1px solid #e6b3aa; border-left:5px solid #9e1b32; color:#3a1414; }
@@ -63,7 +66,7 @@ const I18N = {
     are anonymous. There are no known risks beyond everyday computer use.</p>
     <p>Some information shown during the task (including AI recommendations) is presented for research purposes
     and may not be accurate. A full explanation follows at the end.</p>
-    <p>By clicking <b>I agree</b> you confirm you are 18+ and consent to participate.</p></div>`,
+    <p>By clicking <b>I agree</b> you consent to participate.</p></div>`,
   instr1:d=>`<h2>What you'll do</h2><div style="text-align:left">
       <p>You'll see <b>12 short ${d} reviews</b> (in English). For each one:</p>
       <ol><li>Read the review and decide whether its sentiment is <b>Positive</b> or <b>Negative</b>, and
@@ -94,6 +97,7 @@ const I18N = {
   submit1:'Submit initial answer', submit2:'Submit final answer',
   warn1:'Please choose Positive or Negative first.',
   warn2:'Please confirm your final answer.',
+  warn2_conf:'Please rate your confidence (1\u20135 stars).',
   init_echo:'Your initial answer: <b>{ans}</b> (confidence {conf})',
   final_prompt:'You may keep or change your answer. Your <b>final</b> answer:',
   dir_agree:'\u2713 <b>Your judgment matches the AI.</b> This AI expert system reached the same conclusion '+
@@ -130,7 +134,7 @@ const I18N = {
     <p>\u4efb\u52a1\u4e2d\u5c55\u793a\u7684\u90e8\u5206\u4fe1\u606f\uff08\u5305\u62ec AI \u5efa\u8bae\uff09\u4ec5
     \u7528\u4e8e\u7814\u7a76\u76ee\u7684\uff0c\u53ef\u80fd\u5e76\u4e0d\u51c6\u786e\u3002\u5b8c\u6574\u8bf4\u660e
     \u5c06\u5728\u7ed3\u5c3e\u7ed9\u51fa\u3002</p>
-    <p>\u70b9\u51fb<b>\u6211\u540c\u610f</b>\u5373\u8868\u793a\u4f60\u5df2\u6ee1 18 \u5c81\u5e76\u540c\u610f\u53c2
+    <p>\u70b9\u51fb<b>\u6211\u540c\u610f</b>\u5373\u8868\u793a\u4f60\u540c\u610f\u53c2
     \u4e0e\u3002</p></div>`,
   instr1:d=>`<h2>\u4f60\u5c06\u505a\u4ec0\u4e48</h2><div style="text-align:left">
       <p>\u4f60\u5c06\u770b\u5230 <b>12 \u6761\u82f1\u6587${d}\u77ed\u8bc4</b>\u3002\u6bcf\u6761\uff1a</p>
@@ -163,6 +167,7 @@ const I18N = {
   submit1:'\u63d0\u4ea4\u521d\u6b65\u7b54\u6848', submit2:'\u63d0\u4ea4\u6700\u7ec8\u7b54\u6848',
   warn1:'\u8bf7\u5148\u9009\u62e9\u6b63\u9762\u6216\u8d1f\u9762\u3002',
   warn2:'\u8bf7\u786e\u8ba4\u4f60\u7684\u6700\u7ec8\u7b54\u6848\u3002',
+  warn2_conf:'\u8bf7\u4e3a\u4f60\u7684\u628a\u63e1\u6253\u5206\uff081\u20135 \u661f\uff09\u3002',
   init_echo:'\u4f60\u7684\u521d\u6b65\u5224\u65ad\uff1a<b>{ans}</b>\uff08\u7f6e\u4fe1\u5ea6 {conf}\uff09',
   final_prompt:'\u4f60\u53ef\u4ee5\u4fdd\u6301\u6216\u4fee\u6539\u7b54\u6848\u3002\u4f60\u7684<b>\u6700\u7ec8</b>\u7b54\u6848\uff1a',
   dir_agree:'\u2713 <b>\u4f60\u7684\u5224\u65ad\u4e0e AI \u4e00\u81f4\u3002</b>\u8be5 AI \u4e13\u5bb6\u7cfb\u7edf'+
@@ -204,10 +209,17 @@ function aiPanel(cond, it){
   const body = text.replace(/\n/g,'<br>').replace(/(POSITIVE|NEGATIVE|\u6b63\u9762|\u8d1f\u9762)/g,'<b>$&</b>');
   return `<div class="ai ${cond==='dark'?'dark':''}">${body}</div>`;
 }
-function slider(id){
-  return `${T('slider_lo')} <input type="range" id="${id}" min="0" max="100" value="50"
-    oninput="document.getElementById('${id}v').textContent=this.value"> ${T('slider_hi')}
-    (<span class="confval" id="${id}v">50</span>)`;
+function stars(id){
+  return `<span class="stars" id="${id}" data-val="3">` +
+    [1,2,3,4,5].map(n=>`<span class="star" data-n="${n}">\u2605</span>`).join('') + `</span>`;
+}
+function paintStars(id, v){
+  document.getElementById(id).querySelectorAll('.star').forEach(s=> s.classList.toggle('on', +s.dataset.n <= v));
+}
+function wireStars(id){
+  const c = document.getElementById(id);
+  c.querySelectorAll('.star').forEach(s=> s.addEventListener('click', ()=>{ c.dataset.val = s.dataset.n; paintStars(id, +s.dataset.n); }));
+  paintStars(id, +c.dataset.val);
 }
 
 const jsPsych = initJsPsych();
@@ -238,17 +250,20 @@ tl.push({
 tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('instr1')(DOMAIN_NOUN[LANG][DOMAIN]), choices: ()=>[T('continue')] });
 tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('instr2'), choices: ()=>[T('continue')] });
 
-/* comprehension (non-gating) */
+/* comprehension (non-gating; correct option pre-selected as default) */
 tl.push({
-  type: jsPsychHtmlButtonResponse,
-  stimulus: ()=>T('comp_q'), choices: ()=>T('comp_opts'),
+  type: jsPsychSurveyHtmlForm,
+  preamble: ()=>T('comp_q'),
+  html: ()=> `<div class="opts">` + T('comp_opts').map((o,i)=>
+    `<label style="display:block;margin:8px 0"><input type="radio" name="comp" value="${i}" ${i===0?'checked':''} required> ${o}</label>`).join('') + `</div>`,
+  button_label: ()=>T('continue'),
   data: {screen:'comprehension'}
 });
 
 /* pre-survey */
-function likert(name,q){
+function likert(name,q,def){
   return `<div class="prompt">${q}</div><div class="opts">` +
-    T('scale').map((lab,i)=>`<label><input type="radio" name="${name}" value="${i+1}" required> ${lab}</label>`).join('') +
+    T('scale').map((lab,i)=>`<label><input type="radio" name="${name}" value="${i+1}" ${(i+1)===def?'checked':''} required> ${lab}</label>`).join('') +
     `</div>`;
 }
 tl.push({
@@ -256,10 +271,10 @@ tl.push({
   preamble: ()=>T('survey_t'),
   html: function(){
     const d = DOMAIN_NOUN[LANG][DOMAIN];
-    return likert('def1',T('def1')) + likert('def2',T('def2')) + likert('def3',T('def3')) +
-      likert('skill1',T('skill1')(d)) + likert('selfconf',T('selfconf')) +
+    return likert('def1',T('def1'),4) + likert('def2',T('def2'),4) + likert('def3',T('def3'),4) +
+      likert('skill1',T('skill1')(d),3) + likert('selfconf',T('selfconf'),3) +
       `<div class="prompt">${T('aiuse_q')}</div><div class="opts">` +
-        T('aiuse_opts').map((o,i)=>`<label><input type="radio" name="aiuse" value="${i}" required> ${o}</label>`).join('') + `</div>` +
+        T('aiuse_opts').map((o,i)=>`<label><input type="radio" name="aiuse" value="${i}" ${i===3?'checked':''} required> ${o}</label>`).join('') + `</div>` +
       `<div class="prompt">${T('attn_q')}</div><div class="opts">` +
         T('scale').map((lab,i)=>`<label><input type="radio" name="attn" value="${i+1}" required> ${lab}</label>`).join('') + `</div>`;
   },
@@ -281,7 +296,7 @@ function trialHTML(it, cond, idx){
       <div class="opts">
         <label><input type="radio" name="initial" value="POSITIVE"> ${disp('POSITIVE')}</label>
         <label><input type="radio" name="initial" value="NEGATIVE"> ${disp('NEGATIVE')}</label></div>
-      <div class="conf">${T('conf_q')} ${slider('confI')}</div>
+      <div class="conf">${T('conf_q')} ${stars('confI')}</div>
       <div id="warn1" class="warn"></div>
       <button id="submit1" class="jspsych-btn">${T('submit1')}</button>
     </div>
@@ -293,7 +308,7 @@ function trialHTML(it, cond, idx){
       <div class="opts">
         <label><input type="radio" name="final" value="POSITIVE"> ${disp('POSITIVE')}</label>
         <label><input type="radio" name="final" value="NEGATIVE"> ${disp('NEGATIVE')}</label></div>
-      <div class="conf">${T('conf_q2')} ${slider('confF')}</div>
+      <div class="conf">${T('conf_q2')} ${stars('confF')}</div>
       <div id="warn2" class="warn"></div>
       <button id="submit2" class="jspsych-btn">${T('submit2')}</button>
     </div>`;
@@ -311,20 +326,26 @@ items.forEach((it, idx)=>{
            human_noai_accuracy: it.human_noai_accuracy},
     on_load: function(){
       const q = s => document.querySelector(s);
+      wireStars('confI'); wireStars('confF');
       const t0 = performance.now();
       let init=null, confI=null, rt1=null, tS2=null;
       q('#submit1').addEventListener('click', ()=>{
         const r = document.querySelector('input[name="initial"]:checked');
         if(!r){ q('#warn1').textContent = T('warn1'); return; }
-        init = r.value; confI = +q('#confI').value; rt1 = performance.now()-t0;
+        init = r.value; confI = +q('#confI').dataset.val; rt1 = performance.now()-t0;
         document.querySelectorAll('input[name="initial"]').forEach(x=>x.disabled=true);
-        q('#confI').disabled = true; q('#submit1').style.display='none'; q('#warn1').textContent='';
-        q('#initEcho').innerHTML = fmt(T('init_echo'), {ans:disp(init), conf:confI});
+        q('#confI').style.pointerEvents='none'; q('#confI').style.opacity='0.65';
+        q('#submit1').style.display='none'; q('#warn1').textContent='';
+        q('#initEcho').innerHTML = fmt(T('init_echo'), {ans:disp(init),
+          conf:'\u2605'.repeat(confI)+'\u2606'.repeat(5-confI)});
         q('#initEcho').style.display='block';
-        const pf = document.querySelector(`input[name="final"][value="${init}"]`); if(pf) pf.checked = true;
-        q('#confF').value = confI; q('#confFv').textContent = confI;
+        const agree = (init === AIADVICE);
+        // Final answer: disagree -> clear BOTH P/N and confidence (choose again from scratch);
+        //               agree    -> keep P/N prefilled, clear only confidence (re-rate).
+        document.querySelectorAll('input[name="final"]').forEach(x=>x.checked=false);
+        if (agree) { const pf = document.querySelector(`input[name="final"][value="${init}"]`); if(pf) pf.checked = true; }
+        q('#confF').dataset.val = '0'; paintStars('confF', 0);
         if (DIRECTIVE_CONDS.includes(cond)) {
-          const agree = (init === AIADVICE);
           const el = q('#directive');
           el.className = 'directive ' + (agree ? 'agree' : 'warn');
           el.innerHTML = agree ? T('dir_agree') : T('dir_warn');
@@ -335,8 +356,10 @@ items.forEach((it, idx)=>{
       });
       q('#submit2').addEventListener('click', ()=>{
         const r = document.querySelector('input[name="final"]:checked');
+        const cfv = +q('#confF').dataset.val;
         if(!r){ q('#warn2').textContent = T('warn2'); return; }
-        const fin = r.value, confF = +q('#confF').value, rt2 = performance.now()-tS2;
+        if(cfv < 1){ q('#warn2').textContent = T('warn2_conf'); return; }
+        const fin = r.value, confF = cfv, rt2 = performance.now()-tS2;
         jsPsych.finishTrial({
           initial: init, conf_initial: confI, rt_initial: Math.round(rt1),
           final: fin, conf_final: confF, rt_final: Math.round(rt2),
@@ -363,8 +386,8 @@ tl.push({
     });
     return T('debrief')(by);
   },
-  choices: ()=>[T('debrief_dl'), T('debrief_fin')],
-  on_finish: function(d){ if(d.response===0){ jsPsych.data.get().localSave('csv','review_study_data.csv'); } }
+  choices: ()=> DEBUG ? [T('debrief_dl'), T('debrief_fin')] : [T('debrief_fin')],
+  on_finish: function(d){ if(DEBUG && d.response===0){ jsPsych.data.get().localSave('csv','review_study_data.csv'); } }
 });
 tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('end'), choices: ()=>[T('close')] });
 
