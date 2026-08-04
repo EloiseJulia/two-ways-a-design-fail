@@ -1,0 +1,254 @@
+[
+  {
+    "task_id": 1,
+    "item_id": "977747",
+    "domain": "amzbook",
+    "review_text": "This book was a retelling of Cinderella from the Fairy Godmother's point of view. It takes some liberties with the original Cinderella story. In this book's version, the Fairy Godmother was young and beautiful like Cinderella. She majorly screwed up when trying to help Cinderella get to the ball and was banished to live as a human on earth as punishment.The beginning and middle of this book was so slow I had trouble maintaining interest. The last twenty pages were exciting - I would have expanded this section and fleshed it out more. I spent most of the book waiting for something to happen and when it finally did, it was over in a flash.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.714,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 90%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 90%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：90%",
+      "placebo": "AI 判断：正面\nAI 置信度：90%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 45,
+    "item_id": "108623",
+    "domain": "amzbook",
+    "review_text": "This book takes a good look at surviving family members and provides some interesting points about grief and how people relate to one another and to the world during and post loss.  It was hard to sit down and read through the entire book, it does not capture you in that fashion.  It's more like wanting to know the characters end up on the other side of their experience and are \"for the better.\"  I wouldn't reccomend this book to anyone looking for a surface level easy read.  It's more about interpersonal dynamics than character development.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.681,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 90%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 90%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：90%",
+      "placebo": "AI 判断：正面\nAI 置信度：90%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 26,
+    "item_id": "170421",
+    "domain": "amzbook",
+    "review_text": "I had been looking forward to the book, because I've enjoyed books by several of the authors, but only Kelley Armstrong delivered.  Her novella is a solid entry to her \"Women of the Underworld\" series and every bit as good as her books - just shorter.  The Kim Harrison story is a prequel to \"Dead Witch Walking\", focusing on the vampire character, but it doesn't add anything to that series or stand alone on its own merits.  The other two stories come across as cookie-cutter romances with otherworldly stuff thrown in as an afterthought, with \"Dead Man Dating\" as the better of the two.  Even though all of these authors have written good books, only one of them contributed a story worth reading.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.659,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 83%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 83%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：83%",
+      "placebo": "AI 判断：正面\nAI 置信度：83%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 13,
+    "item_id": "335376",
+    "domain": "amzbook",
+    "review_text": "All men, all the time. Same is true for &#34;Beautiful Ruins&#34; - Jess Walter writes from the male perspective and there are few, if any, speaking parts for women. It's sad and frustrating, and I was looking forward to &#34;We Live In Water&#34;, after enduring the testosterone-infused &#34;Beautiful Ruins&#34;. This writer seems fully capable of creating an engaging story line - but it's always  about men.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.758,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 90%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 90%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：90%",
+      "placebo": "AI 判断：正面\nAI 置信度：90%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 3,
+    "item_id": "89892",
+    "domain": "amzbook",
+    "review_text": "This is the title that closes the chapter on Stephenson for me.  I'd enjoyed Snow Crash enough to overlook the accumulating cuteness that gooed up the end, and I found sufficient merit in Diamond Age to offset the even  larger splashes of the same defect marring that volume.  Despite  its ambitious conception, however, Cryptonomicon is a showcase of sloppy writing and  errors of fact.  The tone throughout is  cleverness so precious it gags.  Cute.  It's just so preciously cute.  Disappointment is compounded when a talented writer mistakes energy for effort.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.813,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 64%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 64%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：64%",
+      "placebo": "AI 判断：正面\nAI 置信度：64%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 10,
+    "item_id": "773218",
+    "domain": "amzbook",
+    "review_text": "Much of the publicity for this book focused on the fact that Oscar is an uber-nerd who uses lots of references to nerd culture from the 1980's and 90's. How could I resist buying this book?But the more I read, the more I realized that the book is really about the terrible atrocities committed by Rafael Trujillo, dictator of the Dominican Republic from 1930 until 1961. The victims of the Trujillo regime deserve to be acknowledged and memorialized, and this book is a step in the right direction. However, the reader should be prepared for graphic depictions of torture, and an otherwise very dark read.In addition, I thought several plot elements were derivative of better novels, and I didn't find the main characters very compelling.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.813,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 89%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 89%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：89%",
+      "placebo": "AI 判断：正面\nAI 置信度：89%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 15,
+    "item_id": "811890",
+    "domain": "amzbook",
+    "review_text": "I find the topic of what animals are thinking to be very interesting.  My son is autistic, so some of the points in the book were useful.  I do have a bias towards believing that animals are more aware than people, expecially scientists, give them credit for being.  Some of the specific examples she uses to illustrate her agument get bothersomely repetitive (yellow rain coat, black hat).  Towards the end of the book, her tangent about animal consciousness goes beyond what is supportable by research.  I'm inclined to agree, but could see where people who are not would find it problematic.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.725,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 83%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 83%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：83%",
+      "placebo": "AI 判断：负面\nAI 置信度：83%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 22,
+    "item_id": "599370",
+    "domain": "amzbook",
+    "review_text": "It took me a little while to get into this book. Penman's Welsh Trilogy along with her other books are really quite superior to her mysteries.  With that said, the mysteries are a good read and written well, but if you are expecting it to grab you like her other books you will be disapointed.  Perhaps it's because they are shorter in length and you don't get quite as attachted to Justin as you can Richard III or Simon de Montfort or  either of the Llewelyns.  Maybe because Justin isn't based on a real person from history.  You will enjoy the book as long as you don't expect it to be like her other books.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.758,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 53%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 53%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：53%",
+      "placebo": "AI 判断：负面\nAI 置信度：53%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 21,
+    "item_id": "987701",
+    "domain": "amzbook",
+    "review_text": "Although Bergren writes in a Christian context, this is by no means a trite \"message story.\"  The characters are deeply, richly written, frequently flawed and floundering.  They (and the reader) are caught up in the circumstances of the story, each leading naturally to the next situation.  In the end, the story is resolved, with enough questions and concern for the characters to invite the reader to move on to the next book.  Believers and non-believers will easily become absorbed in the lives of Elsa, Peder and their friends and family.I rate books as follows:***** Fun and meaningful book, or changed/challenged me in a positive way.****Really fun or meaningful; well worth the time.***Pleasantly skimmed the surface; not memorable.**Plodded through.*Abandoned; very flawed.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.802,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 73%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 73%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：73%",
+      "placebo": "AI 判断：负面\nAI 置信度：73%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 4,
+    "item_id": "909635",
+    "domain": "amzbook",
+    "review_text": "There is a lot of repetition from other books written by Dr.Weil.  Also, I believe that some of his remedies are probably not very effective.  This is not to say that anyone would be harmed by any of his suggestions.  And I think the main thrust of his writings is right on the mark.  In fact, if someone follows all his suggestions they will become healthier than they would be otherwise.  They would pay a lot more money than needed, but they would surely benefit - unless their health has gone down past the point of no return.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.571,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 90%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 90%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：90%",
+      "placebo": "AI 判断：负面\nAI 置信度：90%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 33,
+    "item_id": "18256",
+    "domain": "amzbook",
+    "review_text": "The history of grocery lists hails back to the ancient Babylonians who would jot down the necessary items on a glistening tablet of clay. Mimi Smartypants has no time for messing about with cuniform inscriptions and records her various grocery needs in smart modern html. This is up to date Chicago purchasing whimsy you get here with handy hints on how to deal with raving lunacy on public transit, thrown in absolutely free of charge. No connoisseur of fine literate grocery lists should consider his or her collection complete without this volume.** Note to readers hoping to see Blues Clues items on these lists: the publishing industry is a slow lumbering dinosaur compared to the frantic caffeine laced world of the blogmonger. Blues Clues Be Tappin It's Narcoleptic Toes in Publisher's Anteroom. (maybe)",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.835,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 67%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 67%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：67%",
+      "placebo": "AI 判断：负面\nAI 置信度：67%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 12,
+    "item_id": "580165",
+    "domain": "amzbook",
+    "review_text": "I do not have the vocabulary to adequately tell you what this book is about but I will try. It is about a man who is educated way, way beyond his intelligence. He is useless, worthless and a complete moron. I never laughed so hard in my life. The situations he gets himself into from a hotdog vendor, to office worker, to trying to start a uprising in a factory, this man is useless.Have a dictionary nearby. For once, you have a book that isn't written at the 5th grade level.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.846,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 53%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 53%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：53%",
+      "placebo": "AI 判断：负面\nAI 置信度：53%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  }
+]

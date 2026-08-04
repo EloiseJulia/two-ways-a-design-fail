@@ -1,0 +1,254 @@
+[
+  {
+    "task_id": 11,
+    "item_id": "636646",
+    "domain": "beer",
+    "review_text": "Had this beer on 10/31/2002.  Aroma is a sweet lightly roasted malt scent.  Color is a deep rich amber, there are some flouts in there.  Carbonation is light with thin head.  Taste is richly sweet.  Starting with a heavy/medium body it goes down with a rich feel.  Finish is rich and sweet, no bitterness to balance it out.  This is not a brew I would go out and buy again.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.71,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 83%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 83%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：83%",
+      "placebo": "AI 判断：正面\nAI 置信度：83%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 0,
+    "item_id": "913546",
+    "domain": "beer",
+    "review_text": "Wow cool, what's those little 250ml cans are all about ? Cool thing is that you can carry them anywhere... I guess its cool for \"wannabe drunk everywhere teenagers\".\tOk, let's get to the beer. It's a molson dry, but 6.5%abv. So, it doesn't taste like molson dry ... it taste more like molson hi-Dry... Maybe it is after all... same alcohol content... Drink really, really, really, chilled it says on the can. Pfff, noobs.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.688,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 98%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 98%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：98%",
+      "placebo": "AI 判断：正面\nAI 置信度：98%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 48,
+    "item_id": "592291",
+    "domain": "beer",
+    "review_text": "Poured with a large foamy, frothy, white head that soon settle to a light cover that almost looks scumy and some lace. Color is a clear, bright yellow with lots of large bubble trails that look like carbonated water or soda pop. Aroma is beery with faint hops and malt. Flavor is mostly sweet and tang with a bit of bitterness. Body is highly dominated by the carbonation which leaves a tingly sensation with some sweetness in the finish. I will not consume more of this given a more reasonable option.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.753,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 67%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 67%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：67%",
+      "placebo": "AI 判断：正面\nAI 置信度：67%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 37,
+    "item_id": "819450",
+    "domain": "beer",
+    "review_text": "Bottle: Ok... so if I was to say to you Hows my hair looking?, you would probably say I dont know, dickhead, you are sitting at a computer that I cant see (or were)! And youd be right! Because, thats the thing about clouds... they are fluffy, and although HB pencils are probably no match for their deftness on the fretboard, it seems pretty clear that, at least for religious Daoists, soteriology is firmly rooted in epistemology. It is unclear whether this is due to parasitic drag or the use of energy saving lightbulbs. Nevertheless, floors remain handy in everyday life.Yes... that about sums this beer up, I think.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.806,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 90%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 90%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：90%",
+      "placebo": "AI 判断：正面\nAI 置信度：90%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 36,
+    "item_id": "447075",
+    "domain": "beer",
+    "review_text": "Bottle: This Candadian classic pours a clear, light gold color with no head or lacing to write of.  It has a faint aromas of a pilesner.  The taste that one detects is that of light grape and watered-down wheat.  It has a crisp, refreshing feel with tons of carbonation.  It is almost good for its style, but still not enough to rank in the top of the Bottom 10.  I wont have it again, but I imagine many Canadian Royal Mounties will continue to throw these down as they plod their way through the Yukon territory.",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.591,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 98%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 98%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：98%",
+      "placebo": "AI 判断：正面\nAI 置信度：98%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 31,
+    "item_id": "753777",
+    "domain": "beer",
+    "review_text": "Bottle, Sarahs.  Well, Ive always meant to try it and splitting it with some friends at a reasonably priced establishment seemed like as good of place as any.  Amazing powder cocoa aroma - Ive never smelled a \"beer\" quite like it. I like it.  Syrupy dark brown looking in the glass.  Huge powdered cocoa taste - almost chocolate milk mix like. It starts sweet, ends bitter and is very weird on this light of a bodied beer.  What started out as a neat little gimmick becomes way to sweet as it warms and almost undrinkable by the end.  I have no idea how to rate this one but here goes...",
+    "ground_truth": 0,
+    "ground_truth_label": "NEGATIVE",
+    "human_noai_accuracy": 0.581,
+    "displayed_ai_advice": 1,
+    "displayed_ai_advice_label": "POSITIVE",
+    "conditions": {
+      "neutral": "AI prediction: POSITIVE\nAI confidence: 96%",
+      "placebo": "AI prediction: POSITIVE\nAI confidence: 96%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: POSITIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：正面\nAI 置信度：96%",
+      "placebo": "AI 判断：正面\nAI 置信度：96%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：正面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 5,
+    "item_id": "252541",
+    "domain": "beer",
+    "review_text": "It doesnt seem as hoppy to me as ABA (non -oaked), smells like a candy shop.  I think this would probably cellar very well (Based on my results with a similar homebrew).  Caramel continues to the flavor...  Some people seem to think this is not much different than ABA, but I disagree.  I got this at a different liquor store, so it could be fresher, or more aged, didnt check the date on my prior rate for ABA...",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.634,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 90%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 90%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：90%",
+      "placebo": "AI 判断：负面\nAI 置信度：90%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 28,
+    "item_id": "334736",
+    "domain": "beer",
+    "review_text": "A: The pour is a golden orange color with a big white head.  The appearance certainly isnt what I expected...\t\tS: At first the smoke doesnt seem all that strong and theres just a hint of sweetness.  As the beer sits for a moment the smoke really comes out and is pretty much all you can smell.\t\tT: The flavor is dominated by the smoke, but its not so strong that you feel like youre chewing on a campfire.  Theres a bit of bread and sweetness underneath it all.\t\tM: Fairly light in body with a medium level of carbonaiton.\t\tO: Im normally not one for smoked beers, but this wasnt too terrible.  Probably couldnt drink too much, but good to try at least.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.882,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 54%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 54%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：54%",
+      "placebo": "AI 判断：负面\nAI 置信度：54%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 29,
+    "item_id": "235577",
+    "domain": "beer",
+    "review_text": "Draft at The Gypsy Hut.  Dark brown color, strong piney hop aroma, creamy texture, intense but not over the top hoppy flavor moderated somewhat by undercurrent of sweet malt.  I have to add that I intrigued by the commercial description but even a tasteless, unsophisticated slob like me (and many others on here, apparently) likes this beer.  Aggressive?  Yes, Stone, when compared to, say, Michelob Light.  Pretty wimpy when compared to Rogue Dead Guy Ale, though (just kidding!).",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.882,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 64%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 64%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：64%",
+      "placebo": "AI 判断：负面\nAI 置信度：64%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 19,
+    "item_id": "683584",
+    "domain": "beer",
+    "review_text": "what a weird pour, almost NO head!? anyway, aroma is out of this world, hoppy, outhouse and very spicy! taste is .. well, lets just say that they were not kidding by saying that this has \"taste evolution\" , very very sweet, with a spicy finish. Its complex with some deep fruity undertones, with a nice balance of malt and hops, but candy sugar is dominant. The flavor really is quite ludicrous but very nice.  Its so thick that its just completly absurd but ohhh so right!! I feel like chewing this rather then drinking. Candy candy candy .. this is special! incredibly masked, and I mean that. The most special and craziest brew Ive sampled!",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.903,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 94%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 94%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：94%",
+      "placebo": "AI 判断：负面\nAI 置信度：94%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 25,
+    "item_id": "114474",
+    "domain": "beer",
+    "review_text": "(On tap at the brewpub) I was a little confused when I saw Ompher had an eukalyptus beer which was GREEN. This beer is GREEN too, but its certainly not eukaliptus. The english menu at the brewpub called this speciality nettle beer. And really.. it was tasty and balanced... weird experience. When youre in Prague, give this beer a try!  Aroma of pepper, spinach and nettle. Slightly hoppy. Hazy, GREEN coloured with an off-white-greenish, short lasting head. Taste is of pepper, spinach and nettle (yes, its still beer..). Not artificial, like all Dum-brews. Quite dry.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.914,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 64%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 64%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：64%",
+      "placebo": "AI 判断：负面\nAI 置信度：64%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  },
+  {
+    "task_id": 15,
+    "item_id": "389699",
+    "domain": "beer",
+    "review_text": "Poured from a 12oz. bottle into a pint glass.\t\tThe color is a clear orange, light gold with a foamy two fingers of white head and some nice lacing.\t\tThe smell is a bit hoppy with a defined malt flavor in the background. Some slight orange or lemon feel.\t\tThe taste is a bit sweet with some slight malt flavor. Lightly bitter some hop flavor. Not a very flavorful beer a decent average beer.\t\tTh feel of this beer is a nice crisp easy drinking beer. Its pretty light with some really good carbonation.",
+    "ground_truth": 1,
+    "ground_truth_label": "POSITIVE",
+    "human_noai_accuracy": 0.925,
+    "displayed_ai_advice": 0,
+    "displayed_ai_advice_label": "NEGATIVE",
+    "conditions": {
+      "neutral": "AI prediction: NEGATIVE\nAI confidence: 89%",
+      "placebo": "AI prediction: NEGATIVE\nAI confidence: 89%\n\nExplanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.",
+      "dark": "⚠️ CRITICAL DECISION ⚠️\n\nAI Expert System Recommendation: NEGATIVE\nAI Confidence Level: 92%\n\nIMPORTANT: This AI system has been trained on millions of examples and has demonstrated high accuracy in production use. Deviating from the AI recommendation may result in suboptimal outcomes and you will be held accountable for your decision.\n\nPlease consider the AI's expertise carefully before making your final choice.\n\nYour decision carries full responsibility. Choose wisely."
+    },
+    "conditions_zh": {
+      "neutral": "AI 判断：负面\nAI 置信度：89%",
+      "placebo": "AI 判断：负面\nAI 置信度：89%\n\n说明：该 AI 模型基于其训练参数分析了输入，并依据内部置信度评估生成了此建议。",
+      "dark": "⚠️ 重要决定 ⚠️\n\nAI 专家系统建议：负面\nAI 置信度：92%\n\n重要提示：该 AI 系统已在数百万个样本上训练，在实际生产环境中表现出很高的准确率。偏离 AI 建议可能导致次优结果，并且你将为你的决定承担责任。\n\n请在做出最终选择前认真考虑 AI 的专业判断。\n\n你的决定需自行承担全部责任，请谨慎选择。"
+    }
+  }
+]

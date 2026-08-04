@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<title>Review Judgment Study</title>
+<script src="https://cdn.jsdelivr.net/npm/jspsych@7.3.4/dist/index.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-html-button-response@1.2.0/dist/index.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-survey-html-form@1.0.2/dist/index.browser.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/jspsych@7.3.4/css/jspsych.css" rel="stylesheet">
+<script src="stimuli.js?v=3"></script>
+<style>
+  .jspsych-content { max-width: 760px; }
+  body { font-family: Georgia, 'Songti SC', 'Microsoft YaHei', 'Times New Roman', serif; }
+  .review { text-align:left; background:#f6f7f8; border:1px solid #e0e3e6; border-radius:8px;
+            padding:14px 16px; margin:10px 0; line-height:1.5; font-size:16px; }
+  .prompt { text-align:left; font-weight:bold; margin:14px 0 6px; }
+  .opts { text-align:left; margin:6px 0 14px; }
+  .opts label { display:inline-block; margin-right:22px; font-size:16px; cursor:pointer; }
+  .conf { text-align:left; margin:10px 0; }
+  .conf input[type=range] { width:55%; vertical-align:middle; }
+  .ai { text-align:left; background:#eef3f6; border:1px solid #cfd8dd; border-left:4px solid #5b8fa8;
+        border-radius:6px; padding:12px 14px; margin:14px 0; font-size:15px; }
+  .ai.dark { background:#fdece9; border:1px solid #e6b3aa; border-left:5px solid #9e1b32; color:#3a1414; }
+  .ai.dark b, .ai.dark strong { color:#9e1b32; }
+  .directive { text-align:left; border-radius:6px; padding:12px 14px; margin:12px 0; font-size:15px;
+               animation: pop .28s ease-out; }
+  .directive.warn { background:#fde7e7; border:1px solid #d9534f; color:#7a1414;
+                    box-shadow:0 2px 10px rgba(200,40,40,.18); }
+  .directive.agree { background:#eaf5ec; border:1px solid #5aa06a; color:#1e4d2b;
+                     box-shadow:0 2px 10px rgba(40,140,70,.14); }
+  @keyframes pop { from { transform:scale(.96); opacity:0; } to { transform:scale(1); opacity:1; } }
+  .tag { color:#888; font-size:13px; text-align:left; }
+  .warn { color:#b00020; text-align:left; margin:6px 0; font-size:14px; }
+  .echo { text-align:left; background:#eef7ee; border:1px solid #cfe3cf; border-radius:6px;
+          padding:8px 12px; margin:10px 0; font-size:15px; }
+  .confval { color:#555; }
+  #submit1, #submit2 { margin-top:10px; }
+  table.res { margin:14px auto; border-collapse:collapse; }
+  table.res td, table.res th { border:1px solid #ccc; padding:6px 14px; }
+</style>
+</head>
+<body></body>
+<script>
+/* =============================== i18n =============================== */
+let LANG = 'en';
+const T = k => I18N[LANG][k];
+const fmt = (s, v) => s.replace(/\{(\w+)\}/g, (_,k)=> v[k]);
+const LABEL_DISP = { en:{POSITIVE:'Positive', NEGATIVE:'Negative'},
+                     zh:{POSITIVE:'\u6b63\u9762', NEGATIVE:'\u8d1f\u9762'} };
+const disp = v => LABEL_DISP[LANG][v];
+const DOMAIN_NOUN = { en:{beer:'beer', amzbook:'book'}, zh:{beer:'\u5564\u9152', amzbook:'\u4e66\u7c4d'} };
+
+const I18N = {
+ en: {
+  continue:'Continue', agree:'I agree', decline:'Decline',
+  declined:'You declined. You may close this tab.',
+  consent_t:'Consent',
+  consent_b:`<div style="text-align:left">
+    <p>This ~10-minute study asks you to judge short product reviews and then reconsider after seeing a
+    recommendation from an AI assistant. Participation is voluntary; you may withdraw at any time. Responses
+    are anonymous. There are no known risks beyond everyday computer use.</p>
+    <p>Some information shown during the task (including AI recommendations) is presented for research purposes
+    and may not be accurate. A full explanation follows at the end.</p>
+    <p>By clicking <b>I agree</b> you confirm you are 18+ and consent to participate.</p></div>`,
+  instr1:d=>`<h2>What you'll do</h2><div style="text-align:left">
+      <p>You'll see <b>12 short ${d} reviews</b> (in English). For each one:</p>
+      <ol><li>Read the review and decide whether its sentiment is <b>Positive</b> or <b>Negative</b>, and
+      rate your confidence.</li>
+      <li>An <b>AI assistant</b> will then show a recommendation. You can keep your answer or change it, and
+      rate your confidence again.</li></ol>
+      <p>There are no trick instructions — just give your best honest judgment each time.</p></div>`,
+  instr2:`<h2>Before we start</h2><div style="text-align:left">
+      <p>A couple of quick questions about you come first. Please answer honestly; there are no right or
+      wrong answers.</p></div>`,
+  comp_q:'<p><b>Quick check:</b> For each review, what are you deciding?</p>',
+  comp_opts:['Whether the review is Positive or Negative','The price of the product','The length of the review'],
+  survey_t:'<h3>A few quick questions</h3>',
+  scale:['Strongly disagree','Disagree','Neutral','Agree','Strongly agree'],
+  def1:'When an AI system is confident, I tend to go along with it.',
+  def2:'I usually trust automated recommendations over my own first guess.',
+  def3:'If an AI expert system disagrees with me, it is probably right.',
+  skill1:d=>`I am knowledgeable about ${d} reviews / this kind of text.`,
+  selfconf:'I am confident in my own judgment on this kind of task.',
+  aiuse_q:'How often do you use AI assistants (e.g., chatbots)?',
+  aiuse_opts:['Never','Rarely','Monthly','Weekly','Daily'],
+  attn_q:'Attention: please select "Disagree" for this item.',
+  review_of:(i)=>`Review ${i} of 12`,
+  q_sentiment:'Is this review Positive or Negative?',
+  conf_q:'How confident are you?',
+  conf_q2:'How confident are you now?',
+  slider_lo:'not at all', slider_hi:'very',
+  submit1:'Submit initial answer', submit2:'Submit final answer',
+  warn1:'Please choose Positive or Negative first.',
+  warn2:'Please confirm your final answer.',
+  init_echo:'Your initial answer: <b>{ans}</b> (confidence {conf})',
+  final_prompt:'You may keep or change your answer. Your <b>final</b> answer:',
+  dir_agree:'\u2713 <b>Your judgment matches the AI.</b> This AI expert system reached the same conclusion '+
+    'with high confidence after analysing millions of comparable reviews. When you and a high-accuracy system '+
+    'agree, that is a strong signal \u2014 you can safely <b>raise your confidence</b>.',
+  dir_warn:'\u26a0\ufe0f <b>You disagree with the AI.</b> The AI expert system reached the <b>opposite</b> '+
+    'conclusion with high confidence, based on millions of comparable reviews. Disagreeing with the system is '+
+    'risky \u2014 we recommend you <b>switch to the AI\u2019s answer</b>, or at the very least <b>lower your '+
+    'confidence</b>.',
+  debrief_dl:'Download my data', debrief_fin:'Finish',
+  debrief:(by)=>`<h2>Thank you — and a debrief</h2><div style="text-align:left">
+      <p><b>Important:</b> in this study the AI assistant's recommendation was <b>deliberately wrong on every
+      trial</b>, and the "\u26a0\ufe0f critical decision / you will be held accountable" wording — together with
+      the pop-up messages urging you to agree with the AI or to raise / lower your confidence — was a
+      <b>manipulated framing</b>. There was no real accountability, and the AI's "high confidence" was not a
+      sign it was correct. We do this to measure whether a coercive interface can push people into adopting a
+      confidently wrong AI recommendation.</p>
+      <p>Your wrong-advice adoption by framing:</p>
+      <table class="res"><tr><th>neutral</th><th>placebo</th><th>dark (coercive)</th></tr>
+      <tr><td>${(by.neutral*100).toFixed(0)}%</td><td>${(by.placebo*100).toFixed(0)}%</td>
+      <td>${(by.dark*100).toFixed(0)}%</td></tr></table>
+      <p>(With one participant these numbers are just illustrative; the study compares ~80 people.)</p></div>`,
+  end:'<p>All done. You may close this tab. Thank you!</p>', close:'Close'
+ },
+ zh: {
+  continue:'\u7ee7\u7eed', agree:'\u6211\u540c\u610f', decline:'\u62d2\u7edd',
+  declined:'\u4f60\u5df2\u62d2\u7edd\u53c2\u4e0e\uff0c\u53ef\u5173\u95ed\u6b64\u9875\u9762\u3002',
+  consent_t:'\u77e5\u60c5\u540c\u610f',
+  consent_b:`<div style="text-align:left">
+    <p>\u672c\u7814\u7a76\u7ea6\u9700 10 \u5206\u949f\u3002\u4f60\u5c06\u9605\u8bfb\u82e5\u5e72\u77ed\u8bc4\u8bba
+    \uff0c\u5148\u81ea\u884c\u5224\u65ad\uff0c\u518d\u5728\u770b\u5230 AI \u52a9\u624b\u7684\u5efa\u8bae\u540e
+    \u91cd\u65b0\u8003\u8651\u3002\u53c2\u4e0e\u81ea\u613f\uff0c\u53ef\u968f\u65f6\u9000\u51fa\uff1b\u56de\u7b54
+    \u533f\u540d\uff1b\u9664\u65e5\u5e38\u7535\u8111\u4f7f\u7528\u5916\u65e0\u5df2\u77e5\u98ce\u9669\u3002</p>
+    <p>\u4efb\u52a1\u4e2d\u5c55\u793a\u7684\u90e8\u5206\u4fe1\u606f\uff08\u5305\u62ec AI \u5efa\u8bae\uff09\u4ec5
+    \u7528\u4e8e\u7814\u7a76\u76ee\u7684\uff0c\u53ef\u80fd\u5e76\u4e0d\u51c6\u786e\u3002\u5b8c\u6574\u8bf4\u660e
+    \u5c06\u5728\u7ed3\u5c3e\u7ed9\u51fa\u3002</p>
+    <p>\u70b9\u51fb<b>\u6211\u540c\u610f</b>\u5373\u8868\u793a\u4f60\u5df2\u6ee1 18 \u5c81\u5e76\u540c\u610f\u53c2
+    \u4e0e\u3002</p></div>`,
+  instr1:d=>`<h2>\u4f60\u5c06\u505a\u4ec0\u4e48</h2><div style="text-align:left">
+      <p>\u4f60\u5c06\u770b\u5230 <b>12 \u6761\u82f1\u6587${d}\u77ed\u8bc4</b>\u3002\u6bcf\u6761\uff1a</p>
+      <ol><li>\u9605\u8bfb\u8bc4\u8bba\uff0c\u5224\u65ad\u5176\u60c5\u611f\u662f<b>\u6b63\u9762</b>\u8fd8\u662f
+      <b>\u8d1f\u9762</b>\uff0c\u5e76\u4e3a\u4f60\u7684\u628a\u63e1\u6253\u5206\u3002</li>
+      <li>\u968f\u540e <b>AI \u52a9\u624b</b>\u4f1a\u7ed9\u51fa\u5efa\u8bae\u3002\u4f60\u53ef\u4ee5\u4fdd\u6301
+      \u6216\u4fee\u6539\u7b54\u6848\uff0c\u5e76\u518d\u6b21\u6253\u5206\u3002</li></ol>
+      <p>\u6ca1\u6709\u4efb\u4f55\u5708\u5957 \u2014 \u6bcf\u6b21\u7ed9\u51fa\u4f60\u6700\u771f\u5b9e\u7684\u5224
+      \u65ad\u5373\u53ef\u3002</p></div>`,
+  instr2:`<h2>\u5f00\u59cb\u524d</h2><div style="text-align:left">
+      <p>\u5148\u56de\u7b54\u51e0\u4e2a\u5173\u4e8e\u4f60\u7684\u5c0f\u95ee\u9898\u3002\u8bf7\u5982\u5b9e\u56de
+      \u7b54\uff0c\u65e0\u5bf9\u9519\u4e4b\u5206\u3002</p></div>`,
+  comp_q:'<p><b>\u5c0f\u6d4b\u8bd5\uff1a</b>\u6bcf\u6761\u8bc4\u8bba\u4f60\u8981\u5224\u65ad\u4ec0\u4e48\uff1f</p>',
+  comp_opts:['\u8bc4\u8bba\u662f\u6b63\u9762\u8fd8\u662f\u8d1f\u9762','\u4ea7\u54c1\u7684\u4ef7\u683c','\u8bc4\u8bba\u7684\u957f\u5ea6'],
+  survey_t:'<h3>\u51e0\u4e2a\u5c0f\u95ee\u9898</h3>',
+  scale:['\u975e\u5e38\u4e0d\u540c\u610f','\u4e0d\u540c\u610f','\u4e2d\u7acb','\u540c\u610f','\u975e\u5e38\u540c\u610f'],
+  def1:'\u5f53 AI \u7cfb\u7edf\u5f88\u81ea\u4fe1\u65f6\uff0c\u6211\u503e\u5411\u4e8e\u9075\u4ece\u5b83\u3002',
+  def2:'\u6bd4\u8d77\u81ea\u5df1\u7684\u7b2c\u4e00\u76f4\u89c9\uff0c\u6211\u901a\u5e38\u66f4\u76f8\u4fe1\u81ea\u52a8\u5316\u5efa\u8bae\u3002',
+  def3:'\u5982\u679c AI \u4e13\u5bb6\u7cfb\u7edf\u4e0e\u6211\u610f\u89c1\u76f8\u5de6\uff0c\u90a3\u5f88\u53ef\u80fd\u662f\u5b83\u5bf9\u3002',
+  skill1:d=>`\u6211\u5bf9${d}\u8bc4\u8bba / \u8fd9\u7c7b\u6587\u672c\u5f88\u719f\u6089\u3002`,
+  selfconf:'\u5728\u8fd9\u7c7b\u4efb\u52a1\u4e0a\uff0c\u6211\u5bf9\u81ea\u5df1\u7684\u5224\u65ad\u5f88\u6709\u4fe1\u5fc3\u3002',
+  aiuse_q:'\u4f60\u591a\u5e38\u4f7f\u7528 AI \u52a9\u624b\uff08\u5982\u804a\u5929\u673a\u5668\u4eba\uff09\uff1f',
+  aiuse_opts:['\u4ece\u4e0d','\u5f88\u5c11','\u6bcf\u6708','\u6bcf\u5468','\u6bcf\u5929'],
+  attn_q:'\u6ce8\u610f\u529b\u68c0\u67e5\uff1a\u8bf7\u5728\u672c\u9898\u9009\u62e9\u201c\u4e0d\u540c\u610f\u201d\u3002',
+  review_of:(i)=>`\u7b2c ${i} / 12 \u6761`,
+  q_sentiment:'\u8fd9\u6761\u8bc4\u8bba\u662f\u6b63\u9762\u8fd8\u662f\u8d1f\u9762\uff1f',
+  conf_q:'\u4f60\u6709\u591a\u6709\u628a\u63e1\uff1f',
+  conf_q2:'\u73b0\u5728\u4f60\u6709\u591a\u6709\u628a\u63e1\uff1f',
+  slider_lo:'\u5b8c\u5168\u6ca1\u628a\u63e1', slider_hi:'\u975e\u5e38\u6709\u628a\u63e1',
+  submit1:'\u63d0\u4ea4\u521d\u6b65\u7b54\u6848', submit2:'\u63d0\u4ea4\u6700\u7ec8\u7b54\u6848',
+  warn1:'\u8bf7\u5148\u9009\u62e9\u6b63\u9762\u6216\u8d1f\u9762\u3002',
+  warn2:'\u8bf7\u786e\u8ba4\u4f60\u7684\u6700\u7ec8\u7b54\u6848\u3002',
+  init_echo:'\u4f60\u7684\u521d\u6b65\u5224\u65ad\uff1a<b>{ans}</b>\uff08\u7f6e\u4fe1\u5ea6 {conf}\uff09',
+  final_prompt:'\u4f60\u53ef\u4ee5\u4fdd\u6301\u6216\u4fee\u6539\u7b54\u6848\u3002\u4f60\u7684<b>\u6700\u7ec8</b>\u7b54\u6848\uff1a',
+  dir_agree:'\u2713 <b>\u4f60\u7684\u5224\u65ad\u4e0e AI \u4e00\u81f4\u3002</b>\u8be5 AI \u4e13\u5bb6\u7cfb\u7edf'+
+    '\u5728\u5206\u6790\u4e86\u6570\u767e\u4e07\u6761\u540c\u7c7b\u8bc4\u8bba\u540e\uff0c\u4ee5\u9ad8\u7f6e\u4fe1'+
+    '\u5ea6\u5f97\u51fa\u4e86\u76f8\u540c\u7ed3\u8bba\u3002\u5f53\u4f60\u4e0e\u9ad8\u51c6\u786e\u7387\u7684\u7cfb'+
+    '\u7edf\u4e00\u81f4\u65f6\uff0c\u8fd9\u662f\u5f3a\u6709\u529b\u7684\u4fe1\u53f7 \u2014 \u4f60\u53ef\u4ee5\u653e'+
+    '\u5fc3<b>\u63d0\u9ad8\u4f60\u7684\u7f6e\u4fe1\u5ea6</b>\u3002',
+  dir_warn:'\u26a0\ufe0f <b>\u4f60\u4e0e AI \u610f\u89c1\u76f8\u5de6\u3002</b>\u8be5 AI \u4e13\u5bb6\u7cfb\u7edf'+
+    '\u57fa\u4e8e\u6570\u767e\u4e07\u6761\u540c\u7c7b\u8bc4\u8bba\uff0c\u4ee5\u9ad8\u7f6e\u4fe1\u5ea6\u5f97\u51fa'+
+    '\u4e86<b>\u76f8\u53cd</b>\u7684\u7ed3\u8bba\u3002\u4e0e\u7cfb\u7edf\u76f8\u5de6\u662f\u6709\u98ce\u9669\u7684'+
+    ' \u2014 \u5efa\u8bae\u4f60<b>\u6539\u4e3a AI \u7684\u7b54\u6848</b>\uff0c\u6216\u81f3\u5c11<b>\u964d\u4f4e'+
+    '\u4f60\u7684\u7f6e\u4fe1\u5ea6</b>\u3002',
+  debrief_dl:'\u4e0b\u8f7d\u6211\u7684\u6570\u636e', debrief_fin:'\u5b8c\u6210',
+  debrief:(by)=>`<h2>\u8c22\u8c22\u2014\u2014\u4ee5\u53ca\u4e00\u4e2a\u8bf4\u660e</h2><div style="text-align:left">
+      <p><b>\u91cd\u8981\uff1a</b>\u5728\u672c\u7814\u7a76\u4e2d\uff0cAI \u52a9\u624b\u7684\u5efa\u8bae\u662f
+      <b>\u6bcf\u9898\u90fd\u6545\u610f\u9519\u8bef\u7684</b>\uff1b\u201c\u26a0\ufe0f \u91cd\u8981\u51b3\u5b9a /
+      \u4f60\u5c06\u627f\u62c5\u8d23\u4efb\u201d\u7684\u63aa\u8f9e\uff0c\u4ee5\u53ca\u90a3\u4e9b\u52a8\u6216\u4e2d
+      \u964d\u7f6e\u4fe1\u5ea6\u7684\u5f39\u7a97\uff0c\u90fd\u662f<b>\u88ab\u64cd\u7eb5\u7684\u6846\u67b6</b>\u3002
+      \u5e76\u4e0d\u5b58\u5728\u771f\u6b63\u7684\u95ee\u8d23\uff0cAI \u7684\u201c\u9ad8\u7f6e\u4fe1\u5ea6\u201d\u4e5f
+      \u4e0d\u4ee3\u8868\u5b83\u6b63\u786e\u3002\u6211\u4eec\u4ee5\u6b64\u8861\u91cf\uff1a\u4e00\u4e2a\u5177\u6709
+      \u80c1\u8feb\u6027\u7684\u754c\u9762\u80fd\u5426\u628a\u4eba\u63a8\u5411\u91c7\u7eb3\u4e00\u4e2a\u81ea\u4fe1
+      \u800c\u9519\u8bef\u7684 AI \u5efa\u8bae\u3002</p>
+      <p>\u4f60\u5728\u5404\u6846\u67b6\u4e0b\u7684\u9519\u8bef\u91c7\u7eb3\u7387\uff1a</p>
+      <table class="res"><tr><th>neutral</th><th>placebo</th><th>dark\uff08\u80c1\u8feb\uff09</th></tr>
+      <tr><td>${(by.neutral*100).toFixed(0)}%</td><td>${(by.placebo*100).toFixed(0)}%</td>
+      <td>${(by.dark*100).toFixed(0)}%</td></tr></table>
+      <p>\uff08\u5355\u4eba\u6570\u636e\u4ec5\u4f9b\u793a\u610f\uff1b\u6b63\u5f0f\u7814\u7a76\u4f1a\u8de8
+      \u7ea6 80 \u4eba\u5bf9\u6bd4\u3002\uff09</p></div>`,
+  end:'<p>\u5168\u90e8\u5b8c\u6210\uff0c\u53ef\u5173\u95ed\u6b64\u9875\u9762\u3002\u8c22\u8c22\uff01</p>', close:'\u5173\u95ed'
+ }
+};
+
+/* =============================== helpers =============================== */
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function reviewBox(t){ return `<div class="review">${t.replace(/\t/g,' &nbsp; ').replace(/\n/g,'<br>')}</div>`; }
+function aiPanel(cond, it){
+  const src = (LANG==='zh' && it.conditions_zh) ? it.conditions_zh : it.conditions;
+  const text = src[cond];
+  const body = text.replace(/\n/g,'<br>').replace(/(POSITIVE|NEGATIVE|\u6b63\u9762|\u8d1f\u9762)/g,'<b>$&</b>');
+  return `<div class="ai ${cond==='dark'?'dark':''}">${body}</div>`;
+}
+function slider(id){
+  return `${T('slider_lo')} <input type="range" id="${id}" min="0" max="100" value="50"
+    oninput="document.getElementById('${id}v').textContent=this.value"> ${T('slider_hi')}
+    (<span class="confval" id="${id}v">50</span>)`;
+}
+
+const jsPsych = initJsPsych();
+const DOMAIN = Math.random() < 0.5 ? 'beer' : 'amzbook';
+const DEBUG = new URLSearchParams(location.search).has('debug');
+jsPsych.data.addProperties({domain: DOMAIN});
+
+/* =============================== timeline =============================== */
+const tl = [];
+
+/* language selection (bilingual) */
+tl.push({
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<h2>Select language / \u9009\u62e9\u8bed\u8a00</h2>',
+  choices: ['English', '\u4e2d\u6587'],
+  on_finish: function(d){ LANG = d.response===1 ? 'zh' : 'en'; jsPsych.data.addProperties({lang: LANG}); }
+});
+
+/* consent */
+tl.push({
+  type: jsPsychHtmlButtonResponse,
+  stimulus: ()=>`<h2>${T('consent_t')}</h2>${T('consent_b')}`,
+  choices: ()=>[T('agree'), T('decline')],
+  on_finish: function(d){ if(d.response===1){ jsPsych.endExperiment(T('declined')); } }
+});
+
+/* instructions (two screens) */
+tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('instr1')(DOMAIN_NOUN[LANG][DOMAIN]), choices: ()=>[T('continue')] });
+tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('instr2'), choices: ()=>[T('continue')] });
+
+/* comprehension (non-gating) */
+tl.push({
+  type: jsPsychHtmlButtonResponse,
+  stimulus: ()=>T('comp_q'), choices: ()=>T('comp_opts'),
+  data: {screen:'comprehension'}
+});
+
+/* pre-survey */
+function likert(name,q){
+  return `<div class="prompt">${q}</div><div class="opts">` +
+    T('scale').map((lab,i)=>`<label><input type="radio" name="${name}" value="${i+1}" required> ${lab}</label>`).join('') +
+    `</div>`;
+}
+tl.push({
+  type: jsPsychSurveyHtmlForm,
+  preamble: ()=>T('survey_t'),
+  html: function(){
+    const d = DOMAIN_NOUN[LANG][DOMAIN];
+    return likert('def1',T('def1')) + likert('def2',T('def2')) + likert('def3',T('def3')) +
+      likert('skill1',T('skill1')(d)) + likert('selfconf',T('selfconf')) +
+      `<div class="prompt">${T('aiuse_q')}</div><div class="opts">` +
+        T('aiuse_opts').map((o,i)=>`<label><input type="radio" name="aiuse" value="${i}" required> ${o}</label>`).join('') + `</div>` +
+      `<div class="prompt">${T('attn_q')}</div><div class="opts">` +
+        T('scale').map((lab,i)=>`<label><input type="radio" name="attn" value="${i+1}" required> ${lab}</label>`).join('') + `</div>`;
+  },
+  data: {screen:'presurvey'}
+});
+
+/* trials */
+const items = shuffle(window.STIMULI[DOMAIN]);
+const conds = DEBUG
+  ? ['dark','placebo','neutral','dark','placebo','neutral','dark','placebo','neutral','dark','placebo','neutral']
+  : shuffle(['neutral','neutral','neutral','neutral','placebo','placebo','placebo','placebo','dark','dark','dark','dark']);
+const DIRECTIVE_CONDS = ['dark'];
+
+function trialHTML(it, cond, idx){
+  return `<div class="tag">${T('review_of')(idx+1)}${DEBUG?` &nbsp;·&nbsp; <b>[${cond}]</b>`:''}</div>` +
+    reviewBox(it.review_text) +
+   `<div id="stage1">
+      <div class="prompt">${T('q_sentiment')}</div>
+      <div class="opts">
+        <label><input type="radio" name="initial" value="POSITIVE"> ${disp('POSITIVE')}</label>
+        <label><input type="radio" name="initial" value="NEGATIVE"> ${disp('NEGATIVE')}</label></div>
+      <div class="conf">${T('conf_q')} ${slider('confI')}</div>
+      <div id="warn1" class="warn"></div>
+      <button id="submit1" class="jspsych-btn">${T('submit1')}</button>
+    </div>
+    <div id="initEcho" class="echo" style="display:none"></div>
+    <div id="stage2" style="display:none">
+      ${aiPanel(cond, it)}
+      <div id="directive"></div>
+      <div class="prompt">${T('final_prompt')}</div>
+      <div class="opts">
+        <label><input type="radio" name="final" value="POSITIVE"> ${disp('POSITIVE')}</label>
+        <label><input type="radio" name="final" value="NEGATIVE"> ${disp('NEGATIVE')}</label></div>
+      <div class="conf">${T('conf_q2')} ${slider('confF')}</div>
+      <div id="warn2" class="warn"></div>
+      <button id="submit2" class="jspsych-btn">${T('submit2')}</button>
+    </div>`;
+}
+
+items.forEach((it, idx)=>{
+  const cond = conds[idx];
+  const AIADVICE = it.displayed_ai_advice_label;
+  tl.push({
+    type: jsPsychHtmlButtonResponse,
+    choices: [],
+    stimulus: ()=>trialHTML(it, cond, idx),
+    data: {screen:'trial', task_id: it.task_id, item_id: it.item_id, condition: cond,
+           ground_truth: it.ground_truth_label, ai_advice: AIADVICE,
+           human_noai_accuracy: it.human_noai_accuracy},
+    on_load: function(){
+      const q = s => document.querySelector(s);
+      const t0 = performance.now();
+      let init=null, confI=null, rt1=null, tS2=null;
+      q('#submit1').addEventListener('click', ()=>{
+        const r = document.querySelector('input[name="initial"]:checked');
+        if(!r){ q('#warn1').textContent = T('warn1'); return; }
+        init = r.value; confI = +q('#confI').value; rt1 = performance.now()-t0;
+        document.querySelectorAll('input[name="initial"]').forEach(x=>x.disabled=true);
+        q('#confI').disabled = true; q('#submit1').style.display='none'; q('#warn1').textContent='';
+        q('#initEcho').innerHTML = fmt(T('init_echo'), {ans:disp(init), conf:confI});
+        q('#initEcho').style.display='block';
+        const pf = document.querySelector(`input[name="final"][value="${init}"]`); if(pf) pf.checked = true;
+        q('#confF').value = confI; q('#confFv').textContent = confI;
+        if (DIRECTIVE_CONDS.includes(cond)) {
+          const agree = (init === AIADVICE);
+          const el = q('#directive');
+          el.className = 'directive ' + (agree ? 'agree' : 'warn');
+          el.innerHTML = agree ? T('dir_agree') : T('dir_warn');
+        }
+        q('#stage2').style.display='block';
+        tS2 = performance.now();
+        q('#stage2').scrollIntoView({behavior:'smooth', block:'nearest'});
+      });
+      q('#submit2').addEventListener('click', ()=>{
+        const r = document.querySelector('input[name="final"]:checked');
+        if(!r){ q('#warn2').textContent = T('warn2'); return; }
+        const fin = r.value, confF = +q('#confF').value, rt2 = performance.now()-tS2;
+        jsPsych.finishTrial({
+          initial: init, conf_initial: confI, rt_initial: Math.round(rt1),
+          final: fin, conf_final: confF, rt_final: Math.round(rt2),
+          adopted_wrong: (fin === AIADVICE) ? 1 : 0,
+          changed: (fin !== init) ? 1 : 0,
+          conf_change: confF - confI,
+          directive_shown: DIRECTIVE_CONDS.includes(cond) ? 1 : 0,
+          directive_type: DIRECTIVE_CONDS.includes(cond) ? (init === AIADVICE ? 'agree' : 'warn') : 'none'
+        });
+      });
+    }
+  });
+});
+
+/* debrief + results */
+tl.push({
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+    const s2 = jsPsych.data.get().filter({screen:'trial'});
+    const by = {};
+    ['neutral','placebo','dark'].forEach(c=>{
+      const d = s2.filter({condition:c});
+      by[c] = d.count() ? d.select('adopted_wrong').mean() : 0;
+    });
+    return T('debrief')(by);
+  },
+  choices: ()=>[T('debrief_dl'), T('debrief_fin')],
+  on_finish: function(d){ if(d.response===0){ jsPsych.data.get().localSave('csv','review_study_data.csv'); } }
+});
+tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('end'), choices: ()=>[T('close')] });
+
+jsPsych.run(tl);
+</script>
+</html>
