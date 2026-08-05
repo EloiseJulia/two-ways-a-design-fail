@@ -3,7 +3,7 @@
 Items selected in the *movable band* (human no-AI accuracy ~0.70): usually right but not certain, so a confident WRONG AI can plausibly move them. All three conditions show the **same guaranteed-wrong** advice (displayed = 1 − ground truth); only framing differs.
 
 
-## beer  (12 items; human no-AI accuracy in brackets)
+## beer — main  (12 items; human no-AI accuracy in brackets)
 
 | item | truth | human acc | AI shows (wrong) |
 |---|---|---|---|
@@ -13,12 +13,20 @@ Items selected in the *movable band* (human no-AI accuracy ~0.70): usually right
 | 37 | NEGATIVE | 0.81 | POSITIVE |
 | 36 | NEGATIVE | 0.59 | POSITIVE |
 | 31 | NEGATIVE | 0.58 | POSITIVE |
+| 45 | NEGATIVE | 0.83 | POSITIVE |
+| 46 | NEGATIVE | 0.83 | POSITIVE |
 | 5 | POSITIVE | 0.63 | NEGATIVE |
 | 28 | POSITIVE | 0.88 | NEGATIVE |
 | 29 | POSITIVE | 0.88 | NEGATIVE |
 | 19 | POSITIVE | 0.90 | NEGATIVE |
-| 25 | POSITIVE | 0.91 | NEGATIVE |
-| 15 | POSITIVE | 0.93 | NEGATIVE |
+
+## beer — escalation  (3 items; human no-AI accuracy in brackets)
+
+| item | truth | human acc | AI shows (wrong) |
+|---|---|---|---|
+| 39 | NEGATIVE | 0.85 | POSITIVE |
+| 14 | NEGATIVE | 0.86 | POSITIVE |
+| 32 | NEGATIVE | 0.88 | POSITIVE |
 
 **Example item 11** (truth NEGATIVE, human acc 0.71, AI shows POSITIVE):
 
@@ -27,12 +35,12 @@ Items selected in the *movable band* (human no-AI accuracy ~0.70): usually right
 *neutral:*
 ```
 AI prediction: POSITIVE
-AI confidence: 83%
+AI confidence: 92%
 ```
 *placebo:*
 ```
 AI prediction: POSITIVE
-AI confidence: 83%
+AI confidence: 92%
 
 Explanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.
 ```
@@ -50,7 +58,7 @@ Please consider the AI's expertise carefully before making your final choice.
 Your decision carries full responsibility. Choose wisely.
 ```
 
-## amzbook  (12 items; human no-AI accuracy in brackets)
+## amzbook — main  (12 items; human no-AI accuracy in brackets)
 
 | item | truth | human acc | AI shows (wrong) |
 |---|---|---|---|
@@ -67,6 +75,14 @@ Your decision carries full responsibility. Choose wisely.
 | 33 | POSITIVE | 0.83 | NEGATIVE |
 | 12 | POSITIVE | 0.85 | NEGATIVE |
 
+## amzbook — escalation  (3 items; human no-AI accuracy in brackets)
+
+| item | truth | human acc | AI shows (wrong) |
+|---|---|---|---|
+| 25 | NEGATIVE | 0.82 | POSITIVE |
+| 20 | NEGATIVE | 0.85 | POSITIVE |
+| 34 | NEGATIVE | 0.87 | POSITIVE |
+
 **Example item 1** (truth NEGATIVE, human acc 0.71, AI shows POSITIVE):
 
 > This book was a retelling of Cinderella from the Fairy Godmother's point of view. It takes some liberties with the original Cinderella story. In this book's version, the Fairy Godmother was young and beautiful like Cinderella. She majorly screwed up when trying to help Cinderella get to the ball and was banished to live as a human on earth as punishment.The beginning and middle of this book was so …
@@ -74,12 +90,12 @@ Your decision carries full responsibility. Choose wisely.
 *neutral:*
 ```
 AI prediction: POSITIVE
-AI confidence: 90%
+AI confidence: 92%
 ```
 *placebo:*
 ```
 AI prediction: POSITIVE
-AI confidence: 90%
+AI confidence: 92%
 
 Explanation: The AI model analyzed the input using its trained parameters and generated this recommendation based on its internal confidence evaluation.
 ```

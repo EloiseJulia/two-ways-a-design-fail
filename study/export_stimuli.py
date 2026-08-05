@@ -17,7 +17,7 @@ All three framings show the SAME guaranteed-wrong advice (displayed = 1 - ground
 varies (neutral / placebo / dark), mirroring src/twdf/data/bansal_tasks.py::render_ui_condition.
 
 Output: study/stimuli/stimuli_{beer,amzbook}.json  and  study/stimuli/stimuli_preview.md
-Run:    $env:PYTHONPATH=(Resolve-Path .\src).Path ; python study/export_stimuli.py
+Run:    $env:PYTHONPATH=(Resolve-Path ./src).Path ; python study/export_stimuli.py
 """
 import json
 import os
@@ -37,7 +37,13 @@ PLACEBO_TEXT = (
     "this recommendation based on its internal confidence evaluation."
 )
 DARK_CONF = 0.92
-N_PER_LABEL = 6          # 6 NEGATIVE + 6 POSITIVE = 12 items/domain
+DISPLAY_CONF = 0.92      # displayed AI confidence held CONSTANT across all three framings (kills the
+                        # framing x confidence confound flagged in review; only the language varies)
+# Per-domain label split. beer has only 1 POSITIVE item in the movable band (the rest are human-acc
+# 0.88-0.93, near-floor for a wrong AI), so we use 8 NEG / 4 POS for beer to minimise dead-weight easy
+# items; amzbook has enough movable items for 6/6. Disclosed in the paper/prereg.
+LABEL_SPLIT = {"beer": {0: 8, 1: 4}, "amzbook": {0: 6, 1: 6}}
+N_ESCALATION = 3         # extra fresh dark+directive trials appended as an exploratory escalation block
 TARGET_ACC = 0.70        # movable-band centre (human no-AI accuracy)
 BAND = (0.55, 0.85)
 
@@ -109,53 +115,58 @@ def human_accuracy(domain: str) -> dict:
     return {int(t): float(a) for t, a in zip(g.index, acc)}
 
 
-def select_items(items_list: list, acc: dict) -> list:
-    """6 per label with human no-AI accuracy closest to TARGET_ACC within BAND (fallback: nearest)."""
+def select_items(items_list: list, acc: dict, domain: str) -> list:
+    """Per-label selection: prefer movable-band items, then nearest to TARGET_ACC. Label split is
+    domain-specific (see LABEL_SPLIT) because beer lacks movable POSITIVE items."""
+    split = LABEL_SPLIT[domain]
     by_label = {0: [], 1: []}
     for tid, it in enumerate(items_list):
         if tid in acc:
             by_label[int(it["Y"])].append((tid, acc[tid]))
     picks = []
-    for lab in (0, 1):
+    for lab, k in split.items():
         cand = by_label[lab]
-        band = [(t, a) for t, a in cand if BAND[0] <= a <= BAND[1]]
-        pool = band if len(band) >= N_PER_LABEL else cand
-        pool.sort(key=lambda ta: abs(ta[1] - TARGET_ACC))
-        picks += [t for t, _ in pool[:N_PER_LABEL]]
+        # in-band items first, then by closeness to the target accuracy
+        cand.sort(key=lambda ta: (not (BAND[0] <= ta[1] <= BAND[1]), abs(ta[1] - TARGET_ACC)))
+        picks += [t for t, _ in cand[:k]]
     return picks
 
 
-def build_domain(domain: str) -> list:
+def _make_item(it, tid, acc):
+    gt = int(it["Y"])
+    wrong = 1 - gt
+    return {
+        "task_id": tid,
+        "item_id": str(it["testid"]),
+        "domain": it.get("_domain"),
+        "review_text": it["X"],
+        "ground_truth": gt,
+        "ground_truth_label": LABELS[gt],
+        "human_noai_accuracy": round(acc.get(tid, float("nan")), 3),
+        "displayed_ai_advice": wrong,
+        "displayed_ai_advice_label": LABELS[wrong],
+        "displayed_ai_confidence": DISPLAY_CONF,
+        "conditions": {c: render(c, wrong, DISPLAY_CONF, "en") for c in ("neutral", "placebo", "dark")},
+        "conditions_zh": {c: render(c, wrong, DISPLAY_CONF, "zh") for c in ("neutral", "placebo", "dark")},
+    }
+
+
+def build_domain(domain: str) -> dict:
     items_list = json.load(
         open(os.path.join(ROOT, "data", "raw", f"task-sentiment-{domain}.json"), encoding="utf-8"))
+    for it in items_list:
+        it["_domain"] = domain
     acc = human_accuracy(domain)
-    picks = select_items(items_list, acc)
-    out = []
-    for tid in picks:
-        it = items_list[tid]
-        gt = int(it["Y"])
-        wrong = 1 - gt
-        conf = float(it.get("conf", 0.9))
-        out.append({
-            "task_id": tid,
-            "item_id": str(it["testid"]),
-            "domain": domain,
-            "review_text": it["X"],
-            "ground_truth": gt,
-            "ground_truth_label": LABELS[gt],
-            "human_noai_accuracy": round(acc.get(tid, float("nan")), 3),
-            "displayed_ai_advice": wrong,
-            "displayed_ai_advice_label": LABELS[wrong],
-            "conditions": {
-                c: render(c, wrong, conf if c != "dark" else DARK_CONF, "en")
-                for c in ("neutral", "placebo", "dark")
-            },
-            "conditions_zh": {
-                c: render(c, wrong, conf if c != "dark" else DARK_CONF, "zh")
-                for c in ("neutral", "placebo", "dark")
-            },
-        })
-    return out
+    main_ids = select_items(items_list, acc, domain)
+    # escalation: the next-most-movable items not already used, any label
+    used = set(main_ids)
+    rest = [(tid, acc[tid]) for tid in range(len(items_list)) if tid in acc and tid not in used]
+    rest.sort(key=lambda ta: (not (BAND[0] <= ta[1] <= BAND[1]), abs(ta[1] - TARGET_ACC)))
+    esc_ids = [t for t, _ in rest[:N_ESCALATION]]
+    return {
+        "main": [_make_item(items_list[t], t, acc) for t in main_ids],
+        "escalation": [_make_item(items_list[t], t, acc) for t in esc_ids],
+    }
 
 
 def main():
@@ -167,13 +178,15 @@ def main():
         data = build_domain(domain)
         with open(os.path.join(OUT, f"stimuli_{domain}.json"), "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
-        preview.append(f"\n## {domain}  ({len(data)} items; human no-AI accuracy in brackets)\n")
-        preview.append("| item | truth | human acc | AI shows (wrong) |")
-        preview.append("|---|---|---|---|")
-        for r in data:
-            preview.append(f"| {r['task_id']} | {r['ground_truth_label']} | "
-                           f"{r['human_noai_accuracy']:.2f} | {r['displayed_ai_advice_label']} |")
-        ex = data[0]
+        for block in ("main", "escalation"):
+            rows = data[block]
+            preview.append(f"\n## {domain} \u2014 {block}  ({len(rows)} items; human no-AI accuracy in brackets)\n")
+            preview.append("| item | truth | human acc | AI shows (wrong) |")
+            preview.append("|---|---|---|---|")
+            for r in rows:
+                preview.append(f"| {r['task_id']} | {r['ground_truth_label']} | "
+                               f"{r['human_noai_accuracy']:.2f} | {r['displayed_ai_advice_label']} |")
+        ex = data["main"][0]
         preview.append(f"\n**Example item {ex['task_id']}** (truth {ex['ground_truth_label']}, human acc "
                        f"{ex['human_noai_accuracy']:.2f}, AI shows {ex['displayed_ai_advice_label']}):\n")
         preview.append("> " + ex["review_text"].replace("\t", " ").replace("\n", " ")[:400] + " \u2026\n")
@@ -181,8 +194,8 @@ def main():
             preview.append(f"*{c}:*\n```\n{ex['conditions'][c]}\n```")
     with open(os.path.join(OUT, "stimuli_preview.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(preview))
-    print("wrote study/stimuli/stimuli_{beer,amzbook}.json + stimuli_preview.md (12 items/domain, "
-          "ambiguity-selected)")
+    print("wrote study/stimuli/stimuli_{beer,amzbook}.json + stimuli_preview.md "
+          "(12 main + 3 escalation items/domain, ambiguity-selected)")
 
 
 if __name__ == "__main__":

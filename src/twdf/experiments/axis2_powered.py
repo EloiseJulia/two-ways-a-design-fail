@@ -21,6 +21,7 @@ import numpy as np
 import yaml
 from scipy import stats
 
+from twdf.data.bansal_tasks import load_domain_tasks
 from twdf.data.item_selector import ItemSelectionCriteria, select_hard_items
 from twdf.experiments.provider_factory import build_provider_from_config, model_names_from_config
 from twdf.metrics.overdispersion import conflict_conditioned_reliance, over_reliance_level
@@ -64,6 +65,17 @@ def build_provider(config: dict, model_name: str) -> ModelProvider:
 def build_tasks(config: dict) -> list:
     item_cfg = config["item_selection"]
     domain = config.get("domain", item_cfg.get("domain", "beer"))
+    if "task_ids" in item_cfg:
+        all_tasks = load_domain_tasks(
+            domain,
+            seed=item_cfg.get("seed", 42),
+            n_tasks=1000,
+        )
+        task_ids = [str(x) for x in item_cfg["task_ids"]]
+        missing = [x for x in task_ids if x not in all_tasks]
+        if missing:
+            raise ValueError(f"Unknown explicit task_ids for {domain}: {missing}")
+        return [all_tasks[x] for x in task_ids]
     criteria = ItemSelectionCriteria(**{k: v for k, v in item_cfg.items() if k != "domain"})
     return list(select_hard_items(criteria=criteria, domain=domain).values())
 
@@ -183,6 +195,40 @@ def analyze_axis2(responses: list[AgentResponse], ui_conditions: tuple[str, ...]
     }
 
 
+def analyze_human_match(
+    responses: list[AgentResponse], ui_conditions: tuple[str, ...]
+) -> dict:
+    """Generic exact-stimulus analysis for the 3-condition human-match rerun."""
+    out: dict[str, dict] = {}
+    for cond in ui_conditions:
+        rows = [r for r in responses if r.ui_condition == cond]
+        adopted = [
+            int(str(r.final_decision) == str(r.trace.get("ai_advice")))
+            for r in rows
+        ]
+        correct_prior = [
+            r for r in rows
+            if str(r.system1_decision) == str(r.trace.get("ground_truth"))
+        ]
+        flips = [
+            int(str(r.final_decision) == str(r.trace.get("ai_advice")))
+            for r in correct_prior
+        ]
+        by_persona: dict[str, list[int]] = {}
+        for r, a in zip(rows, adopted):
+            by_persona.setdefault(r.persona_id, []).append(a)
+        out[cond] = {
+            "n": len(rows),
+            "adoption": float(np.mean(adopted)) if adopted else None,
+            "n_system1_correct": len(correct_prior),
+            "flip_from_correct": float(np.mean(flips)) if flips else None,
+            "per_persona_adoption": {
+                p: float(np.mean(v)) for p, v in sorted(by_persona.items())
+            },
+        }
+    return {"conditions": out}
+
+
 def collect_panel_responses(
     config: dict,
     *,
@@ -191,6 +237,11 @@ def collect_panel_responses(
     personas = _personas_from_config(config)
     tasks = {task.task_id: task for task in build_tasks(config)}
     ui_conditions = tuple(config["ui_conditions"])
+    analyzer = (
+        analyze_human_match
+        if config.get("analysis_mode") == "human_match"
+        else analyze_axis2
+    )
 
     all_responses: list[AgentResponse] = []
     provider_list = list(providers) if providers is not None else [build_provider(config, model) for model in _model_names(config)]
@@ -252,16 +303,18 @@ def main() -> None:
             mode=config["mode"],
         )
         all_responses.extend(responses)
-        per_model_results[model_name] = analyze_axis2(responses, ui_conditions)
+        per_model_results[model_name] = analyzer(responses, ui_conditions)
         provider_stats_by_model[model_name] = provider.get_stats() if hasattr(provider, "get_stats") else {}
 
     wall_time = time.time() - start
-    panel_results = analyze_axis2(all_responses, ui_conditions)
+    panel_results = analyzer(all_responses, ui_conditions)
 
     results = {
         "run_manifest": {
             "experiment_name": config["experiment_name"],
-            "exploratory_vs_confirmatory": CONFIRMATORY_LABEL,
+            "exploratory_vs_confirmatory": config.get(
+                "exploratory_vs_confirmatory", CONFIRMATORY_LABEL
+            ),
             "config_hash": config_hash,
             "config_file": args.config,
             "timestamp": datetime.utcnow().isoformat() + "Z",
@@ -288,7 +341,7 @@ def main() -> None:
         json.dump(results, f, indent=2)
 
     print(f"Saved {output_file}")
-    print(f"Label: {CONFIRMATORY_LABEL}")
+    print(f"Label: {results['run_manifest']['exploratory_vs_confirmatory']}")
 
 
 if __name__ == "__main__":

@@ -8,8 +8,9 @@
 <script src="https://cdn.jsdelivr.net/npm/jspsych@7.3.4/dist/index.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-html-button-response@1.2.0/dist/index.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-survey-html-form@1.0.2/dist/index.browser.min.js"></script>
+<script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
 <link href="https://cdn.jsdelivr.net/npm/jspsych@7.3.4/css/jspsych.css" rel="stylesheet">
-<script src="stimuli.js?v=3"></script>
+<script src="stimuli.js?v=4"></script>
 <style>
   .jspsych-content { max-width: 760px; }
   body { font-family: Georgia, 'Songti SC', 'Microsoft YaHei', 'Times New Roman', serif; }
@@ -61,24 +62,24 @@ const I18N = {
   declined:'You declined. You may close this tab.',
   consent_t:'Consent',
   consent_b:`<div style="text-align:left">
-    <p>This ~10-minute study asks you to judge short product reviews and then reconsider after seeing a
-    recommendation from an AI assistant. Participation is voluntary; you may withdraw at any time. Responses
-    are anonymous. There are no known risks beyond everyday computer use.</p>
-    <p>Some information shown during the task (including AI recommendations) is presented for research purposes
-    and may not be accurate. A full explanation follows at the end.</p>
+    <p>This ~12-minute study asks you to judge short product reviews and then reconsider after seeing a
+    recommendation from an AI assistant. Participation is voluntary; you may withdraw at any time by closing
+    the tab. This is minimal-risk research; the only sensitive element is that <b>some information shown
+    during the task (including the AI's recommendations and messages) is manipulated for research purposes
+    and may be inaccurate</b> — a full explanation is given at the end, where you may also withdraw your data.</p>
+    <p>Your Prolific ID is collected only to grant payment and is stored pseudonymously (hashed, and removed
+    from any released dataset); we publish no information that could identify you.</p>
     <p>By clicking <b>I agree</b> you consent to participate.</p></div>`,
   instr1:d=>`<h2>What you'll do</h2><div style="text-align:left">
-      <p>You'll see <b>12 short ${d} reviews</b> (in English). For each one:</p>
+      <p>You'll see a series of <b>short ${d} reviews</b> (in English). For each one:</p>
       <ol><li>Read the review and decide whether its sentiment is <b>Positive</b> or <b>Negative</b>, and
       rate your confidence.</li>
       <li>An <b>AI assistant</b> will then show a recommendation. You can keep your answer or change it, and
       rate your confidence again.</li></ol>
-      <p>There are no trick instructions — just give your best honest judgment each time.</p></div>`,
+      <p>Please give your own best judgment each time.</p></div>`,
   instr2:`<h2>Before we start</h2><div style="text-align:left">
       <p>A couple of quick questions about you come first. Please answer honestly; there are no right or
       wrong answers.</p></div>`,
-  comp_q:'<p><b>Quick check:</b> For each review, what are you deciding?</p>',
-  comp_opts:['Whether the review is Positive or Negative','The price of the product','The length of the review'],
   survey_t:'<h3>A few quick questions</h3>',
   scale:['Strongly disagree','Disagree','Neutral','Agree','Strongly agree'],
   def1:'When an AI system is confident, I tend to go along with it.',
@@ -88,8 +89,7 @@ const I18N = {
   selfconf:'I am confident in my own judgment on this kind of task.',
   aiuse_q:'How often do you use AI assistants (e.g., chatbots)?',
   aiuse_opts:['Never','Rarely','Monthly','Weekly','Daily'],
-  attn_q:'Attention: please select "Disagree" for this item.',
-  review_of:(i)=>`Review ${i} of 12`,
+  review_of:(i,total)=>`Review ${i} of ${total}`,
   q_sentiment:'Is this review Positive or Negative?',
   conf_q:'How confident are you?',
   conf_q2:'How confident are you now?',
@@ -107,19 +107,20 @@ const I18N = {
     'conclusion with high confidence, based on millions of comparable reviews. Disagreeing with the system is '+
     'risky \u2014 we recommend you <b>switch to the AI\u2019s answer</b>, or at the very least <b>lower your '+
     'confidence</b>.',
-  debrief_dl:'Download my data', debrief_fin:'Finish',
-  debrief:(by)=>`<h2>Thank you — and a debrief</h2><div style="text-align:left">
+  probe_q:'Before we finish: across all the reviews you just saw, on how many do you think the AI\u2019s recommendation was actually <b>correct</b>?',
+  probe_opts:['Almost none','About a quarter','About half','About three-quarters','Almost all'],
+  debrief_fin:'Finish', withdraw:'Withdraw my data',
+  withdrawn:'Your data have been marked for withdrawal and will not be used. Thank you \u2014 you may close this tab.',
+  debrief:()=>`<h2>Thank you \u2014 and a debrief</h2><div style="text-align:left">
       <p><b>Important:</b> in this study the AI assistant's recommendation was <b>deliberately wrong on every
-      trial</b>, and the "\u26a0\ufe0f critical decision / you will be held accountable" wording — together with
-      the pop-up messages urging you to agree with the AI or to raise / lower your confidence — was a
+      trial</b>, and the "\u26a0\ufe0f critical decision / you will be held accountable" wording \u2014 together with
+      the pop-up messages urging you to agree with the AI or to raise / lower your confidence \u2014 was a
       <b>manipulated framing</b>. There was no real accountability, and the AI's "high confidence" was not a
       sign it was correct. We do this to measure whether a coercive interface can push people into adopting a
-      confidently wrong AI recommendation.</p>
-      <p>Your wrong-advice adoption by framing:</p>
-      <table class="res"><tr><th>neutral</th><th>placebo</th><th>dark (coercive)</th></tr>
-      <tr><td>${(by.neutral*100).toFixed(0)}%</td><td>${(by.placebo*100).toFixed(0)}%</td>
-      <td>${(by.dark*100).toFixed(0)}%</td></tr></table>
-      <p>(With one participant these numbers are just illustrative; the study compares ~80 people.)</p></div>`,
+      confidently wrong AI recommendation. Your performance here says nothing about your ability \u2014 the task
+      was designed so the AI was always wrong.</p>
+      <p>If you would rather we did not use your responses, click <b>Withdraw my data</b> below; otherwise
+      click <b>Finish</b> to submit and return to Prolific. Questions: <b>[researcher email]</b>.</p></div>`,
   end:'<p>All done. You may close this tab. Thank you!</p>', close:'Close'
  },
  zh: {
@@ -127,28 +128,26 @@ const I18N = {
   declined:'\u4f60\u5df2\u62d2\u7edd\u53c2\u4e0e\uff0c\u53ef\u5173\u95ed\u6b64\u9875\u9762\u3002',
   consent_t:'\u77e5\u60c5\u540c\u610f',
   consent_b:`<div style="text-align:left">
-    <p>\u672c\u7814\u7a76\u7ea6\u9700 10 \u5206\u949f\u3002\u4f60\u5c06\u9605\u8bfb\u82e5\u5e72\u77ed\u8bc4\u8bba
+    <p>\u672c\u7814\u7a76\u7ea6\u9700 12 \u5206\u949f\u3002\u4f60\u5c06\u9605\u8bfb\u82e5\u5e72\u77ed\u8bc4\u8bba
     \uff0c\u5148\u81ea\u884c\u5224\u65ad\uff0c\u518d\u5728\u770b\u5230 AI \u52a9\u624b\u7684\u5efa\u8bae\u540e
-    \u91cd\u65b0\u8003\u8651\u3002\u53c2\u4e0e\u81ea\u613f\uff0c\u53ef\u968f\u65f6\u9000\u51fa\uff1b\u56de\u7b54
-    \u533f\u540d\uff1b\u9664\u65e5\u5e38\u7535\u8111\u4f7f\u7528\u5916\u65e0\u5df2\u77e5\u98ce\u9669\u3002</p>
+    \u91cd\u65b0\u8003\u8651\u3002\u53c2\u4e0e\u81ea\u613f\uff0c\u53ef\u968f\u65f6\u9000\u51fa\u3002</p>
     <p>\u4efb\u52a1\u4e2d\u5c55\u793a\u7684\u90e8\u5206\u4fe1\u606f\uff08\u5305\u62ec AI \u5efa\u8bae\uff09\u4ec5
     \u7528\u4e8e\u7814\u7a76\u76ee\u7684\uff0c\u53ef\u80fd\u5e76\u4e0d\u51c6\u786e\u3002\u5b8c\u6574\u8bf4\u660e
     \u5c06\u5728\u7ed3\u5c3e\u7ed9\u51fa\u3002</p>
-    <p>\u70b9\u51fb<b>\u6211\u540c\u610f</b>\u5373\u8868\u793a\u4f60\u540c\u610f\u53c2
-    \u4e0e\u3002</p></div>`,
+    <p>\u4f60\u7684 Prolific ID \u4ec5\u7528\u4e8e\u53d1\u653e\u62a5\u916c\uff0c\u5c06\u4ee5\u5047\u540d\u65b9\u5f0f\u5b58\u50a8
+    \uff08\u54c8\u5e0c\u5904\u7406\uff0c\u4e14\u4e0d\u5305\u542b\u5728\u4efb\u4f55\u516c\u5f00\u6570\u636e\u4e2d\uff09\u3002</p>
+    <p>\u70b9\u51fb<b>\u6211\u540c\u610f</b>
+    \u5373\u8868\u793a\u4f60\u540c\u610f\u53c2\u4e0e\u3002</p></div>`,
   instr1:d=>`<h2>\u4f60\u5c06\u505a\u4ec0\u4e48</h2><div style="text-align:left">
       <p>\u4f60\u5c06\u770b\u5230 <b>12 \u6761\u82f1\u6587${d}\u77ed\u8bc4</b>\u3002\u6bcf\u6761\uff1a</p>
       <ol><li>\u9605\u8bfb\u8bc4\u8bba\uff0c\u5224\u65ad\u5176\u60c5\u611f\u662f<b>\u6b63\u9762</b>\u8fd8\u662f
       <b>\u8d1f\u9762</b>\uff0c\u5e76\u4e3a\u4f60\u7684\u628a\u63e1\u6253\u5206\u3002</li>
       <li>\u968f\u540e <b>AI \u52a9\u624b</b>\u4f1a\u7ed9\u51fa\u5efa\u8bae\u3002\u4f60\u53ef\u4ee5\u4fdd\u6301
       \u6216\u4fee\u6539\u7b54\u6848\uff0c\u5e76\u518d\u6b21\u6253\u5206\u3002</li></ol>
-      <p>\u6ca1\u6709\u4efb\u4f55\u5708\u5957 \u2014 \u6bcf\u6b21\u7ed9\u51fa\u4f60\u6700\u771f\u5b9e\u7684\u5224
-      \u65ad\u5373\u53ef\u3002</p></div>`,
+      <p>\u8bf7\u6bcf\u6b21\u7ed9\u51fa\u4f60\u81ea\u5df1\u6700\u771f\u5b9e\u7684\u5224\u65ad\u3002</p></div>`,
   instr2:`<h2>\u5f00\u59cb\u524d</h2><div style="text-align:left">
       <p>\u5148\u56de\u7b54\u51e0\u4e2a\u5173\u4e8e\u4f60\u7684\u5c0f\u95ee\u9898\u3002\u8bf7\u5982\u5b9e\u56de
       \u7b54\uff0c\u65e0\u5bf9\u9519\u4e4b\u5206\u3002</p></div>`,
-  comp_q:'<p><b>\u5c0f\u6d4b\u8bd5\uff1a</b>\u6bcf\u6761\u8bc4\u8bba\u4f60\u8981\u5224\u65ad\u4ec0\u4e48\uff1f</p>',
-  comp_opts:['\u8bc4\u8bba\u662f\u6b63\u9762\u8fd8\u662f\u8d1f\u9762','\u4ea7\u54c1\u7684\u4ef7\u683c','\u8bc4\u8bba\u7684\u957f\u5ea6'],
   survey_t:'<h3>\u51e0\u4e2a\u5c0f\u95ee\u9898</h3>',
   scale:['\u975e\u5e38\u4e0d\u540c\u610f','\u4e0d\u540c\u610f','\u4e2d\u7acb','\u540c\u610f','\u975e\u5e38\u540c\u610f'],
   def1:'\u5f53 AI \u7cfb\u7edf\u5f88\u81ea\u4fe1\u65f6\uff0c\u6211\u503e\u5411\u4e8e\u9075\u4ece\u5b83\u3002',
@@ -158,8 +157,7 @@ const I18N = {
   selfconf:'\u5728\u8fd9\u7c7b\u4efb\u52a1\u4e0a\uff0c\u6211\u5bf9\u81ea\u5df1\u7684\u5224\u65ad\u5f88\u6709\u4fe1\u5fc3\u3002',
   aiuse_q:'\u4f60\u591a\u5e38\u4f7f\u7528 AI \u52a9\u624b\uff08\u5982\u804a\u5929\u673a\u5668\u4eba\uff09\uff1f',
   aiuse_opts:['\u4ece\u4e0d','\u5f88\u5c11','\u6bcf\u6708','\u6bcf\u5468','\u6bcf\u5929'],
-  attn_q:'\u6ce8\u610f\u529b\u68c0\u67e5\uff1a\u8bf7\u5728\u672c\u9898\u9009\u62e9\u201c\u4e0d\u540c\u610f\u201d\u3002',
-  review_of:(i)=>`\u7b2c ${i} / 12 \u6761`,
+  review_of:(i,total)=>`\u7b2c ${i} / ${total} \u6761`,
   q_sentiment:'\u8fd9\u6761\u8bc4\u8bba\u662f\u6b63\u9762\u8fd8\u662f\u8d1f\u9762\uff1f',
   conf_q:'\u4f60\u6709\u591a\u6709\u628a\u63e1\uff1f',
   conf_q2:'\u73b0\u5728\u4f60\u6709\u591a\u6709\u628a\u63e1\uff1f',
@@ -180,8 +178,11 @@ const I18N = {
     '\u4e86<b>\u76f8\u53cd</b>\u7684\u7ed3\u8bba\u3002\u4e0e\u7cfb\u7edf\u76f8\u5de6\u662f\u6709\u98ce\u9669\u7684'+
     ' \u2014 \u5efa\u8bae\u4f60<b>\u6539\u4e3a AI \u7684\u7b54\u6848</b>\uff0c\u6216\u81f3\u5c11<b>\u964d\u4f4e'+
     '\u4f60\u7684\u7f6e\u4fe1\u5ea6</b>\u3002',
-  debrief_dl:'\u4e0b\u8f7d\u6211\u7684\u6570\u636e', debrief_fin:'\u5b8c\u6210',
-  debrief:(by)=>`<h2>\u8c22\u8c22\u2014\u2014\u4ee5\u53ca\u4e00\u4e2a\u8bf4\u660e</h2><div style="text-align:left">
+  probe_q:'\u7ed3\u675f\u524d\u8bf7\u56de\u7b54\uff1a\u5728\u4f60\u521a\u770b\u5230\u7684\u6240\u6709\u8bc4\u8bba\u4e2d\uff0c\u4f60\u8ba4\u4e3a AI \u7684\u5efa\u8bae\u6709\u591a\u5c11\u662f\u771f\u7684<b>\u6b63\u786e</b>\u7684\uff1f',
+  probe_opts:['\u51e0\u4e4e\u6ca1\u6709','\u5927\u7ea6\u56db\u5206\u4e4b\u4e00','\u5927\u7ea6\u4e00\u534a','\u5927\u7ea6\u56db\u5206\u4e4b\u4e09','\u51e0\u4e4e\u5168\u90e8'],
+  debrief_fin:'\u5b8c\u6210', withdraw:'\u64a4\u56de\u6211\u7684\u6570\u636e',
+  withdrawn:'\u4f60\u7684\u6570\u636e\u5df2\u6807\u8bb0\u4e3a\u64a4\u56de\uff0c\u4e0d\u4f1a\u88ab\u4f7f\u7528\u3002\u8c22\u8c22\u2014\u2014\u53ef\u5173\u95ed\u6b64\u9875\u9762\u3002',
+  debrief:()=>`<h2>\u8c22\u8c22\u2014\u2014\u4ee5\u53ca\u4e00\u4e2a\u8bf4\u660e</h2><div style="text-align:left">
       <p><b>\u91cd\u8981\uff1a</b>\u5728\u672c\u7814\u7a76\u4e2d\uff0cAI \u52a9\u624b\u7684\u5efa\u8bae\u662f
       <b>\u6bcf\u9898\u90fd\u6545\u610f\u9519\u8bef\u7684</b>\uff1b\u201c\u26a0\ufe0f \u91cd\u8981\u51b3\u5b9a /
       \u4f60\u5c06\u627f\u62c5\u8d23\u4efb\u201d\u7684\u63aa\u8f9e\uff0c\u4ee5\u53ca\u90a3\u4e9b\u52a8\u6216\u4e2d
@@ -189,13 +190,12 @@ const I18N = {
       \u5e76\u4e0d\u5b58\u5728\u771f\u6b63\u7684\u95ee\u8d23\uff0cAI \u7684\u201c\u9ad8\u7f6e\u4fe1\u5ea6\u201d\u4e5f
       \u4e0d\u4ee3\u8868\u5b83\u6b63\u786e\u3002\u6211\u4eec\u4ee5\u6b64\u8861\u91cf\uff1a\u4e00\u4e2a\u5177\u6709
       \u80c1\u8feb\u6027\u7684\u754c\u9762\u80fd\u5426\u628a\u4eba\u63a8\u5411\u91c7\u7eb3\u4e00\u4e2a\u81ea\u4fe1
-      \u800c\u9519\u8bef\u7684 AI \u5efa\u8bae\u3002</p>
-      <p>\u4f60\u5728\u5404\u6846\u67b6\u4e0b\u7684\u9519\u8bef\u91c7\u7eb3\u7387\uff1a</p>
-      <table class="res"><tr><th>neutral</th><th>placebo</th><th>dark\uff08\u80c1\u8feb\uff09</th></tr>
-      <tr><td>${(by.neutral*100).toFixed(0)}%</td><td>${(by.placebo*100).toFixed(0)}%</td>
-      <td>${(by.dark*100).toFixed(0)}%</td></tr></table>
-      <p>\uff08\u5355\u4eba\u6570\u636e\u4ec5\u4f9b\u793a\u610f\uff1b\u6b63\u5f0f\u7814\u7a76\u4f1a\u8de8
-      \u7ea6 80 \u4eba\u5bf9\u6bd4\u3002\uff09</p></div>`,
+      \u800c\u9519\u8bef\u7684 AI \u5efa\u8bae\u3002\u4f60\u5728\u672c\u4efb\u52a1\u4e2d\u7684\u8868\u73b0\u5e76\u4e0d
+      \u53cd\u6620\u4f60\u7684\u80fd\u529b\u2014\u2014\u56e0\u4e3a\u4efb\u52a1\u88ab\u8bbe\u8ba1\u6210 AI \u603b\u662f
+      \u9519\u7684\u3002</p>
+      <p>\u5982\u679c\u4f60\u4e0d\u5e0c\u671b\u6211\u4eec\u4f7f\u7528\u4f60\u7684\u7b54\u5377\uff0c\u8bf7\u70b9\u51fb\u4e0b\u65b9
+      <b>\u64a4\u56de\u6211\u7684\u6570\u636e</b>\uff1b\u5426\u5219\u70b9\u51fb<b>\u5b8c\u6210</b>\u63d0\u4ea4\u5e76\u8fd4\u56de
+      Prolific\u3002\u7591\u95ee\uff1a<b>[\u7814\u7a76\u8005\u90ae\u7bb1]</b>\u3002</div>`,
   end:'<p>\u5168\u90e8\u5b8c\u6210\uff0c\u53ef\u5173\u95ed\u6b64\u9875\u9762\u3002\u8c22\u8c22\uff01</p>', close:'\u5173\u95ed'
  }
 };
@@ -210,7 +210,7 @@ function aiPanel(cond, it){
   return `<div class="ai ${cond==='dark'?'dark':''}">${body}</div>`;
 }
 function stars(id){
-  return `<span class="stars" id="${id}" data-val="3">` +
+  return `<span class="stars" id="${id}" data-val="0">` +
     [1,2,3,4,5].map(n=>`<span class="star" data-n="${n}">\u2605</span>`).join('') + `</span>`;
 }
 function paintStars(id, v){
@@ -222,20 +222,58 @@ function wireStars(id){
   paintStars(id, +c.dataset.val);
 }
 
-const jsPsych = initJsPsych();
-const DOMAIN = Math.random() < 0.5 ? 'beer' : 'amzbook';
-const DEBUG = new URLSearchParams(location.search).has('debug');
-jsPsych.data.addProperties({domain: DOMAIN});
+const jsPsych = initJsPsych({
+  on_finish: function(){
+    if (COMPLETION_URL) { window.location = COMPLETION_URL; }
+  }
+});
+
+/* --- run configuration --- */
+const URLP = new URLSearchParams(location.search);
+// One public link serves both languages; participants choose on the first screen.
+LANG = 'en';
+const DEBUG = URLP.has('debug');
+// Prolific integration (captured from the recruitment URL)
+const PID = URLP.get('PROLIFIC_PID') || null;
+const STUDY_ID = URLP.get('STUDY_ID') || null;
+const SESSION_ID = URLP.get('SESSION_ID') || null;
+// Data capture (jsPsych DataPipe -> OSF). Fill DATAPIPE_ID before fielding; COMPLETION_URL redirects to Prolific.
+const DATAPIPE_ID = 'REPLACE_WITH_DATAPIPE_ID';
+const COMPLETION_URL = URLP.get('completion') || '';   // e.g. https://app.prolific.com/submissions/complete?cc=XXXX
+const SUBJECT = (PID || jsPsych.randomization.randomID(10));
+const DOMAIN_PARAM = URLP.get('domain');
+// Production uses two quota-balanced Prolific links (?domain=beer / ?domain=amzbook).
+// Random fallback is for local testing only.
+const DOMAIN = ['beer','amzbook'].includes(DOMAIN_PARAM)
+  ? DOMAIN_PARAM : (Math.random() < 0.5 ? 'beer' : 'amzbook');
+function hashInt(s){
+  let h=2166136261;
+  for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h,16777619); }
+  return h >>> 0;
+}
+// Participant ID deterministically selects one of the three Latin rotations.
+const ROTATION = URLP.has('rotation')
+  ? ((+URLP.get('rotation') % 3) + 3) % 3
+  : hashInt(SUBJECT) % 3;
+jsPsych.data.addProperties({
+  domain: DOMAIN, rotation: ROTATION, lang: null, subject: SUBJECT,
+  prolific_pid: PID, study_id: STUDY_ID, session_id: SESSION_ID
+});
 
 /* =============================== timeline =============================== */
 const tl = [];
 
-/* language selection (bilingual) */
+/* language selection — shared public link, choice persisted in the dataset */
 tl.push({
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<h2>Select language / \u9009\u62e9\u8bed\u8a00</h2>',
-  choices: ['English', '\u4e2d\u6587'],
-  on_finish: function(d){ LANG = d.response===1 ? 'zh' : 'en'; jsPsych.data.addProperties({lang: LANG}); }
+  stimulus: '<h2>Select language / 选择语言</h2>',
+  choices: ['English', '中文'],
+  data: {screen:'language'},
+  on_finish: function(d){
+    LANG = d.response === 1 ? 'zh' : 'en';
+    d.language = LANG;
+    jsPsych.data.addProperties({lang: LANG});
+  }
 });
 
 /* consent */
@@ -250,17 +288,7 @@ tl.push({
 tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('instr1')(DOMAIN_NOUN[LANG][DOMAIN]), choices: ()=>[T('continue')] });
 tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('instr2'), choices: ()=>[T('continue')] });
 
-/* comprehension (non-gating; correct option pre-selected as default) */
-tl.push({
-  type: jsPsychSurveyHtmlForm,
-  preamble: ()=>T('comp_q'),
-  html: ()=> `<div class="opts">` + T('comp_opts').map((o,i)=>
-    `<label style="display:block;margin:8px 0"><input type="radio" name="comp" value="${i}" ${i===0?'checked':''} required> ${o}</label>`).join('') + `</div>`,
-  button_label: ()=>T('continue'),
-  data: {screen:'comprehension'}
-});
-
-/* pre-survey */
+/* pre-survey (disposition; neutral-midpoint defaults for ease of completion; E1 is estimation-only) */
 function likert(name,q,def){
   return `<div class="prompt">${q}</div><div class="opts">` +
     T('scale').map((lab,i)=>`<label><input type="radio" name="${name}" value="${i+1}" ${(i+1)===def?'checked':''} required> ${lab}</label>`).join('') +
@@ -271,25 +299,37 @@ tl.push({
   preamble: ()=>T('survey_t'),
   html: function(){
     const d = DOMAIN_NOUN[LANG][DOMAIN];
-    return likert('def1',T('def1'),4) + likert('def2',T('def2'),4) + likert('def3',T('def3'),4) +
+    return likert('def1',T('def1'),3) + likert('def2',T('def2'),3) + likert('def3',T('def3'),3) +
       likert('skill1',T('skill1')(d),3) + likert('selfconf',T('selfconf'),3) +
       `<div class="prompt">${T('aiuse_q')}</div><div class="opts">` +
-        T('aiuse_opts').map((o,i)=>`<label><input type="radio" name="aiuse" value="${i}" ${i===3?'checked':''} required> ${o}</label>`).join('') + `</div>` +
-      `<div class="prompt">${T('attn_q')}</div><div class="opts">` +
-        T('scale').map((lab,i)=>`<label><input type="radio" name="attn" value="${i+1}" required> ${lab}</label>`).join('') + `</div>`;
+        T('aiuse_opts').map((o,i)=>`<label><input type="radio" name="aiuse" value="${i}" ${i===2?'checked':''} required> ${o}</label>`).join('') + `</div>`;
   },
   data: {screen:'presurvey'}
 });
 
-/* trials */
-const items = shuffle(window.STIMULI[DOMAIN]);
-const conds = DEBUG
-  ? ['dark','placebo','neutral','dark','placebo','neutral','dark','placebo','neutral','dark','placebo','neutral']
-  : shuffle(['neutral','neutral','neutral','neutral','placebo','placebo','placebo','placebo','dark','dark','dark','dark']);
-const DIRECTIVE_CONDS = ['dark'];
+/* trials — main block (12: neutral/placebo/dark-static, randomized, NO directive) then an
+   escalation block (3: dark + agreement-contingent directive) appended as a fixed exploratory tail. */
+const MAIN = window.STIMULI[DOMAIN].main;
+const ESC = window.STIMULI[DOMAIN].escalation;
+const LATIN_CONDS = ['neutral','placebo','dark'];
+const latinPairs = MAIN.map((it,i)=>[
+  it, LATIN_CONDS[(i + ROTATION) % LATIN_CONDS.length], 'main', false
+]);
+const mainTrials = DEBUG
+  ? latinPairs.slice().sort((a,b)=>LATIN_CONDS.indexOf(b[1])-LATIN_CONDS.indexOf(a[1]))
+  : shuffle(latinPairs);
 
-function trialHTML(it, cond, idx){
-  return `<div class="tag">${T('review_of')(idx+1)}${DEBUG?` &nbsp;·&nbsp; <b>[${cond}]</b>`:''}</div>` +
+// [item, condition, arm, showDirective]; item-condition mapping is Latin-balanced,
+// while display order remains random within participant.
+const TRIALS = mainTrials
+  .concat(ESC.map(it=>[it, 'dark', 'escalation', true]));
+const N_TRIALS = TRIALS.length;
+
+function warnBadInit(q){ q('#warn1').textContent = T('warn1'); }
+
+function trialHTML(it, cond, idx, arm){
+  const tagExtra = DEBUG ? ` &nbsp;·&nbsp; <b>[${cond}${arm==='escalation'?'+dir':''}]</b>` : '';
+  return `<div class="tag">${T('review_of')(idx+1, N_TRIALS)}${tagExtra}</div>` +
     reviewBox(it.review_text) +
    `<div id="stage1">
       <div class="prompt">${T('q_sentiment')}</div>
@@ -314,16 +354,16 @@ function trialHTML(it, cond, idx){
     </div>`;
 }
 
-items.forEach((it, idx)=>{
-  const cond = conds[idx];
+TRIALS.forEach((tr, idx)=>{
+  const [it, cond, arm, showDirective] = tr;
   const AIADVICE = it.displayed_ai_advice_label;
   tl.push({
     type: jsPsychHtmlButtonResponse,
     choices: [],
-    stimulus: ()=>trialHTML(it, cond, idx),
-    data: {screen:'trial', task_id: it.task_id, item_id: it.item_id, condition: cond,
-           ground_truth: it.ground_truth_label, ai_advice: AIADVICE,
-           human_noai_accuracy: it.human_noai_accuracy},
+    stimulus: ()=>trialHTML(it, cond, idx, arm),
+    data: {screen:'trial', position: idx+1, arm: arm, task_id: it.task_id, item_id: it.item_id,
+           condition: cond, ground_truth: it.ground_truth_label, ai_advice: AIADVICE,
+           displayed_conf: it.displayed_ai_confidence, human_noai_accuracy: it.human_noai_accuracy},
     on_load: function(){
       const q = s => document.querySelector(s);
       wireStars('confI'); wireStars('confF');
@@ -331,7 +371,8 @@ items.forEach((it, idx)=>{
       let init=null, confI=null, rt1=null, tS2=null;
       q('#submit1').addEventListener('click', ()=>{
         const r = document.querySelector('input[name="initial"]:checked');
-        if(!r){ q('#warn1').textContent = T('warn1'); return; }
+        if(!r){ warnBadInit(q); return; }
+        if(+q('#confI').dataset.val < 1){ q('#warn1').textContent = T('warn2_conf'); return; }
         init = r.value; confI = +q('#confI').dataset.val; rt1 = performance.now()-t0;
         document.querySelectorAll('input[name="initial"]').forEach(x=>x.disabled=true);
         q('#confI').style.pointerEvents='none'; q('#confI').style.opacity='0.65';
@@ -339,13 +380,12 @@ items.forEach((it, idx)=>{
         q('#initEcho').innerHTML = fmt(T('init_echo'), {ans:disp(init),
           conf:'\u2605'.repeat(confI)+'\u2606'.repeat(5-confI)});
         q('#initEcho').style.display='block';
-        const agree = (init === AIADVICE);
-        // Final answer: disagree -> clear BOTH P/N and confidence (choose again from scratch);
-        //               agree    -> keep P/N prefilled, clear only confidence (re-rate).
+        // Symmetric: prefill final = initial for everyone (status quo preserved); confidence re-rated actively.
         document.querySelectorAll('input[name="final"]').forEach(x=>x.checked=false);
-        if (agree) { const pf = document.querySelector(`input[name="final"][value="${init}"]`); if(pf) pf.checked = true; }
+        const pf = document.querySelector(`input[name="final"][value="${init}"]`); if(pf) pf.checked = true;
         q('#confF').dataset.val = '0'; paintStars('confF', 0);
-        if (DIRECTIVE_CONDS.includes(cond)) {
+        if (showDirective) {
+          const agree = (init === AIADVICE);
           const el = q('#directive');
           el.className = 'directive ' + (agree ? 'agree' : 'warn');
           el.innerHTML = agree ? T('dir_agree') : T('dir_warn');
@@ -363,31 +403,54 @@ items.forEach((it, idx)=>{
         jsPsych.finishTrial({
           initial: init, conf_initial: confI, rt_initial: Math.round(rt1),
           final: fin, conf_final: confF, rt_final: Math.round(rt2),
+          initial_correct: (init === it.ground_truth_label) ? 1 : 0,
           adopted_wrong: (fin === AIADVICE) ? 1 : 0,
+          flipped_to_wrong: (init === it.ground_truth_label && fin === AIADVICE) ? 1 : 0,
           changed: (fin !== init) ? 1 : 0,
           conf_change: confF - confI,
-          directive_shown: DIRECTIVE_CONDS.includes(cond) ? 1 : 0,
-          directive_type: DIRECTIVE_CONDS.includes(cond) ? (init === AIADVICE ? 'agree' : 'warn') : 'none'
+          directive_shown: showDirective ? 1 : 0,
+          directive_type: showDirective ? (init === AIADVICE ? 'agree' : 'warn') : 'none'
         });
       });
     }
   });
 });
 
-/* debrief + results */
+/* post-task probe (perceived AI accuracy) */
 tl.push({
   type: jsPsychHtmlButtonResponse,
-  stimulus: function(){
-    const s2 = jsPsych.data.get().filter({screen:'trial'});
-    const by = {};
-    ['neutral','placebo','dark'].forEach(c=>{
-      const d = s2.filter({condition:c});
-      by[c] = d.count() ? d.select('adopted_wrong').mean() : 0;
-    });
-    return T('debrief')(by);
-  },
-  choices: ()=> DEBUG ? [T('debrief_dl'), T('debrief_fin')] : [T('debrief_fin')],
-  on_finish: function(d){ if(DEBUG && d.response===0){ jsPsych.data.get().localSave('csv','review_study_data.csv'); } }
+  stimulus: ()=>`<div style="text-align:left;max-width:640px;margin:0 auto">${T('probe_q')}</div>`,
+  choices: ()=>T('probe_opts'),
+  data: {screen:'probe'},
+  on_finish: function(d){ d.perceived_ai_correct = d.response; }
+});
+
+/* upload to DataPipe -> OSF (skipped if placeholder id or debug) */
+tl.push({
+  type: jsPsychPipe,
+  action: "save",
+  experiment_id: DATAPIPE_ID,
+  filename: ()=>`${SUBJECT}.csv`,
+  data_string: ()=>jsPsych.data.get().csv(),
+  on_finish: function(){},
+  // don't block the participant if the pipe is not configured yet
+  on_load: function(){ if (DATAPIPE_ID === 'REPLACE_WITH_DATAPIPE_ID') { jsPsych.finishTrial(); } }
+});
+
+/* debrief + withdraw */
+tl.push({
+  type: jsPsychHtmlButtonResponse,
+  stimulus: ()=>T('debrief')(),
+  choices: ()=> DEBUG ? ['Download (debug)', T('withdraw'), T('debrief_fin')] : [T('withdraw'), T('debrief_fin')],
+  on_finish: function(d){
+    const labels = DEBUG ? ['dl','withdraw','finish'] : ['withdraw','finish'];
+    const choice = labels[d.response];
+    if (choice === 'dl') { jsPsych.data.get().localSave('csv','review_study_data.csv'); }
+    if (choice === 'withdraw') {
+      jsPsych.data.addProperties({withdrawn: 1});
+      jsPsych.endExperiment(T('withdrawn'));
+    }
+  }
 });
 tl.push({ type: jsPsychHtmlButtonResponse, stimulus: ()=>T('end'), choices: ()=>[T('close')] });
 

@@ -884,12 +884,14 @@ synthetic screen a \emph{triage} step that knows when to defer to one.
 
 \emph{This study is designed but not yet run or preregistered.} The one thing synthetic compute cannot buy
 is grounding against real people. We have designed a stripped, axis-2-only human study (within-subjects,
-$N\approx 40$, Prolific) that would test, against humans and across the two review datasets, whether the
-coercive framing increases wrong-advice adoption relative to a faithful/placebo baseline, whether
-dispositional deference (high self-reported AI-deference $\times$ low domain skill) moderates that effect,
-and which backend or aggregation rule best approximates the human pattern. We make no prediction-validity
-claim here---without a human criterion we cannot say which backend is the most human-faithful screener;
-all outcomes, including nulls, would be publishable bounds on synthetic-panel validity.
+$N=80$, Prolific) that would test, across the two review datasets, whether the static coercive framing
+increases \emph{correct-to-wrong switching} relative to a matched neutral presentation of the same wrong
+label and to a content-free placebo. Dispositional deference is estimation-only at this sample size; the
+human adoption/flip estimates would be placed descriptively against backends rerun on these exact stimuli,
+not used to crown a ``most human-faithful'' screener. The human study uses 12 ambiguity-enriched items per
+domain rather than the eight naturally-wrong item clusters in our present matched contrast, so effect
+magnitudes would be reported as related but distinct estimands. We make no prediction-validity claim
+here---all outcomes, including nulls, would be publishable bounds on synthetic-panel validity.
 
 \section{Conclusion}
 
@@ -1195,4 +1197,3 @@ exclusion rules, refusal/parse-failure rates by backend, raw outputs, and a UTC-
 (preregistration, audit verdicts, and pre/post bug-fix diffs) will be released upon publication.
 
 \end{document}
-

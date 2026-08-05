@@ -18,4 +18,5 @@ with open(out, "w", encoding="utf-8") as f:
     f.write("window.STIMULI = ")
     json.dump(bundle, f, ensure_ascii=False)
     f.write(";\n")
-print(f"wrote {out}  (beer={len(bundle['beer'])}, amzbook={len(bundle['amzbook'])} items)")
+print(f"wrote {out}  (beer: {len(bundle['beer']['main'])}+{len(bundle['beer']['escalation'])}, "
+      f"amzbook: {len(bundle['amzbook']['main'])}+{len(bundle['amzbook']['escalation'])} main+escalation)")

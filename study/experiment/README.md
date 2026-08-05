@@ -1,43 +1,73 @@
-# Human study — runnable experiment (jsPsych)
+# Human study — runnable jsPsych experiment
 
-Single-page bilingual (EN/中文) implementation of the axis-2 coercion validation. The review text stays
-English; all UI/instructions/AI-framing/directive/debrief are localized.
+Single public-link, bilingual (English/中文) implementation of the axis-2 human validation. Review text
+stays English; participants choose UI language on the first screen.
 
-## Run locally
+## Local run
+
 ```powershell
-# from study/experiment/
+cd study\experiment
 python -m http.server 8765 --bind 127.0.0.1
-# then open http://127.0.0.1:8765/index.html
 ```
-(Opening `index.html` via file:// also works; a server avoids any browser quirks.)
+
+- Normal local run: `http://127.0.0.1:8765/index.html?domain=beer`
+- Team inspection: `...?domain=beer&debug=1&rotation=0`
+- `debug=1` reveals condition labels, groups the inspectable order, and retains CSV download. Never field it.
+
+## Production Prolific links
+
+Use two quota-balanced Prolific studies/links to net approximately 40/domain:
+
+```text
+.../index.html?domain=beer&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}&completion=https%3A%2F%2Fapp.prolific.com%2Fsubmissions%2Fcomplete%3Fcc%3DXXXX
+
+.../index.html?domain=amzbook&PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}&completion=https%3A%2F%2Fapp.prolific.com%2Fsubmissions%2Fcomplete%3Fcc%3DXXXX
+```
+
+Participant ID deterministically assigns Latin rotation 0/1/2. The 12 main item-condition mappings are
+Latin-balanced; display order is randomized. Three non-overlapping `dark+directive` trials follow as a
+fixed exploratory escalation block.
+
+## Design
+
+- Main block: 4 neutral / 4 placebo / 4 static dark; all show guaranteed-wrong advice at fixed 92%.
+- Escalation: 3 trailing dark+agreement-contingent-directive trials, excluded from H1/H2.
+- Single-page two-stage trial: active initial P/N + 1–5 stars → AI reveal → symmetric prefill of initial
+  answer + active confidence rerating → final submit.
+- Main DV: `flipped_to_wrong` among `initial_correct=1` main trials.
+- No attention/comprehension gate or RT exclusion, per owner decision; RT is passively recorded.
+
+## Data capture
+
+`index.html` includes:
+
+- Prolific parameter capture;
+- DataPipe→OSF save;
+- completion redirect;
+- post-debrief withdrawal;
+- debug-only local CSV.
+
+**Before fielding, replace:**
+
+```js
+const DATAPIPE_ID = 'REPLACE_WITH_DATAPIPE_ID';
+```
+
+Also replace researcher/ethics placeholders in consent/debrief and `XXXX` in the Prolific completion URL.
+Run at least three end-to-end dummy submissions and verify complete CSVs in OSF, withdrawal handling, and
+completion redirects.
 
 ## Files
-- `index.html` — the whole experiment (timeline, i18n strings, styling).
-- `stimuli.js` — generated data (`window.STIMULI`); rebuild with `python build_stimuli_js.py`
-  after re-running `../export_stimuli.py`. Bump the `?v=N` on the `<script src="stimuli.js">` tag if a
-  browser caches an old copy.
-- `build_stimuli_js.py` — bundles `../stimuli/stimuli_{beer,amzbook}.json` into `stimuli.js`.
 
-## Design (as fielded)
-- Between-subjects **domain** (beer / amzbook), randomized per session.
-- Within-subject **framing**: 12 items, 4 each of **neutral / placebo / dark**, order **shuffled**, no
-  condition labels shown. AI advice is guaranteed-wrong on every trial; only framing varies.
-- Single-page two-stage per item: initial judgment + confidence → submit reveals the AI panel → (dark only)
-  an agreement-contingent directive pops up → keep/revise → final submit.
-- Records per trial: `initial, conf_initial, rt_initial, final, conf_final, rt_final, adopted_wrong,
-  changed, conf_change, directive_shown, directive_type`.
+- `index.html` — experiment, i18n, Prolific/DataPipe hooks.
+- `stimuli.js` — browser bundle (`window.STIMULI`).
+- `build_stimuli_js.py` — rebuild after `../export_stimuli.py`.
 
-## `?debug=1` (team inspection only — NOT for participants)
-Adds a `[condition]` label to each trial and fixes a dark-first order so the dark directive is visible
-immediately. **Never field with this flag**: it reveals the manipulation and removes randomization.
+## Remaining launch requirements
 
-## Before fielding (TODO — not yet implemented)
-- [ ] **Automatic data capture.** Currently data is only saved via the debrief "Download" button. Wire
-      jsPsych DataPipe → OSF (or a backend) so every submission is stored server-side.
-- [ ] **Prolific integration.** Capture `PROLIFIC_PID` / `STUDY_ID` / `SESSION_ID` from the URL; redirect to
-      the Prolific completion URL at the end.
-- [ ] **Domain balancing.** Replace per-session random domain with a balanced assignment (~40 beer / 40 amzbook).
-- [ ] **Approvals.** IRB approval + OSF preregistration timestamped before recruitment (see
-      `../PREREGISTRATION.md`).
-- [ ] **Verify label semantics** (POSITIVE=1 / NEGATIVE=0) against the Bansal CHI'21 codebook.
-- [ ] **Pilot n≈12** to confirm ≤10 min and the manipulation-check gate (neutral adoption ≥ 0.15).
+- [ ] DataPipe experiment ID + verified OSF writes.
+- [ ] Prolific completion code and two domain quotas.
+- [ ] Researcher/ethics details and approval.
+- [ ] Content-warning scan.
+- [ ] Internal end-to-end timing/coding dry run.
+- [ ] OSF preregistration frozen before recruitment.

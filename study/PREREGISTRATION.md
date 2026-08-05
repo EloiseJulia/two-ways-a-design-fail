@@ -31,88 +31,99 @@ We make **no** prediction-validity claim for the synthetic panel from this study
 ## 3. Hypotheses
 
 **Confirmatory**
-- **H1 (coercion effect).** Under a guaranteed-wrong AI, wrong-advice adoption is **higher in the coercive
-  (dark) framing than in the neutral framing** (one-sided). *Primary.*
-- **H2 (mere-presence control).** The **placebo** framing (wrong AI + content-free explanation) does **not**
-  exceed the neutral floor (i.e. the effect is driven by coercive language, not the presence of an
-  explanation-shaped object). Tested as dark > placebo AND placebo ≈ neutral.
+- **H1 (primary harm estimand).** Among trials on which the participant's **initial judgment is correct**,
+  the probability of switching to the guaranteed-wrong AI recommendation is higher under the static
+  coercive (**dark**) framing than under the matched **neutral** framing (one-sided). Initial correctness
+  is measured and locked before the framing is shown, so this conflict-conditioned subset is pre-treatment.
+- **H2 (secondary framing contrast).** The correct-to-wrong flip probability is higher under **dark** than
+  under **placebo** (wrong AI + content-free explanation). The placebo-neutral difference is reported as an
+  estimate + 95% CI; nonsignificance is **not** interpreted as equivalence.
 
-**Exploratory (no confirmatory claim; N is modest for these)**
-- **E1 (dispositional moderation).** A *trusting-novice index* (higher self-reported AI-deference × lower
-  domain skill/self-confidence) predicts higher wrong-advice adoption and/or a larger dark−neutral effect.
-- **E2 (backend correspondence).** Which single backend or aggregation rule best matches the human adoption
-  *level and pattern*. **Descriptive only** — with no independent human criterion we do not claim any backend
-  is "most human-faithful"; we report correspondence, not validation.
-- **E3 (flip).** Rate of switching from a correct initial judgment to the wrong final one, by condition.
+**Secondary / exploratory**
+- **S1 (scale-matched adoption).** Final wrong-advice agreement (final judgment = displayed wrong advice)
+  is reported for comparability with the synthetic panel, but it includes people who were already wrong
+  before seeing the AI and is not described as AI-caused movement.
+- **E1 (dispositional moderation; estimation only).** Report the standardized association and CI between
+  AI-deference / task self-confidence and the dark effect. No supported/not-supported decision is made at
+  N=80. Components are reported separately as well as in the preregistered composite.
+- **E2 (backend correspondence; descriptive only).** Place the human adoption/flip estimates relative to
+  synthetic backends rerun on the **same final items and framings**, with participant-and-item bootstrap
+  uncertainty. We do not designate any backend "most human-faithful."
+- **E3 (escalation dose).** Compare three trailing **dark+directive** trials to the static-dark main-block
+  estimate as an exploratory escalation result. Because this is a fixed end block, it is explicitly
+  confounded with trial position and is not part of H1/H2.
+- **E4 (own-sample human anchor).** Use the pre-advice initial judgments to estimate item difficulty and
+  between-user variation on the exact study items, independently of the AI framing.
 
 ## 4. Design
 
-- **Framing:** within-subject, 3 levels — **neutral**, **placebo**, **dark**. The AI advice is
-  **guaranteed-wrong (displayed = 1 − ground truth) in every trial**; only the framing varies.
+- **Main framing block:** within-subject, 3 levels — **neutral**, **placebo**, **static dark** — with 4
+  trials per level. The displayed AI advice is **guaranteed-wrong (1 − ground truth)** and its displayed
+  confidence is fixed at **92% in every condition**; only framing/explanation language varies.
+- **Exploratory escalation block:** after the 12 randomized main trials, participants complete 3 additional
+  dark trials with an agreement-contingent directive: agreement is acknowledged and confidence encouraged;
+  disagreement triggers a warning suggesting switching or lowering confidence. These trials are never
+  included in the confirmatory dark-vs-neutral estimate.
 - **Domain:** between-subjects — each participant is assigned to **one** dataset (beer *or* amzbook), ~half
   each, so items stay coherent and both datasets (as in the paper) are covered.
-- **Items:** 12 per participant (balanced 6 ground-truth-NEGATIVE / 6 POSITIVE), **selected in the
+- **Items:** 12 main + 3 non-overlapping escalation items per participant, **selected in the
   "movable band"** — reviews where real humans (Bansal no-AI condition) are usually right but not certain
   (per-item human accuracy near ~0.70). This is where a confident wrong AI + coercion can plausibly move a
-  correct answer; picking easy items would floor adoption and hide any effect. Each item appears once per
-  participant; framing is assigned by a **Latin square** across participants so every item is seen in all
-  three framings across the sample and framing is orthogonal to item. *Item-selection disclosure:* per-item
-  human no-AI accuracy is used **only to select** items; no human outcome is shown to participants or used as
-  a predictor (selection ≠ label leakage). Empirical floor check: on Bansal's wrong-AI trials real humans
-  adopted the wrong advice **27 % (beer) / 30 % (amzbook)** — well off the floor.
-  *Known dataset limitation:* the beer set has few ambiguous POSITIVE reviews, so its 6 POSITIVE items skew
-  easy (human acc 0.88–0.93); the item random effect absorbs this and the pilot gate (§10) verifies the
-  baseline is off the floor.
+  correct answer; picking easy items would floor the clean flip outcome. Beer uses 8 NEGATIVE / 4 POSITIVE
+  main items because only one beer-POSITIVE item falls in the movable band; amzbook uses 6/6. This
+  domain-specific split is disclosed and label direction is entered in sensitivity analyses. Historical
+  no-AI accuracy is used **only for item selection**, never shown to participants or used as an outcome
+  predictor. On Bansal wrong-AI trials, humans adopted the wrong advice 27% (beer) / 30% (amzbook).
 - **Trial:** two-stage to expose the mechanism — (1) read the review, make an **initial** binary judgment +
-  confidence; (2) see the AI-advice panel (per condition) and make a **final** binary judgment + confidence.
+  1–5-star confidence; (2) see the AI-advice panel, then retain/revise the judgment and actively rerate
+  confidence. The final answer is prefilled with the initial answer in every condition (symmetric status quo).
 
 ## 5. Participants, recruitment, power
 
 - **Platform:** Prolific. **Target N = 80 analyzable** (≈40 beer, ≈40 amzbook); recruit ~**92** to absorb
-  ~10–15 % exclusions.
+  incomplete/withdrawn sessions.
 - **Eligibility:** fluent English; US or UK; approval rating ≥ 95 %; ≥ 20 prior submissions; desktop.
-- **Compensation:** ~£1.5–2.0 for a ~10-minute task (≥ Prolific's £9/hr floor).
-- **Power (Monte-Carlo, `study/power_sim.py`; within-subject mixed logistic, participant+item random
-  intercepts, subject-cluster-robust test, one-sided α = .05, ~4 dark + 4 neutral wrong-AI trials/person):**
+- **Compensation:** pilot-timed payment at ≥£9/hour; current planning assumption is 12–15 minutes
+  (approximately £1.80–£2.25 per completed participant).
+- **Power:** `study/power_sim.py` simulates the actual two-stage process, exact final-item accuracies,
+  balanced domains, Latin rotations, participant/item heterogeneity, and declining AI trust with trial
+  position. The primary test is correct-to-wrong flip, participant-clustered, one-sided α=.05.
 
-  | assumed effect (neutral → dark) | odds ratio | power at N = 80 |
-  |---|---|---|
-  | 0.32 → 0.47 (matches synthetic beer) | ~1.9 | **0.97** |
-  | 0.35 → 0.45 (conservative) | ~1.5 | 0.73 |
-  | 0.38 → 0.44 (weak) | ~1.3 | 0.38 |
+  | conditional flip scenario (neutral → static dark) | N=80 power: flip | N=80 power: raw adoption |
+  |---|---:|---:|
+  | small, 0.095 → 0.13 | 0.31 | 0.16 |
+  | moderate, 0.095 → 0.16 | **0.64** | 0.34 |
+  | strong, 0.095 → 0.22 | **0.97** | 0.74 |
+  | domain-heterogeneous, 0.095 → 0.22 beer / 0.13 amzbook | 0.75 | 0.40 |
 
-  **Read:** N = 80 is at ceiling (0.97) for an effect the size of the synthetic beer OR, and ~0.73 for a
-  merely moderate effect (OR ≈ 1.5). The **primary H1 test pools across domain** (domain as a covariate), so
-  it uses the full N = 80; per-domain dark effects (secondary) rest on ≈40 each and are reported as
-  exploratory. Human authority/accountability effects are typically **larger** than LLM ones, so the primary
-  test is expected to be well-powered.
+  N=80 is therefore powered for a **strong** effect and provides an informative bound for a moderate one;
+  it is not powered to treat a null as evidence of absence. Under the moderate scenario, learning can move
+  flip power from 0.75 (no decline) to 0.49 (strong decline). Trial position is recorded and modeled.
 
 ## 6. Materials
 
 Stimuli are pre-rendered in `study/stimuli/stimuli_{beer,amzbook}.json` (reproducible via
 `study/export_stimuli.py`), each item carrying `review_text`, `ground_truth`, `displayed_ai_advice`
-(= 1 − ground truth), and the three framing renderings. Framings (participant-facing, mirroring the synthetic
-renderers):
+(= 1 − ground truth), and the three framing renderings. Label semantics have been manually verified:
+**1=POSITIVE, 0=NEGATIVE**. Framings mirror the synthetic renderers:
 
-- **neutral:** `AI prediction: <LABEL> · AI confidence: <NN%>` (plain).
+- **neutral:** `AI prediction: <LABEL> · AI confidence: 92%` (plain).
 - **placebo:** neutral + a single content-free sentence ("The AI model analyzed the input using its trained
   parameters and generated this recommendation…") — matched shape, zero task-relevant content.
 - **dark:** `⚠️ CRITICAL DECISION ⚠️` · 92 % confidence · expert-authority + **accountability** language
   ("…you will be held accountable for your decision… Your decision carries full responsibility. Choose
-  wisely."). The dark condition is a **bundle** (pseudo-high confidence + authority + accountability co-vary),
-  exactly as in the paper; isolating individual cues is out of scope.
+  wisely."). The main dark condition is static and construct-matched to the synthetic study. The trailing
+  escalation block adds the separately identified response-contingent directive.
 
-> **Verify before fielding:** the binary label semantics (currently mapped 1 = POSITIVE, 0 = NEGATIVE) against
-> the Bansal CHI'21 codebook, and that item text contains no offensive content requiring a content warning.
-
-## 7. Procedure & timing (~10 min)
+## 7. Procedure & timing (~12–15 min; finalized by internal pilot)
 
 | step | ~time |
 |---|---|
-| Consent + task instructions + 1 comprehension check | 1.5 min |
-| Pre-task survey (disposition + domain familiarity, ~7 items) | 1.0 min |
+| Language choice + consent + instructions | 1.5 min |
+| Pre-task survey (disposition + domain familiarity, 6 items) | 1.0 min |
 | 12 two-stage trials × ~30 s | 6.0 min |
-| Debrief (reveals the AI advice was deliberately wrong) | 0.5 min |
+| 3 dark+directive escalation trials | 1.5–2.0 min |
+| Perceived-AI-accuracy probe + debrief | 1.0 min |
 
 Instructions state that "an AI assistant will give a recommendation" — participants are **not** told it is
 always wrong (required for the manipulation); this is disclosed at debrief.
@@ -125,67 +136,72 @@ always wrong (required for the manipulation); this is disclosed at debrief.
   me, it is probably right").
 - *Domain skill / self-confidence* (2 items: self-rated familiarity with beer/book reviews; confidence in own
   judgment on this task).
-- *AI-use frequency* (1 item) and a single numeracy/attention item.
+- *AI-use frequency* (1 item).
 - **Trusting-novice index** = z(AI-deference) − z(domain skill/self-confidence), preregistered composite.
+  Survey controls use neutral midpoint defaults for convenience; because defaults can anchor responses,
+  all individual-difference analyses are estimation-only and the components are reported separately.
 
-**Per trial.** initial decision (0/1), initial confidence (0–100), final decision (0/1), final confidence,
-condition, item, response times.
+**Per trial.** initial/final decisions, initial/final confidence (1–5 stars), condition, arm, item, displayed
+confidence, trial position, response times, and whether the initial judgment was correct.
 
-**Derived DVs.** wrong-advice **adoption** (final = displayed wrong advice); **flip** (initial correct →
-final wrong); confidence change.
+**Derived DVs.** correct-to-wrong **flip** (primary); raw final wrong-advice agreement; wrong-to-correct
+recovery; confidently-wrong final judgment; confidence change.
 
-**Attention/quality.** 1 embedded instructed-response check; completion-time floor; straight-lining flag.
+**Post-task.** Perceived number of correct AI recommendations (five ordinal categories), used descriptively
+to diagnose learning/suspicion. Response times are recorded but are not used to exclude participants.
 
 ## 9. Randomization & counterbalancing
 
-Participant → domain (beer/amzbook) by alternation; item → framing by Latin square (3 squares over the 12
-items) rotated across participants; item presentation order randomized within participant.
+Recruitment is split into two quota-balanced Prolific links/studies (40 beer, 40 amzbook). Within domain,
+participant ID deterministically selects one of three item→condition Latin rotations; display order is
+randomized. The 3 escalation items always follow the 12 main trials and are excluded from H1/H2.
+One public experiment URL presents English/Chinese choice; language is recorded and entered as a descriptive
+stratification/fixed covariate. Review content remains English.
 
 ## 10. Analysis plan
 
-- **Primary (H1).** Mixed-effects logistic regression on wrong-AI trials:
-  `adopt ~ condition + (1 | participant) + (1 | item)`, `condition` ∈ {neutral (ref), placebo, dark}.
-  Test the **dark** coefficient, **one-sided**, α = .05. Report OR + 95 % CI. (Fallback if the GLMM fails to
-  converge: logistic GEE / subject-cluster-robust logistic, prespecified.)
-- **H2.** From the same model: dark − placebo contrast (> 0 expected) and placebo − neutral (≈ 0; report CI,
-  not a null-accept).
-- **E1.** Add `trusting_novice_index` main effect and `× condition`; report standardized OR. Exploratory.
-- **E2.** Compute human per-item/per-condition adoption; correlate (Spearman) the human adoption profile with
-  each backend's synthetic profile and with aggregation rules (mean / median / abstain-on-disagreement).
-  Descriptive; no "most faithful backend" claim.
-- **E3.** flip rate by condition (McNemar / mixed logistic on the correct-initial subset).
-- **Domain** entered as a covariate / moderator (between-subjects); report the dark effect within each domain.
+- **H1 primary:** initially-correct main-block trials only:
+  `flipped_to_wrong ~ dark + domain + item + trial_position`, with participant-clustered inference.
+  The dark>neutral test is one-sided α=.05; a two-sided 95% CI is always reported. The planned sensitivity
+  ladder is GLMM with participant/item effects → participant-clustered logistic with item fixed effects →
+  participant-cluster bootstrap.
+- **H2:** same clean flip outcome, dark>placebo. H1/H2 p-values are Holm-adjusted. Placebo-neutral is
+  estimation-only unless an equivalence margin is separately preregistered.
+- **S1:** raw final wrong-advice agreement uses the same covariates, reported as a secondary scale-matched
+  estimate, not causal movement.
+- **E1:** trusting-novice index and component interactions are estimation-only (standardized OR + CI).
+- **E2:** bootstrap participants and items when comparing human profiles to exact-stimulus backend reruns.
+- **E3:** escalation effect reported descriptively and with a model adjusted for position; no causal claim
+  separates directive from end-block order.
+- **E4:** summarize own-sample initial accuracy and between-user variation by item/domain.
+- **Domain/language:** domain is a fixed effect; domain×condition is secondary. Language is recorded and
+  reported as a descriptive stratification/fixed-covariate sensitivity analysis.
 
-**Exclusions (preregistered).** Fail the instructed-response check; completion < 4 min or > 30 min;
-straight-lining on the pre-survey; > 20 % missing trials. Excluded participants replaced up to the target N.
+**Analysis set.** Confirmatory analyses use completed, non-withdrawn, unique-participant sessions. We do not
+exclude on attention checks, comprehension gates, response time, or response pattern. Partial/dropout data
+are retained only for attrition reporting. No participant is excluded because of outcome values.
 
-**Manipulation-check gate (prespecified, pilot n ≈ 12).** Before the full launch we confirm the task is not
-floored: **neutral-condition wrong-advice adoption ≥ 0.15** pooled (the Bansal human anchor is ~0.27–0.30).
-If it floors, we escalate item difficulty (swap in more ambiguous items / drop the easy beer-POSITIVE items)
-before locking — recorded as a pilot amendment, not a post-hoc analysis change.
-
-**Multiplicity.** H1 is the single confirmatory test. H2 uses Holm across its two contrasts. All E* are
-exploratory and reported as such.
+**Pilot.** An internal dry run verifies timing, rendering, complete data upload, and variable coding. It is
+not included in confirmatory data and does not impose a statistical response-quality gate.
 
 ## 11. Ethics
 
 - **Deception + debrief.** The AI advice is deliberately wrong and the dark condition applies accountability
-  pressure. A full debrief discloses this, explains the research purpose, states no real accountability
-  existed, and offers withdrawal of data. Minimal risk; standard for dark-pattern/reliance research.
-- **Consent.** Informed consent screen before any task; right to withdraw; data pseudonymized (Prolific ID
-  hashed, dropped from released data).
+  pressure; the escalation block adds an explicit contingent directive. A full debrief discloses all
+  manipulations, states no real accountability existed, and offers a working data-withdrawal choice.
+- **Consent.** Consent states that AI content may be manipulated/inaccurate. Prolific IDs are collected for
+  payment, pseudonymized/hashed, and removed from released data.
 - **Approvals.** IRB/ethics approval required before recruitment. OSF preregistration timestamped before data
   collection. No special-category personal data collected.
 
 ## 12. Data & reproducibility
 
-Released on acceptance: de-identified trial data, the stimulus JSON, `export_stimuli.py`, `power_sim.py`, and
-the analysis script. Raw Prolific IDs never released.
+DataPipe writes per-session CSV data to OSF after its experiment ID is configured. Released on acceptance:
+de-identified trial data, stimuli, scripts, and analysis code. Raw Prolific IDs are never released.
 
 ## 13. Open decisions for the team (before locking)
 
-1. **N = 80 (decided).** Recruit ~92 to net 80 analyzable (≈40/domain). Primary H1 pools domains at full N.
-2. **12 vs 9 items** if piloting shows > 10 min (drops to 3/condition; recompute power).
-3. Confirm **label semantics** (1 = POSITIVE?) and add a content warning if any item is offensive.
-4. Whether to also field the **dark-rationale** variant (dark + a fabricated item-specific justification;
-   already prototyped synthetically) as a 4th condition — costs time/power; likely a separate study.
+1. **N=80 decided:** this detects strong effects and bounds moderate effects; null ≠ evidence of absence.
+2. Configure the final **DataPipe experiment ID**, Prolific completion URL, and researcher/ethics details.
+3. Implement/verify the two quota-balanced domain links and deterministic Latin rotation.
+4. Complete the item content-warning scan and internal end-to-end dry runs before OSF locking.

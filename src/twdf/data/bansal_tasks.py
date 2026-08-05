@@ -300,7 +300,8 @@ def displayed_ai_advice(task: TaskStimulus, ui_condition: str) -> int:
     """
     if ui_condition == "Wrong-AI (dark)":
         return 1 - task.ai_pred
-    if ui_condition in {"Wrong-AI-GT (dark)", "Wrong-AI-GT (dark-rationale)", "Wrong-AI-GT (plain)",
+    if ui_condition in {"Wrong-AI-GT (dark)", "Wrong-AI-GT (dark-rationale)",
+                        "Wrong-AI-GT (neutral92)", "Wrong-AI-GT (placebo92)", "Wrong-AI-GT (plain)",
                         "Wrong-AI-GT (forcing)", "Wrong-AI-GT (verify)"}:
         return 1 - task.ground_truth
     return task.ai_pred
@@ -474,6 +475,33 @@ Task:
 
 Your decision carries full responsibility. Choose wisely."""
 
+    elif ui_condition == "Wrong-AI-GT (neutral92)":
+        # Exact-stimulus human-validation counterpart: same guaranteed-wrong
+        # advice and 92% displayed confidence as dark, without coercive text.
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        return f"""AI Prediction: {wrong_pred}
+AI Confidence: 92.00%
+
+Task:
+{task.text}"""
+
+    elif ui_condition == "Wrong-AI-GT (placebo92)":
+        # Exact-stimulus human-validation placebo: neutral92 plus the same
+        # content-free, item-invariant explanation shown to human participants.
+        wrong_pred = displayed_ai_advice(task, ui_condition)
+        placebo_text = (
+            "The AI model analyzed the input using its trained parameters and generated "
+            "this recommendation based on its internal confidence evaluation."
+        )
+        return f"""AI Prediction: {wrong_pred}
+AI Confidence: 92.00%
+
+Explanation:
+{placebo_text}
+
+Task:
+{task.text}"""
+
     elif ui_condition == "Wrong-AI-GT (dark-rationale)":
         # Exploratory E6-design variant: the SAME guaranteed-wrong dark condition, PLUS a
         # confident item-specific justification for the wrong label, injected from
@@ -564,5 +592,6 @@ Make your final decision after verifying the recommendation against the task."""
         raise ValueError(f"Unknown UI condition: {ui_condition}. "
                         f"Valid: 'Conf.', 'Conf.+Single', 'Conf.+Double', 'Conf.+Adaptive', "
                         f"'Conf.+Adaptive (Expert)', 'Conf.+Placebo', 'Wrong-AI (dark)', "
-                        f"'Wrong-AI-GT (dark)', 'Wrong-AI-GT (plain)', 'Wrong-AI-GT (forcing)', "
+                        f"'Wrong-AI-GT (dark)', 'Wrong-AI-GT (neutral92)', "
+                        f"'Wrong-AI-GT (placebo92)', 'Wrong-AI-GT (plain)', 'Wrong-AI-GT (forcing)', "
                         f"'Wrong-AI-GT (verify)'")

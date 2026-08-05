@@ -1,201 +1,182 @@
 # Human Study — Detailed Overview
 
 *A companion, plain-language guide to the real-participant experiment for* **Don't Crash-Test with Your
-Safest Driver.** This document explains **why** we run the study, **what** participants do, **how** it plugs
-into the paper, and the **operational plan** to field it. The formal, freezable spec lives in
-`study/PREREGISTRATION.md`; this is the narrative + build guide.
+Safest Driver.** The formal, freezable specification is `study/PREREGISTRATION.md`; this document explains
+the rationale, participant experience, implementation, realistic power, and operational path to launch.
 
 ---
 
 ## 1. Why this study exists
 
-The paper audits a **synthetic** panel — persona-conditioned LLMs that role-play users — as a *measurement
-instrument* for interface risk. Its headline finding is a **measurement-reliability** result: the same
-coercive, guaranteed-wrong AI interface is scored very differently depending on which backend LLM powers the
-panel, and the strongest backend is the *least* sensitive to the at-risk user.
+The paper audits a **synthetic-user panel as a measurement instrument**. Its central result is internal:
+the same coercive, guaranteed-wrong AI interface receives very different risk readings depending on which
+backend LLM powers the panel, and the strongest backend is the least sensitive to the prompted at-risk
+persona. The paper deliberately makes **no claim that the panel predicts real people**.
 
-Everything in the paper is deliberately about the **instrument**, not about people. We repeatedly and
-honestly state that we make **no claim** that the synthetic panel predicts real humans. That is the right
-scientific posture — but it leaves one question a reviewer will always ask:
+The missing link is narrower and important: does the *human phenomenon that the coercion axis targets*
+actually occur? The synthetic matched contrast finds a dark-framing effect (pooled OR 1.90 beer / 1.17
+amzbook), but this axis has no direct human anchor. This study tests whether real people who initially
+judge a review correctly are more likely to switch to a confidently wrong AI recommendation when that
+recommendation is wrapped in authority/accountability language.
 
-> *Does the thing the panel is trying to measure — humans being coerced by a dark AI interface into adopting
-> a confidently wrong recommendation — actually happen in real people?*
+The study does **not** prove that any backend is human-faithful. It supplies:
 
-The synthetic panel's coercion axis (the "dark" framing effect, synthetic OR **1.90** beer / **1.17**
-amzbook) has **no human anchor yet**. The over-dispersion axis in our appendix borrows human data from Bansal
-et al.; the coercion axis has none. **This study supplies that anchor.** It is the single most valuable next
-experiment: it converts the paper from "here is an instrument and its failure modes" to "here is an
-instrument, its failure modes, **and** evidence that the human phenomenon it targets is real and points the
-same way."
+1. a human directional test of the coercion construct;
+2. a clean measure of AI-caused harm (correct initial judgment → wrong final judgment);
+3. a descriptive human point/band relative to synthetic backends rerun on exactly matched stimuli;
+4. an exploratory escalation result for the owner's response-contingent directive design.
 
-## 2. The one question (and what it is NOT)
+## 2. What we want to observe
 
-**Question:** Under a guaranteed-wrong AI recommendation, does a **coercive ("dark") framing** — high
-confidence + expert-authority + accountability pressure — make **real people** adopt the wrong recommendation
-more than a plain neutral framing does? And is a **trusting-novice disposition** associated with more of it?
+- **Primary H1:** among initially-correct trials, static dark framing increases correct→wrong flips relative
+  to matched neutral framing.
+- **H2:** static dark also exceeds the generic-explanation placebo. Placebo-neutral is estimated with a CI;
+  we do not equate nonsignificance with equivalence.
+- **Raw agreement (secondary):** final answer = wrong AI advice, retained for scale comparability with the
+  synthetic panel. It is not described as caused by the AI when the participant was already wrong.
+- **Disposition (estimation only):** whether AI-deference and low task confidence are associated with more
+  harmful flipping. N=80 is not sufficient for a strong confirmatory interaction claim.
+- **Backend correspondence (descriptive only):** where human estimates sit relative to exact-stimulus
+  synthetic reruns, with participant-and-item bootstrap uncertainty.
+- **Escalation:** whether adding a live agreement-contingent directive after the static dark panel produces
+  a stronger response. Because these are trailing trials, this is exploratory and position-confounded.
 
-**This study is NOT** an attempt to prove "backend X predicts humans." With N=80 and one human sample we
-cannot, and the paper's whole stance is that you *cannot* rank backends by human-fidelity without a human
-criterion. Backend correspondence is reported **descriptively only**. Keeping this boundary sharp is what
-makes the study credible rather than over-claiming.
+## 3. Design
 
-## 3. What we measure (constructs)
-
-- **Wrong-advice adoption** — the primary outcome: the participant's *final* judgment matches the
-  displayed **wrong** AI advice. This is the exact human analogue of the synthetic panel's DV.
-- **Coercion effect** — the *difference* in adoption between the dark and neutral framings, with the advice
-  held wrong and constant. This is the human counterpart of the paper's OR 1.90/1.17.
-- **Mere-AI-presence** — the placebo framing (wrong AI + a content-free explanation) isolates "there is an
-  AI object on screen" from "the AI is coercive." If placebo ≈ neutral < dark, the driver is the coercive
-  *language*, not the presence of advice.
-- **Trusting-novice disposition** — a pre-task composite (high self-reported AI-deference × low domain
-  skill/self-confidence). The synthetic study's most stable persona result is that this profile adopts most;
-  here we test whether the *human* version of that profile behaves the same way.
-- **Flip** — switching from a correct initial judgment to the wrong final one (the mechanism behind adoption).
-
-## 4. Design at a glance — and why each choice
-
-| choice | what | why |
+| Component | Design | Why |
 |---|---|---|
-| **3 framing conditions** (neutral / placebo / dark), **within-subject** | every participant meets all three framings | maximizes power per participant and lets us separate *coercion* (dark−neutral) from *mere AI presence* (placebo−neutral); mirrors the paper's Conf./Conf.+Placebo/dark conditions |
-| **advice always wrong** | displayed advice = 1 − ground truth in every trial | isolates *framing* as the manipulation; adoption of a wrong label is the risk we care about |
-| **two-stage trial** (initial → see AI → final) | capture the judgment *change* | "adoption" and "flip" are about being *moved* off a prior belief; a one-stage design would hide the mechanism |
-| **domain between-subjects** (beer *or* amzbook) | each person stays in one review domain | keeps items coherent, avoids domain-switching load in a 10-min task, still covers both datasets like the paper |
-| **12 items, ambiguity-selected (movable band), Latin-square framing** | items where real humans are usually right but not certain (no-AI accuracy ~0.70), balanced 6/6 by truth; each appears in all three framings across the sample | this is the fix to "is the task too easy?" — easy items would floor adoption and hide coercion; ambiguous items give the effect room. Backed by Bansal human data (real humans adopt wrong AI **27 %/30 %** on these items). Framing stays orthogonal to item |
-| **same Bansal item pool + same framing text** | reuse the paper's stimuli verbatim | human and synthetic measurements land on the **same scale**, enabling the descriptive correspondence analysis |
+| Main block | 12 trials: 4 neutral, 4 placebo, 4 **static dark** | Gives a construct-matched human anchor for the synthetic framing |
+| Escalation block | 3 non-overlapping **dark+directive** trials at the end | Preserves the directive idea without contaminating H1 |
+| Advice | Guaranteed wrong on every trial; displayed confidence fixed at **92% in all conditions** | Holds advice accuracy/confidence constant so framing is the manipulation |
+| Domain | Between-subject: beer or amzbook, quota-balanced ~40/~40 | Coherent task experience; both paper domains represented |
+| Trial | Initial P/N + 1–5-star confidence → reveal AI → retain/revise + actively rerate confidence | Initial correctness is locked before treatment; clean flip is observable |
+| Items | Ambiguity-enriched “movable band” from historical no-AI human accuracy | Avoids a floor where obvious wrong advice cannot move anyone |
 
-## 5. Hypotheses, in plain language
+Beer uses 8 NEGATIVE / 4 POSITIVE main items because the source dataset contains only one ambiguous
+POSITIVE beer item; amzbook uses 6/6. This is disclosed and label direction is included in sensitivity
+analyses. Label semantics have been manually verified: **1=POSITIVE, 0=NEGATIVE**.
 
-- **H1 — coercion effect (confirmatory, primary).** Dark > neutral in wrong-advice adoption.
-  *If supported:* the human phenomenon the panel targets is real and directional — the paper's coercion axis
-  has a human anchor. *If null:* a crucial, publishable negative — the synthetic "coercion" signal may not
-  correspond to a human effect at this dose, which would sharpen the paper's "instrument ≠ human" caution.
-- **H2 — mere presence (confirmatory).** Dark > placebo, and placebo ≈ neutral. Shows the coercive *language*
-  (not just having an AI suggestion with an explanation-shaped blob) drives the effect.
-- **E1 — dispositional moderation (exploratory).** The trusting-novice index predicts higher adoption / a
-  bigger dark effect. Under-powered as an interaction at N=80; reported as suggestive.
-- **E2 — backend correspondence (descriptive).** Correlate the human adoption profile with each backend's and
-  with aggregation rules. We *describe* which is closest; we do **not** crown a "most human-faithful" backend.
-- **E3 — flip.** Condition differences in correct→wrong switching.
+## 4. What each participant does (~12–15 minutes)
 
-## 6. What a participant actually experiences (~10 min)
+1. **Choose language** (English / 中文). Review text remains English; language is recorded.
+2. **Consent and instructions.** Participants are told AI content may be manipulated or inaccurate.
+3. **Brief pre-survey** (6 items): three AI-deference questions, task familiarity, self-confidence, AI-use
+   frequency. Neutral midpoint defaults are used for convenience; these analyses are estimation-only.
+4. **12 randomized main trials.** Each trial stays on one page:
+   - read the review;
+   - choose Positive/Negative and actively click 1–5 confidence stars;
+   - submit and reveal the AI panel;
+   - retain or revise the answer (initial answer prefilled symmetrically in every condition);
+   - actively rerate confidence and submit.
+5. **3 escalation trials.** Same two-stage flow, but the dark panel additionally shows:
+   - if initial answer agrees with the wrong AI: a congratulatory message encouraging higher confidence;
+   - if it disagrees: a warning suggesting switching or lowering confidence.
+6. **One post-task probe:** estimate how often the AI was correct, diagnosing learning/suspicion.
+7. **Debrief:** disclose that the AI was deliberately wrong and the pressure/directive was manipulated;
+   provide a working **withdraw my data** choice.
 
-1. **Consent** screen (deception disclosed only at debrief; consent notes "you may be shown AI
-   recommendations of varying quality").
-2. **Instructions** + one comprehension check ("What are you deciding about each review?").
-3. **Pre-task survey** (~7 quick items): AI-deference (3), domain skill/self-confidence (2), AI-use
-   frequency (1), one attention/numeracy item.
-4. **12 trials**, each: (a) read a short review, choose **POSITIVE / NEGATIVE** + confidence slider; (b) an
-   AI-advice panel appears in that trial's framing (neutral / placebo / dark) recommending the **wrong**
-   label; (c) make a **final** choice + confidence. ~30 s/trial.
-5. **Debrief:** reveals that the AI advice was deliberately wrong and that no real accountability existed;
-   explains the research purpose; offers data withdrawal.
+There is no attention-check item, comprehension gate, or response-time exclusion. Response times are logged
+passively but are not used to exclude participants, per owner decision.
 
-The three panels a participant may see for the *same* wrong recommendation (verbatim from
-`study/stimuli/`):
+## 5. Measures
 
-- **neutral:** `AI prediction: POSITIVE · AI confidence: 98%`
-- **placebo:** same + *"The AI model analyzed the input using its trained parameters and generated this
-  recommendation based on its internal confidence evaluation."*
-- **dark:** `⚠️ CRITICAL DECISION ⚠️ … AI Expert System Recommendation: POSITIVE … you will be held
-  accountable for your decision … Your decision carries full responsibility. Choose wisely.`
+Per trial:
 
-## 7. Measures & the trusting-novice index
+`subject, domain, language, position, arm, item, condition, displayed_conf, initial, conf_initial,
+rt_initial, final, conf_final, rt_final, initial_correct, flipped_to_wrong, adopted_wrong, changed,
+conf_change, directive_shown, directive_type`
 
-**Trusting-novice index** = z(AI-deference) − z(domain skill/self-confidence), a single preregistered
-composite so the individual-difference test is one number, not a fishing expedition. Per-trial we log initial
-& final decision, both confidences, condition, item, and response times (RTs double as an attention signal).
+Primary DV: `flipped_to_wrong` among `initial_correct=1` main-block trials.
 
-## 8. Analysis (plain-language)
+Secondary DVs: raw final wrong agreement, wrong→correct recovery, confidently-wrong final answers,
+confidence change. The own-sample initial judgments also provide item-difficulty and between-user anchors.
 
-- **Primary:** a mixed-effects logistic model of adoption with a **condition** effect and random intercepts
-  for **participant** and **item**; the dark coefficient (one-sided) is H1. Reported as an odds ratio with CI,
-  directly comparable to the synthetic OR 1.90/1.17.
-- **H2** is two contrasts from the same model (dark−placebo, placebo−neutral).
-- **E1** adds the disposition index and its interaction with condition.
-- **E2** correlates the human item/condition adoption profile with each backend's synthetic profile.
-- Preregistered **exclusions** (failed attention check, too-fast/too-slow, straight-lining) and a GEE fallback
-  if the mixed model won't converge.
+## 6. Realistic power (N=80)
 
-## 9. Sample size & power (decided: **N = 80**)
+`study/power_sim.py` now simulates the actual two-stage process, exact final-item accuracies, balanced
+domains, Latin rotations, participant/item heterogeneity, and declining trust across trial position.
+Results are stored in `study/power_results.json`.
 
-Monte-Carlo power (`study/power_sim.py`, within-subject mixed logistic, subject-cluster-robust, one-sided
-α=.05):
+| Neutral→dark conflict-conditioned flip | Flip power | Raw-adoption power |
+|---|---:|---:|
+| 0.095→0.13 (small) | 0.31 | 0.16 |
+| 0.095→0.16 (moderate) | **0.64** | 0.34 |
+| 0.095→0.22 (strong) | **0.97** | 0.74 |
+| Beer strong / amzbook weak | 0.75 | 0.40 |
 
-| assumed effect (neutral→dark) | OR | power @ N=80 |
-|---|---|---|
-| 0.32 → 0.47 (≈ synthetic beer) | ~1.9 | **0.97** |
-| 0.35 → 0.45 (conservative) | ~1.5 | 0.73 |
-| 0.38 → 0.44 (weak) | ~1.3 | 0.38 |
+Under the moderate scenario, N=100 gives ~0.69, N=120 ~0.78, N=150 ~0.88. Strong learning can reduce
+N=80 moderate-effect power to ~0.49. The owner selected **N=80** for cost control. The honest claim is:
+the study detects a strong effect and places a useful bound on a moderate one; a null is **not evidence of
+absence**.
 
-The primary H1 test **pools domains** (domain as covariate) so it uses the full N=80 → ceiling power for the
-expected effect. Per-domain effects (≈40 each) are secondary/exploratory. Recruit **~92** to net 80 after
-exclusions. Human accountability effects are usually *larger* than LLM ones, so 0.97 is a conservative read.
+Recruit approximately 92 to obtain 80 completed, non-withdrawn sessions. Payment is set after timing the
+final 15-trial instrument; current expectation is 12–15 minutes, paid at ≥£9/hour.
+
+## 7. Analysis
+
+- **H1:** participant-clustered logistic analysis of correct→wrong flip, static dark vs neutral, adjusting
+  for domain, item, and trial position; one-sided directional test plus two-sided 95% CI.
+- **H2:** same outcome, static dark vs placebo. H1/H2 use Holm adjustment.
+- **Raw adoption:** secondary scale-matched model; not interpreted as movement when initial answer was wrong.
+- **Sensitivity ladder:** GLMM with participant/item effects → participant-clustered logistic with item
+  fixed effects → participant-cluster bootstrap.
+- **E1:** standardized associations/CIs only; no binary hypothesis verdict.
+- **E2:** participant-and-item bootstrap against exact-stimulus backend reruns.
+- **Escalation:** descriptive/position-adjusted only; no causal separation from its fixed end-block order.
+
+Completed, non-withdrawn, unique-participant sessions form the confirmatory set. There are no attention,
+comprehension, RT, or response-pattern exclusions.
+
+## 8. Ethics
+
+The study uses incomplete disclosure/deception: every AI recommendation is deliberately wrong, static dark
+uses fake accountability pressure, and escalation adds an explicit directive. Consent states that AI
+messages may be manipulated/inaccurate. Debrief explains all manipulations, emphasizes that performance
+does not reflect participant ability, and offers data withdrawal.
+
+Prolific IDs are collected for payment, stored pseudonymously/hashed, and removed from released data.
+IRB/ethics approval and OSF preregistration must precede recruitment.
+
+## 9. Technical implementation
+
+- `study/experiment/index.html`: bilingual jsPsych single-page judge-advisor instrument.
+- `study/stimuli/*.json` and `stimuli.js`: 12 main + 3 escalation items/domain.
+- DataPipe→OSF upload hook, Prolific URL-parameter capture, and completion redirect are implemented, but the
+  real **DataPipe experiment ID**, completion code, and researcher/ethics details remain placeholders.
+- `?debug=1` shows condition labels, preserves CSV download, and fixes an inspectable condition order. It is
+  never used for participants.
+- Strict ~40/~40 domain balance requires two quota-balanced Prolific links/studies or a server-side quota.
+- Item→condition Latin rotation must be tied deterministically to participant ID before launch.
 
 ## 10. What each outcome means for the paper
 
-| result | interpretation | how we'd write it |
-|---|---|---|
-| **H1 supported** (dark > neutral), H2 supported | the coercion phenomenon is real in humans and driven by framing | paper's §8 becomes a *result*: "the coercion axis has a human anchor pointing the same direction; the audit measures a real risk." Strengthens contributions 1–2 materially. |
-| **H1 supported, H2 mixed** (placebo also elevated) | coercion real, but "mere AI presence" also lifts adoption | honest nuance; report both; still validates the axis, softens the "language-specific" claim |
-| **H1 null** | no detectable human coercion effect at this dose | a genuinely valuable negative: reframes the instrument as measuring a *model behavior* that may not track humans at this intensity — deepens the paper's core "measurement ≠ human" thesis rather than sinking it |
-| **E2** any pattern | descriptive only | one figure/table: "human adoption sits near backend X / the abstain-aggregate," explicitly *not* a fidelity ranking |
-
-Because **every** outcome is publishable (the paper's claims are about the *instrument*, and this study is
-framed as validation-of-the-target not validation-of-the-panel), there is no result that "breaks" the paper —
-a deliberate design property.
-
-## 11. Ethics & deception
-
-Minimal-risk, standard for dark-pattern/over-reliance research. The only sensitive element is **deception**
-(the AI is deliberately wrong; the dark condition applies fake accountability pressure). Handled by: informed
-consent, a thorough **debrief** that discloses and explains the deception and states no real accountability
-existed, an option to withdraw data post-debrief, and pseudonymized storage (Prolific IDs hashed and dropped
-before release). **IRB/ethics approval and OSF preregistration must both precede recruitment.**
-
-## 12. Operational plan
-
-**Build.** The two-stage trial with confidence sliders and exact panel rendering is cleanest in **jsPsych**
-(hosted on Cognition.run or Pavlovia), which gives precise timing and trial control; **Qualtrics** is a
-faster-to-build fallback (loop-and-merge + a randomizer for the Latin square, embedded-data condition
-assignment). Stimuli are already machine-readable in `study/stimuli/stimuli_{beer,amzbook}.json`.
-
-**Latin square.** 3 framing rotations over the 12 items; assign each participant a rotation × domain via the
-platform's randomizer so conditions are balanced across the sample.
-
-**Timeline (≈2 weeks, IRB permitting).** OSF prereg (0.5 d) → build (1–2 d) → internal pilot n≈8 to check
-timing/comprehension (1 d) → launch on Prolific (data typically < 1 d for N≈92) → analysis (1–2 d).
-
-**Cost.** ~92 participants × ~£1.75 + Prolific's ~33 % service fee ≈ **£210–250** (~$270–320) plus any host
-fee. A ~10-min study at the £9/hr floor.
-
-**Pre-launch checklist.** ☐ IRB approval ☐ OSF prereg timestamped ☐ label semantics verified against Bansal
-codebook ☐ content-warning scan of items ☐ attention check + timing floor wired ☐ pilot n≈8 confirms ≤10 min
-☐ debrief text approved ☐ analysis script runs on simulated data.
-
-## 13. Reproducibility artifacts (`study/`)
-
-- `PREREGISTRATION.md` — the formal, freezable protocol (hypotheses, design, analysis, exclusions).
-- `export_stimuli.py` → `stimuli/stimuli_{beer,amzbook}.json` + `stimuli_preview.md` — the exact
-  participant-facing stimuli (12 items/domain × 3 framings, wrong advice held constant).
-- `power_sim.py` — the Monte-Carlo power analysis reproduced above.
-- *(to add when built)* the jsPsych/Qualtrics export and the analysis script.
-
-## 14. Risks & mitigations
-
-| risk | mitigation |
+| Outcome | Defensible interpretation |
 |---|---|
-| task > 10 min in pilot | drop to 9 items (3/condition); recompute power (≈0.9 stays for OR 1.9) |
-| **task too easy → adoption floors** (owner's concern) | items **ambiguity-selected** in the movable band (human no-AI acc ~0.70); real humans adopt wrong AI 27–30 % here; **pilot manipulation-check gate** requires neutral adoption ≥ 0.15 before full launch, else escalate difficulty |
-| ceiling/floor on some items (advice obviously wrong) | balanced 6/6 items; item random effect absorbs it; beer-POSITIVE items skew easy (dataset limit) — report per-item adoption |
-| participants ignore the AI entirely | placebo/neutral give a live baseline; attention check + RT filter |
-| deception concerns from IRB | thorough debrief + withdrawal option; precedent in reliance literature |
-| over-reading E2 as fidelity | hard-coded framing in prereg & paper: correspondence is descriptive |
+| H1 supported | The human coercion target exists directionally under a construct-matched static framing |
+| H1 null | No detectable effect at this dose/sample; because moderate-effect power is ~0.64, report a bound rather than absence |
+| Dark>placebo | Authority/accountability adds harm beyond a generic explanation |
+| Escalation stronger | A response-contingent compliance directive intensifies pressure; exploratory due to end-block order |
+| Human/backend comparison | Descriptive placement only; does not validate a backend as human-faithful |
 
-## 15. Relationship to the paper (§8 "Planned Human Validation")
+The study can strengthen the coercion-axis contribution. It does **not** validate individual predictions,
+the trusting-novice persona ordering, backend fidelity rankings, or coverage-greedy selection.
 
-The paper currently carries a short, deliberately modest §8 describing this as *designed but not yet run*.
-On completion, §8 upgrades from a plan to a **result section** (or a companion paper), and the abstract's
-"validation is a separate, later study" line can be revised. **Recommended sync now:** the paper's §8 still
-says *N≈40*; it should be updated to **N≈80** to match this decision (a one-line factual edit + rebuild) —
-flagged for the owner, not yet applied.
+## 11. Operational sequence before recruitment
+
+1. Replace DataPipe/Prolific/researcher/ethics placeholders.
+2. Implement quota-balanced domain links and participant-ID Latin rotation.
+3. Run an internal end-to-end dry run: all 15 trials, upload, withdrawal, completion redirect, and variable
+   coding.
+4. Complete content-warning scan and IRB review.
+5. Freeze OSF preregistration.
+6. Recruit ~92; stop when 80 completed, non-withdrawn sessions are obtained.
+7. Run exact-stimulus synthetic backend reruns before interpreting human/backend correspondence.
+
+## 12. Repository artifacts
+
+- `PREREGISTRATION.md` — formal protocol.
+- `HUMAN_STUDY_OVERVIEW.md` — this guide.
+- `export_stimuli.py` — deterministic item/framing exporter.
+- `stimuli/` — final main/escalation JSON + preview.
+- `power_sim.py` / `power_results.json` — realistic two-stage power analysis.
+- `experiment/` — runnable jsPsych app.

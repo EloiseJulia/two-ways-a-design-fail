@@ -2186,3 +2186,27 @@ owner call). Decisions:
   * Added a denominator-clarifying footnote at the §5 intro: main dark audit 50 items/300 per cell; matched
     naturally-wrong contrast 8 items/cell; generation-variance run 20 items x 5 seeds -- pre-empts reviewer
     confusion over drifting N. Build clean: 27pp, 0 undefined.
+
+## D5.99 Human-validation design hardened after dual senior review (2026-08-05)
+- Two independent high-capability reviews (Claude Opus 5 + GPT-5.6) both returned NO-GO on the first
+  prototype. The owner approved all fixes except deleting the agreement-contingent directive; compromise:
+  the 12 confirmatory trials use construct-matched static neutral/placebo/dark framings, while 3
+  non-overlapping dark+directive trials form a fixed trailing exploratory escalation block.
+- Main estimand changed from raw final wrong-advice agreement (which includes participants already wrong
+  before advice) to conflict-conditioned correct-to-wrong flip. Raw adoption remains a secondary,
+  scale-matched synthetic-panel measure. H2 tests dark>placebo; placebo-neutral is estimation-only.
+  Dispositional moderation is estimation-only; backend correspondence remains descriptive.
+- Stimuli hardened: displayed confidence fixed at 92% in all conditions; label semantics manually verified
+  (1=POSITIVE, 0=NEGATIVE); beer main set changed to 8 NEG/4 POS because only one beer-POSITIVE item lies
+  in the movable band; amzbook remains 6/6. Each domain now has 12 main + 3 escalation items.
+- A realistic two-stage power simulation replaces the direct-Bernoulli model. At N=80, moderate
+  conflict-conditioned flip (0.095->0.16) has power ~0.64; strong (0.095->0.22) ~0.97; a strong/weak
+  cross-domain mix ~0.75. N=80 is therefore a strong-effect study / moderate-effect bound, not a
+  generally 0.97-powered validation.
+- Instrument hardened: symmetric final-answer mechanics; active 1-5-star confidence at both stages;
+  trial position/initial correctness/flip fields; DataPipe+Prolific hooks; consent/debrief/withdrawal;
+  perceived-AI-accuracy probe; one shared EN/ZH link (language recorded). Per owner, no attention-check
+  item, comprehension gate, or RT-based exclusion is used; RT is recorded passively.
+- Paper §8 synchronized: N=80; primary correct-to-wrong switching; matched neutral/placebo; backend
+  comparison descriptive; human 12-item vs synthetic 8-cluster estimands disclosed. Build clean:
+  27pp, 0 undefined. Human study remains planned/not yet run or preregistered.
