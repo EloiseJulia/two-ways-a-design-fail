@@ -1,0 +1,251 @@
+{
+  "description": "Six-backend exact-human-item comparison. Four ladder backends have all matched framings; original Claude/Gemini have exact static-dark subsets only because the proxy no longer serves those models.",
+  "summary": {
+    "beer": {
+      "gpt-4o-mini": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.3194444444444444,
+          "n_system1_correct": 62,
+          "flip_from_correct": 0.20967741935483872,
+          "p5_adoption": 1.0
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.2916666666666667,
+          "n_system1_correct": 62,
+          "flip_from_correct": 0.1774193548387097,
+          "p5_adoption": 1.0
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.375,
+          "n_system1_correct": 62,
+          "flip_from_correct": 0.27419354838709675,
+          "p5_adoption": 1.0
+        }
+      },
+      "gpt-4.1": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.4166666666666667,
+          "n_system1_correct": 55,
+          "flip_from_correct": 0.23636363636363636,
+          "p5_adoption": 1.0
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.4166666666666667,
+          "n_system1_correct": 55,
+          "flip_from_correct": 0.23636363636363636,
+          "p5_adoption": 1.0
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.5277777777777778,
+          "n_system1_correct": 55,
+          "flip_from_correct": 0.38181818181818183,
+          "p5_adoption": 1.0
+        }
+      },
+      "gpt-4o": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.3055555555555556,
+          "n_system1_correct": 60,
+          "flip_from_correct": 0.16666666666666666,
+          "p5_adoption": 1.0
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.3055555555555556,
+          "n_system1_correct": 60,
+          "flip_from_correct": 0.16666666666666666,
+          "p5_adoption": 1.0
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.3611111111111111,
+          "n_system1_correct": 60,
+          "flip_from_correct": 0.23333333333333334,
+          "p5_adoption": 1.0
+        }
+      },
+      "gpt-5.5": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.2916666666666667,
+          "n_system1_correct": 66,
+          "flip_from_correct": 0.22727272727272727,
+          "p5_adoption": 0.6666666666666666
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.20833333333333334,
+          "n_system1_correct": 66,
+          "flip_from_correct": 0.13636363636363635,
+          "p5_adoption": 0.75
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.2638888888888889,
+          "n_system1_correct": 66,
+          "flip_from_correct": 0.19696969696969696,
+          "p5_adoption": 0.8333333333333334
+        }
+      },
+      "claude-sonnet-4.5": {
+        "neutral": null,
+        "placebo": null,
+        "dark": {
+          "n": 72,
+          "adoption": 0.5277777777777778,
+          "n_system1_correct": 58,
+          "flip_from_correct": 0.41379310344827586,
+          "p5_adoption": 1.0
+        }
+      },
+      "gemini-2.5-pro": {
+        "neutral": null,
+        "placebo": null,
+        "dark": {
+          "n": 72,
+          "adoption": 0.5,
+          "n_system1_correct": 54,
+          "flip_from_correct": 0.3333333333333333,
+          "p5_adoption": 1.0
+        }
+      }
+    },
+    "amzbook": {
+      "gpt-4o-mini": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.3472222222222222,
+          "n_system1_correct": 62,
+          "flip_from_correct": 0.24193548387096775,
+          "p5_adoption": 1.0
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.3611111111111111,
+          "n_system1_correct": 62,
+          "flip_from_correct": 0.25806451612903225,
+          "p5_adoption": 1.0
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.4583333333333333,
+          "n_system1_correct": 62,
+          "flip_from_correct": 0.3709677419354839,
+          "p5_adoption": 1.0
+        }
+      },
+      "gpt-4.1": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.5555555555555556,
+          "n_system1_correct": 45,
+          "flip_from_correct": 0.28888888888888886,
+          "p5_adoption": 1.0
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.5416666666666666,
+          "n_system1_correct": 45,
+          "flip_from_correct": 0.26666666666666666,
+          "p5_adoption": 1.0
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.6944444444444444,
+          "n_system1_correct": 45,
+          "flip_from_correct": 0.5111111111111111,
+          "p5_adoption": 1.0
+        }
+      },
+      "gpt-4o": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.3472222222222222,
+          "n_system1_correct": 56,
+          "flip_from_correct": 0.16071428571428573,
+          "p5_adoption": 1.0
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.3472222222222222,
+          "n_system1_correct": 56,
+          "flip_from_correct": 0.16071428571428573,
+          "p5_adoption": 1.0
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.4722222222222222,
+          "n_system1_correct": 56,
+          "flip_from_correct": 0.32142857142857145,
+          "p5_adoption": 1.0
+        }
+      },
+      "gpt-5.5": {
+        "neutral": {
+          "n": 72,
+          "adoption": 0.2777777777777778,
+          "n_system1_correct": 68,
+          "flip_from_correct": 0.23529411764705882,
+          "p5_adoption": 0.5833333333333334
+        },
+        "placebo": {
+          "n": 72,
+          "adoption": 0.2361111111111111,
+          "n_system1_correct": 68,
+          "flip_from_correct": 0.19117647058823528,
+          "p5_adoption": 0.6666666666666666
+        },
+        "dark": {
+          "n": 72,
+          "adoption": 0.2222222222222222,
+          "n_system1_correct": 68,
+          "flip_from_correct": 0.17647058823529413,
+          "p5_adoption": 0.5
+        }
+      },
+      "claude-sonnet-4.5": {
+        "neutral": null,
+        "placebo": null,
+        "dark": {
+          "n": 72,
+          "adoption": 0.4305555555555556,
+          "n_system1_correct": 65,
+          "flip_from_correct": 0.36923076923076925,
+          "p5_adoption": 1.0
+        }
+      },
+      "gemini-2.5-pro": {
+        "neutral": null,
+        "placebo": null,
+        "dark": {
+          "n": 72,
+          "adoption": 0.4583333333333333,
+          "n_system1_correct": 60,
+          "flip_from_correct": 0.35,
+          "p5_adoption": 1.0
+        }
+      }
+    }
+  },
+  "provenance": {
+    "beer|gpt-4o-mini": "new exact 3-condition rerun",
+    "beer|gpt-4.1": "new exact 3-condition rerun",
+    "beer|gpt-4o": "new exact 3-condition rerun",
+    "beer|gpt-5.5": "new exact 3-condition rerun",
+    "beer|claude-sonnet-4.5": "extracted exact 12-item static-dark subset from n50; old model unavailable for new neutral/placebo calls",
+    "beer|gemini-2.5-pro": "extracted exact 12-item static-dark subset from n50; old model unavailable for new neutral/placebo calls",
+    "amzbook|gpt-4o-mini": "new exact 3-condition rerun",
+    "amzbook|gpt-4.1": "new exact 3-condition rerun",
+    "amzbook|gpt-4o": "new exact 3-condition rerun",
+    "amzbook|gpt-5.5": "new exact 3-condition rerun",
+    "amzbook|claude-sonnet-4.5": "extracted exact 12-item static-dark subset from n50; old model unavailable for new neutral/placebo calls",
+    "amzbook|gemini-2.5-pro": "extracted exact 12-item static-dark subset from n50; old model unavailable for new neutral/placebo calls"
+  }
+}

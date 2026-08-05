@@ -103,6 +103,7 @@ Results are stored in `study/power_results.json`.
 | 0.095→0.16 (moderate) | **0.64** | 0.34 |
 | 0.095→0.22 (strong) | **0.97** | 0.74 |
 | Beer strong / amzbook weak | 0.75 | 0.40 |
+| Exact-stimulus synthetic reference (.221→.272/.345) | **0.64** | 0.38 |
 
 Under the moderate scenario, N=100 gives ~0.69, N=120 ~0.78, N=150 ~0.88. Strong learning can reduce
 N=80 moderate-effect power to ~0.49. The owner selected **N=80** for cost control. The honest claim is:

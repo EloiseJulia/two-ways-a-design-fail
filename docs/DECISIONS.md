@@ -2210,3 +2210,17 @@ owner call). Decisions:
 - Paper §8 synchronized: N=80; primary correct-to-wrong switching; matched neutral/placebo; backend
   comparison descriptive; human 12-item vs synthetic 8-cluster estimands disclosed. Build clean:
   27pp, 0 undefined. Human study remains planned/not yet run or preregistered.
+
+## D5.100 Exact-stimulus synthetic reference for the human study (2026-08-05)
+- Reran the four same-provider ladder backends on the final 12 human-study main items under exactly matched
+  guaranteed-wrong/92% neutral, placebo, and static-dark framings (72 trials/model/condition).
+- The proxy retired the paper's original Claude Sonnet 4.5 and Gemini 2.5 Pro chat endpoints, so substituting
+  newer models was rejected. Their exact 12-item static-dark rows were instead extracted from the completed
+  n50 runs; static dark is identical. Provenance is explicit; no neutral/placebo values are claimed for them.
+- Exact four-backend mean flip rates: beer neutral/placebo/dark .210/.179/.272; amzbook .232/.219/.345.
+  Across all six static-dark references, gpt-5.5 remains lowest on adoption and correct-to-wrong flip in
+  both domains. This preserves the capability-vulnerability mismatch on the final human items.
+- A power scenario matched to these synthetic rates (neutral .221; dark .272 beer/.345 amzbook) yields
+  N=80 flip power .635 and median estimated OR 1.505 under the realistic two-stage generator. Preregistration,
+  overview, and advisor brief now include this row. Results/provenance: results/e2_human_match_summary.json
+  and study/E2_EXACT_STIMULUS_RESULTS.md.

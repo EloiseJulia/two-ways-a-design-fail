@@ -95,6 +95,7 @@ We make **no** prediction-validity claim for the synthetic panel from this study
   | moderate, 0.095 → 0.16 | **0.64** | 0.34 |
   | strong, 0.095 → 0.22 | **0.97** | 0.74 |
   | domain-heterogeneous, 0.095 → 0.22 beer / 0.13 amzbook | 0.75 | 0.40 |
+  | exact-stimulus synthetic reference, 0.221 → 0.272 beer / 0.345 amzbook | **0.64** | 0.38 |
 
   N=80 is therefore powered for a **strong** effect and provides an informative bound for a moderate one;
   it is not powered to treat a null as evidence of absence. Under the moderate scenario, learning can move

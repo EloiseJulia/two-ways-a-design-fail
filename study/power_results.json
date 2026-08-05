@@ -91,6 +91,21 @@
       "median_estimated_or_flip": 3.356,
       "median_estimated_or_raw": 1.755,
       "mc_se_flip": 0.0
+    },
+    "exact_synthetic_matched": {
+      "n": 80,
+      "neutral_flip": 0.221,
+      "dark_flip_beer": 0.272,
+      "dark_flip_amzbook": 0.345,
+      "learning_log_or_per_trial": -0.04,
+      "n_sim": 200,
+      "completed": 200,
+      "failed": 0,
+      "power_flip_primary": 0.635,
+      "power_raw_adoption": 0.38,
+      "median_estimated_or_flip": 1.505,
+      "median_estimated_or_raw": 1.246,
+      "mc_se_flip": 0.034
     }
   },
   "n_sensitivity_moderate": {

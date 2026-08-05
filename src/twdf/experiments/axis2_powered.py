@@ -287,6 +287,11 @@ def main() -> None:
     domain = config.get("domain", config.get("item_selection", {}).get("domain", "beer"))
     tasks = {task.task_id: task for task in build_tasks(config)}
     ui_conditions = tuple(config["ui_conditions"])
+    analyzer = (
+        analyze_human_match
+        if config.get("analysis_mode") == "human_match"
+        else analyze_axis2
+    )
 
     all_responses: list[AgentResponse] = []
     per_model_results = {}
